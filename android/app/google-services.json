@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "840513677952",
+    "project_id": "tido-678e7",
+    "storage_bucket": "tido-678e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840513677952:android:4907d5828c04e86c219465",
+        "android_client_info": {
+          "package_name": "com.example.tido"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPWLCG8zBzTw_h918PCBRdFAk6VXKc1f0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
