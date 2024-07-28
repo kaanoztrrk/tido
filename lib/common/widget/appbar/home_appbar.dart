@@ -19,6 +19,8 @@ class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.leadingOnPressed,
     this.height,
     this.createTaskButton = false,
+    this.remainingTime,
+    this.notificationOnPressed,
   });
 
   final Widget? title;
@@ -29,6 +31,8 @@ class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? leadingOnPressed;
   final double? height;
   final bool? createTaskButton;
+  final String? remainingTime;
+  final VoidCallback? notificationOnPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +47,9 @@ class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               leadingWidget ?? Container()
             else
               ViTimeButton(
-                onTap: leadingOnPressed,
-                timeText: "8:03",
+                createTaskTap: leadingOnPressed,
+                notificationTaskTap: notificationOnPressed,
+                timeText: remainingTime ?? "",
                 icon: Iconsax.add,
               ),
             const Row(

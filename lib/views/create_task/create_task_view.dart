@@ -26,12 +26,11 @@ class CreateTaskView extends StatefulWidget {
 }
 
 class _CreateTaskViewState extends State<CreateTaskView> {
-  // Controllers for TextFields
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   DateTime? taskTime;
   List<String> selectedFiles = [];
-  List<String> participantImages = []; // Eklediğimiz değişken
+  List<String> participantImages = [];
 
   @override
   Widget build(BuildContext context) {

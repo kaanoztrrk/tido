@@ -16,6 +16,7 @@ class ViAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.leadingOnPressed,
     this.height,
+    this.centerTitle = false,
   });
 
   final Widget? title;
@@ -25,12 +26,14 @@ class ViAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final VoidCallback? leadingOnPressed;
   final double? height;
+  final bool? centerTitle;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: ViSizes.md),
       child: AppBar(
+        centerTitle: centerTitle,
         backgroundColor: AppColors.ligth,
         automaticallyImplyLeading: false,
         leading: showBackArrow

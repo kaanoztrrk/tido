@@ -71,12 +71,16 @@ class CreateToDoEvent extends HomeEvent {
   final DateTime? taskTime;
   final List<String>? participantImages;
   final List<String>? files;
+  final String generalType;
+  final String specificType;
 
-  const CreateToDoEvent({
+  CreateToDoEvent({
     required this.title,
     this.taskTime,
     this.participantImages,
     this.files,
+    this.generalType = 'general',
+    this.specificType = 'general',
   });
 }
 
@@ -115,4 +119,11 @@ class SearchTasksEvent extends HomeEvent {
 
   @override
   List<Object> get props => [query];
+}
+
+class StartTimerEvent extends HomeEvent {}
+
+class UpdateRemainingTimeEvent extends HomeEvent {
+  final String remainingTime;
+  const UpdateRemainingTimeEvent(this.remainingTime);
 }

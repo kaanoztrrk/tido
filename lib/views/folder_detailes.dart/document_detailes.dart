@@ -1,11 +1,7 @@
-// DocumentView widget'ı
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:tido/blocs/home_bloc/home_bloc.dart';
 import 'package:tido/common/widget/appbar/home_appbar.dart';
 import 'package:tido/common/widget/task_tile/selected_files_tile.dart';
@@ -16,54 +12,41 @@ import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
 import 'package:tido/utils/Helpers/helpers_functions.dart';
 
 import '../../blocs/home_bloc/home_state.dart';
-import '../../common/styles/square_container_style.dart';
-import '../../core/routes/routes.dart';
+import '../../common/widget/appbar/appbar.dart';
 
-class DocumentView extends StatelessWidget {
-  const DocumentView({super.key});
+class FolderDetailesView extends StatelessWidget {
+  const FolderDetailesView({super.key, required this.title});
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     var dark = ViHelpersFunctions.isDarkMode(context);
-    return SafeArea(
-      child: Scaffold(
-        appBar: const ViHomeAppBar(
-          height: ViSizes.appBarHeigth * 1.5,
+    return Scaffold(
+      appBar: ViAppBar(
+        showBackArrow: true,
+        title: Text(
+          title,
+          style: dark
+              ? ViTextTheme.darkTextTheme.headlineLarge
+                  ?.copyWith(color: AppColors.white)
+              : ViTextTheme.ligthTextTheme.headlineLarge
+                  ?.copyWith(color: AppColors.primaryText),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(ViSizes.defaultSpace),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Flexible(
-                    child: ViSquareContainer(
-                      icon: Iconsax.document_1,
-                      title: "Doc",
-                      subTitle: "Folder",
-                      ontap: () =>
-                          context.push(ViRoutes.folder_detailes, extra: "Doc"),
-                    ),
-                  ),
-                  Flexible(
-                    child: ViSquareContainer(
-                      icon: Iconsax.image,
-                      title: "Image",
-                      subTitle: "Folder",
-                      ontap: () => context.push(ViRoutes.folder_detailes,
-                          extra: "Image"),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: ViSizes.spaceBtwSections),
-              _title(dark, "RECENT FILES"),
-              Expanded(child: BlocBuilder<HomeBloc, HomeState>(
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(ViSizes.defaultSpace),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _title(dark, "RECENT FILES"),
+            Expanded(
+              child: BlocBuilder<HomeBloc, HomeState>(
                 builder: (context, state) {
                   final List<TaskModel> tasks = state.allTasksList;
+
                   return ListView.builder(
-                    reverse: true, // Reverse the list
+                    reverse: true, // Listeyi ters çevir
                     itemCount: tasks.length,
                     itemBuilder: (context, index) {
                       final task = tasks[index];
@@ -87,9 +70,9 @@ class DocumentView extends StatelessWidget {
                     },
                   );
                 },
-              )),
-            ],
-          ),
+              ),
+            ),
+          ],
         ),
       ),
     );

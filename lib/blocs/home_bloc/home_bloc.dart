@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:hive/hive.dart';
 import '../../data/models/task_model/task_model.dart';
@@ -6,6 +8,7 @@ import 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final Box<TaskModel> taskBox = Hive.box<TaskModel>('allTasksBox');
+  Timer? _timer;
 
   HomeBloc() : super(HomeState.initial()) {
     on<UpdateTab>(_onUpdateTab);
@@ -21,8 +24,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<UpdateToDoEvent>(_updateTask);
     on<LoadTasksEvent>(_loadTasks);
     on<SearchTasksEvent>(_searchTasks);
+    on<StartTimerEvent>(_startTimer);
+    on<UpdateRemainingTimeEvent>(_updateRemainingTime);
 
     // Load tasks initially
+    add(StartTimerEvent());
     add(LoadTasksEvent());
   }
 
@@ -135,5 +141,48 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         .toList();
 
     emit(state.copyWith(searchResults: searchResults));
+  }
+
+  @override
+  Future<void> close() {
+    _timer?.cancel();
+    return super.close();
+  }
+
+  void _startTimer(StartTimerEvent event, Emitter<HomeState> emit) {
+    _timer?.cancel();
+    int remainingTime = 60; // Varsayılan kalan süreyi belirleyin
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      remainingTime--; // Kalan süreyi azaltın
+      add(UpdateRemainingTimeEvent(
+          remainingTime.toString())); // remainingTime'ı gönderin
+      if (remainingTime <= 0) {
+        _timer?.cancel();
+      }
+    });
+  }
+
+  void _updateRemainingTime(
+      UpdateRemainingTimeEvent event, Emitter<HomeState> emit) {
+    if (state.allTasksList.isNotEmpty) {
+      final task = state.allTasksList.first;
+      final now = DateTime.now();
+      final taskTime = DateTime.parse(task.taskTime.toString());
+      final difference = taskTime.difference(now);
+
+      String remainingTime;
+      if (difference.isNegative) {
+        remainingTime = "Task Time Passed";
+      } else {
+        remainingTime = _formatDuration(difference);
+      }
+
+      emit(state.copyWith(remainingTime: remainingTime));
+    }
+  }
+
+  String _formatDuration(Duration duration) {
+    return "${duration.inHours}:${duration.inMinutes.remainder(60)}:${duration.inSeconds.remainder(60)}";
   }
 }

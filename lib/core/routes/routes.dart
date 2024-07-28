@@ -11,4 +11,5 @@ class ViRoutes {
   static const String otp = '/otp';
   static const String home = '/home';
   static const String create_task = '/create_task';
+  static const String folder_detailes = "/folder_detailes";
 }

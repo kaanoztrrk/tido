@@ -23,7 +23,7 @@ class _ViScheduleHeaderTimeState extends State<ViScheduleHeaderTime> {
   void initState() {
     super.initState();
     _updateTime(); // Initial update
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       _updateTime();
     });
   }
@@ -53,10 +53,10 @@ class _ViScheduleHeaderTimeState extends State<ViScheduleHeaderTime> {
         Text(
           _formattedDate,
           style: dark
-              ? ViTextTheme.darkTextTheme.headlineLarge
-                  ?.copyWith(color: AppColors.white)
-              : ViTextTheme.ligthTextTheme.headlineLarge
-                  ?.copyWith(color: AppColors.primaryText),
+              ? ViTextTheme.darkTextTheme.headlineMedium?.copyWith(
+                  color: AppColors.white, fontWeight: FontWeight.bold)
+              : ViTextTheme.ligthTextTheme.headlineMedium?.copyWith(
+                  color: AppColors.primaryText, fontWeight: FontWeight.bold),
         ),
         Text(
           _formattedTime,

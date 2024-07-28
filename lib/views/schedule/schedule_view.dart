@@ -26,7 +26,7 @@ class _ScheduleViewState extends State<ScheduleView> {
     return SafeArea(
       child: Scaffold(
         appBar: const ViHomeAppBar(
-            height: ViSizes.appBarHeigth * 2,
+            height: ViSizes.appBarHeigth * 1.5,
             leadingWidget: ViScheduleHeaderTime()),
         body: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {

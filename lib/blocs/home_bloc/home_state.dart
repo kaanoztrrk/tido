@@ -8,12 +8,13 @@ class HomeState extends Equatable {
   final List<TaskModel> allTasksList;
   final List<TaskModel> todayTasksList;
   final List<TaskModel> weeklyTasksList;
-  final List<TaskModel> filteredTasks; // Yeni eklenen state
+  final List<TaskModel> filteredTasks;
   final int taskCategoryIndex;
   final TimeOfDay? selectedTime;
   final DateTime? selectedDate;
   final Duration? reminderDuration;
   final List<TaskModel> searchResults;
+  final String remainingTime;
 
   const HomeState({
     required this.searchResults,
@@ -23,10 +24,11 @@ class HomeState extends Equatable {
     required this.allTasksList,
     required this.todayTasksList,
     required this.weeklyTasksList,
-    required this.filteredTasks, // Yeni eklenen state
-    this.selectedTime,
-    this.selectedDate,
-    this.reminderDuration,
+    required this.filteredTasks,
+    required this.remainingTime,
+    required this.selectedTime,
+    required this.selectedDate,
+    required this.reminderDuration,
   });
 
   factory HomeState.initial() {
@@ -38,10 +40,11 @@ class HomeState extends Equatable {
       allTasksList: [],
       todayTasksList: [],
       weeklyTasksList: [],
-      filteredTasks: [], // Yeni eklenen state
+      filteredTasks: [],
       selectedTime: null,
       selectedDate: null,
       reminderDuration: null,
+      remainingTime: "",
     );
   }
 
@@ -57,20 +60,22 @@ class HomeState extends Equatable {
     DateTime? selectedDate,
     Duration? reminderDuration,
     List<TaskModel>? searchResults,
+    String? remainingTime,
   }) {
     return HomeState(
-        initialIndex: initialIndex ?? this.initialIndex,
-        taskCategoryIndex: taskCategoryIndex ?? this.taskCategoryIndex,
-        taskCategoryList: taskCategoryList ?? this.taskCategoryList,
-        allTasksList: allTasksList ?? this.allTasksList,
-        todayTasksList: todayTasksList ?? this.todayTasksList,
-        weeklyTasksList: weeklyTasksList ?? this.weeklyTasksList,
-        filteredTasks:
-            filteredTasks ?? this.filteredTasks, // Yeni eklenen state
-        selectedTime: selectedTime ?? this.selectedTime,
-        selectedDate: selectedDate ?? this.selectedDate,
-        reminderDuration: reminderDuration ?? this.reminderDuration,
-        searchResults: searchResults ?? this.searchResults);
+      initialIndex: initialIndex ?? this.initialIndex,
+      taskCategoryIndex: taskCategoryIndex ?? this.taskCategoryIndex,
+      taskCategoryList: taskCategoryList ?? this.taskCategoryList,
+      allTasksList: allTasksList ?? this.allTasksList,
+      todayTasksList: todayTasksList ?? this.todayTasksList,
+      weeklyTasksList: weeklyTasksList ?? this.weeklyTasksList,
+      filteredTasks: filteredTasks ?? this.filteredTasks,
+      selectedTime: selectedTime ?? this.selectedTime,
+      selectedDate: selectedDate ?? this.selectedDate,
+      reminderDuration: reminderDuration ?? this.reminderDuration,
+      searchResults: searchResults ?? this.searchResults,
+      remainingTime: remainingTime ?? this.remainingTime,
+    );
   }
 
   int getTaskCount(int index) {
@@ -97,5 +102,6 @@ class HomeState extends Equatable {
         selectedDate,
         reminderDuration,
         searchResults,
+        remainingTime,
       ];
 }

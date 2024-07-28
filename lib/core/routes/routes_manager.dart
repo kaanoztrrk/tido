@@ -17,6 +17,8 @@ import '../../views/auth/email_validate/email_validate.dart';
 import '../../views/auth/register/register_view.dart';
 import '../../views/auth/forgot_password/forgot_password.dart';
 
+import '../../views/folder_detailes.dart/document_detailes.dart';
+
 final GoRouter router = GoRouter(
   routes: [
     GoRoute(
@@ -82,6 +84,17 @@ final GoRouter router = GoRouter(
         return BlocProvider.value(
           value: getIt<HomeBloc>(),
           child: const CreateTaskView(),
+        );
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.folder_detailes,
+      builder: (BuildContext context, GoRouterState state) {
+        // `extra` özelliği ile veri alınıyor
+        final String title = state.extra as String? ?? 'Default Title';
+        return BlocProvider.value(
+          value: getIt<HomeBloc>(),
+          child: FolderDetailesView(title: title),
         );
       },
     )
