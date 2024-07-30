@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../Constant/colors.dart';
+import '../../Constant/colors.dart';
 
 class ViBottomSheetTheme {
   ViBottomSheetTheme._();

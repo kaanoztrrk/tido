@@ -1,7 +1,5 @@
-// ignore_for_file: prefer_const_constructors
-
+import 'dart:async';
 import 'package:bloc/bloc.dart';
-
 import '../../../data/models/user_model/models.dart';
 import '../../../data/repositories/user_repo.dart';
 import 'sign_up_event.dart';
@@ -9,6 +7,7 @@ import 'sign_up_state.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final UserRepository _userRepository;
+  Timer? _timer;
 
   SignUpBloc({required UserRepository userRepository})
       : _userRepository = userRepository,
@@ -41,5 +40,11 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     } else {
       emit(SignUpInitial(obscurePassword: true));
     }
+  }
+
+  @override
+  Future<void> close() {
+    _timer?.cancel();
+    return super.close();
   }
 }

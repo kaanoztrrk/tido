@@ -27,7 +27,7 @@ void main() async {
   // Opening the Hive box
   await Hive.openBox<TaskModel>('allTasksBox');
 
-  EmailOTP.config(
+  await EmailOTP.config(
     appName: 'TiDo',
     otpType: OTPType.numeric,
     emailTheme: EmailTheme.v1,

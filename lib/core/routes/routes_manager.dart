@@ -7,6 +7,7 @@ import 'package:tido/blocs/home_bloc/home_bloc.dart';
 import 'package:tido/core/locator/locator.dart';
 import 'package:tido/core/routes/routes.dart';
 import 'package:tido/views/create_task/create_task_view.dart';
+import 'package:tido/views/folder_detailes.dart/doc_folder_detailes.dart';
 import 'package:tido/views/navigators/main_navigator.dart';
 import 'package:tido/views/auth/login/login_view.dart';
 import 'package:tido/views/auth/otp/otp_view.dart';
@@ -17,7 +18,7 @@ import '../../views/auth/email_validate/email_validate.dart';
 import '../../views/auth/register/register_view.dart';
 import '../../views/auth/forgot_password/forgot_password.dart';
 
-import '../../views/folder_detailes.dart/document_detailes.dart';
+import '../../views/folder_detailes.dart/image_folder_detailes.dart';
 
 final GoRouter router = GoRouter(
   routes: [
@@ -88,15 +89,116 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
-      path: ViRoutes.folder_detailes,
+      path: ViRoutes.image_folder_detailes,
       builder: (BuildContext context, GoRouterState state) {
         // `extra` özelliği ile veri alınıyor
         final String title = state.extra as String? ?? 'Default Title';
         return BlocProvider.value(
           value: getIt<HomeBloc>(),
-          child: FolderDetailesView(title: title),
+          child: ImageFolderDetailesView(title: title),
         );
       },
-    )
+    ),
+    GoRoute(
+      path: ViRoutes.doc_folder_detailes,
+      builder: (BuildContext context, GoRouterState state) {
+        // `extra` özelliği ile veri alınıyor
+        final String title = state.extra as String? ?? 'Default Title';
+        return BlocProvider.value(
+          value: getIt<HomeBloc>(),
+          child: DocFolderDetailesView(title: title),
+        );
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.edit_page,
+      builder: (BuildContext context, GoRouterState state) {
+        return BlocProvider.value(
+          value: getIt<HomeBloc>(),
+          child: const HomeNavigator(),
+        );
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.theme_page,
+      builder: (BuildContext context, GoRouterState state) {
+        return BlocProvider.value(
+          value: getIt<HomeBloc>(),
+          child: const HomeNavigator(),
+        );
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.widget_page,
+      builder: (BuildContext context, GoRouterState state) {
+        return BlocProvider.value(
+          value: getIt<HomeBloc>(),
+          child: const HomeNavigator(),
+        );
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.language_page,
+      builder: (BuildContext context, GoRouterState state) {
+        return BlocProvider.value(
+          value: getIt<HomeBloc>(),
+          child: const HomeNavigator(),
+        );
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.notification_reminder,
+      builder: (BuildContext context, GoRouterState state) {
+        return BlocProvider.value(
+          value: getIt<HomeBloc>(),
+          child: const HomeNavigator(),
+        );
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.task_sorthing_option,
+      builder: (BuildContext context, GoRouterState state) {
+        return BlocProvider.value(
+          value: getIt<HomeBloc>(),
+          child: const HomeNavigator(),
+        );
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.categories,
+      builder: (BuildContext context, GoRouterState state) {
+        return BlocProvider.value(
+          value: getIt<HomeBloc>(),
+          child: const HomeNavigator(),
+        );
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.data_stroge,
+      builder: (BuildContext context, GoRouterState state) {
+        return BlocProvider.value(
+          value: getIt<HomeBloc>(),
+          child: const HomeNavigator(),
+        );
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.backup_location,
+      builder: (BuildContext context, GoRouterState state) {
+        return BlocProvider.value(
+          value: getIt<HomeBloc>(),
+          child: const HomeNavigator(),
+        );
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.password,
+      builder: (BuildContext context, GoRouterState state) {
+        return BlocProvider.value(
+          value: getIt<HomeBloc>(),
+          child: const HomeNavigator(),
+        );
+      },
+    ),
   ],
 );

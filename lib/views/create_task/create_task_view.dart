@@ -10,6 +10,7 @@ import 'package:tido/views/create_task/widget/folder_upload.dart';
 
 import '../../blocs/home_bloc/home_event.dart';
 import '../../common/styles/container_style.dart';
+import '../../common/widget/Text/title.dart';
 import '../../common/widget/button/primary_button.dart';
 import '../../utils/Constant/colors.dart';
 import '../../utils/Constant/sizes.dart';
@@ -48,7 +49,7 @@ class _CreateTaskViewState extends State<CreateTaskView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _title(dark, "TITLE"),
+            const ViPrimaryTitle(title: "TITLE"),
             const SizedBox(height: ViSizes.spaceBtwItems),
             ViContainer(
               padding: const EdgeInsets.only(left: 5, top: 10),
@@ -102,7 +103,7 @@ class _CreateTaskViewState extends State<CreateTaskView> {
               ),
             ),
             const SizedBox(height: ViSizes.spaceBtwSections),
-            _title(dark, "DETAILS"),
+            const ViPrimaryTitle(title: "DETAILES"),
             const SizedBox(height: ViSizes.spaceBtwItems),
             Row(
               children: [
@@ -153,17 +154,6 @@ class _CreateTaskViewState extends State<CreateTaskView> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _title(bool dark, String title) {
-    return Text(
-      title,
-      style: dark
-          ? ViTextTheme.darkTextTheme.titleLarge
-              ?.copyWith(color: AppColors.primaryText)
-          : ViTextTheme.ligthTextTheme.titleLarge
-              ?.copyWith(color: AppColors.primaryText),
     );
   }
 }

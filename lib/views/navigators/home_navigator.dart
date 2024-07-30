@@ -7,7 +7,7 @@ import 'package:tido/views/home/home_view.dart';
 
 import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_state.dart';
-import '../auth/settings/settings_view.dart';
+import '../personalization/settings/settings_view.dart';
 import '../document/document_view.dart';
 import '../schedule/schedule_view.dart';
 

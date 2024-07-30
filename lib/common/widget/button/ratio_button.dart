@@ -14,10 +14,10 @@ class ViRotioButton extends StatelessWidget {
     this.size = 55,
   });
 
-  final Function()? onTap;
+  final VoidCallback? onTap;
   final Widget? child;
   final Color? bgColor;
-  final String? bgImage;
+  final ImageProvider? bgImage;
   final bool isNetworkImage;
   final bool hasImage;
   final double? size;
@@ -35,9 +35,8 @@ class ViRotioButton extends StatelessWidget {
           image: hasImage
               ? DecorationImage(
                   image: isNetworkImage
-                      ? NetworkImage(bgImage ?? "")
-                      : AssetImage(bgImage ?? ViImages.default_user)
-                          as ImageProvider,
+                      ? bgImage ?? AssetImage(ViImages.default_user)
+                      : bgImage ?? AssetImage(ViImages.default_user),
                   fit: BoxFit.cover,
                 )
               : null,

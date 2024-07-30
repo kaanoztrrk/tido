@@ -17,6 +17,7 @@ import 'package:tido/utils/Helpers/helpers_functions.dart';
 
 import '../../blocs/home_bloc/home_state.dart';
 import '../../common/styles/square_container_style.dart';
+import '../../common/widget/Text/title.dart';
 import '../../core/routes/routes.dart';
 
 class DocumentView extends StatelessWidget {
@@ -42,8 +43,10 @@ class DocumentView extends StatelessWidget {
                       icon: Iconsax.document_1,
                       title: "Doc",
                       subTitle: "Folder",
-                      ontap: () =>
-                          context.push(ViRoutes.folder_detailes, extra: "Doc"),
+                      ontap: () => context.push(
+                        ViRoutes.doc_folder_detailes,
+                        extra: "Doc",
+                      ),
                     ),
                   ),
                   Flexible(
@@ -51,19 +54,19 @@ class DocumentView extends StatelessWidget {
                       icon: Iconsax.image,
                       title: "Image",
                       subTitle: "Folder",
-                      ontap: () => context.push(ViRoutes.folder_detailes,
+                      ontap: () => context.push(ViRoutes.image_folder_detailes,
                           extra: "Image"),
                     ),
                   ),
                 ],
               ),
               SizedBox(height: ViSizes.spaceBtwSections),
-              _title(dark, "RECENT FILES"),
+              ViPrimaryTitle(title: "RECEND FILES"),
               Expanded(child: BlocBuilder<HomeBloc, HomeState>(
                 builder: (context, state) {
                   final List<TaskModel> tasks = state.allTasksList;
                   return ListView.builder(
-                    reverse: true, // Reverse the list
+                    reverse: false,
                     itemCount: tasks.length,
                     itemBuilder: (context, index) {
                       final task = tasks[index];
@@ -92,17 +95,6 @@ class DocumentView extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _title(bool dark, String title) {
-    return Text(
-      title,
-      style: dark
-          ? ViTextTheme.darkTextTheme.titleLarge
-              ?.copyWith(color: AppColors.primaryText)
-          : ViTextTheme.ligthTextTheme.titleLarge
-              ?.copyWith(color: AppColors.primaryText),
     );
   }
 

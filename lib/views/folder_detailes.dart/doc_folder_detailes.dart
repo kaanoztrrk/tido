@@ -14,8 +14,8 @@ import 'package:tido/utils/Helpers/helpers_functions.dart';
 import '../../blocs/home_bloc/home_state.dart';
 import '../../common/widget/appbar/appbar.dart';
 
-class FolderDetailesView extends StatelessWidget {
-  const FolderDetailesView({super.key, required this.title});
+class DocFolderDetailesView extends StatelessWidget {
+  const DocFolderDetailesView({super.key, required this.title});
 
   final String title;
 
@@ -24,13 +24,14 @@ class FolderDetailesView extends StatelessWidget {
     var dark = ViHelpersFunctions.isDarkMode(context);
     return Scaffold(
       appBar: ViAppBar(
+        centerTitle: true,
         showBackArrow: true,
         title: Text(
           title,
           style: dark
-              ? ViTextTheme.darkTextTheme.headlineLarge
+              ? ViTextTheme.darkTextTheme.headlineMedium
                   ?.copyWith(color: AppColors.white)
-              : ViTextTheme.ligthTextTheme.headlineLarge
+              : ViTextTheme.ligthTextTheme.headlineMedium
                   ?.copyWith(color: AppColors.primaryText),
         ),
       ),
@@ -39,32 +40,42 @@ class FolderDetailesView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _title(dark, "RECENT FILES"),
             Expanded(
               child: BlocBuilder<HomeBloc, HomeState>(
                 builder: (context, state) {
                   final List<TaskModel> tasks = state.allTasksList;
 
                   return ListView.builder(
-                    reverse: true, // Listeyi ters çevir
+                    reverse: false,
                     itemCount: tasks.length,
                     itemBuilder: (context, index) {
                       final task = tasks[index];
+                      final imageFiles = task.files?.where((filePath) {
+                            final fileExtension =
+                                filePath.split('.').last.toLowerCase();
+                            return ['jpg', 'jpeg', 'png']
+                                .contains(fileExtension);
+                          }).toList() ??
+                          [];
+                      final docFiles = task.files?.where((filePath) {
+                            final fileExtension =
+                                filePath.split('.').last.toLowerCase();
+                            return ['pdf', 'doc', 'docx']
+                                .contains(fileExtension);
+                          }).toList() ??
+                          [];
+
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ...task.files?.map((filePath) {
-                                return SelectedFilesTile(
-                                  leading: _buildFileItem(filePath),
-                                  title: filePath.split('/').last,
-                                );
-                              }) ??
-                              [
-                                SelectedFilesTile(
-                                  leading: _buildFileItem(""),
-                                  title: "No File",
-                                ),
-                              ],
+                          if (docFiles.isNotEmpty) ...[
+                            ...docFiles.map((filePath) {
+                              return SelectedFilesTile(
+                                leading: _buildFileItem(filePath),
+                                title: filePath.split('/').last,
+                              );
+                            }).toList(),
+                          ],
                         ],
                       );
                     },
@@ -75,17 +86,6 @@ class FolderDetailesView extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _title(bool dark, String title) {
-    return Text(
-      title,
-      style: dark
-          ? ViTextTheme.darkTextTheme.titleLarge
-              ?.copyWith(color: AppColors.primaryText)
-          : ViTextTheme.ligthTextTheme.titleLarge
-              ?.copyWith(color: AppColors.primaryText),
     );
   }
 
