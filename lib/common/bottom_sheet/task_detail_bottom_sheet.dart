@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 import 'package:tido/utils/Constant/sizes.dart';
-
 import '../../utils/Constant/colors.dart';
 import '../../utils/Helpers/helpers_functions.dart';
 import '../../utils/Theme/custom_theme.dart/text_theme.dart';
 
-class ViTaskOptionBottomSheet {
+class ViOptionBottomSheet {
   void showOptionBottomSheet(
     BuildContext context, {
     required VoidCallback onEdit,
@@ -22,9 +21,33 @@ class ViTaskOptionBottomSheet {
           padding: const EdgeInsets.all(8.0),
           child: Wrap(
             children: [
-              _itemTile(() {}, dark, Iconsax.edit_2, "Task Edit"),
-              _itemTile(() {}, dark, Iconsax.trash, "Task Delete"),
-              _itemTile(() {}, dark, Iconsax.tick_circle, "Task Completed"),
+              _itemTile(onEdit, dark, Iconsax.edit_2, "Task Edit"),
+              _itemTile(onDelete, dark, Iconsax.trash, "Task Delete"),
+              if (onMarkAsComplete != null)
+                _itemTile(onMarkAsComplete, dark, Iconsax.tick_circle,
+                    "Task Completed"),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void showEditCategoryBottomSheet(
+    BuildContext context, {
+    required VoidCallback onEdit,
+    required VoidCallback onDelete,
+  }) {
+    var dark = ViHelpersFunctions.isDarkMode(context);
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Wrap(
+            children: [
+              _itemTile(onEdit, dark, Iconsax.edit_2, "Edit Category"),
+              _itemTile(onDelete, dark, Iconsax.trash, "Delete Category"),
             ],
           ),
         );
@@ -33,7 +56,7 @@ class ViTaskOptionBottomSheet {
   }
 
   GestureDetector _itemTile(
-      Function()? ontap, bool dark, IconData icon, String title) {
+      VoidCallback? ontap, bool dark, IconData icon, String title) {
     return GestureDetector(
       onTap: ontap,
       child: Container(

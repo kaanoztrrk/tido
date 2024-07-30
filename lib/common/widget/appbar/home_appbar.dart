@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:tido/utils/Constant/colors.dart';
-import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
 import 'package:tido/views/home/widget/time_button.dart';
 
 import '../../../utils/Constant/sizes.dart';
@@ -49,7 +47,7 @@ class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               ViTimeButton(
                 createTaskTap: leadingOnPressed,
                 notificationTaskTap: notificationOnPressed,
-                timeText: remainingTime ?? "",
+                timeText: remainingTime,
                 icon: Iconsax.add,
               ),
             const Row(

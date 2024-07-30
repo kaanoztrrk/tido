@@ -54,7 +54,7 @@ class DateSelected extends HomeEvent {
 class ReminderSelected extends HomeEvent {
   final Duration reminderDuration;
 
-  ReminderSelected(this.reminderDuration);
+  const ReminderSelected(this.reminderDuration);
 }
 
 class FilterTasksByDate extends HomeEvent {
@@ -74,7 +74,7 @@ class CreateToDoEvent extends HomeEvent {
   final String generalType;
   final String specificType;
 
-  CreateToDoEvent({
+  const CreateToDoEvent({
     required this.title,
     this.taskTime,
     this.participantImages,
@@ -126,4 +126,37 @@ class StartTimerEvent extends HomeEvent {}
 class UpdateRemainingTimeEvent extends HomeEvent {
   final String remainingTime;
   const UpdateRemainingTimeEvent(this.remainingTime);
+}
+
+class DeleteAllTasksEvent extends HomeEvent {}
+
+class AddCategoryEvent extends HomeEvent {
+  final String categoryName;
+
+  const AddCategoryEvent(this.categoryName);
+
+  @override
+  List<Object> get props => [categoryName];
+}
+
+class RemoveCategoryEvent extends HomeEvent {
+  final String categoryName;
+
+  const RemoveCategoryEvent(this.categoryName);
+
+  @override
+  List<Object> get props => [categoryName];
+}
+
+class UpdateCategoryEvent extends Equatable {
+  final String oldCategoryName;
+  final String newCategoryName;
+
+  const UpdateCategoryEvent({
+    required this.oldCategoryName,
+    required this.newCategoryName,
+  });
+
+  @override
+  List<Object?> get props => [oldCategoryName, newCategoryName];
 }

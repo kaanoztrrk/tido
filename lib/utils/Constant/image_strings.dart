@@ -17,4 +17,8 @@ class ViImages {
   static const String facebookLogo = "assets/image/logo/facebook.png";
   static const String googleLogo = "assets/image/logo/google.png";
   static const String appleLogo = "assets/image/logo/apple.png";
+
+  //*  empty screen
+  static const String empty_screen_image_1 =
+      "assets/image/empty_screen/empty_screen_image.png";
 }

@@ -5,15 +5,12 @@ import '../../../utils/Helpers/helpers_functions.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class ViPrimaryButton extends StatelessWidget {
-  const ViPrimaryButton({
-    super.key,
-    required this.text,
-    this.onTap,
-    required,
-  });
+  const ViPrimaryButton(
+      {super.key, required this.text, this.onTap, required, this.height = 70});
 
   final String text;
   final Function()? onTap;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +20,7 @@ class ViPrimaryButton extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         width: ViHelpersFunctions.screenWidth(context),
-        height: 70,
+        height: height,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50),
           gradient: AppColors.primaryGradientButton,

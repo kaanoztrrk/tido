@@ -6,8 +6,6 @@ class HomeState extends Equatable {
   final int initialIndex;
   final List<String> taskCategoryList;
   final List<TaskModel> allTasksList;
-  final List<TaskModel> todayTasksList;
-  final List<TaskModel> weeklyTasksList;
   final List<TaskModel> filteredTasks;
   final int taskCategoryIndex;
   final TimeOfDay? selectedTime;
@@ -22,8 +20,6 @@ class HomeState extends Equatable {
     required this.taskCategoryIndex,
     required this.initialIndex,
     required this.allTasksList,
-    required this.todayTasksList,
-    required this.weeklyTasksList,
     required this.filteredTasks,
     required this.remainingTime,
     required this.selectedTime,
@@ -36,10 +32,8 @@ class HomeState extends Equatable {
       searchResults: [],
       initialIndex: 0,
       taskCategoryIndex: 0,
-      taskCategoryList: ["All", "Today Tasks", "Weekly Tasks"],
+      taskCategoryList: ["All"],
       allTasksList: [],
-      todayTasksList: [],
-      weeklyTasksList: [],
       filteredTasks: [],
       selectedTime: null,
       selectedDate: null,
@@ -53,8 +47,6 @@ class HomeState extends Equatable {
     int? taskCategoryIndex,
     List<String>? taskCategoryList,
     List<TaskModel>? allTasksList,
-    List<TaskModel>? todayTasksList,
-    List<TaskModel>? weeklyTasksList,
     List<TaskModel>? filteredTasks,
     TimeOfDay? selectedTime,
     DateTime? selectedDate,
@@ -67,8 +59,6 @@ class HomeState extends Equatable {
       taskCategoryIndex: taskCategoryIndex ?? this.taskCategoryIndex,
       taskCategoryList: taskCategoryList ?? this.taskCategoryList,
       allTasksList: allTasksList ?? this.allTasksList,
-      todayTasksList: todayTasksList ?? this.todayTasksList,
-      weeklyTasksList: weeklyTasksList ?? this.weeklyTasksList,
       filteredTasks: filteredTasks ?? this.filteredTasks,
       selectedTime: selectedTime ?? this.selectedTime,
       selectedDate: selectedDate ?? this.selectedDate,
@@ -79,14 +69,7 @@ class HomeState extends Equatable {
   }
 
   int getTaskCount(int index) {
-    switch (index) {
-      case 1:
-        return todayTasksList.length;
-      case 2:
-        return weeklyTasksList.length;
-      default:
-        return allTasksList.length;
-    }
+    return allTasksList.length;
   }
 
   @override
@@ -95,8 +78,6 @@ class HomeState extends Equatable {
         taskCategoryList,
         taskCategoryIndex,
         allTasksList,
-        todayTasksList,
-        weeklyTasksList,
         filteredTasks,
         selectedTime,
         selectedDate,

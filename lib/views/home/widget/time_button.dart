@@ -8,20 +8,21 @@ import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 class ViTimeButton extends StatelessWidget {
   final VoidCallback? createTaskTap;
   final VoidCallback? notificationTaskTap;
-  final String timeText;
+  final String? timeText;
   final IconData icon;
 
   const ViTimeButton({
-    Key? key,
+    super.key,
     this.createTaskTap,
-    required this.timeText,
+    this.timeText,
     required this.icon,
     this.notificationTaskTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     var dark = ViHelpersFunctions.isDarkMode(context);
+
     return Container(
       decoration: BoxDecoration(
         color: AppColors.primary,
@@ -36,18 +37,21 @@ class ViTimeButton extends StatelessWidget {
               child: Icon(icon),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: GestureDetector(
-              onTap: notificationTaskTap,
-              child: Text(
-                timeText,
-                style: dark
-                    ? ViTextTheme.darkTextTheme.titleLarge
-                    : ViTextTheme.darkTextTheme.titleLarge,
+          if (timeText != null &&
+              timeText!
+                  .isNotEmpty) // Only show padding if timeText is not null or empty
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: GestureDetector(
+                onTap: notificationTaskTap,
+                child: Text(
+                  timeText!,
+                  style: dark
+                      ? ViTextTheme.ligthTextTheme.titleLarge
+                      : ViTextTheme.darkTextTheme.titleLarge,
+                ),
               ),
             ),
-          ),
         ],
       ),
     );
