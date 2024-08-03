@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:tido/blocs/auth_blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:tido/blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:tido/blocs/auth_blocs/sign_in_bloc/sign_in_event.dart';
 import 'package:tido/blocs/home_bloc/home_bloc.dart';
+import 'package:tido/blocs/home_bloc/home_event.dart';
+import 'package:tido/common/bottom_sheet/are_you_sure.dart';
 import 'package:tido/common/styles/container_style.dart';
 import 'package:tido/common/widget/Text/title.dart';
 import 'package:tido/common/widget/button/primary_button.dart';
 import 'package:tido/common/widget/button/ratio_button.dart';
 import 'package:tido/core/locator/locator.dart';
+import 'package:tido/core/widget/user/profile_image.dart';
 import 'package:tido/utils/Constant/sizes.dart';
 import 'package:tido/utils/Device/device_utility.dart';
 import 'package:tido/utils/Helpers/helpers_functions.dart';
+import 'package:tido/utils/Loader/vi_loader.dart';
+import 'package:tido/utils/Snackbar/snacbar_service.dart';
+import 'package:tido/utils/logging/logger.dart';
 
 import '../../../blocs/auth_blocs/authentication_bloc/authentication_state.dart';
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_state.dart';
@@ -42,13 +49,9 @@ class SettingsView extends StatelessWidget {
                   builder: (context, state) {
                     return Column(
                       children: [
-                        Stack(
-                          children: [
-                            ViRotioButton(
-                              size:
-                                  ViDeviceUtils.getScreenWidth(context) * 0.25,
-                            ),
-                          ],
+                        ViProfileImage(
+                          size: ViDeviceUtils.getScreenWidth(context) * 0.3,
+                          onEdit: true,
                         ),
                         const SizedBox(height: ViSizes.spaceBtwItems),
                         Text(
@@ -222,7 +225,7 @@ class SettingsView extends StatelessWidget {
                     const SizedBox(height: ViSizes.spaceBtwItems),
                     ViContainer(
                       borderRadius: BorderRadius.circular(20),
-                      child: const Column(
+                      child: Column(
                         children: [
                           ListTile(
                             leading: Icon(Iconsax.data),
@@ -243,6 +246,28 @@ class SettingsView extends StatelessWidget {
                             child: Divider(),
                           ),
                           ListTile(
+                            onTap: () {
+                              ViAreYouSureBottomSheet.onAreYouSureBottomSheet(
+                                  context: context,
+                                  icon: Iconsax.trash,
+                                  onTap: () {
+                                    try {
+                                      BlocProvider.of<HomeBloc>(context)
+                                          .add(DeleteAllTasksEvent());
+                                      ViSnackbar.showSuccess(
+                                          context, "Progress Complated");
+                                      context.pop();
+                                    } catch (e) {
+                                      ViSnackbar.showError(
+                                          context, "Progress Failed");
+                                      context.pop();
+                                    }
+                                  },
+                                  cancelOnTap: () => context.pop(),
+                                  title: "All data will be deleted",
+                                  subTitle:
+                                      "This action cannot be undone. Are you sure you want to continue?");
+                            },
                             leading: Icon(Iconsax.trash),
                             title: Text("Clear Data"),
                           ),

@@ -26,4 +26,7 @@ class ViRoutes {
   static const String data_stroge = '/data_stroge';
   static const String backup_location = '/backup_location';
   static const String password = '/password';
+
+  static const String notification_page = '/notification_page';
+  static const String task_detail_view = '/task_detail_view';
 }

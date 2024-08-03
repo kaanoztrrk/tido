@@ -5,10 +5,12 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:tido/common/widget/appbar/home_appbar.dart';
 import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/views/schedule/widget/schedule_heading_time.dart';
+import '../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_event.dart';
 import '../../blocs/home_bloc/home_state.dart';
 import '../../common/widget/task_tile/calender_task_tile.dart';
+import '../../core/locator/locator.dart';
 import '../../utils/Constant/sizes.dart';
 
 class ScheduleView extends StatefulWidget {
@@ -23,37 +25,42 @@ class _ScheduleViewState extends State<ScheduleView> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: const ViHomeAppBar(
-            height: ViSizes.appBarHeigth * 1.5,
-            leadingWidget: ViScheduleHeaderTime()),
-        body: BlocBuilder<HomeBloc, HomeState>(
-          builder: (context, state) {
-            return Column(
-              children: [
-                _buildDateSelector(context),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: state.filteredTasks.length,
-                    itemBuilder: (context, index) {
-                      final task = state.filteredTasks[index];
-                      return CalenderTaskTile(
-                        title: task.title,
-                        dateText: DateFormat.MMMM('en_US')
-                            .add_d()
-                            .format(task.taskTime ?? DateTime.now()),
-                        timerText: task.formattedTaskTime,
-                      );
-                    },
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
-      ),
-    );
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider.value(value: getIt<HomeBloc>()),
+          BlocProvider.value(value: getIt<SignInBloc>()),
+        ],
+        child: SafeArea(
+          child: Scaffold(
+            appBar: const ViHomeAppBar(
+                height: ViSizes.appBarHeigth * 1.5,
+                leadingWidget: ViScheduleHeaderTime()),
+            body: BlocBuilder<HomeBloc, HomeState>(
+              builder: (context, state) {
+                return Column(
+                  children: [
+                    _buildDateSelector(context),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: state.filteredTasks.length,
+                        itemBuilder: (context, index) {
+                          final task = state.filteredTasks[index];
+                          return CalenderTaskTile(
+                            title: task.title,
+                            dateText: DateFormat.MMMM('en_US')
+                                .add_d()
+                                .format(task.taskTime ?? DateTime.now()),
+                            timerText: task.formattedTaskTime,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ));
   }
 
   Widget _buildDateSelector(BuildContext context) {

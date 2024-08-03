@@ -68,19 +68,17 @@ class FilterTasksByDate extends HomeEvent {
 
 class CreateToDoEvent extends HomeEvent {
   final String title;
+  final String? description;
   final DateTime? taskTime;
   final List<String>? participantImages;
   final List<String>? files;
-  final String generalType;
-  final String specificType;
 
   const CreateToDoEvent({
     required this.title,
+    this.description,
     this.taskTime,
     this.participantImages,
     this.files,
-    this.generalType = 'general',
-    this.specificType = 'general',
   });
 }
 

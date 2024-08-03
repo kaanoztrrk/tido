@@ -25,6 +25,9 @@ class TaskModel extends HiveObject with EquatableMixin {
   @HiveField(5)
   List<String>? files;
 
+  @HiveField(6)
+  String? description;
+
   TaskModel({
     String? id,
     required this.title,
@@ -32,6 +35,7 @@ class TaskModel extends HiveObject with EquatableMixin {
     this.taskTime,
     this.participantImages,
     this.files,
+    this.description,
   }) : id = id ?? const Uuid().v4();
 
   factory TaskModel.fromJson(Map<String, dynamic> json) {
@@ -50,6 +54,7 @@ class TaskModel extends HiveObject with EquatableMixin {
       files: json['files'] != null
           ? List<String>.from(json['files'] as List)
           : null,
+      description: json['description'] as String?,
     );
   }
 
@@ -61,6 +66,7 @@ class TaskModel extends HiveObject with EquatableMixin {
             taskTime != null ? DateFormat('HH:mm').format(taskTime!) : null,
         'participantImages': participantImages,
         'files': files,
+        'description': description,
       };
 
   TaskModel copyWith({
@@ -70,6 +76,7 @@ class TaskModel extends HiveObject with EquatableMixin {
     DateTime? taskTime,
     List<String>? participantImages,
     List<String>? files,
+    String? description,
   }) {
     return TaskModel(
       id: id ?? this.id,
@@ -78,6 +85,7 @@ class TaskModel extends HiveObject with EquatableMixin {
       taskTime: taskTime ?? this.taskTime,
       participantImages: participantImages ?? this.participantImages,
       files: files ?? this.files,
+      description: description ?? this.description,
     );
   }
 
@@ -92,5 +100,6 @@ class TaskModel extends HiveObject with EquatableMixin {
         taskTime,
         participantImages,
         files,
+        description,
       ];
 }

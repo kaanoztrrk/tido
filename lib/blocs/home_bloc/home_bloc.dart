@@ -63,6 +63,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     TaskModel newTask = TaskModel(
       title: event.title,
+      description: event.description,
       taskTime: event.taskTime,
       participantImages: event.participantImages,
       files: event.files,
@@ -174,7 +175,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         remainingTime = _formatDuration(difference);
       }
 
-      emit(state.copyWith(remainingTime: remainingTime));
+      emit(state.copyWith(
+        remainingTime: remainingTime,
+        currentTask: task,
+      ));
     }
   }
 

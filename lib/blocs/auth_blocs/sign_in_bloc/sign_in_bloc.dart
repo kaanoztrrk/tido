@@ -1,20 +1,25 @@
-import 'dart:async';
+import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../../data/repositories/user_repo.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../data/repositories/user_repo.dart';
 import 'sign_in_event.dart';
 import 'sign_in_state.dart';
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
   final UserRepository _userRepository;
-  Timer? _timer;
+  final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
   SignInBloc({required UserRepository userRepository})
       : _userRepository = userRepository,
         super(SignInInitial()) {
     on<SignInRequired>(_onSignInRequired);
     on<SignOutRequired>(_onSignOutRequired);
+    on<UploadProfileImage>(_onUploadProfileImage);
+    on<LoadUserProfileImage>(_onLoadUserProfileImage);
   }
 
   Future<void> _onSignInRequired(
@@ -36,9 +41,52 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     emit(SignOutSuccess());
   }
 
+  Future<void> _onUploadProfileImage(
+      UploadProfileImage event, Emitter<SignInState> emit) async {
+    emit(ProfileImageUploading());
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) throw Exception('No user logged in');
+
+      final fileName =
+          'profile_images/${user.uid}/${DateTime.now().millisecondsSinceEpoch}.jpg';
+      final storageRef = _firebaseStorage.ref().child(fileName);
+
+      // Upload the image
+      await storageRef.putFile(event.imageFile);
+      final imageUrl = await storageRef.getDownloadURL();
+
+      // Update user profile with the new image URL
+      await _firebaseFirestore.collection('user').doc(user.uid).update({
+        'profileImageUrl': imageUrl,
+      });
+
+      emit(ProfileImageUploadSuccess());
+      add(LoadUserProfileImage()); // Trigger loading of the new profile image
+    } catch (e) {
+      emit(ProfileImageUploadFailure(e.toString()));
+    }
+  }
+
+  Future<void> _onLoadUserProfileImage(
+      LoadUserProfileImage event, Emitter<SignInState> emit) async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) throw Exception('No user logged in');
+
+      final doc =
+          await _firebaseFirestore.collection('user').doc(user.uid).get();
+      final data = doc.data();
+      final profileImageUrl = data?['profileImageUrl'] as String?;
+
+      emit(ProfileImageLoaded(profileImageUrl: profileImageUrl));
+    } catch (e) {
+      emit(ProfileImageUploadFailure(e.toString()));
+    }
+  }
+
   @override
   Future<void> close() {
-    _timer?.cancel();
     return super.close();
   }
 }

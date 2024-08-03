@@ -17,7 +17,7 @@ class HomeMainTaskTile extends StatelessWidget {
     this.onTap,
   });
 
-  final String timer;
+  final Widget? timer;
   final String title;
   final Function()? onSwipe;
   final Function()? onTap;
@@ -50,16 +50,7 @@ class HomeMainTaskTile extends StatelessWidget {
                     Iconsax.timer_1,
                     color: dark ? AppColors.dark : AppColors.white,
                   ),
-                  Text(
-                    " ${_formatTimer(timer)}",
-                    style: dark
-                        ? ViTextTheme.ligthTextTheme.titleSmall
-                            ?.copyWith(fontWeight: FontWeight.w600)
-                        : ViTextTheme.darkTextTheme.titleSmall
-                            ?.copyWith(fontWeight: FontWeight.w600),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
+                  Container(child: timer),
                 ],
               ),
             ),

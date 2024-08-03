@@ -10,21 +10,16 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Firebase initialization
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Setup locator
   await setupLocator();
 
-  // Hive initialization
   await Hive.initFlutter();
 
-  // Registering the adapter
   Hive.registerAdapter(TaskModelAdapter());
 
-  // Opening the Hive box
   await Hive.openBox<TaskModel>('allTasksBox');
 
   await EmailOTP.config(

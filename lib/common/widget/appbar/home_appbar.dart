@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:tido/views/home/widget/time_button.dart';
 
+import '../../../core/widget/user/profile_image.dart';
 import '../../../utils/Constant/sizes.dart';
 import '../../../utils/Device/device_utility.dart';
 import '../button/ratio_button.dart';
@@ -10,15 +11,14 @@ class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ViHomeAppBar({
     super.key,
     this.title,
-    this.showBackArrow = false,
+    this.height,
+    this.actions,
     this.leadingIcon,
     this.leadingWidget,
-    this.actions,
     this.leadingOnPressed,
-    this.height,
-    this.createTaskButton = false,
-    this.remainingTime,
     this.notificationOnPressed,
+    this.showBackArrow = false,
+    this.createTaskButton = false,
   });
 
   final Widget? title;
@@ -29,7 +29,7 @@ class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? leadingOnPressed;
   final double? height;
   final bool? createTaskButton;
-  final String? remainingTime;
+
   final VoidCallback? notificationOnPressed;
 
   @override
@@ -46,19 +46,16 @@ class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             else
               ViTimeButton(
                 createTaskTap: leadingOnPressed,
-                notificationTaskTap: notificationOnPressed,
-                timeText: remainingTime,
                 icon: Iconsax.add,
               ),
-            const Row(
+            Row(
               children: [
                 ViRotioButton(
-                  child: Icon(Iconsax.notification, size: ViSizes.iconLg),
+                  onTap: notificationOnPressed,
+                  child: const Icon(Iconsax.notification, size: ViSizes.iconLg),
                 ),
-                SizedBox(width: ViSizes.spaceBtwItems / 2),
-                ViRotioButton(
-                  hasImage: true,
-                ),
+                const SizedBox(width: ViSizes.spaceBtwItems / 2),
+                const ViProfileImage(),
               ],
             ),
           ],

@@ -1,83 +1,93 @@
-// DocumentView widget'ı
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:tido/blocs/home_bloc/home_bloc.dart';
-import 'package:tido/common/widget/appbar/home_appbar.dart';
-import 'package:tido/common/widget/task_tile/selected_files_tile.dart';
+
 import 'package:tido/data/models/task_model/task_model.dart';
 import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Constant/sizes.dart';
-import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
+import 'package:tido/utils/Device/device_utility.dart';
 import 'package:tido/utils/Helpers/helpers_functions.dart';
+import 'package:tido/views/task_detail/widget/task_info.dart';
 
-import '../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
+import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_state.dart';
-import '../../common/styles/square_container_style.dart';
 import '../../common/widget/Text/title.dart';
-import '../../core/locator/locator.dart';
-import '../../core/routes/routes.dart';
+import '../../common/widget/button/ratio_button.dart';
+import '../../common/widget/task_tile/selected_files_tile.dart';
 
-class DocumentView extends StatelessWidget {
-  const DocumentView({super.key});
+class TaskDetailView extends StatelessWidget {
+  final TaskModel task;
+
+  const TaskDetailView({super.key, required this.task});
 
   @override
   Widget build(BuildContext context) {
     var dark = ViHelpersFunctions.isDarkMode(context);
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider.value(value: getIt<HomeBloc>()),
-          BlocProvider.value(value: getIt<SignInBloc>())
-        ],
-        child: SafeArea(
-          child: Scaffold(
-            appBar: const ViHomeAppBar(
-              height: ViSizes.appBarHeigth * 1.5,
-            ),
-            body: Padding(
-              padding: const EdgeInsets.all(ViSizes.defaultSpace),
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(ViSizes.defaultSpace),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: ViDeviceUtils.getScreenHeigth(context) * 0.4,
+              padding: const EdgeInsets.all(ViSizes.defaultSpace / 2),
+              margin: const EdgeInsets.only(bottom: 30, top: 20),
+              decoration: BoxDecoration(
+                gradient: AppColors.primaryGradientButton,
+                borderRadius: BorderRadius.circular(ViSizes.borderRadiusLg * 2),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Flexible(
-                        child: ViSquareContainer(
-                          icon: Iconsax.document_1,
-                          title: "Doc",
-                          subTitle: "Folder",
-                          ontap: () => context.push(
-                            ViRoutes.doc_folder_detailes,
-                            extra: "Doc",
-                          ),
-                        ),
-                      ),
-                      Flexible(
-                        child: ViSquareContainer(
-                          icon: Iconsax.image,
-                          title: "Image",
-                          subTitle: "Folder",
-                          ontap: () => context.push(
-                              ViRoutes.image_folder_detailes,
-                              extra: "Image"),
+                      ViRotioButton(
+                        onTap: () => context.pop(),
+                        child: const Icon(
+                          Icons.arrow_back_ios_new_rounded,
+                          color: AppColors.white,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: ViSizes.spaceBtwSections),
-                  ViPrimaryTitle(title: "RECEND FILES"),
-                  Expanded(child: BlocBuilder<HomeBloc, HomeState>(
+                  Padding(
+                    padding: const EdgeInsets.all(ViSizes.defaultSpace) +
+                        const EdgeInsets.only(bottom: ViSizes.defaultSpace),
+                    child: ViPrimaryTitle(
+                      title: task.title,
+                      bigText: true,
+                      secondTextColor: AppColors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: ListView(
+                children: [
+                  const ViPrimaryTitle(title: "DESCRIPTION"),
+                  const SizedBox(height: ViSizes.spaceBtwItems),
+                  ViPrimaryTitle(
+                      title: task.description.toString(),
+                      secondTextColor: AppColors.secondaryText),
+                  const SizedBox(height: ViSizes.spaceBtwSections),
+                  const ViTaskInfoWidget(),
+                  const SizedBox(height: ViSizes.spaceBtwSections),
+                  const ViPrimaryTitle(title: "FILES"),
+                  BlocBuilder<HomeBloc, HomeState>(
                     builder: (context, state) {
-                      final List<TaskModel> tasks = state.allTasksList;
                       return ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
                         reverse: false,
-                        itemCount: tasks.length,
+                        itemCount: state.allTasksList.length,
                         itemBuilder: (context, index) {
-                          final task = tasks[index];
+                          final task = state.allTasksList[index];
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -98,12 +108,14 @@ class DocumentView extends StatelessWidget {
                         },
                       );
                     },
-                  )),
+                  ),
                 ],
               ),
             ),
-          ),
-        ));
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _buildFileItem(String filePath) {

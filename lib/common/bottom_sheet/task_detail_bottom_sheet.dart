@@ -1,93 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
-
+import 'package:tido/data/models/task_model/task_model.dart';
+import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Constant/sizes.dart';
-import '../../utils/Constant/colors.dart';
-import '../../utils/Helpers/helpers_functions.dart';
-import '../../utils/Theme/custom_theme.dart/text_theme.dart';
+import 'package:tido/utils/Helpers/helpers_functions.dart';
+import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
+import 'package:tido/common/widget/Text/title.dart';
 
-class ViOptionBottomSheet {
-  void showOptionBottomSheet(
-    BuildContext context, {
-    required VoidCallback onEdit,
-    required VoidCallback onDelete,
-    VoidCallback? onMarkAsComplete,
-  }) {
-    var dark = ViHelpersFunctions.isDarkMode(context);
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Wrap(
-            children: [
-              _itemTile(onEdit, dark, Iconsax.edit_2, "Task Edit"),
-              _itemTile(onDelete, dark, Iconsax.trash, "Task Delete"),
-              if (onMarkAsComplete != null)
-                _itemTile(onMarkAsComplete, dark, Iconsax.tick_circle,
-                    "Task Completed"),
-            ],
-          ),
-        );
-      },
-    );
-  }
+import 'package:tido/views/task_detail/widget/task_info.dart';
 
-  void showEditCategoryBottomSheet(
-    BuildContext context, {
-    required VoidCallback onEdit,
-    required VoidCallback onDelete,
-  }) {
-    var dark = ViHelpersFunctions.isDarkMode(context);
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Wrap(
-            children: [
-              _itemTile(onEdit, dark, Iconsax.edit_2, "Edit Category"),
-              _itemTile(onDelete, dark, Iconsax.trash, "Delete Category"),
-            ],
-          ),
-        );
-      },
-    );
-  }
+void showTaskDetailBottomSheet(BuildContext context, TaskModel task) {
+  var dark = ViHelpersFunctions.isDarkMode(context);
 
-  GestureDetector _itemTile(
-      VoidCallback? ontap, bool dark, IconData icon, String title) {
-    return GestureDetector(
-      onTap: ontap,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        height: 60,
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    builder: (BuildContext context) {
+      return SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: ViSizes.md),
-          child: Row(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+            left: 16.0,
+            right: 16.0,
+            top: 16.0,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                icon,
-                size: 30,
-                color: AppColors.darkerGrey,
-              ),
-              const SizedBox(width: ViSizes.lg),
               Text(
-                title,
+                task.title,
                 style: dark
-                    ? ViTextTheme.darkTextTheme.titleLarge?.copyWith(
-                        color: AppColors.white,
-                      )
-                    : ViTextTheme.ligthTextTheme.titleLarge?.copyWith(
-                        color: AppColors.primaryText,
-                      ),
-              )
+                    ? ViTextTheme.darkTextTheme.headlineLarge
+                        ?.copyWith(fontWeight: FontWeight.w600)
+                    : ViTextTheme.ligthTextTheme.headlineLarge
+                        ?.copyWith(fontWeight: FontWeight.w600),
+              ),
+              SizedBox(height: ViSizes.spaceBtwSections),
+              ViPrimaryTitle(title: "DESCRIPTION"),
+              SizedBox(height: ViSizes.spaceBtwItems),
+              ViPrimaryTitle(
+                title:
+                    "Reprehenderit excepteur ad irure magna sit adipisicing. Reprehenderit excepteur ad irure magna sit adipisicing.",
+                smallText: true,
+                secondTextColor: AppColors.secondaryText,
+              ),
             ],
           ),
         ),
-      ),
-    );
-  }
+      );
+    },
+  );
 }

@@ -68,9 +68,10 @@ class ViEditBottomSheet {
                   height: ViDeviceUtils.getScreenHeigth(context) * 0.08,
                   onTap: () {
                     final updatedTask = TaskModel(
-                        title: controller.text,
-                        isChecked: task.isChecked,
-                        taskTime: bloc.state.allTasksList[index].taskTime);
+                      title: controller.text,
+                      isChecked: task.isChecked,
+                      taskTime: bloc.state.allTasksList[index].taskTime,
+                    );
                     bloc.add(
                       UpdateToDoEvent(
                         oldTask: task,

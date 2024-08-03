@@ -17,6 +17,7 @@ class UserModel {
     String? userId,
     String? email,
     String? name,
+    required profileImageUrl,
   }) {
     return UserModel(
         userId: userId ?? this.userId,

@@ -132,17 +132,17 @@ class _CreateTaskViewState extends State<CreateTaskView> {
             ViPrimaryButton(
               onTap: () {
                 if (titleController.text.isEmpty) {
-                  ViLoaders().showWarningMessage(
-                      context, "Task title cannot be empty.");
                 } else {
                   BlocProvider.of<HomeBloc>(context).add(
                     CreateToDoEvent(
                       title: titleController.text,
+                      description: descriptionController.text,
                       taskTime: taskTime,
                       participantImages: participantImages,
                       files: selectedFiles,
                     ),
                   );
+                  print(descriptionController.text);
                   ViLoaders().showSuccessMessage(
                       context, "Task created successfully.");
                   context.pop(); // GoRouter context.pop kullanımı

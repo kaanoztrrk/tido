@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 
 sealed class SignInEvent extends Equatable {
@@ -17,3 +19,14 @@ class SignInRequired extends SignInEvent {
 class SignOutRequired extends SignInEvent {
   const SignOutRequired();
 }
+
+class UploadProfileImage extends SignInEvent {
+  final File imageFile;
+
+  const UploadProfileImage(this.imageFile);
+
+  @override
+  List<Object?> get props => [imageFile];
+}
+
+class LoadUserProfileImage extends SignInEvent {}

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/user_model/models.dart';
@@ -12,4 +14,6 @@ abstract class UserRepository {
   Future<void> signIn(String email, password);
 
   Future<void> logOut();
+
+  Future<void> uploadProfileImage(File image);
 }

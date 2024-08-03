@@ -91,6 +91,7 @@ class _RegisterViewState extends State<RegisterView> {
                         myUser = myUser.copyWith(
                           email: emailController.text,
                           name: nameController.text,
+                          profileImageUrl: null,
                         );
                         context.read<SignUpBloc>().add(
                               SignUpRequired(myUser, passwordController.text),
