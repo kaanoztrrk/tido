@@ -72,7 +72,9 @@ class TaskDetailView extends StatelessWidget {
                       title: task.description.toString(),
                       secondTextColor: AppColors.secondaryText),
                   const SizedBox(height: ViSizes.spaceBtwSections),
-                  const ViTaskInfoWidget(),
+                  ViTaskInfoWidget(
+                    task: task,
+                  ),
                   const SizedBox(height: ViSizes.spaceBtwSections),
                   const ViPrimaryTitle(title: "FILES"),
                   BlocBuilder<HomeBloc, HomeState>(

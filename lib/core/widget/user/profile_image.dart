@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,11 +33,14 @@ class ViProfileImage extends StatefulWidget {
 class _ViProfileImageState extends State<ViProfileImage> {
   File? _image;
   final picker = ImagePicker();
+  String? _profileImageUrl;
 
   @override
   void initState() {
     super.initState();
-    context.read<SignInBloc>().add(LoadUserProfileImage());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<SignInBloc>().add(LoadUserProfileImage());
+    });
   }
 
   Future<void> getImage() async {
@@ -51,7 +52,7 @@ class _ViProfileImageState extends State<ViProfileImage> {
       });
       context.read<SignInBloc>().add(UploadProfileImage(_image!));
     } else {
-      ViSnackbar.showWarning(context, " No image selected.");
+      ViSnackbar.showWarning(context, "No image selected.");
     }
   }
 
@@ -59,11 +60,13 @@ class _ViProfileImageState extends State<ViProfileImage> {
   Widget build(BuildContext context) {
     return BlocBuilder<SignInBloc, SignInState>(
       builder: (context, state) {
-        String profileImageUrl = ViImages.default_user;
-
         if (state is ProfileImageLoaded) {
-          profileImageUrl = state.profileImageUrl ?? ViImages.default_user;
+          _profileImageUrl = state.profileImageUrl;
         }
+
+        String imageUrl = _image != null
+            ? _image!.path
+            : (_profileImageUrl ?? ViImages.default_user);
 
         return Stack(
           alignment: Alignment.bottomRight,
@@ -78,12 +81,12 @@ class _ViProfileImageState extends State<ViProfileImage> {
                   color: widget.bgColor ?? AppColors.ligthGrey.withOpacity(0.7),
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: _image == null
-                        ? profileImageUrl.startsWith('http') ||
-                                profileImageUrl.startsWith('https')
-                            ? NetworkImage(profileImageUrl) as ImageProvider
-                            : AssetImage(profileImageUrl) as ImageProvider
-                        : FileImage(_image!),
+                    image: imageUrl.startsWith('http') ||
+                            imageUrl.startsWith('https')
+                        ? NetworkImage(imageUrl) as ImageProvider
+                        : File(imageUrl).existsSync()
+                            ? FileImage(File(imageUrl))
+                            : AssetImage(imageUrl) as ImageProvider,
                   ),
                   border: Border.all(width: 2, color: AppColors.white),
                 ),
@@ -91,17 +94,21 @@ class _ViProfileImageState extends State<ViProfileImage> {
               ),
             ),
             if (widget.onEdit)
-              IconButton(
-                onPressed: getImage,
-                icon: Container(
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.primary,
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  child: const Icon(
-                    Iconsax.edit,
-                    color: AppColors.white,
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: IconButton(
+                  onPressed: getImage,
+                  icon: Container(
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.primary,
+                    ),
+                    padding: const EdgeInsets.all(10),
+                    child: const Icon(
+                      Iconsax.edit,
+                      color: AppColors.white,
+                    ),
                   ),
                 ),
               ),

@@ -51,7 +51,7 @@ class HomeState extends Equatable {
   HomeState copyWith({
     int? initialIndex,
     int? taskCategoryIndex,
-    List<CategoryModel>? allCategoryList, // Güncellenmiş isim
+    List<CategoryModel>? allCategoryList,
     List<TaskModel>? allTasksList,
     List<TaskModel>? filteredTasks,
     TimeOfDay? selectedTime,
@@ -64,8 +64,7 @@ class HomeState extends Equatable {
     return HomeState(
       initialIndex: initialIndex ?? this.initialIndex,
       taskCategoryIndex: taskCategoryIndex ?? this.taskCategoryIndex,
-      allCategoryList:
-          allCategoryList ?? this.allCategoryList, // Güncellenmiş isim
+      allCategoryList: allCategoryList ?? this.allCategoryList,
       allTasksList: allTasksList ?? this.allTasksList,
       filteredTasks: filteredTasks ?? this.filteredTasks,
       selectedTime: selectedTime ?? this.selectedTime,
@@ -84,7 +83,7 @@ class HomeState extends Equatable {
   @override
   List<Object?> get props => [
         initialIndex,
-        allCategoryList, // Güncellenmiş isim
+        allCategoryList,
         taskCategoryIndex,
         allTasksList,
         filteredTasks,

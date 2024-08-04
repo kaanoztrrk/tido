@@ -1,17 +1,26 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:intl/intl.dart'; // Tarih formatlama için gerekli paket
+import 'package:tido/blocs/auth_blocs/authentication_bloc/authentication_bloc.dart';
+import 'package:tido/blocs/auth_blocs/authentication_bloc/authentication_state.dart';
+import 'package:tido/blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 
+import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_state.dart';
 import '../../../common/widget/button/ratio_button.dart';
 import '../../../core/widget/user/profile_image.dart';
+import '../../../data/models/task_model/task_model.dart';
 import '../../../utils/Constant/colors.dart';
 import '../../../utils/Constant/sizes.dart';
 import '../../../utils/Helpers/helpers_functions.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class ViTaskInfoWidget extends StatelessWidget {
-  const ViTaskInfoWidget({super.key});
+  const ViTaskInfoWidget({super.key, required this.task});
+
+  final TaskModel task;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +35,10 @@ class ViTaskInfoWidget extends StatelessWidget {
   }
 
   Row dead_time(bool dark) {
+    // Due date formatlama
+    final DateFormat formatter = DateFormat('dd MMM yyyy');
+    final String dueDate = formatter.format(task.taskTime!);
+
     return Row(
       children: [
         const ViRotioButton(
@@ -42,7 +55,7 @@ class ViTaskInfoWidget extends StatelessWidget {
                   : ViTextTheme.ligthTextTheme.titleLarge,
             ),
             Text(
-              "16 Oct 2024",
+              dueDate,
               style: dark
                   ? ViTextTheme.darkTextTheme.titleLarge?.copyWith(
                       color: AppColors.secondaryText,
@@ -71,15 +84,19 @@ class ViTaskInfoWidget extends StatelessWidget {
                   ? ViTextTheme.darkTextTheme.titleLarge
                   : ViTextTheme.ligthTextTheme.titleLarge,
             ),
-            Text(
-              "Kaan Öztürk",
-              style: dark
-                  ? ViTextTheme.darkTextTheme.titleLarge?.copyWith(
-                      color: AppColors.secondaryText,
-                      fontWeight: FontWeight.normal)
-                  : ViTextTheme.ligthTextTheme.titleLarge?.copyWith(
-                      color: AppColors.secondaryText,
-                      fontWeight: FontWeight.normal),
+            BlocBuilder<AuthenticationBloc, AuthenticationState>(
+              builder: (context, state) {
+                return Text(
+                  state.user!.displayName.toString(),
+                  style: dark
+                      ? ViTextTheme.darkTextTheme.titleLarge?.copyWith(
+                          color: AppColors.secondaryText,
+                          fontWeight: FontWeight.normal)
+                      : ViTextTheme.ligthTextTheme.titleLarge?.copyWith(
+                          color: AppColors.secondaryText,
+                          fontWeight: FontWeight.normal),
+                );
+              },
             ),
           ],
         ),

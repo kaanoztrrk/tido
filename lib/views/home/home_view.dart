@@ -196,12 +196,14 @@ class HomeView extends StatelessWidget {
                                       ),
                                     );
                                   },
-                                  onTap: () => ViOptionBottomSheet()
+                                  onTap: () {
+                                    context.push(ViRoutes.task_detail_view,
+                                        extra: task);
+                                  },
+                                  optionTap: () => ViOptionBottomSheet()
                                       .showOptionBottomSheet(
                                     context,
                                     onEdit: () {
-                                      print(
-                                          "Edit option selected"); // Log for debugging
                                       ViEditBottomSheet.onEditBottomSheet(
                                         context: context,
                                         task: task,
@@ -211,15 +213,11 @@ class HomeView extends StatelessWidget {
                                       );
                                     },
                                     onDelete: () {
-                                      print(
-                                          "Delete option selected"); // Log for debugging
                                       BlocProvider.of<HomeBloc>(context)
                                           .add(DeleteToDoEvent(task: task));
                                       context.pop();
                                     },
                                     onMarkAsComplete: () {
-                                      print(
-                                          "Mark as complete option selected"); // Log for debugging
                                       BlocProvider.of<HomeBloc>(context).add(
                                         ChangeCheckBoxEvent(
                                           isChecked: !task.isChecked,
