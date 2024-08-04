@@ -24,7 +24,8 @@ class WelcomeDotNavigation extends StatelessWidget {
           builder: (context, state) {
             return SmoothPageIndicator(
               effect: ExpandingDotsEffect(
-                activeDotColor: dark ? AppColors.ligth : AppColors.primary,
+                activeDotColor:
+                    dark ? AppColors.light : Theme.of(context).primaryColor,
                 dotHeight: 10,
               ),
               controller: context.read<MainBloc>().pageController,

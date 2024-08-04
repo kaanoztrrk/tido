@@ -65,8 +65,8 @@ class _ViDatePickerState extends State<ViDatePicker> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const ViRotioButton(
-              bgColor: AppColors.primary,
+            ViRotioButton(
+              bgColor: Theme.of(context).primaryColor,
               child: Icon(
                 Iconsax.calendar_1,
                 color: AppColors.white,

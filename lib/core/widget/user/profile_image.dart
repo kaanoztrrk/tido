@@ -78,7 +78,7 @@ class _ViProfileImageState extends State<ViProfileImage> {
                 height: widget.size,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: widget.bgColor ?? AppColors.ligthGrey.withOpacity(0.7),
+                  color: widget.bgColor ?? AppColors.lightGrey.withOpacity(0.7),
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: imageUrl.startsWith('http') ||
@@ -100,10 +100,9 @@ class _ViProfileImageState extends State<ViProfileImage> {
                 child: IconButton(
                   onPressed: getImage,
                   icon: Container(
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColors.primary,
-                    ),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(context).primaryColor),
                     padding: const EdgeInsets.all(10),
                     child: const Icon(
                       Iconsax.edit,

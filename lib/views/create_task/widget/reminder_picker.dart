@@ -109,8 +109,9 @@ class _ViReminderButtonState extends State<ViReminderButton> {
             )
           : Container(
               decoration: BoxDecoration(
-                color:
-                    widget.isActive ? AppColors.primary : AppColors.ligthGrey,
+                color: widget.isActive
+                    ? Theme.of(context).primaryColor
+                    : AppColors.lightGrey,
                 borderRadius: BorderRadius.circular(50),
               ),
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),

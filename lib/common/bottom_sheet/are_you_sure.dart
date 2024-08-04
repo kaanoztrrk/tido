@@ -33,7 +33,7 @@ class ViAreYouSureBottomSheet {
                 Icon(
                   icon,
                   size: ViSizes.iconLg * 2,
-                  color: iconColor ?? AppColors.primary,
+                  color: iconColor ?? Theme.of(context).primaryColor,
                 ),
                 const SizedBox(height: ViSizes.spaceBtwItems),
                 ViPrimaryTitle(

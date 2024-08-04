@@ -66,7 +66,7 @@ class _ViSwiperButtonState extends State<ViSwiperButton> {
         width: widget.width ?? MediaQuery.of(context).size.width * 0.65,
         bgColor: widget.isCompleted
             ? AppColors.success
-            : AppColors.ligthGrey.withOpacity(0.5),
+            : AppColors.lightGrey.withOpacity(0.5),
         borderRadius: BorderRadius.circular(ViSizes.borderRadiusLg * 2),
         height: widget.height ?? 70.0,
         child: Stack(
@@ -91,7 +91,7 @@ class _ViSwiperButtonState extends State<ViSwiperButton> {
                         padding: EdgeInsets.only(right: 10),
                         child: Icon(
                           Icons.double_arrow_rounded,
-                          color: AppColors.ligthGrey,
+                          color: AppColors.lightGrey,
                         ),
                       )
               ],
@@ -107,10 +107,10 @@ class _ViSwiperButtonState extends State<ViSwiperButton> {
                   width: 60.0,
                   height: 60.0,
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color:
-                        widget.isCompleted ? Colors.green : AppColors.primary,
-                  ),
+                      shape: BoxShape.circle,
+                      color: widget.isCompleted
+                          ? Colors.green
+                          : Theme.of(context).primaryColor),
                   child: Icon(
                     Icons.chevron_right,
                     color: widget.isCompleted ? Colors.white : AppColors.white,

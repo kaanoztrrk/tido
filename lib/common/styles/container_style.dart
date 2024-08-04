@@ -41,7 +41,7 @@ class ViContainer extends StatelessWidget {
         height: height,
         decoration: decoration ??
             BoxDecoration(
-                color: bgColor ?? AppColors.ligthGrey,
+                color: bgColor ?? AppColors.lightGrey,
                 border: Border.all(width: 2, color: AppColors.white),
                 borderRadius: borderRadius,
                 gradient: gradient),

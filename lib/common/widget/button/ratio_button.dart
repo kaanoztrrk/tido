@@ -31,7 +31,7 @@ class ViRotioButton extends StatelessWidget {
         height: size,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: bgColor ?? AppColors.ligthGrey.withOpacity(0.7),
+          color: bgColor ?? AppColors.lightGrey.withOpacity(0.7),
           image: hasImage
               ? DecorationImage(
                   image: isNetworkImage

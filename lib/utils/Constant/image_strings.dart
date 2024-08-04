@@ -21,4 +21,8 @@ class ViImages {
   //*  empty screen
   static const String empty_screen_image_1 =
       "assets/image/empty_screen/empty_screen_image.png";
+
+  static const String texture_1 = "assets/image/theme/texture/texture_1.jpg";
+  static const String texture_2 = "assets/image/theme/texture/texture_2.jpg";
+  static const String texture_3 = "assets/image/theme/texture/texture_3.jpg";
 }

@@ -30,7 +30,7 @@ class HomeHeader extends StatelessWidget {
                   style: dark
                       ? ViTextTheme.darkTextTheme.headlineLarge?.copyWith(
                           fontWeight: FontWeight.w500,
-                          color: AppColors.ligthGrey,
+                          color: AppColors.lightGrey,
                         )
                       : ViTextTheme.ligthTextTheme.headlineLarge?.copyWith(
                           fontWeight: FontWeight.w500,

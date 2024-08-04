@@ -28,8 +28,9 @@ class NotificationView extends StatelessWidget {
                 horizontal: ViSizes.defaultSpace,
                 vertical: ViSizes.spaceBtwItems / 2),
             padding: const EdgeInsets.all(ViSizes.defaultSpace / 2),
-            child: const ListTile(
-              leading: Icon(Iconsax.message, color: AppColors.primary),
+            child: ListTile(
+              leading:
+                  Icon(Iconsax.message, color: Theme.of(context).primaryColor),
               title: ViPrimaryTitle(title: "Notification Title"),
               subtitle: ViPrimaryTitle(
                 title: "Notification Subtitle",

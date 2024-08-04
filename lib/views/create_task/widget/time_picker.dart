@@ -61,7 +61,9 @@ class _ViTimePickerState extends State<ViTimePicker> {
           : Container(
               margin: const EdgeInsets.only(bottom: ViSizes.sm),
               decoration: BoxDecoration(
-                color: widget.isActive ? AppColors.white : AppColors.primary,
+                color: widget.isActive
+                    ? AppColors.white
+                    : Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(50),
               ),
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),

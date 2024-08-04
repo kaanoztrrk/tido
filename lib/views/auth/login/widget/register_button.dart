@@ -37,8 +37,8 @@ class ViRichTexts extends StatelessWidget {
               if (boldText != null)
                 TextSpan(
                   text: boldText,
-                  style: const TextStyle(
-                    color: AppColors.primary,
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.bold,
                   ),
                   recognizer: TapGestureRecognizer()..onTap = onSignInTap,

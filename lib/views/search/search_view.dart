@@ -77,7 +77,6 @@ class SearchView extends StatelessWidget {
                             margin: EdgeInsets.only(top: ViSizes.defaultSpace),
                             padding: EdgeInsets.all(ViSizes.defaultSpace),
                             height: 120,
-                            gradient: AppColors.primaryGradientButton,
                             borderRadius: BorderRadius.circular(30),
                             child: Text(
                               task.title,
@@ -98,7 +97,7 @@ class SearchView extends StatelessWidget {
 
                           return ViContainer(
                             height: 80,
-                            bgColor: AppColors.primary,
+                            bgColor: Theme.of(context).primaryColor,
                             borderRadius: BorderRadius.circular(30),
                             child: ListTile(
                               title: Text(

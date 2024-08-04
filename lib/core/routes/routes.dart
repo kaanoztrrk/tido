@@ -13,6 +13,7 @@ class ViRoutes {
   static const String create_task = '/create_task';
   static const String image_folder_detailes = "/image_folder_detailes";
   static const String doc_folder_detailes = "/doc_folder_detailes";
+  static const String search_view = '/search_view';
 
   //* Settigs
   static const String edit_page = '/edit_page';
@@ -29,5 +30,5 @@ class ViRoutes {
 
   static const String notification_page = '/notification_page';
   static const String task_detail_view = '/task_detail_view';
-  static const String search_view = '/search_view';
+  static const String theme_view = '/theme_view';
 }

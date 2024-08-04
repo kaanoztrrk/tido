@@ -99,8 +99,8 @@ class HomeView extends StatelessWidget {
                                     },
                                     child: ViContainer(
                                       bgColor: state.taskCategoryIndex == index
-                                          ? AppColors.primary
-                                          : AppColors.ligthGrey,
+                                          ? Theme.of(context).primaryColor
+                                          : AppColors.lightGrey,
                                       margin: const EdgeInsets.only(
                                           right: ViSizes.sm),
                                       padding: const EdgeInsets.symmetric(
@@ -128,17 +128,16 @@ class HomeView extends StatelessWidget {
                                             controller: controller,
                                             context: context),
                                     child: ViContainer(
-                                      bgColor: AppColors.ligthGrey,
+                                      bgColor: AppColors.lightGrey,
                                       margin: const EdgeInsets.only(
                                           right: ViSizes.sm),
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
                                       borderRadius: BorderRadius.circular(50),
-                                      child: const Center(
-                                        child: Icon(
-                                          Icons.add,
-                                          color: AppColors.primary,
-                                        ),
+                                      child: Center(
+                                        child: Icon(Icons.add,
+                                            color:
+                                                Theme.of(context).primaryColor),
                                       ),
                                     ),
                                   );

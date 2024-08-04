@@ -34,7 +34,7 @@ class ViSquareContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ViRotioButton(
-              bgColor: AppColors.primary,
+              bgColor: Theme.of(context).primaryColor,
               child: Icon(
                 icon,
                 color: AppColors.white,

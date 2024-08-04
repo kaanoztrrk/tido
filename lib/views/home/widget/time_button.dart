@@ -32,7 +32,7 @@ class ViTimeButton extends StatelessWidget {
       builder: (context, state) {
         return Container(
           decoration: BoxDecoration(
-            color: AppColors.primary,
+            color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(50),
           ),
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),

@@ -75,7 +75,6 @@ class _RegisterViewState extends State<RegisterView> {
                   const SizedBox(height: ViSizes.spaceBtwSections),
                   const ViFormDivider(dividerText: ViTexts.or),
                   const SizedBox(height: ViSizes.spaceBtwSections),
-                  const ViSocialButtons(),
                   const Spacer(),
                   ViRichTexts(
                     onSignInTap: () => context.pop(),

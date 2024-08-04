@@ -95,7 +95,7 @@ class _ViProfileSelectionWidgetState extends State<ViProfileSelectionWidget> {
           right: 0,
           child: ViRotioButton(
             size: 40,
-            bgColor: AppColors.primary,
+            bgColor: Theme.of(context).primaryColor,
             child: const Icon(
               Iconsax.edit,
               color: AppColors.white,

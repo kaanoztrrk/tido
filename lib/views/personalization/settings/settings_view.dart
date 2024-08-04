@@ -7,11 +7,13 @@ import 'package:tido/blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:tido/blocs/auth_blocs/sign_in_bloc/sign_in_event.dart';
 import 'package:tido/blocs/home_bloc/home_bloc.dart';
 import 'package:tido/blocs/home_bloc/home_event.dart';
+import 'package:tido/blocs/theme_bloc/theme_bloc.dart';
 import 'package:tido/common/bottom_sheet/are_you_sure.dart';
 import 'package:tido/common/styles/container_style.dart';
 import 'package:tido/common/widget/Text/title.dart';
 import 'package:tido/common/widget/button/primary_button.dart';
 import 'package:tido/core/locator/locator.dart';
+import 'package:tido/core/routes/routes.dart';
 import 'package:tido/core/widget/user/profile_image.dart';
 import 'package:tido/utils/Constant/sizes.dart';
 import 'package:tido/utils/Device/device_utility.dart';
@@ -20,6 +22,7 @@ import 'package:tido/utils/Snackbar/snacbar_service.dart';
 
 import '../../../blocs/auth_blocs/authentication_bloc/authentication_state.dart';
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_state.dart';
+import '../../../blocs/theme_bloc/theme_state.dart';
 import '../../../utils/Constant/colors.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 
@@ -34,7 +37,8 @@ class SettingsView extends StatelessWidget {
         BlocProvider<HomeBloc>.value(value: getIt<HomeBloc>()),
         BlocProvider<AuthenticationBloc>.value(
             value: getIt<AuthenticationBloc>()),
-        BlocProvider<SignInBloc>.value(value: getIt<SignInBloc>())
+        BlocProvider<SignInBloc>.value(value: getIt<SignInBloc>()),
+        BlocProvider<ThemeBloc>.value(value: getIt<ThemeBloc>())
       ],
       child: Scaffold(
         body: Padding(
@@ -68,7 +72,7 @@ class SettingsView extends StatelessWidget {
                                   ?.copyWith(color: AppColors.secondaryText),
                         ),
                         const SizedBox(height: ViSizes.spaceBtwItems),
-                        const ViPrimaryButton(
+                        ViPrimaryButton(
                           text: "Edit Profile",
                           height: 50,
                           width: 120,
@@ -88,9 +92,10 @@ class SettingsView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       child: Column(
                         children: [
-                          const ListTile(
-                            leading: Icon(Iconsax.color_swatch),
-                            title: Text("Theme"),
+                          ListTile(
+                            onTap: () => context.push(ViRoutes.theme_view),
+                            leading: const Icon(Iconsax.color_swatch),
+                            title: const Text("Theme"),
                           ),
                           const Padding(
                             padding: EdgeInsets.symmetric(
@@ -124,13 +129,18 @@ class SettingsView extends StatelessWidget {
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
                           ),
-                          ListTile(
-                            leading: const Icon(Icons.vibration),
-                            title: const Text("Task completion tone"),
-                            trailing: Switch(
-                              value: false,
-                              onChanged: (value) {},
-                            ),
+                          BlocBuilder<ThemeBloc, ThemeState>(
+                            builder: (context, state) {
+                              return ListTile(
+                                leading: const Icon(Icons.vibration),
+                                title: const Text("Task completion tone"),
+                                trailing: Switch(
+                                  inactiveThumbColor: state.primaryColor,
+                                  value: false,
+                                  onChanged: (value) {},
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),

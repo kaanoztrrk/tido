@@ -34,7 +34,7 @@ class ViAppBar extends StatelessWidget implements PreferredSizeWidget {
       padding: const EdgeInsets.symmetric(horizontal: ViSizes.md),
       child: AppBar(
         centerTitle: centerTitle,
-        backgroundColor: AppColors.ligth,
+        backgroundColor: AppColors.light,
         automaticallyImplyLeading: false,
         leading: showBackArrow
             ? ViRotioButton(

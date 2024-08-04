@@ -112,6 +112,9 @@ flutter:
     - assets/image/empty_screen/
     - assets/image/logo/
     - assets/image/user/
+    - assets/image/theme/
+    - assets/image/theme/texture/
+    - assets/image/theme/background_image/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

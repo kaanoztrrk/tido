@@ -90,20 +90,20 @@ class _ScheduleViewState extends State<ScheduleView> {
 
       // Özelleştirme
       headerStyle: HeaderStyle(
-        titleTextStyle: const TextStyle(
+        titleTextStyle: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: AppColors.primary),
+            color: Theme.of(context).primaryColor),
         formatButtonVisible: true,
         leftChevronIcon:
-            const Icon(Icons.chevron_left, color: AppColors.primary),
+            Icon(Icons.chevron_left, color: Theme.of(context).primaryColor),
         rightChevronIcon:
-            const Icon(Icons.chevron_right, color: AppColors.primary),
+            Icon(Icons.chevron_right, color: Theme.of(context).primaryColor),
         decoration: BoxDecoration(
           color: Colors.grey[200],
         ),
       ),
-      calendarStyle: const CalendarStyle(
+      calendarStyle: CalendarStyle(
         isTodayHighlighted: true,
         selectedDecoration: BoxDecoration(
           color: AppColors.darkgrey,
@@ -111,7 +111,7 @@ class _ScheduleViewState extends State<ScheduleView> {
         ),
         selectedTextStyle: TextStyle(color: Colors.white),
         todayDecoration: BoxDecoration(
-          color: AppColors.primary,
+          color: Theme.of(context).primaryColor,
           shape: BoxShape.circle,
         ),
         todayTextStyle: TextStyle(color: Colors.white),
