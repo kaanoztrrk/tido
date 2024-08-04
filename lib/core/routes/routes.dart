@@ -29,4 +29,5 @@ class ViRoutes {
 
   static const String notification_page = '/notification_page';
   static const String task_detail_view = '/task_detail_view';
+  static const String search_view = '/search_view';
 }

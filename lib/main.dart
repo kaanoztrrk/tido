@@ -4,6 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:tido/app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'core/locator/locator.dart';
+import 'data/models/category_model/category_model.dart';
 import 'data/models/task_model/task_model.dart';
 import 'firebase_options.dart';
 
@@ -19,8 +20,10 @@ void main() async {
   await Hive.initFlutter();
 
   Hive.registerAdapter(TaskModelAdapter());
+  Hive.registerAdapter(CategoryModelAdapter());
 
   await Hive.openBox<TaskModel>('allTasksBox');
+  await Hive.openBox<CategoryModel>('allCategoryBox');
 
   await EmailOTP.config(
     appName: 'TiDo',

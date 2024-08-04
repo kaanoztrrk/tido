@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:hive/hive.dart';
+import '../../data/models/category_model/category_model.dart';
 import '../../data/models/task_model/task_model.dart';
 import 'home_event.dart';
 import 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final Box<TaskModel> taskBox = Hive.box<TaskModel>('allTasksBox');
+  final Box<CategoryModel> categoryBox =
+      Hive.box<CategoryModel>('allCategoryBox');
   Timer? _timer;
 
   HomeBloc() : super(HomeState.initial()) {
@@ -23,14 +26,18 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<DeleteAllTasksEvent>(_deleteAllTasks);
     on<UpdateToDoEvent>(_updateTask);
     on<LoadTasksEvent>(_loadTasks);
+    on<LoadCategoryEvent>(_loadCategory);
     on<SearchTasksEvent>(_searchTasks);
     on<StartTimerEvent>(_startTimer);
     on<UpdateRemainingTimeEvent>(_updateRemainingTime);
-    on<AddCategoryEvent>(_addCategory);
-    on<RemoveCategoryEvent>(_removeCategory);
-
+    on<AddCategoryEvent>(_createCategory);
+    on<DeleteCategoryEvent>(_deleteCategory);
+    on<UpdateCategoryEvent>(_updateCategory);
+    on<DeleteAllCategoryEvent>(_deleteAllCategory);
+    // Initial Events
     add(StartTimerEvent());
     add(LoadTasksEvent());
+    add(LoadCategoryEvent());
   }
 
   void _onUpdateTab(UpdateTab event, Emitter<HomeState> emit) {
@@ -81,7 +88,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     if (index != -1) {
       updatedAllTasksList[index] = event.newTask;
-      taskBox.putAt(index, event.newTask);
+      taskBox.putAt(index, event.newTask); // Update task
     }
 
     emit(state.copyWith(allTasksList: updatedAllTasksList));
@@ -99,12 +106,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       updatedAllTasksList[index] = updatedTask;
 
       try {
-        await taskBox.putAt(index, updatedTask); // Asenkron işlemi bekleyin
-        print("Görev durumu başarıyla güncellendi: $updatedTask");
+        await taskBox.putAt(index, updatedTask); // Async operation
         emit(state.copyWith(allTasksList: updatedAllTasksList));
       } catch (error) {
-        print("Görev durumu güncellenirken hata oluştu: $error");
-        // Hata durumunda gerekli işlemleri yapabilirsiniz
+        print("Error updating task: $error");
       }
     }
   }
@@ -112,6 +117,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   void _loadTasks(LoadTasksEvent event, Emitter<HomeState> emit) {
     List<TaskModel> tasks = taskBox.values.toList();
     emit(state.copyWith(allTasksList: tasks));
+  }
+
+  void _loadCategory(LoadCategoryEvent event, Emitter<HomeState> emit) {
+    List<CategoryModel> categories = categoryBox.values.toList();
+    // Ensure "All" category is included and immutable
+    final allCategory = CategoryModel(name: "All", id: "all");
+    final updatedCategories =
+        [allCategory] + categories.where((cat) => cat.id != "all").toList();
+    emit(state.copyWith(allCategoryList: updatedCategories));
   }
 
   void _searchTasks(SearchTasksEvent event, Emitter<HomeState> emit) {
@@ -124,10 +138,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   void _onSwipeCard(SwipeCard event, Emitter<HomeState> emit) {
-    final List<String> updatedList = List.from(state.taskCategoryList);
-    final swipedTask = updatedList.removeAt(event.index);
-    updatedList.add(swipedTask);
-    emit(state.copyWith(taskCategoryList: updatedList));
+    final List<CategoryModel> updatedList = List.from(state.allCategoryList);
+    final swipedCategory = updatedList.removeAt(event.index);
+    updatedList.add(swipedCategory);
+    emit(state.copyWith(allCategoryList: updatedList));
   }
 
   void _onTimeSelected(TimeSelected event, Emitter<HomeState> emit) {
@@ -172,7 +186,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       final task = state.allTasksList.first;
       final now = DateTime.now();
 
-      // taskTime'ı null kontrolü ve geçerli DateTime formatına dönüştürme
+      // Check for null taskTime and parse valid DateTime format
       if (task.taskTime == null) {
         emit(state.copyWith(
           remainingTime: "",
@@ -185,7 +199,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       try {
         taskTime = DateTime.parse(task.taskTime.toString());
       } catch (e) {
-        print("Tarih formatı hatalı: $e");
+        print("Invalid date format: $e");
         emit(state.copyWith(
           remainingTime: "Invalid Date Format",
           currentTask: task,
@@ -211,29 +225,71 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   String _formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
-    String hours = twoDigits(duration.inHours.remainder(24));
-    String minutes = twoDigits(duration.inMinutes.remainder(60));
-    String seconds = twoDigits(duration.inSeconds.remainder(60));
-    return "$hours:$minutes:$seconds";
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    return '$minutes:$seconds';
   }
 
-  void _addCategory(AddCategoryEvent event, Emitter<HomeState> emit) {
-    List<String> updatedCategoryList = List.of(state.taskCategoryList);
-    if (!updatedCategoryList.contains(event.categoryName)) {
-      updatedCategoryList.add(event.categoryName);
+  void _createCategory(AddCategoryEvent event, Emitter<HomeState> emit) {
+    List<CategoryModel> updatedCategoryList = List.of(state.allCategoryList);
+
+    CategoryModel newCategory = CategoryModel(
+      name: event.categoryName,
+    );
+
+    // Ekleme işlemi sırasında key ayarlanmadan önce
+    final id = categoryBox.add(newCategory);
+    newCategory = newCategory.copyWith(id: id.toString());
+
+    updatedCategoryList.add(newCategory);
+    emit(state.copyWith(allCategoryList: updatedCategoryList));
+  }
+
+  void _deleteAllCategory(
+      DeleteAllCategoryEvent event, Emitter<HomeState> emit) async {
+    await categoryBox.clear();
+    emit(state.copyWith(allCategoryList: []));
+  }
+
+  void _deleteCategory(
+      DeleteCategoryEvent event, Emitter<HomeState> emit) async {
+    List<CategoryModel> updatedAllCategoryList = List.of(state.allCategoryList);
+    int categoryIndex = updatedAllCategoryList
+        .indexWhere((cat) => cat.name == event.categoryModel.name);
+
+    if (categoryIndex != -1) {
+      final categoryId = categoryBox.keys.firstWhere(
+        (key) => categoryBox.get(key)?.name == event.categoryModel.name,
+        orElse: () => null,
+      );
+
+      if (categoryId != null) {
+        await categoryBox.delete(categoryId);
+        updatedAllCategoryList.removeAt(categoryIndex);
+      }
     }
-    emit(state.copyWith(taskCategoryList: updatedCategoryList));
+
+    emit(state.copyWith(allCategoryList: updatedAllCategoryList));
   }
 
-  void _removeCategory(RemoveCategoryEvent event, Emitter<HomeState> emit) {
-    List<String> updatedCategoryList = List.of(state.taskCategoryList);
-    updatedCategoryList.remove(event.categoryName);
-    emit(state.copyWith(taskCategoryList: updatedCategoryList));
-  }
+  void _updateCategory(
+      UpdateCategoryEvent event, Emitter<HomeState> emit) async {
+    List<CategoryModel> updatedAllCategoryList = List.of(state.allCategoryList);
+    int index = updatedAllCategoryList
+        .indexWhere((cat) => cat.name == event.oldCategory.name);
 
-  @override
-  Future<void> close() {
-    _timer?.cancel();
-    return super.close();
+    if (index != -1) {
+      updatedAllCategoryList[index] = event.newCategory;
+      final categoryId = categoryBox.keys.firstWhere(
+        (key) => categoryBox.get(key)?.name == event.oldCategory.name,
+        orElse: () => null,
+      );
+
+      if (categoryId != null) {
+        await categoryBox.put(categoryId, event.newCategory);
+      }
+    }
+
+    emit(state.copyWith(allCategoryList: updatedAllCategoryList));
   }
 }

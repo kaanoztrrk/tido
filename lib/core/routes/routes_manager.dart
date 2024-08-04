@@ -15,6 +15,7 @@ import 'package:tido/views/auth/login/login_view.dart';
 import 'package:tido/views/auth/otp/otp_view.dart';
 import 'package:tido/views/navigators/home_navigator.dart';
 import 'package:tido/views/notificaition_view/notification_view.dart';
+import 'package:tido/views/search/search_view.dart';
 
 import '../../data/repositories/firebase_user_repositories.dart';
 import '../../views/auth/email_validate/email_validate.dart';
@@ -213,6 +214,15 @@ final GoRouter router = GoRouter(
       path: ViRoutes.notification_page,
       builder: (BuildContext context, GoRouterState state) {
         return const NotificationView();
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.search_view,
+      builder: (BuildContext context, GoRouterState state) {
+        return BlocProvider.value(
+          value: getIt<HomeBloc>(),
+          child: const SearchView(),
+        );
       },
     ),
   ],

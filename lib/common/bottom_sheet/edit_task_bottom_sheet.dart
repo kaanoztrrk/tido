@@ -5,6 +5,7 @@ import 'package:tido/data/models/task_model/task_model.dart';
 import 'package:tido/utils/Snackbar/snacbar_service.dart';
 
 import '../../blocs/home_bloc/home_event.dart';
+import '../../data/models/category_model/category_model.dart';
 import '../../utils/Constant/colors.dart';
 import '../../utils/Constant/sizes.dart';
 import '../../utils/Device/device_utility.dart';
@@ -93,13 +94,13 @@ class ViEditBottomSheet {
 
   static void onEditCategoryBottomSheet({
     required BuildContext context,
-    required String categoryName,
+    required CategoryModel oldCategory,
     required HomeBloc bloc,
-    required int index,
   }) {
     final TextEditingController controller =
-        TextEditingController(text: categoryName);
+        TextEditingController(text: oldCategory.name);
     var dark = ViHelpersFunctions.isDarkMode(context);
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -119,9 +120,10 @@ class ViEditBottomSheet {
                   padding: const EdgeInsets.only(left: 5, top: 10),
                   height: 65,
                   decoration: BoxDecoration(
-                      color: dark ? AppColors.black : AppColors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all()),
+                    color: dark ? AppColors.black : AppColors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(),
+                  ),
                   child: TextField(
                     controller: controller,
                     decoration: InputDecoration(
@@ -148,14 +150,15 @@ class ViEditBottomSheet {
                   onTap: () {
                     final updatedCategoryName = controller.text;
                     if (updatedCategoryName.isNotEmpty) {
-                      bloc.add(
-                        UpdateCategoryEvent(
-                          oldCategoryName: categoryName,
-                          newCategoryName: updatedCategoryName,
-                        ) as HomeEvent,
+                      final newCategory = oldCategory.copyWith(
+                        name: updatedCategoryName,
                       );
+
+                      bloc.add(UpdateCategoryEvent(
+                          oldCategory: oldCategory, newCategory: newCategory));
+
                       ViSnackbar.showSuccess(
-                          context, "Category added successfully");
+                          context, "Category updated successfully");
                       Navigator.pop(context);
                     } else {
                       ViSnackbar.showWarning(

@@ -6,8 +6,13 @@ import 'package:tido/utils/Helpers/helpers_functions.dart';
 import '../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class ViEmptyScreen extends StatelessWidget {
-  const ViEmptyScreen({super.key, required this.title, required this.subTitle});
+  const ViEmptyScreen(
+      {super.key,
+      required this.title,
+      required this.subTitle,
+      required this.image});
 
+  final String image;
   final String title;
   final String subTitle;
 
@@ -16,7 +21,7 @@ class ViEmptyScreen extends StatelessWidget {
     var dark = ViHelpersFunctions.isDarkMode(context);
     return Column(
       children: [
-        Image.asset(ViImages.empty_screen_image_1),
+        Image(image: AssetImage(image)),
         Text(
           title,
           style: dark

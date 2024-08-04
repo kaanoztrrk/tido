@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:tido/data/models/category_model/category_model.dart';
 import 'package:tido/data/models/task_model/task_model.dart';
 
 abstract class HomeEvent extends Equatable {
@@ -13,24 +14,36 @@ class UpdateTab extends HomeEvent {
   final int index;
 
   const UpdateTab(this.index);
+
+  @override
+  List<Object> get props => [index];
 }
 
 class CategoryUpdateTab extends HomeEvent {
   final int index;
 
   const CategoryUpdateTab(this.index);
+
+  @override
+  List<Object> get props => [index];
 }
 
 class SwipeCard extends HomeEvent {
   final int index;
 
   const SwipeCard(this.index);
+
+  @override
+  List<Object> get props => [index];
 }
 
-class AddCategory extends HomeEvent {
+class AddCategoryEvent extends HomeEvent {
   final String categoryName;
 
-  const AddCategory(this.categoryName);
+  const AddCategoryEvent(this.categoryName);
+
+  @override
+  List<Object> get props => [categoryName];
 }
 
 class TimeSelected extends HomeEvent {
@@ -55,6 +68,9 @@ class ReminderSelected extends HomeEvent {
   final Duration reminderDuration;
 
   const ReminderSelected(this.reminderDuration);
+
+  @override
+  List<Object> get props => [reminderDuration];
 }
 
 class FilterTasksByDate extends HomeEvent {
@@ -80,6 +96,15 @@ class CreateToDoEvent extends HomeEvent {
     this.participantImages,
     this.files,
   });
+
+  @override
+  List<Object> get props => [
+        title,
+        description ?? '',
+        taskTime ?? DateTime.now(),
+        participantImages ?? [],
+        files ?? []
+      ];
 }
 
 class ChangeCheckBoxEvent extends HomeEvent {
@@ -90,12 +115,18 @@ class ChangeCheckBoxEvent extends HomeEvent {
     required this.isChecked,
     required this.task,
   });
+
+  @override
+  List<Object> get props => [isChecked, task];
 }
 
 class DeleteToDoEvent extends HomeEvent {
   final TaskModel task;
 
   const DeleteToDoEvent({required this.task});
+
+  @override
+  List<Object> get props => [task];
 }
 
 class UpdateToDoEvent extends HomeEvent {
@@ -106,6 +137,9 @@ class UpdateToDoEvent extends HomeEvent {
     required this.oldTask,
     required this.newTask,
   });
+
+  @override
+  List<Object> get props => [oldTask, newTask];
 }
 
 class LoadTasksEvent extends HomeEvent {}
@@ -123,38 +157,37 @@ class StartTimerEvent extends HomeEvent {}
 
 class UpdateRemainingTimeEvent extends HomeEvent {
   final String remainingTime;
+
   const UpdateRemainingTimeEvent(this.remainingTime);
+
+  @override
+  List<Object> get props => [remainingTime];
 }
 
 class DeleteAllTasksEvent extends HomeEvent {}
 
-class AddCategoryEvent extends HomeEvent {
-  final String categoryName;
+class DeleteAllCategoryEvent extends HomeEvent {}
 
-  const AddCategoryEvent(this.categoryName);
+class LoadCategoryEvent extends HomeEvent {}
 
-  @override
-  List<Object> get props => [categoryName];
-}
+class DeleteCategoryEvent extends HomeEvent {
+  final CategoryModel categoryModel;
 
-class RemoveCategoryEvent extends HomeEvent {
-  final String categoryName;
-
-  const RemoveCategoryEvent(this.categoryName);
+  const DeleteCategoryEvent({required this.categoryModel});
 
   @override
-  List<Object> get props => [categoryName];
+  List<Object> get props => [categoryModel];
 }
 
-class UpdateCategoryEvent extends Equatable {
-  final String oldCategoryName;
-  final String newCategoryName;
+class UpdateCategoryEvent extends HomeEvent {
+  final CategoryModel oldCategory;
+  final CategoryModel newCategory;
 
   const UpdateCategoryEvent({
-    required this.oldCategoryName,
-    required this.newCategoryName,
+    required this.oldCategory,
+    required this.newCategory,
   });
 
   @override
-  List<Object?> get props => [oldCategoryName, newCategoryName];
+  List<Object> get props => [oldCategory, newCategory];
 }

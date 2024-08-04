@@ -251,6 +251,9 @@ class SettingsView extends StatelessWidget {
                                     try {
                                       BlocProvider.of<HomeBloc>(context)
                                           .add(DeleteAllTasksEvent());
+                                      BlocProvider.of<HomeBloc>(context)
+                                          .add(DeleteAllCategoryEvent());
+
                                       ViSnackbar.showSuccess(
                                           context, "Progress Complated");
                                       context.pop();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:tido/blocs/home_bloc/home_event.dart';
 import 'package:tido/common/bottom_sheet/add_category_bottom_sheet.dart';
 import 'package:tido/common/bottom_sheet/task_option_bottom_sheet.dart';
@@ -9,6 +10,7 @@ import 'package:tido/common/layout/swiper_layout.dart';
 import 'package:tido/common/styles/container_style.dart';
 import 'package:tido/core/routes/routes.dart';
 import 'package:tido/utils/Constant/colors.dart';
+import 'package:tido/utils/Constant/image_strings.dart';
 import 'package:tido/utils/Constant/sizes.dart';
 import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
 import '../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
@@ -16,10 +18,12 @@ import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_state.dart';
 import '../../common/bottom_sheet/edit_task_bottom_sheet.dart';
 import '../../common/widget/appbar/home_appbar.dart';
+import '../../common/widget/button/ratio_button.dart';
 import '../../common/widget/task_tile/main_task_tile.dart';
 import '../../core/locator/locator.dart';
 import '../../data/models/task_model/task_model.dart';
 import '../../utils/Helpers/helpers_functions.dart';
+import 'widget/category_list.dart';
 import 'widget/home_header.dart';
 
 class HomeView extends StatelessWidget {
@@ -54,83 +58,109 @@ class HomeView extends StatelessWidget {
                         padding: EdgeInsets.all(ViSizes.defaultSpace),
                         child: HomeHeader()),
                     const SizedBox(height: ViSizes.spaceBtwItems),
-                    SizedBox(
-                      height: 50,
-                      child: ListView.builder(
-                        padding: const EdgeInsets.only(left: 10),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: state.taskCategoryList.length + 1,
-                        itemBuilder: (context, index) {
-                          if (index < state.taskCategoryList.length) {
-                            return GestureDetector(
-                              onTap: () {
-                                BlocProvider.of<HomeBloc>(context)
-                                    .add(CategoryUpdateTab(index));
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            height: 50,
+                            child: ListView.builder(
+                              padding: const EdgeInsets.only(left: 10),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: state.allCategoryList.length + 1,
+                              itemBuilder: (context, index) {
+                                if (index < state.allCategoryList.length) {
+                                  final category = state.allCategoryList[index];
+                                  return GestureDetector(
+                                    onTap: () {
+                                      BlocProvider.of<HomeBloc>(context)
+                                          .add(CategoryUpdateTab(index));
+                                    },
+                                    onLongPress: () {
+                                      ViOptionBottomSheet()
+                                          .showEditCategoryBottomSheet(
+                                        context,
+                                        onEdit: () {
+                                          ViEditBottomSheet
+                                              .onEditCategoryBottomSheet(
+                                            context: context,
+                                            oldCategory: category,
+                                            bloc: BlocProvider.of<HomeBloc>(
+                                                context),
+                                          );
+                                        },
+                                        onDelete: () {
+                                          print("object");
+                                          BlocProvider.of<HomeBloc>(context)
+                                              .add(DeleteCategoryEvent(
+                                                  categoryModel: category));
+                                          Navigator.pop(context);
+                                        },
+                                      );
+                                    },
+                                    child: ViContainer(
+                                      bgColor: state.taskCategoryIndex == index
+                                          ? AppColors.primary
+                                          : AppColors.ligthGrey,
+                                      margin: const EdgeInsets.only(
+                                          right: ViSizes.sm),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Center(
+                                        child: Text(
+                                          "${category.name} (${state.getTaskCount(index)})",
+                                          style:
+                                              state.taskCategoryIndex == index
+                                                  ? ViTextTheme
+                                                      .darkTextTheme.titleSmall
+                                                  : ViTextTheme.ligthTextTheme
+                                                      .titleSmall,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  return GestureDetector(
+                                    onTap: () => ViAddCategoryBottomSheet
+                                        .onAddCategoryBottomSheet(
+                                            bloc: BlocProvider.of<HomeBloc>(
+                                                context),
+                                            controller: controller,
+                                            context: context),
+                                    child: ViContainer(
+                                      bgColor: AppColors.ligthGrey,
+                                      margin: const EdgeInsets.only(
+                                          right: ViSizes.sm),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: const Center(
+                                        child: Icon(
+                                          Icons.add,
+                                          color: AppColors.primary,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
                               },
-                              onLongPress: () {
-                                ViOptionBottomSheet()
-                                    .showEditCategoryBottomSheet(
-                                  context,
-                                  onEdit: () {
-                                    // Kategori düzenleme işlevi
-                                  },
-                                  onDelete: () {
-                                    final categoryName =
-                                        state.taskCategoryList[index];
-                                    BlocProvider.of<HomeBloc>(context)
-                                        .add(RemoveCategoryEvent(categoryName));
-                                    context.pop();
-                                  },
-                                );
-                              },
-                              child: ViContainer(
-                                bgColor: state.taskCategoryIndex == index
-                                    ? AppColors.primary
-                                    : AppColors.ligthGrey,
-                                margin:
-                                    const EdgeInsets.only(right: ViSizes.sm),
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                borderRadius: BorderRadius.circular(50),
-                                child: Center(
-                                  child: Text(
-                                    "${state.taskCategoryList[index]} (${state.getTaskCount(index)})",
-                                    style: state.taskCategoryIndex == index
-                                        ? ViTextTheme.darkTextTheme.titleSmall
-                                        : ViTextTheme.ligthTextTheme.titleSmall,
-                                  ),
-                                ),
-                              ),
-                            );
-                          } else {
-                            return GestureDetector(
-                              onTap: () => ViAddCategoryBottomSheet
-                                  .onAddCategoryBottomSheet(
-                                      bloc: BlocProvider.of<HomeBloc>(context),
-                                      controller: controller,
-                                      context: context),
-                              child: ViContainer(
-                                bgColor: AppColors.ligthGrey,
-                                margin:
-                                    const EdgeInsets.only(right: ViSizes.sm),
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                borderRadius: BorderRadius.circular(50),
-                                child: const Center(
-                                  child: Icon(
-                                    Icons.add,
-                                    color: AppColors.primary,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
-                        },
-                      ),
+                            ),
+                          ),
+                        ),
+                        ViRotioButton(
+                          onTap: () {
+                            context.push(ViRoutes.search_view);
+                          },
+                          bgColor: AppColors.white,
+                          child: const Icon(Iconsax.search_normal),
+                        ),
+                        SizedBox(width: ViSizes.sm),
+                      ],
                     ),
                     Expanded(
                       child: tasksToShow.isEmpty
                           ? const ViEmptyScreen(
+                              image: ViImages.empty_screen_image_1,
                               title: "No Tasks Found",
                               subTitle: "Start by adding a new task.",
                             )
