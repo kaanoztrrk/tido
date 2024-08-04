@@ -25,7 +25,7 @@ class ViPrimaryTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var dark = ViHelpersFunctions.isDarkMode(context);
-    var textStyle;
+    TextStyle? textStyle;
 
     if (smallText) {
       textStyle = dark

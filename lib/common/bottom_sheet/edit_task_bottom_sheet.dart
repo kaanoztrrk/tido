@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tido/blocs/home_bloc/home_bloc.dart';
 import 'package:tido/common/widget/button/primary_button.dart';
 import 'package:tido/data/models/task_model/task_model.dart';
+import 'package:tido/utils/Snackbar/snacbar_service.dart';
 
 import '../../blocs/home_bloc/home_event.dart';
 import '../../utils/Constant/colors.dart';
@@ -153,14 +154,12 @@ class ViEditBottomSheet {
                           newCategoryName: updatedCategoryName,
                         ) as HomeEvent,
                       );
+                      ViSnackbar.showSuccess(
+                          context, "Category added successfully");
                       Navigator.pop(context);
                     } else {
-                      // Optionally show an error if the new name is empty
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text("Category name cannot be empty."),
-                        ),
-                      );
+                      ViSnackbar.showWarning(
+                          context, "Category name cannot be empty.");
                     }
                   },
                 ),

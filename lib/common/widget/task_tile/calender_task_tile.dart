@@ -19,16 +19,16 @@ class CalenderTaskTile extends StatelessWidget {
     var dark = ViHelpersFunctions.isDarkMode(context);
     return ViContainer(
       gradient: AppColors.primaryGradientButton,
-      margin: EdgeInsets.all(ViSizes.md),
-      padding:
-          EdgeInsets.symmetric(horizontal: ViSizes.md, vertical: ViSizes.sm),
+      margin: const EdgeInsets.all(ViSizes.md),
+      padding: const EdgeInsets.symmetric(
+          horizontal: ViSizes.md, vertical: ViSizes.sm),
       borderRadius: BorderRadius.circular(ViSizes.borderRadiusLg * 2),
       height: 250,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: ViSizes.sm),
+          const SizedBox(height: ViSizes.sm),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -40,27 +40,25 @@ class CalenderTaskTile extends StatelessWidget {
                     : ViTextTheme.darkTextTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.w600, color: AppColors.white),
               ),
-              Container(
-                child: Row(
-                  children: [
-                    Text(
-                      "Details",
-                      style: dark
-                          ? ViTextTheme.ligthTextTheme.titleSmall?.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.softGrey)
-                          : ViTextTheme.darkTextTheme.titleSmall?.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.softGrey),
-                    ),
-                    Icon(Icons.arrow_right, color: AppColors.softGrey),
-                  ],
-                ),
+              Row(
+                children: [
+                  Text(
+                    "Details",
+                    style: dark
+                        ? ViTextTheme.ligthTextTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.softGrey)
+                        : ViTextTheme.darkTextTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.softGrey),
+                  ),
+                  const Icon(Icons.arrow_right, color: AppColors.softGrey),
+                ],
               ),
             ],
           ),
           Padding(
-            padding: EdgeInsets.only(right: ViSizes.md),
+            padding: const EdgeInsets.only(right: ViSizes.md),
             child: Text(
               title ?? "",
               style: dark

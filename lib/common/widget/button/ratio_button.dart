@@ -35,8 +35,8 @@ class ViRotioButton extends StatelessWidget {
           image: hasImage
               ? DecorationImage(
                   image: isNetworkImage
-                      ? bgImage ?? AssetImage(ViImages.default_user)
-                      : bgImage ?? AssetImage(ViImages.default_user),
+                      ? bgImage ?? const AssetImage(ViImages.default_user)
+                      : bgImage ?? const AssetImage(ViImages.default_user),
                   fit: BoxFit.cover,
                 )
               : null,

@@ -1,11 +1,10 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tido/common/widget/button/ratio_button.dart';
 import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Helpers/helpers_functions.dart';
 
-import '../../../blocs/home_bloc/home_bloc.dart';
-import '../../../blocs/home_bloc/home_event.dart';
 import '../../../utils/Constant/sizes.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 
@@ -16,12 +15,12 @@ class ViTimePicker extends StatefulWidget {
   final ValueChanged<TimeOfDay?> onTimeSelected;
 
   const ViTimePicker({
-    Key? key,
+    super.key,
     required this.icon,
     this.selectedTime,
     required this.isActive,
     required this.onTimeSelected,
-  }) : super(key: key);
+  });
 
   @override
   _ViTimePickerState createState() => _ViTimePickerState();

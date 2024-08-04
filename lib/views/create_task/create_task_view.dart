@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tido/blocs/home_bloc/home_bloc.dart';
 import 'package:tido/common/widget/appbar/appbar.dart';
 import 'package:tido/common/widget/button/ratio_button.dart';
+import 'package:tido/utils/Snackbar/snacbar_service.dart';
 import 'package:tido/views/create_task/widget/date_picker.dart';
 import 'package:tido/views/create_task/widget/folder_upload.dart';
 
@@ -122,7 +123,6 @@ class _CreateTaskViewState extends State<CreateTaskView> {
                       setState(() {
                         selectedFiles = files;
                       });
-                      print('Selected Files: $files');
                     },
                   ),
                 ),
@@ -142,10 +142,9 @@ class _CreateTaskViewState extends State<CreateTaskView> {
                       files: selectedFiles,
                     ),
                   );
-                  print(descriptionController.text);
-                  ViLoaders().showSuccessMessage(
-                      context, "Task created successfully.");
-                  context.pop(); // GoRouter context.pop kullanımı
+
+                  ViSnackbar.showSuccess(context, "Task created successfully.");
+                  context.pop();
                   ViDeviceUtils.hideKeyboard(context);
                 }
               },

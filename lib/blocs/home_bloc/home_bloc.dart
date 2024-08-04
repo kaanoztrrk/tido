@@ -87,7 +87,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(state.copyWith(allTasksList: updatedAllTasksList));
   }
 
-  void _changeCheckBox(ChangeCheckBoxEvent event, Emitter<HomeState> emit) {
+  void _changeCheckBox(
+      ChangeCheckBoxEvent event, Emitter<HomeState> emit) async {
     int index =
         state.allTasksList.indexWhere((task) => task.id == event.task.id);
 
@@ -97,9 +98,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       List<TaskModel> updatedAllTasksList = List.from(state.allTasksList);
       updatedAllTasksList[index] = updatedTask;
 
-      taskBox.putAt(index, updatedTask);
-
-      emit(state.copyWith(allTasksList: updatedAllTasksList));
+      try {
+        await taskBox.putAt(index, updatedTask); // Asenkron işlemi bekleyin
+        print("Görev durumu başarıyla güncellendi: $updatedTask");
+        emit(state.copyWith(allTasksList: updatedAllTasksList));
+      } catch (error) {
+        print("Görev durumu güncellenirken hata oluştu: $error");
+        // Hata durumunda gerekli işlemleri yapabilirsiniz
+      }
     }
   }
 
@@ -165,7 +171,28 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (state.allTasksList.isNotEmpty) {
       final task = state.allTasksList.first;
       final now = DateTime.now();
-      final taskTime = DateTime.parse(task.taskTime.toString());
+
+      // taskTime'ı null kontrolü ve geçerli DateTime formatına dönüştürme
+      if (task.taskTime == null) {
+        emit(state.copyWith(
+          remainingTime: "",
+          currentTask: task,
+        ));
+        return;
+      }
+
+      DateTime taskTime;
+      try {
+        taskTime = DateTime.parse(task.taskTime.toString());
+      } catch (e) {
+        print("Tarih formatı hatalı: $e");
+        emit(state.copyWith(
+          remainingTime: "Invalid Date Format",
+          currentTask: task,
+        ));
+        return;
+      }
+
       final difference = taskTime.difference(now);
 
       String remainingTime;
@@ -183,7 +210,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   String _formatDuration(Duration duration) {
-    return "${duration.inHours}:${duration.inMinutes.remainder(60)}:${duration.inSeconds.remainder(60)}";
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    String hours = twoDigits(duration.inHours.remainder(24));
+    String minutes = twoDigits(duration.inMinutes.remainder(60));
+    String seconds = twoDigits(duration.inSeconds.remainder(60));
+    return "$hours:$minutes:$seconds";
   }
 
   void _addCategory(AddCategoryEvent event, Emitter<HomeState> emit) {

@@ -8,7 +8,6 @@ import 'package:tido/utils/Helpers/helpers_functions.dart';
 
 import '../../../blocs/home_bloc/home_bloc.dart';
 import '../../../blocs/home_bloc/home_state.dart';
-import '../../../common/bottom_sheet/task_detail_bottom_sheet.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class ViTimeButton extends StatelessWidget {

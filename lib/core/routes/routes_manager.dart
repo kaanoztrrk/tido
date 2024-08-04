@@ -35,10 +35,7 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: ViRoutes.login,
       builder: (BuildContext context, GoRouterState state) {
-        return BlocProvider.value(
-          value: getIt<SignInBloc>(),
-          child: const LoginView(),
-        );
+        return LoginView();
       },
     ),
     GoRoute(

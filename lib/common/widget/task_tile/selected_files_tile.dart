@@ -24,8 +24,8 @@ class SelectedFilesTile extends StatelessWidget {
         children: [
           const SizedBox(width: ViSizes.md),
           ViRotioButton(
-            child: leading,
             bgColor: AppColors.primary,
+            child: leading,
           ),
           const SizedBox(width: ViSizes.md),
           Text(

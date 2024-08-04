@@ -85,7 +85,7 @@ class _HomeNavigatorState extends State<HomeNavigator> {
       case 0:
         return const HomeView();
       case 1:
-        return ScheduleView();
+        return const ScheduleView();
       case 2:
         return const DocumentView();
       case 3:

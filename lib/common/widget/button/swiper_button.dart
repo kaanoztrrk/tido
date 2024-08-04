@@ -10,12 +10,14 @@ class ViSwiperButton extends StatefulWidget {
     this.width,
     this.height,
     this.text,
+    required this.isCompleted,
   });
 
   final VoidCallback? onSwipe;
   final double? width;
   final double? height;
   final String? text;
+  final bool isCompleted;
 
   @override
   _ViSwiperButtonState createState() => _ViSwiperButtonState();
@@ -23,7 +25,7 @@ class ViSwiperButton extends StatefulWidget {
 
 class _ViSwiperButtonState extends State<ViSwiperButton> {
   double _dragPosition = 0.0;
-  bool _isCompleted = false;
+
   bool _enabled = true;
 
   void _onHorizontalDragUpdate(DragUpdateDetails details) {
@@ -37,7 +39,6 @@ class _ViSwiperButtonState extends State<ViSwiperButton> {
         _dragPosition = 0;
       } else if (_dragPosition >= maxDrag) {
         _dragPosition = maxDrag;
-        _isCompleted = true;
         _enabled = false;
         widget.onSwipe!();
 
@@ -46,14 +47,12 @@ class _ViSwiperButtonState extends State<ViSwiperButton> {
             _dragPosition = 0;
           });
         });
-      } else {
-        _isCompleted = false;
       }
     });
   }
 
   void _onHorizontalDragEnd(DragEndDetails details) {
-    if (!_isCompleted && _enabled) {
+    if (!widget.isCompleted && _enabled) {
       setState(() {
         _dragPosition = 0;
       });
@@ -65,7 +64,7 @@ class _ViSwiperButtonState extends State<ViSwiperButton> {
     return Center(
       child: ViContainer(
         width: widget.width ?? MediaQuery.of(context).size.width * 0.65,
-        bgColor: _isCompleted
+        bgColor: widget.isCompleted
             ? AppColors.success
             : AppColors.ligthGrey.withOpacity(0.5),
         borderRadius: BorderRadius.circular(ViSizes.borderRadiusLg * 2),
@@ -78,7 +77,7 @@ class _ViSwiperButtonState extends State<ViSwiperButton> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  _isCompleted
+                  widget.isCompleted
                       ? "Completed"
                       : (widget.text ?? "Drag to mark done"),
                   style: const TextStyle(
@@ -86,7 +85,7 @@ class _ViSwiperButtonState extends State<ViSwiperButton> {
                     fontSize: 16.0,
                   ),
                 ),
-                _isCompleted
+                widget.isCompleted
                     ? const SizedBox(width: 20)
                     : const Padding(
                         padding: EdgeInsets.only(right: 10),
@@ -109,11 +108,12 @@ class _ViSwiperButtonState extends State<ViSwiperButton> {
                   height: 60.0,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: _isCompleted ? Colors.green : AppColors.primary,
+                    color:
+                        widget.isCompleted ? Colors.green : AppColors.primary,
                   ),
                   child: Icon(
                     Icons.chevron_right,
-                    color: _isCompleted ? Colors.white : AppColors.white,
+                    color: widget.isCompleted ? Colors.white : AppColors.white,
                   ),
                 ),
               ),

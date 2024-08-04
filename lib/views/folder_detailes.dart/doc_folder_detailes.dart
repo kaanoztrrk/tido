@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tido/blocs/home_bloc/home_bloc.dart';
-import 'package:tido/common/widget/appbar/home_appbar.dart';
 import 'package:tido/common/widget/task_tile/selected_files_tile.dart';
 import 'package:tido/data/models/task_model/task_model.dart';
 import 'package:tido/utils/Constant/colors.dart';
@@ -50,13 +49,6 @@ class DocFolderDetailesView extends StatelessWidget {
                     itemCount: tasks.length,
                     itemBuilder: (context, index) {
                       final task = tasks[index];
-                      final imageFiles = task.files?.where((filePath) {
-                            final fileExtension =
-                                filePath.split('.').last.toLowerCase();
-                            return ['jpg', 'jpeg', 'png']
-                                .contains(fileExtension);
-                          }).toList() ??
-                          [];
                       final docFiles = task.files?.where((filePath) {
                             final fileExtension =
                                 filePath.split('.').last.toLowerCase();
@@ -74,7 +66,7 @@ class DocFolderDetailesView extends StatelessWidget {
                                 leading: _buildFileItem(filePath),
                                 title: filePath.split('/').last,
                               );
-                            }).toList(),
+                            }),
                           ],
                         ],
                       );

@@ -6,8 +6,6 @@ import 'package:tido/utils/Helpers/helpers_functions.dart';
 import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
 import 'package:tido/common/widget/Text/title.dart';
 
-import 'package:tido/views/task_detail/widget/task_info.dart';
-
 void showTaskDetailBottomSheet(BuildContext context, TaskModel task) {
   var dark = ViHelpersFunctions.isDarkMode(context);
 
@@ -35,10 +33,10 @@ void showTaskDetailBottomSheet(BuildContext context, TaskModel task) {
                     : ViTextTheme.ligthTextTheme.headlineLarge
                         ?.copyWith(fontWeight: FontWeight.w600),
               ),
-              SizedBox(height: ViSizes.spaceBtwSections),
-              ViPrimaryTitle(title: "DESCRIPTION"),
-              SizedBox(height: ViSizes.spaceBtwItems),
-              ViPrimaryTitle(
+              const SizedBox(height: ViSizes.spaceBtwSections),
+              const ViPrimaryTitle(title: "DESCRIPTION"),
+              const SizedBox(height: ViSizes.spaceBtwItems),
+              const ViPrimaryTitle(
                 title:
                     "Reprehenderit excepteur ad irure magna sit adipisicing. Reprehenderit excepteur ad irure magna sit adipisicing.",
                 smallText: true,

@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
 import 'dart:io';
 
@@ -59,11 +59,11 @@ class _ViProfileSelectionWidgetState extends State<ViProfileSelectionWidget> {
 
       // Handle success
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Profile image updated successfully')),
+        const SnackBar(content: Text('Profile image updated successfully')),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to update profile image')),
+        const SnackBar(content: Text('Failed to update profile image')),
       );
     }
   }

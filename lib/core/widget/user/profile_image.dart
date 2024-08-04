@@ -1,11 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tido/core/routes/routes.dart';
 import 'package:tido/utils/Constant/image_strings.dart';
+import 'package:tido/utils/Snackbar/snacbar_service.dart';
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_event.dart';
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_state.dart';
@@ -50,7 +51,7 @@ class _ViProfileImageState extends State<ViProfileImage> {
       });
       context.read<SignInBloc>().add(UploadProfileImage(_image!));
     } else {
-      print('No image selected.');
+      ViSnackbar.showWarning(context, " No image selected.");
     }
   }
 

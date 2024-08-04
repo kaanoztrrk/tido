@@ -12,9 +12,14 @@ import 'package:tido/common/widget/login_signup/login_divider.dart';
 import 'package:tido/utils/Constant/text_strings.dart';
 import 'package:tido/utils/Helpers/helpers_functions.dart';
 import 'package:tido/views/auth/login/widget/register_button.dart';
+import '../../../blocs/auth_blocs/authentication_bloc/authentication_bloc.dart';
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_event.dart';
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_state.dart';
+import '../../../blocs/home_bloc/home_bloc.dart';
+import '../../../common/styles/container_style.dart';
+import '../../../utils/Constant/image_strings.dart';
+import '../../../utils/Device/device_utility.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 import '../../../utils/validators/validationHelpers.dart';
 import '../../../common/widget/login_signup/login_header.dart';
@@ -38,8 +43,12 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     var dark = ViHelpersFunctions.isDarkMode(context);
-    return BlocProvider.value(
-      value: getIt<SignInBloc>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: getIt<HomeBloc>()),
+        BlocProvider.value(value: getIt<AuthenticationBloc>()),
+        BlocProvider.value(value: getIt<SignInBloc>()),
+      ],
       child: BlocListener<SignInBloc, SignInState>(
         listener: (context, state) {
           if (state is SignInSuccess) {
@@ -136,7 +145,24 @@ class _LoginViewState extends State<LoginView> {
                   const SizedBox(height: ViSizes.spaceBtwSections),
                   const ViFormDivider(dividerText: ViTexts.or),
                   const SizedBox(height: ViSizes.spaceBtwSections),
-                  const ViSocialButtons(),
+                  Center(
+                    child: ViContainer(
+                      onTap: () {
+                        BlocProvider.of<SignInBloc>(context)
+                            .add(GoogleSignInRequired());
+                      },
+                      height: 50,
+                      width: ViDeviceUtils.getScreenWidth(context) * 0.7,
+                      borderRadius: BorderRadius.circular(20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(ViImages.googleLogo),
+                          Text("Sign in with Google")
+                        ],
+                      ),
+                    ),
+                  ),
                   const Spacer(),
                   ViRichTexts(
                     onSignInTap: () => context.push(ViRoutes.register),

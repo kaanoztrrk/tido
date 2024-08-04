@@ -11,15 +11,12 @@ import 'package:tido/common/bottom_sheet/are_you_sure.dart';
 import 'package:tido/common/styles/container_style.dart';
 import 'package:tido/common/widget/Text/title.dart';
 import 'package:tido/common/widget/button/primary_button.dart';
-import 'package:tido/common/widget/button/ratio_button.dart';
 import 'package:tido/core/locator/locator.dart';
 import 'package:tido/core/widget/user/profile_image.dart';
 import 'package:tido/utils/Constant/sizes.dart';
 import 'package:tido/utils/Device/device_utility.dart';
 import 'package:tido/utils/Helpers/helpers_functions.dart';
-import 'package:tido/utils/Loader/vi_loader.dart';
 import 'package:tido/utils/Snackbar/snacbar_service.dart';
-import 'package:tido/utils/logging/logger.dart';
 
 import '../../../blocs/auth_blocs/authentication_bloc/authentication_state.dart';
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_state.dart';
@@ -227,20 +224,20 @@ class SettingsView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       child: Column(
                         children: [
-                          ListTile(
+                          const ListTile(
                             leading: Icon(Iconsax.data),
                             title: Text("Data Storage"),
                           ),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
                           ),
-                          ListTile(
+                          const ListTile(
                             leading: Icon(Iconsax.layer),
                             title: Text("Backup Location"),
                           ),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
@@ -268,15 +265,15 @@ class SettingsView extends StatelessWidget {
                                   subTitle:
                                       "This action cannot be undone. Are you sure you want to continue?");
                             },
-                            leading: Icon(Iconsax.trash),
-                            title: Text("Clear Data"),
+                            leading: const Icon(Iconsax.trash),
+                            title: const Text("Clear Data"),
                           ),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
                           ),
-                          ListTile(
+                          const ListTile(
                             leading: Icon(Iconsax.password_check),
                             title: Text("Password"),
                           ),

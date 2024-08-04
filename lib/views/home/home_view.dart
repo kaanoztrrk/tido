@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:tido/blocs/home_bloc/home_event.dart';
 import 'package:tido/common/bottom_sheet/add_category_bottom_sheet.dart';
 import 'package:tido/common/bottom_sheet/task_option_bottom_sheet.dart';
@@ -171,6 +170,8 @@ class HomeView extends StatelessWidget {
                                       .showOptionBottomSheet(
                                     context,
                                     onEdit: () {
+                                      print(
+                                          "Edit option selected"); // Log for debugging
                                       ViEditBottomSheet.onEditBottomSheet(
                                         context: context,
                                         task: task,
@@ -180,13 +181,24 @@ class HomeView extends StatelessWidget {
                                       );
                                     },
                                     onDelete: () {
-                                      print("Deleting task"); // Kontrol için
+                                      print(
+                                          "Delete option selected"); // Log for debugging
                                       BlocProvider.of<HomeBloc>(context)
                                           .add(DeleteToDoEvent(task: task));
                                       context.pop();
                                     },
-                                    onMarkAsComplete: () {},
+                                    onMarkAsComplete: () {
+                                      print(
+                                          "Mark as complete option selected"); // Log for debugging
+                                      BlocProvider.of<HomeBloc>(context).add(
+                                        ChangeCheckBoxEvent(
+                                          isChecked: !task.isChecked,
+                                          task: task,
+                                        ),
+                                      );
+                                    },
                                   ),
+                                  isCompleted: task.isChecked,
                                 );
                               },
                             ),

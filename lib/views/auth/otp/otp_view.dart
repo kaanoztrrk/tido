@@ -1,5 +1,6 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:email_otp/email_otp.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tido/common/widget/button/primary_button.dart';
@@ -12,7 +13,7 @@ import 'package:tido/views/auth/otp/widget/otp_textfield.dart';
 import '../../../common/widget/appbar/appbar.dart';
 
 class OtpView extends StatefulWidget {
-  const OtpView({Key? key}) : super(key: key);
+  const OtpView({super.key});
 
   @override
   _OtpViewState createState() => _OtpViewState();

@@ -58,7 +58,12 @@ class ViOptionBottomSheet {
   GestureDetector _itemTile(
       VoidCallback? ontap, bool dark, IconData icon, String title) {
     return GestureDetector(
-      onTap: ontap,
+      onTap: () {
+        if (ontap != null) {
+          print("Item tapped: $title"); // Log for debugging
+          ontap();
+        }
+      },
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),

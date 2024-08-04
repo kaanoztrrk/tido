@@ -30,3 +30,9 @@ class UploadProfileImage extends SignInEvent {
 }
 
 class LoadUserProfileImage extends SignInEvent {}
+
+class GoogleSignInRequired extends SignInEvent {}
+
+class FacebookSignInRequired extends SignInEvent {}
+
+class AppleSignInRequired extends SignInEvent {}

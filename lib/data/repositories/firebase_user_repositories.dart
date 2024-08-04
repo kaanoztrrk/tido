@@ -1,16 +1,19 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:path/path.dart' as path;
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../models/user_model/models.dart';
 import 'user_repo.dart';
 
 class FirebaseUserRepo implements UserRepository {
   final FirebaseAuth _firebaseAuth;
   final userCollection = FirebaseFirestore.instance.collection('user');
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   FirebaseUserRepo({
     FirebaseAuth? firebaseAuth,
@@ -103,5 +106,45 @@ class FirebaseUserRepo implements UserRepository {
   @override
   Future<void> logOut() async {
     await _firebaseAuth.signOut();
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser!.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      return await _firebaseAuth.signInWithCredential(credential);
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  // Apple Sign-In
+  Future<UserCredential> signInWithApple() async {
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName
+        ],
+      );
+
+      final authCredential = OAuthProvider("apple.com").credential(
+        idToken: credential.identityToken,
+        accessToken: credential.authorizationCode,
+      );
+
+      return await _firebaseAuth.signInWithCredential(authCredential);
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
   }
 }

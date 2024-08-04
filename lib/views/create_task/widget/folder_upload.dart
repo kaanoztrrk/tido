@@ -1,23 +1,21 @@
-import 'dart:io';
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:tido/common/styles/square_container_style.dart';
-import 'package:tido/common/widget/button/ratio_button.dart';
 import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Constant/sizes.dart';
+import 'package:tido/utils/Snackbar/snacbar_service.dart';
 
 import '../../../common/bottom_sheet/files_bottom_sheet.dart';
-import '../../../common/styles/container_style.dart';
-import '../../../common/widget/task_tile/selected_files_tile.dart';
 import '../../../utils/Helpers/helpers_functions.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class ViFolderUpload extends StatefulWidget {
   final Function(List<String>) onFilesSelected;
 
-  const ViFolderUpload({Key? key, required this.onFilesSelected})
-      : super(key: key);
+  const ViFolderUpload({super.key, required this.onFilesSelected});
 
   @override
   _ViFolderUploadState createState() => _ViFolderUploadState();
@@ -26,7 +24,7 @@ class ViFolderUpload extends StatefulWidget {
 class _ViFolderUploadState extends State<ViFolderUpload> {
   List<String>? _selectedFiles;
   final ViUploadBottomSheet _bottomSheet = ViUploadBottomSheet();
-  bool _isGridView = false;
+  final bool _isGridView = false;
 
   Future<void> _pickFiles() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -42,7 +40,7 @@ class _ViFolderUploadState extends State<ViFolderUpload> {
       });
       widget.onFilesSelected(_selectedFiles!);
     } else {
-      print("No file selected");
+      ViSnackbar.showWarning(context, "No file selected");
     }
   }
 

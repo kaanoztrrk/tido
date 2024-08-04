@@ -11,9 +11,13 @@ abstract class UserRepository {
 
   Future<void> setUserData(UserModel userModel);
 
-  Future<void> signIn(String email, password);
+  Future<void> signIn(String email, String password);
 
   Future<void> logOut();
 
   Future<void> uploadProfileImage(File image);
+
+  Future<void> signInWithGoogle();
+
+  Future<void> signInWithApple();
 }

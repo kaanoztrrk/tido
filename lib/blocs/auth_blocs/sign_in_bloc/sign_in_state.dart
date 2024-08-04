@@ -28,11 +28,11 @@ class ProfileImageUploadSuccess extends SignInState {}
 class ProfileImageUploadFailure extends SignInState {
   final String message;
 
-  ProfileImageUploadFailure(this.message);
+  const ProfileImageUploadFailure(this.message);
 }
 
 class ProfileImageLoaded extends SignInState {
   final String? profileImageUrl;
 
-  ProfileImageLoaded({this.profileImageUrl});
+  const ProfileImageLoaded({this.profileImageUrl});
 }

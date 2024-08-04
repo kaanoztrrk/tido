@@ -1,7 +1,4 @@
-// DocumentView widget'ı
-
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -12,9 +9,6 @@ import 'package:tido/common/widget/task_tile/selected_files_tile.dart';
 import 'package:tido/data/models/task_model/task_model.dart';
 import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Constant/sizes.dart';
-import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
-
 import '../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import '../../blocs/home_bloc/home_state.dart';
 import '../../common/styles/square_container_style.dart';
@@ -27,7 +21,6 @@ class DocumentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dark = ViHelpersFunctions.isDarkMode(context);
     return MultiBlocProvider(
         providers: [
           BlocProvider.value(value: getIt<HomeBloc>()),
@@ -68,8 +61,8 @@ class DocumentView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: ViSizes.spaceBtwSections),
-                  ViPrimaryTitle(title: "RECEND FILES"),
+                  const SizedBox(height: ViSizes.spaceBtwSections),
+                  const ViPrimaryTitle(title: "RECEND FILES"),
                   Expanded(child: BlocBuilder<HomeBloc, HomeState>(
                     builder: (context, state) {
                       final List<TaskModel> tasks = state.allTasksList;

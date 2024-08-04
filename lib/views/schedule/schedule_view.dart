@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -14,6 +16,8 @@ import '../../core/locator/locator.dart';
 import '../../utils/Constant/sizes.dart';
 
 class ScheduleView extends StatefulWidget {
+  const ScheduleView({super.key});
+
   @override
   _ScheduleViewState createState() => _ScheduleViewState();
 }

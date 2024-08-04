@@ -13,6 +13,7 @@ class HomeMainTaskTile extends StatelessWidget {
     super.key,
     required this.timer,
     required this.title,
+    required this.isCompleted,
     this.onSwipe,
     this.onTap,
   });
@@ -21,6 +22,7 @@ class HomeMainTaskTile extends StatelessWidget {
   final String title;
   final Function()? onSwipe;
   final Function()? onTap;
+  final bool isCompleted;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,8 @@ class HomeMainTaskTile extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: ViSizes.defaultSpace * 2),
+              padding: const EdgeInsets.symmetric(
+                  vertical: ViSizes.defaultSpace * 2),
               alignment: Alignment.bottomLeft,
               child: Text(
                 title,
@@ -76,24 +79,18 @@ class HomeMainTaskTile extends StatelessWidget {
             children: [
               ViSwiperButton(
                 onSwipe: onSwipe,
+                isCompleted: isCompleted,
               ),
               ViRotioButton(
                 onTap: onTap,
                 size: 70,
                 bgColor: AppColors.white,
-                child: Icon(Iconsax.edit_2),
+                child: const Icon(Iconsax.edit_2),
               ),
             ],
           ),
         ],
       ),
     );
-  }
-
-  String _formatTimer(String timer) {
-    // Timer formatını burada kısaltabilirsiniz.
-    // Örneğin, sadece saat ve dakikayı göstermek için.
-    DateTime dateTime = DateTime.parse(timer);
-    return "${dateTime.hour}:${dateTime.minute}";
   }
 }

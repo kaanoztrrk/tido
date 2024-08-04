@@ -30,7 +30,7 @@ class _RegisterViewState extends State<RegisterView> {
     final nameController = TextEditingController();
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     return BlocListener<SignUpBloc, SignUpState>(
       listener: (context, state) {
         if (state is SignUpSuccess) {
@@ -58,7 +58,7 @@ class _RegisterViewState extends State<RegisterView> {
                       subTitle: ViTexts.register_welcome_subTitle),
                   const SizedBox(height: ViSizes.spaceBtwSections),
                   ViRegisterForm(
-                    formKey: _formKey,
+                    formKey: formKey,
                     emailController: emailController,
                     nameController: nameController,
                     obscureTextValue: state.obscurePassword,
@@ -86,7 +86,7 @@ class _RegisterViewState extends State<RegisterView> {
                   ViPrimaryButton(
                     text: ViTexts.signUp,
                     onTap: () {
-                      if (_formKey.currentState!.validate()) {
+                      if (formKey.currentState!.validate()) {
                         UserModel myUser = UserModel.empty;
                         myUser = myUser.copyWith(
                           email: emailController.text,

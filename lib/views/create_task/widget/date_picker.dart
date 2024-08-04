@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:tido/common/styles/container_style.dart';
@@ -11,8 +13,7 @@ import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 class ViDatePicker extends StatefulWidget {
   final Function(DateTime) onDateTimeChanged;
 
-  const ViDatePicker({Key? key, required this.onDateTimeChanged})
-      : super(key: key);
+  const ViDatePicker({super.key, required this.onDateTimeChanged});
 
   @override
   _ViDatePickerState createState() => _ViDatePickerState();
@@ -57,21 +58,21 @@ class _ViDatePickerState extends State<ViDatePicker> {
     return GestureDetector(
       onTap: _pickDateTime,
       child: ViContainer(
-        margin: EdgeInsets.all(ViSizes.sm / 2),
-        padding: EdgeInsets.all(ViSizes.sm),
+        margin: const EdgeInsets.all(ViSizes.sm / 2),
+        padding: const EdgeInsets.all(ViSizes.sm),
         borderRadius: BorderRadius.circular(30),
         height: 200,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ViRotioButton(
+            const ViRotioButton(
               bgColor: AppColors.primary,
               child: Icon(
                 Iconsax.calendar_1,
                 color: AppColors.white,
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Row(
               children: [
                 _selectedDateTime != null

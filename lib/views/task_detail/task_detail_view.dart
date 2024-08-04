@@ -1,14 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:tido/data/models/task_model/task_model.dart';
 import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Constant/sizes.dart';
 import 'package:tido/utils/Device/device_utility.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
 import 'package:tido/views/task_detail/widget/task_info.dart';
 
 import '../../blocs/home_bloc/home_bloc.dart';
@@ -24,7 +21,6 @@ class TaskDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dark = ViHelpersFunctions.isDarkMode(context);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(ViSizes.defaultSpace),
@@ -83,7 +79,7 @@ class TaskDetailView extends StatelessWidget {
                     builder: (context, state) {
                       return ListView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         reverse: false,
                         itemCount: state.allTasksList.length,
                         itemBuilder: (context, index) {
