@@ -32,7 +32,6 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var dark = ViHelpersFunctions.isDarkMode(context);
-    final TextEditingController controller = TextEditingController();
     return MultiBlocProvider(
         providers: [
           BlocProvider.value(value: getIt<HomeBloc>()),
@@ -66,14 +65,17 @@ class HomeView extends StatelessWidget {
                             child: ListView.builder(
                               padding: const EdgeInsets.only(left: 10),
                               scrollDirection: Axis.horizontal,
-                              itemCount: state.allCategoryList.length + 1,
+                              itemCount:
+                                  1, // sadece 1 öğe göstermek için itemCount'ı 1 olarak ayarladık
                               itemBuilder: (context, index) {
-                                if (index < state.allCategoryList.length) {
-                                  final category = state.allCategoryList[index];
+                                if (index == 0 &&
+                                    state.allCategoryList.isNotEmpty) {
+                                  final category = state.allCategoryList[0];
                                   return GestureDetector(
                                     onTap: () {
-                                      BlocProvider.of<HomeBloc>(context)
-                                          .add(CategoryUpdateTab(index));
+                                      BlocProvider.of<HomeBloc>(context).add(
+                                          const CategoryUpdateTab(
+                                              0)); // sadece 0. index için güncelleme
                                     },
                                     onLongPress: () {
                                       ViOptionBottomSheet()
@@ -98,7 +100,7 @@ class HomeView extends StatelessWidget {
                                       );
                                     },
                                     child: ViContainer(
-                                      bgColor: state.taskCategoryIndex == index
+                                      bgColor: state.taskCategoryIndex == 0
                                           ? Theme.of(context).primaryColor
                                           : AppColors.lightGrey,
                                       margin: const EdgeInsets.only(
@@ -108,39 +110,19 @@ class HomeView extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(50),
                                       child: Center(
                                         child: Text(
-                                          "${category.name} (${state.getTaskCount(index)})",
-                                          style:
-                                              state.taskCategoryIndex == index
-                                                  ? ViTextTheme
-                                                      .darkTextTheme.titleSmall
-                                                  : ViTextTheme.ligthTextTheme
-                                                      .titleSmall,
+                                          "${category.name} (${state.getTaskCount(0)})",
+                                          style: state.taskCategoryIndex == 0
+                                              ? ViTextTheme
+                                                  .darkTextTheme.titleSmall
+                                              : ViTextTheme
+                                                  .ligthTextTheme.titleSmall,
                                         ),
                                       ),
                                     ),
                                   );
                                 } else {
-                                  return GestureDetector(
-                                    onTap: () => ViAddCategoryBottomSheet
-                                        .onAddCategoryBottomSheet(
-                                            bloc: BlocProvider.of<HomeBloc>(
-                                                context),
-                                            controller: controller,
-                                            context: context),
-                                    child: ViContainer(
-                                      bgColor: AppColors.lightGrey,
-                                      margin: const EdgeInsets.only(
-                                          right: ViSizes.sm),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      borderRadius: BorderRadius.circular(50),
-                                      child: Center(
-                                        child: Icon(Icons.add,
-                                            color:
-                                                Theme.of(context).primaryColor),
-                                      ),
-                                    ),
-                                  );
+                                  return const SizedBox
+                                      .shrink(); // diğer indexler için boş bir widget döndür
                                 }
                               },
                             ),
@@ -150,10 +132,9 @@ class HomeView extends StatelessWidget {
                           onTap: () {
                             context.push(ViRoutes.search_view);
                           },
-                          bgColor: AppColors.white,
                           child: const Icon(Iconsax.search_normal),
                         ),
-                        SizedBox(width: ViSizes.sm),
+                        const SizedBox(width: ViSizes.sm),
                       ],
                     ),
                     Expanded(
@@ -203,13 +184,8 @@ class HomeView extends StatelessWidget {
                                       .showOptionBottomSheet(
                                     context,
                                     onEdit: () {
-                                      ViEditBottomSheet.onEditBottomSheet(
-                                        context: context,
-                                        task: task,
-                                        bloc:
-                                            BlocProvider.of<HomeBloc>(context),
-                                        index: index,
-                                      );
+                                      context.push(ViRoutes.task_edit_view,
+                                          extra: task);
                                     },
                                     onDelete: () {
                                       BlocProvider.of<HomeBloc>(context)

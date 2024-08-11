@@ -3,32 +3,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tido/blocs/home_bloc/home_bloc.dart';
-import 'package:tido/common/widget/appbar/appbar.dart';
-import 'package:tido/common/widget/button/ratio_button.dart';
+import 'package:tido/blocs/home_bloc/home_event.dart';
+import 'package:tido/common/bottom_sheet/files_bottom_sheet.dart';
+import 'package:tido/data/models/task_model/task_model.dart';
 import 'package:tido/common/widget/label_widget.dart';
-import 'package:tido/utils/Snackbar/snacbar_service.dart';
-import 'package:tido/views/create_task/widget/date_picker.dart';
-import 'package:tido/views/create_task/widget/folder_upload.dart';
 
-import '../../blocs/home_bloc/home_event.dart';
 import '../../common/styles/container_style.dart';
 import '../../common/widget/Text/title.dart';
+import '../../common/widget/appbar/appbar.dart';
 import '../../common/widget/button/primary_button.dart';
+import '../../common/widget/button/ratio_button.dart';
 import '../../utils/Constant/colors.dart';
 import '../../utils/Constant/sizes.dart';
 import '../../utils/Device/device_utility.dart';
 import '../../utils/Helpers/helpers_functions.dart';
-import '../../utils/Loader/vi_loader.dart';
+import '../../utils/Snackbar/snacbar_service.dart';
 import '../../utils/Theme/custom_theme.dart/text_theme.dart';
+import '../create_task/widget/date_picker.dart';
+import '../create_task/widget/folder_upload.dart';
 
-class CreateTaskView extends StatefulWidget {
-  const CreateTaskView({super.key});
+class TaskEditView extends StatefulWidget {
+  final TaskModel task;
+  const TaskEditView({super.key, required this.task});
 
   @override
-  State<CreateTaskView> createState() => _CreateTaskViewState();
+  State<TaskEditView> createState() => _TaskEditViewState();
 }
 
-class _CreateTaskViewState extends State<CreateTaskView> {
+class _TaskEditViewState extends State<TaskEditView> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   DateTime? taskTime;
@@ -37,13 +39,24 @@ class _CreateTaskViewState extends State<CreateTaskView> {
   List<String> label = [];
 
   @override
+  void initState() {
+    super.initState();
+    selectedFiles = widget.task.files ?? [];
+    titleController.text = widget.task.title ?? '';
+    descriptionController.text = widget.task.description ?? '';
+  }
+
+  @override
   Widget build(BuildContext context) {
     var dark = ViHelpersFunctions.isDarkMode(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: ViAppBar(
         leadingWidget: ViRotioButton(
-          onTap: () => context.pop(),
+          onTap: () {
+            context.pop();
+            context.pop();
+          },
           child: const Icon(CupertinoIcons.clear),
         ),
       ),
@@ -65,7 +78,7 @@ class _CreateTaskViewState extends State<CreateTaskView> {
                 controller: titleController,
                 decoration: InputDecoration(
                   filled: false,
-                  hintText: "Title",
+                  hintText: widget.task.title,
                   hintStyle: dark
                       ? ViTextTheme.darkTextTheme.titleLarge
                           ?.copyWith(fontWeight: FontWeight.normal)
@@ -91,7 +104,7 @@ class _CreateTaskViewState extends State<CreateTaskView> {
                 controller: descriptionController,
                 decoration: InputDecoration(
                   filled: false,
-                  hintText: "Description",
+                  hintText: widget.task.description,
                   hintStyle: dark
                       ? ViTextTheme.darkTextTheme.titleLarge
                           ?.copyWith(fontWeight: FontWeight.normal)
@@ -105,13 +118,19 @@ class _CreateTaskViewState extends State<CreateTaskView> {
                 ),
               ),
             ),
-            const SizedBox(height: ViSizes.spaceBtwSections),
+            const SizedBox(height: ViSizes.spaceBtwItems),
             const ViPrimaryTitle(title: "DETAILES"),
             const SizedBox(height: ViSizes.spaceBtwItems),
             Row(
               children: [
                 Flexible(
                   child: ViDatePicker(
+                    title: widget.task.formattedTaskTime.isNotEmpty
+                        ? "${widget.task.formattedTaskTime}\n"
+                        : "No Date\n",
+                    subtitle: widget.task.formattedDate.isNotEmpty
+                        ? widget.task.formattedDate
+                        : "Date Time\n",
                     onDateTimeChanged: (dateTime) {
                       setState(() {
                         taskTime = dateTime;
@@ -131,37 +150,44 @@ class _CreateTaskViewState extends State<CreateTaskView> {
                 ),
               ],
             ),
+            const SizedBox(height: ViSizes.spaceBtwItems / 2),
             ViLabeWidget(
               tags: label,
-              onTagsUpdated: (labels) {
-                setState(() {
-                  label = labels;
-                });
-              },
+              onTagsUpdated: (labels) {},
             ),
             const Spacer(),
             ViPrimaryButton(
               onTap: () {
                 if (titleController.text.isEmpty) {
-                } else {
-                  BlocProvider.of<HomeBloc>(context).add(
-                    CreateToDoEvent(
-                      title: titleController.text,
-                      description: descriptionController.text,
-                      taskTime: taskTime,
-                      participantImages: participantImages,
-                      files: selectedFiles,
-                      labels: label,
-                    ),
-                  );
-
-                  ViSnackbar.showSuccess(context, "Task created successfully.");
-                  context.pop();
-                  ViDeviceUtils.hideKeyboard(context);
+                  ViSnackbar.showError(context, "Title cannot be empty.");
+                  return;
                 }
+
+                final updatedTask = TaskModel(
+                  id: widget.task.id,
+                  taskTime: taskTime ?? widget.task.taskTime,
+                  title: titleController.text,
+                  description: descriptionController.text,
+                  files:
+                      selectedFiles.isEmpty ? widget.task.files : selectedFiles,
+                  labels: label.isNotEmpty ? label : widget.task.labels,
+                );
+
+                BlocProvider.of<HomeBloc>(context).add(
+                  UpdateToDoEvent(
+                    oldTask: widget.task, // Eski görev
+                    newTask: updatedTask, // Güncellenmiş görev
+                  ),
+                );
+
+                // Show success message and navigate back
+                ViSnackbar.showSuccess(context, "Task updated successfully.");
+                context.pop(context);
+                context.pop(context);
+                ViDeviceUtils.hideKeyboard(context);
               },
-              text: "Create Task",
-            ),
+              text: "Update Task",
+            )
           ],
         ),
       ),

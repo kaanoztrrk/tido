@@ -6,22 +6,16 @@ class AppColors {
   //* App Basic Colors
   static const Color primary = Color(0xffFE6E68);
   static const Color secondary = Color(0xffFE9F69);
-
-  static const Color thistle = Color(0xff023047);
-  static const Color thistleDark = Color(0xff219ebc); // Uyumlu geçiş rengi
-
-  static const Color fairyTile = Color(0xffFFC8DD);
-  static const Color fairyTileDark = Color(0xfff6a0b6); // Uyumlu geçiş rengi
-
-  static const Color carnotionPink = Color(0xffFFAFCC);
-  static const Color carnotionPinkDark =
-      Color(0xfff99acb); // Uyumlu geçiş rengi
-
-  static const Color uranianBlue = Color(0xffBDE0FE);
-  static const Color uranianBlueDark = Color(0xff8fc4e3); // Uyumlu geçiş rengi
-
-  static const Color ligthSkyBlue = Color(0xffA2D2FF);
-  static const Color ligthSkyBlueDark = Color(0xff7ab8d7); // Uyumlu geçiş rengi
+  static const Color darkGreen = Color(0xff264653);
+  static const Color green = Color(0xff2a9d8f);
+  static const Color yellow = Color(0xffe9c46a);
+  static const Color red = Color(0xffe63946);
+  static const Color darkBlue = Color(0xff03045e);
+  static const Color pink = Color(0xfff72585);
+  static const Color darkPurple = Color(0xff3c096c);
+  static const Color purple = Color(0xff9d4edd);
+  static const Color darkBrown = Color(0xff432818);
+  static const Color borwn = Color(0xff99582a);
 
   //* Texts Color
   static const Color primaryText = Color(0xff101214);
@@ -35,6 +29,7 @@ class AppColors {
   static const Color dark = Color(0xff161616);
 
   //* Gradient Colors
+  /*
   static const Gradient primaryGradientButton = LinearGradient(
     begin: Alignment(0.0, 0.0),
     end: Alignment(0.707, -0.707),
@@ -43,52 +38,7 @@ class AppColors {
       AppColors.secondary,
     ],
   );
-
-  static const Gradient thistleGradientButton = RadialGradient(
-    center: Alignment.center,
-    radius: 0.8,
-    colors: [
-      AppColors.thistle,
-      AppColors.thistleDark,
-    ],
-    stops: [
-      0.0,
-      1.0
-    ], // Optionally specify stops to control the gradient transition
-  );
-
-  static const Gradient fairyTileGradientButton = LinearGradient(
-    begin: Alignment(0.0, 0.0),
-    end: Alignment(0.707, -0.707),
-    colors: [
-      AppColors.fairyTile,
-      AppColors.fairyTileDark,
-    ],
-  );
-  static const Gradient carnotionPinkGradientButton = LinearGradient(
-    begin: Alignment(0.0, 0.0),
-    end: Alignment(0.707, -0.707),
-    colors: [
-      AppColors.carnotionPink,
-      AppColors.carnotionPinkDark,
-    ],
-  );
-  static const Gradient uranianBlueGradientButton = LinearGradient(
-    begin: Alignment(0.0, 0.0),
-    end: Alignment(0.707, -0.707),
-    colors: [
-      AppColors.uranianBlue,
-      AppColors.uranianBlueDark,
-    ],
-  );
-  static const Gradient ligthSkyBlueGradientButton = LinearGradient(
-    begin: Alignment(0.0, 0.0),
-    end: Alignment(0.707, -0.707),
-    colors: [
-      AppColors.ligthSkyBlue,
-      AppColors.ligthSkyBlueDark,
-    ],
-  );
+ */
 
   //* Error and Validation Colors
   static const Color error = Color(0xffd43f2f);

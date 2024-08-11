@@ -7,7 +7,13 @@ import '../widget/task_tile/selected_files_tile.dart';
 
 class ViUploadBottomSheet {
   void showFilesBottomSheet(
-      BuildContext context, bool isGridView, List<String>? selectedFiles) {
+    BuildContext context,
+    List<String>? initialFiles,
+  ) {
+    List<String> selectedFiles =
+        initialFiles != null ? List.from(initialFiles) : [];
+    Set<String> selectedItems = {}; // Seçili dosyalar için bir set
+
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -15,56 +21,49 @@ class ViUploadBottomSheet {
           builder: (BuildContext context, StateSetter setState) {
             return Container(
               padding: const EdgeInsets.all(ViSizes.sm),
-              height: 300,
+              height: 400, // Yüksekliği artırdık çünkü silme butonları eklendi
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Selected Files",
-                        style: ViTextTheme.ligthTextTheme.titleLarge,
-                      ),
-                      IconButton(
-                        icon: Icon(
-                            isGridView ? Icons.view_list : Icons.view_module),
-                        onPressed: () {
-                          setState(() {
-                            isGridView = !isGridView;
-                          });
-                        },
-                      )
-                    ],
-                  ),
                   Expanded(
-                    child: selectedFiles != null && selectedFiles.isNotEmpty
-                        ? isGridView
-                            ? GridView.builder(
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  crossAxisSpacing: 4.0,
-                                  mainAxisSpacing: 4.0,
-                                ),
-                                itemCount: selectedFiles.length,
-                                itemBuilder: (context, index) {
-                                  return GridTile(
-                                    child: _buildFileItem(selectedFiles[index]),
-                                  );
+                    child: selectedFiles.isNotEmpty
+                        ? ListView.builder(
+                            itemCount: selectedFiles.length,
+                            itemBuilder: (context, index) {
+                              return SelectedFilesTile(
+                                leading: _buildFileItem(selectedFiles[index]),
+                                title: selectedFiles[index].split('/').last,
+                                isSelected: selectedItems
+                                    .contains(selectedFiles[index]),
+                                onSelected: (isSelected) {
+                                  setState(() {
+                                    if (isSelected) {
+                                      selectedItems.add(selectedFiles[index]);
+                                    } else {
+                                      selectedItems
+                                          .remove(selectedFiles[index]);
+                                    }
+                                  });
                                 },
-                              )
-                            : ListView.builder(
-                                itemCount: selectedFiles.length,
-                                itemBuilder: (context, index) {
-                                  return SelectedFilesTile(
-                                      leading:
-                                          _buildFileItem(selectedFiles[index]),
-                                      title:
-                                          selectedFiles[index].split('/').last);
-                                },
-                              )
+                              );
+                            },
+                          )
                         : const Center(child: Text("No files selected")),
                   ),
+                  if (selectedItems
+                      .isNotEmpty) // Silme butonunu sadece dosya seçildiyse göster
+                    Padding(
+                      padding: const EdgeInsets.all(ViSizes.sm),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            selectedFiles.removeWhere(
+                                (file) => selectedItems.contains(file));
+                            selectedItems.clear();
+                          });
+                        },
+                        child: Text('Delete Selected Files'),
+                      ),
+                    ),
                 ],
               ),
             );

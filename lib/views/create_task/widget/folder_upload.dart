@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:iconsax/iconsax.dart';
@@ -7,24 +5,32 @@ import 'package:tido/common/styles/square_container_style.dart';
 import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Constant/sizes.dart';
 import 'package:tido/utils/Snackbar/snacbar_service.dart';
-
+import 'package:tido/utils/Helpers/helpers_functions.dart';
+import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
 import '../../../common/bottom_sheet/files_bottom_sheet.dart';
-import '../../../utils/Helpers/helpers_functions.dart';
-import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class ViFolderUpload extends StatefulWidget {
   final Function(List<String>) onFilesSelected;
+  final Function()? onLongPress;
+  final String? title;
+  final String? subtitle;
+  List<String>? selectedFiles;
 
-  const ViFolderUpload({super.key, required this.onFilesSelected});
+  ViFolderUpload({
+    Key? key,
+    required this.onFilesSelected,
+    this.title,
+    this.subtitle,
+    this.onLongPress,
+    this.selectedFiles,
+  }) : super(key: key);
 
   @override
   _ViFolderUploadState createState() => _ViFolderUploadState();
 }
 
 class _ViFolderUploadState extends State<ViFolderUpload> {
-  List<String>? _selectedFiles;
-  final ViUploadBottomSheet _bottomSheet = ViUploadBottomSheet();
-  final bool _isGridView = false;
+  bool _isGridView = false;
 
   Future<void> _pickFiles() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -34,83 +40,114 @@ class _ViFolderUploadState extends State<ViFolderUpload> {
     );
 
     if (result != null) {
+      List<String> newFiles =
+          result.paths.where((path) => path != null).cast<String>().toList();
+
       setState(() {
-        _selectedFiles =
-            result.paths.where((path) => path != null).cast<String>().toList();
+        widget.selectedFiles = [...?widget.selectedFiles, ...newFiles];
       });
-      widget.onFilesSelected(_selectedFiles!);
+
+      widget.onFilesSelected(widget.selectedFiles!);
     } else {
       ViSnackbar.showWarning(context, "No file selected");
     }
   }
 
-  void _showFilesBottomSheet(BuildContext context) {
-    _bottomSheet.showFilesBottomSheet(context, _isGridView, _selectedFiles);
+  void _showFilesBottomSheet() {
+    ViUploadBottomSheet().showFilesBottomSheet(
+      context,
+      widget.selectedFiles,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    var dark = ViHelpersFunctions.isDarkMode(context);
+    bool isDarkMode = ViHelpersFunctions.isDarkMode(context);
+
     return GestureDetector(
-        onTap: _pickFiles,
-        onLongPress: () => _showFilesBottomSheet(context),
-        child: ViSquareContainer(
-          icon: Iconsax.document5,
-          widget: Row(
-            children: [
-              _selectedFiles != null && _selectedFiles!.isNotEmpty
-                  ? Padding(
-                      padding: const EdgeInsets.all(ViSizes.sm),
-                      child: Text.rich(TextSpan(
-                          text: "${_selectedFiles!.length}\n",
-                          style: dark
-                              ? ViTextTheme.darkTextTheme.headlineLarge
-                                  ?.copyWith(
-                                      color: AppColors.white,
-                                      fontWeight: FontWeight.bold)
-                              : ViTextTheme.ligthTextTheme.headlineLarge
-                                  ?.copyWith(
-                                      color: AppColors.primaryText,
-                                      fontWeight: FontWeight.bold),
-                          children: [
-                            TextSpan(
-                              text: "Files attached",
-                              style: dark
-                                  ? ViTextTheme.darkTextTheme.titleLarge
-                                      ?.copyWith(color: AppColors.secondaryText)
-                                  : ViTextTheme.ligthTextTheme.titleLarge
-                                      ?.copyWith(
-                                          color: AppColors.secondaryText),
-                            )
-                          ])),
+      onTap: _pickFiles,
+      onLongPress: () {
+        if (widget.onLongPress != null) {
+          widget.onLongPress!();
+        }
+        _showFilesBottomSheet();
+      },
+      child: ViSquareContainer(
+        icon: Iconsax.document_1,
+        widget: Row(
+          children: [
+            if (widget.selectedFiles != null &&
+                widget.selectedFiles!.isNotEmpty)
+              _buildFilesCountText(isDarkMode)
+            else
+              _buildDefaultText(isDarkMode),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFilesCountText(bool isDarkMode) {
+    return Padding(
+      padding: const EdgeInsets.all(ViSizes.sm),
+      child: Text.rich(
+        TextSpan(
+          text: "${widget.selectedFiles!.length}\n",
+          style: isDarkMode
+              ? ViTextTheme.darkTextTheme.headlineLarge?.copyWith(
+                  color: AppColors.white,
+                  fontWeight: FontWeight.bold,
+                )
+              : ViTextTheme.ligthTextTheme.headlineLarge?.copyWith(
+                  color: AppColors.primaryText,
+                  fontWeight: FontWeight.bold,
+                ),
+          children: [
+            TextSpan(
+              text: "Files attached",
+              style: isDarkMode
+                  ? ViTextTheme.darkTextTheme.titleLarge?.copyWith(
+                      color: AppColors.secondaryText,
                     )
-                  : Padding(
-                      padding: const EdgeInsets.all(ViSizes.sm),
-                      child: Text.rich(TextSpan(
-                          text: "Selected\n",
-                          style: dark
-                              ? ViTextTheme.darkTextTheme.headlineMedium
-                                  ?.copyWith(
-                                      color: AppColors.white,
-                                      fontWeight: FontWeight.bold)
-                              : ViTextTheme.ligthTextTheme.headlineMedium
-                                  ?.copyWith(
-                                      color: AppColors.primaryText,
-                                      fontWeight: FontWeight.bold),
-                          children: [
-                            TextSpan(
-                              text: "Files",
-                              style: dark
-                                  ? ViTextTheme.darkTextTheme.titleLarge
-                                      ?.copyWith(color: AppColors.secondaryText)
-                                  : ViTextTheme.ligthTextTheme.titleLarge
-                                      ?.copyWith(
-                                          color: AppColors.secondaryText),
-                            )
-                          ])),
+                  : ViTextTheme.ligthTextTheme.titleLarge?.copyWith(
+                      color: AppColors.secondaryText,
+                    ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDefaultText(bool isDarkMode) {
+    return Padding(
+      padding: const EdgeInsets.all(ViSizes.sm),
+      child: Text.rich(
+        TextSpan(
+          text: widget.title ?? "Selected\n",
+          style: isDarkMode
+              ? ViTextTheme.darkTextTheme.headlineMedium?.copyWith(
+                  color: AppColors.white,
+                  fontWeight: FontWeight.bold,
+                )
+              : ViTextTheme.ligthTextTheme.headlineMedium?.copyWith(
+                  color: AppColors.primaryText,
+                  fontWeight: FontWeight.bold,
+                ),
+          children: [
+            TextSpan(
+              text: "Files",
+              style: isDarkMode
+                  ? ViTextTheme.darkTextTheme.titleLarge?.copyWith(
+                      color: AppColors.secondaryText,
                     )
-            ],
-          ),
-        ));
+                  : ViTextTheme.ligthTextTheme.titleLarge?.copyWith(
+                      color: AppColors.secondaryText,
+                    ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

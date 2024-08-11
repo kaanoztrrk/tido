@@ -88,6 +88,7 @@ class CreateToDoEvent extends HomeEvent {
   final DateTime? taskTime;
   final List<String>? participantImages;
   final List<String>? files;
+  final List<String>? labels;
 
   const CreateToDoEvent({
     required this.title,
@@ -95,6 +96,7 @@ class CreateToDoEvent extends HomeEvent {
     this.taskTime,
     this.participantImages,
     this.files,
+    this.labels,
   });
 
   @override
@@ -103,7 +105,8 @@ class CreateToDoEvent extends HomeEvent {
         description ?? '',
         taskTime ?? DateTime.now(),
         participantImages ?? [],
-        files ?? []
+        files ?? [],
+        labels ?? []
       ];
 }
 

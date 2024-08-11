@@ -14,6 +14,7 @@ class ViRoutes {
   static const String image_folder_detailes = "/image_folder_detailes";
   static const String doc_folder_detailes = "/doc_folder_detailes";
   static const String search_view = '/search_view';
+  static const String task_edit_view = '/task_edit_view';
 
   //* Settigs
   static const String edit_page = '/edit_page';

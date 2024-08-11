@@ -1,18 +1,18 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tido/blocs/main_bloc/main_bloc.dart';
 import 'package:tido/common/styles/container_style.dart';
 import 'package:tido/common/widget/Text/title.dart';
 import 'package:tido/common/widget/appbar/appbar.dart';
-import 'package:tido/common/widget/button/ratio_button.dart';
-import 'package:tido/core/locator/locator.dart';
+import 'package:tido/core/routes/routes.dart';
 import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Constant/sizes.dart';
 
 import '../../../blocs/theme_bloc/theme_bloc.dart';
 import '../../../blocs/theme_bloc/theme_event.dart';
 import '../../../blocs/theme_bloc/theme_state.dart';
+import '../../../core/locator/locator.dart';
 
 class ThemeView extends StatefulWidget {
   const ThemeView({super.key});
@@ -60,19 +60,11 @@ class _ThemeViewState extends State<ThemeView> {
                             _selectedColor = color;
                           });
 
-                          final gradientIndex =
-                              state.allColorList.indexOf(color);
-                          if (gradientIndex != -1) {
-                            final selectedGradient =
-                                state.allGradientList[gradientIndex];
-                            print(
-                                'Selected Gradient: $selectedGradient, COLOR : $color');
-                            context
-                                .read<ThemeBloc>()
-                                .add(ChangeThemeColorEvent(color));
-                            context.read<ThemeBloc>().add(
-                                ChangeButtonGradientEvent(selectedGradient));
-                          }
+                          context
+                              .read<ThemeBloc>()
+                              .add(ChangeThemeColorEvent(color));
+
+                          context.pop();
                         },
                         child: Container(
                           margin: const EdgeInsets.symmetric(horizontal: 5),
@@ -90,7 +82,10 @@ class _ThemeViewState extends State<ThemeView> {
                     },
                   ),
                 ),
-                const Padding(
+
+                /*
+                
+                 const Padding(
                   padding: EdgeInsets.all(ViSizes.defaultSpace),
                   child: ViPrimaryTitle(title: "Primary Texture"),
                 ),
@@ -99,9 +94,9 @@ class _ThemeViewState extends State<ThemeView> {
                   height: 100,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: state.allTextureList.length,
+                    itemCount: state.allBackgroundList.length,
                     itemBuilder: (context, index) {
-                      final background = state.allTextureList[index];
+                      final background = state.allBackgroundList[index];
                       final isSelected = background == _selectedImage;
 
                       return GestureDetector(
@@ -131,6 +126,7 @@ class _ThemeViewState extends State<ThemeView> {
                     },
                   ),
                 ),
+                 */
               ],
             ),
           );

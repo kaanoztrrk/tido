@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tido/blocs/theme_bloc/theme_bloc.dart';
 import 'package:tido/common/styles/container_style.dart';
+import 'package:tido/common/widget/chip/label_chip.dart';
 import 'package:tido/core/locator/locator.dart';
 import 'package:tido/data/models/task_model/task_model.dart';
 import 'package:tido/utils/Constant/colors.dart';
@@ -38,9 +39,9 @@ class TaskDetailView extends StatelessWidget {
                   ViContainer(
                     height: ViDeviceUtils.getScreenHeigth(context) * 0.4,
                     padding: const EdgeInsets.all(ViSizes.defaultSpace / 2),
-                    margin: const EdgeInsets.only(bottom: 30, top: 20),
+                    margin: const EdgeInsets.only(top: 20),
                     decoration: BoxDecoration(
-                      gradient: state.primaryGradientButton,
+                      color: Theme.of(context).primaryColor,
                       borderRadius:
                           BorderRadius.circular(ViSizes.borderRadiusLg * 2),
                     ),
@@ -61,13 +62,33 @@ class TaskDetailView extends StatelessWidget {
                           ],
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(ViSizes.defaultSpace) +
-                              const EdgeInsets.only(
-                                  bottom: ViSizes.defaultSpace),
-                          child: ViPrimaryTitle(
-                            title: task.title,
-                            bigText: true,
-                            secondTextColor: AppColors.white,
+                          padding: const EdgeInsets.all(ViSizes.defaultSpace),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ViPrimaryTitle(
+                                title: task.title,
+                                bigText: true,
+                                secondTextColor: AppColors.white,
+                              ),
+                              SizedBox(
+                                height: 50,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  padding: const EdgeInsets.only(left: 0),
+                                  itemCount: task.labels!.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 8.0),
+                                      child: ViLabelChip(
+                                        tag: task.labels![index],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -76,12 +97,18 @@ class TaskDetailView extends StatelessWidget {
                   Expanded(
                     child: ListView(
                       children: [
-                        const ViPrimaryTitle(title: "DESCRIPTION"),
-                        const SizedBox(height: ViSizes.spaceBtwItems),
-                        ViPrimaryTitle(
-                            title: task.description.toString(),
-                            secondTextColor: AppColors.secondaryText),
-                        const SizedBox(height: ViSizes.spaceBtwSections),
+                        if (task.labels!.isNotEmpty)
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const ViPrimaryTitle(title: "DESCRIPTION"),
+                              const SizedBox(height: ViSizes.spaceBtwItems),
+                              ViPrimaryTitle(
+                                  title: task.description.toString(),
+                                  secondTextColor: AppColors.secondaryText),
+                              const SizedBox(height: ViSizes.spaceBtwSections),
+                            ],
+                          ),
                         ViTaskInfoWidget(
                           task: task,
                         ),

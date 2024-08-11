@@ -26,7 +26,7 @@ class CalenderTaskTile extends StatelessWidget {
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
           return ViContainer(
-            gradient: state.primaryGradientButton,
+            bgColor: Theme.of(context).primaryColor,
             margin: const EdgeInsets.all(ViSizes.md),
             padding: const EdgeInsets.symmetric(
                 horizontal: ViSizes.md, vertical: ViSizes.sm),

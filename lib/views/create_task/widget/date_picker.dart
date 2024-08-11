@@ -12,8 +12,14 @@ import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class ViDatePicker extends StatefulWidget {
   final Function(DateTime) onDateTimeChanged;
-
-  const ViDatePicker({super.key, required this.onDateTimeChanged});
+  final String? title;
+  final String? subtitle;
+  const ViDatePicker({
+    super.key,
+    required this.onDateTimeChanged,
+    this.title,
+    this.subtitle,
+  });
 
   @override
   _ViDatePickerState createState() => _ViDatePickerState();
@@ -107,7 +113,7 @@ class _ViDatePickerState extends State<ViDatePicker> {
                     : Padding(
                         padding: const EdgeInsets.all(ViSizes.sm),
                         child: Text.rich(TextSpan(
-                            text: "Selected\n",
+                            text: widget.title ?? "Selected\n",
                             style: dark
                                 ? ViTextTheme.darkTextTheme.headlineMedium
                                     ?.copyWith(
@@ -119,7 +125,7 @@ class _ViDatePickerState extends State<ViDatePicker> {
                                         fontWeight: FontWeight.bold),
                             children: [
                               TextSpan(
-                                text: "Date & Time",
+                                text: widget.subtitle ?? "Date & Time",
                                 style: dark
                                     ? ViTextTheme.darkTextTheme.titleLarge
                                         ?.copyWith(

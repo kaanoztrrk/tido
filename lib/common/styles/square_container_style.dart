@@ -7,18 +7,23 @@ import '../widget/button/ratio_button.dart';
 import 'container_style.dart';
 
 class ViSquareContainer extends StatelessWidget {
-  const ViSquareContainer(
-      {super.key,
-      this.widget,
-      this.icon,
-      this.title,
-      this.subTitle,
-      this.ontap});
+  const ViSquareContainer({
+    super.key,
+    this.widget,
+    this.icon,
+    this.title,
+    this.subTitle,
+    this.ontap,
+    this.height,
+    this.width,
+  });
 
   final Widget? widget;
   final IconData? icon;
   final String? title;
   final String? subTitle;
+  final double? height;
+  final double? width;
   final Function()? ontap;
   @override
   Widget build(BuildContext context) {
@@ -29,7 +34,8 @@ class ViSquareContainer extends StatelessWidget {
         margin: const EdgeInsets.all(ViSizes.sm / 2),
         padding: const EdgeInsets.all(ViSizes.sm),
         borderRadius: BorderRadius.circular(30),
-        height: 200,
+        height: height ?? 200,
+        width: width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

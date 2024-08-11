@@ -28,6 +28,9 @@ class TaskModel extends HiveObject with EquatableMixin {
   @HiveField(6)
   String? description;
 
+  @HiveField(7)
+  List<String>? labels;
+
   TaskModel({
     String? id,
     required this.title,
@@ -36,11 +39,12 @@ class TaskModel extends HiveObject with EquatableMixin {
     this.participantImages,
     this.files,
     this.description,
+    this.labels,
   }) : id = id ?? const Uuid().v4();
 
   factory TaskModel.fromJson(Map<String, dynamic> json) {
     final taskTime = json['taskTime'] != null
-        ? DateFormat('HH:mm').parse(json['taskTime'])
+        ? DateFormat('yyyy-MM-ddTHH:mm:ss').parse(json['taskTime'])
         : null;
 
     return TaskModel(
@@ -55,6 +59,9 @@ class TaskModel extends HiveObject with EquatableMixin {
           ? List<String>.from(json['files'] as List)
           : null,
       description: json['description'] as String?,
+      labels: json['labels'] != null
+          ? List<String>.from(json['labels'] as List)
+          : null,
     );
   }
 
@@ -62,11 +69,13 @@ class TaskModel extends HiveObject with EquatableMixin {
         'id': id,
         'title': title,
         'isChecked': isChecked,
-        'taskTime':
-            taskTime != null ? DateFormat('HH:mm').format(taskTime!) : null,
+        'taskTime': taskTime != null
+            ? DateFormat('yyyy-MM-ddTHH:mm:ss').format(taskTime!)
+            : null,
         'participantImages': participantImages,
         'files': files,
         'description': description,
+        'labels': labels,
       };
 
   TaskModel copyWith({
@@ -77,6 +86,7 @@ class TaskModel extends HiveObject with EquatableMixin {
     List<String>? participantImages,
     List<String>? files,
     String? description,
+    List<String>? labels,
   }) {
     return TaskModel(
       id: id ?? this.id,
@@ -86,11 +96,15 @@ class TaskModel extends HiveObject with EquatableMixin {
       participantImages: participantImages ?? this.participantImages,
       files: files ?? this.files,
       description: description ?? this.description,
+      labels: labels ?? this.labels,
     );
   }
 
   String get formattedTaskTime =>
       taskTime != null ? DateFormat('HH:mm').format(taskTime!) : '';
+
+  String get formattedDate =>
+      taskTime != null ? DateFormat('yyyy-MM-dd').format(taskTime!) : '';
 
   @override
   List<Object?> get props => [
@@ -101,5 +115,6 @@ class TaskModel extends HiveObject with EquatableMixin {
         participantImages,
         files,
         description,
+        labels,
       ];
 }

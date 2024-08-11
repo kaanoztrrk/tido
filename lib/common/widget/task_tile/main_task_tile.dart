@@ -45,7 +45,7 @@ class HomeMainTaskTile extends StatelessWidget {
               padding: const EdgeInsets.all(ViSizes.defaultSpace / 2),
               margin: const EdgeInsets.only(bottom: 30, top: 20),
               decoration: BoxDecoration(
-                gradient: state.primaryGradientButton,
+                color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(ViSizes.borderRadiusLg * 2),
               ),
               child: Column(

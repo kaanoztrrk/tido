@@ -74,6 +74,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       taskTime: event.taskTime,
       participantImages: event.participantImages,
       files: event.files,
+      labels: event.labels,
     );
 
     newAllTasksList.add(newTask);

@@ -44,7 +44,9 @@ class ViTimeButton extends StatelessWidget {
                   child: Icon(icon),
                 ),
               ),
-              if (state.remainingTime.isNotEmpty)
+              //! timer Function
+              /*
+               if (state.remainingTime.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: GestureDetector(
@@ -62,6 +64,8 @@ class ViTimeButton extends StatelessWidget {
                     ),
                   ),
                 ),
+              
+               */
             ],
           ),
         );

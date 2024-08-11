@@ -47,7 +47,7 @@ class ViPrimaryButton extends StatelessWidget {
               height: height,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
-                  gradient: state.primaryGradientButton),
+                  color: Theme.of(context).primaryColor),
               child: Text(
                 text,
                 style: textStyle,

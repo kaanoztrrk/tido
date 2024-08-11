@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tido/blocs/home_bloc/home_bloc.dart';
 import 'package:tido/blocs/main_bloc/main_bloc.dart';
+import 'package:tido/blocs/notification_bloc/notificaiton_bloc.dart';
 import 'package:tido/blocs/theme_bloc/theme_bloc.dart';
 import '../../blocs/auth_blocs/authentication_bloc/authentication_bloc.dart';
 import '../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
@@ -36,4 +37,5 @@ Future<void> setupLocator() async {
 
   getIt.registerLazySingleton<HomeBloc>(() => HomeBloc());
   getIt.registerLazySingleton<ThemeBloc>(() => ThemeBloc());
+  getIt.registerLazySingleton<NotificationBloc>(() => NotificationBloc());
 }
