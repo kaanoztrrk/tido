@@ -41,12 +41,9 @@ class ViPrimaryButton extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
                   color: Theme.of(context).primaryColor),
-              child: Text(
-                text,
-                style: dark
-                    ? ViTextTheme.darkTextTheme.headlineSmall
-                    : ViTextTheme.ligthTextTheme.headlineSmall,
-              ),
+              child: Text(text,
+                  style: ViTextTheme.darkTextTheme.headlineSmall
+                      ?.copyWith(color: AppColors.light)),
             ),
           );
         },

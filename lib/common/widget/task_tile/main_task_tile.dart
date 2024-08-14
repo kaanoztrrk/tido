@@ -80,11 +80,10 @@ class HomeMainTaskTile extends StatelessWidget {
                       alignment: Alignment.bottomLeft,
                       child: Text(
                         title,
-                        style: dark
-                            ? ViTextTheme.darkTextTheme.headlineLarge
-                                ?.copyWith(fontWeight: FontWeight.w600)
-                            : ViTextTheme.ligthTextTheme.headlineLarge
-                                ?.copyWith(fontWeight: FontWeight.w600),
+                        style: ViTextTheme.darkTextTheme.headlineLarge
+                            ?.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.light),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
                       ),

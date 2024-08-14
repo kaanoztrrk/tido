@@ -21,6 +21,7 @@ import '../../common/widget/Text/title.dart';
 import '../../common/widget/button/ratio_button.dart';
 import '../../common/widget/task_tile/selected_files_tile.dart';
 import '../../utils/Constant/image_strings.dart';
+import '../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class TaskDetailView extends StatelessWidget {
   final TaskModel task;
@@ -78,28 +79,34 @@ class TaskDetailView extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              ViPrimaryTitle(
-                                title: task.title,
-                                bigText: true,
-                                textColor: AppColors.white,
+                              Text(
+                                task.title,
+                                style: ViTextTheme.darkTextTheme.headlineLarge
+                                    ?.copyWith(
+                                        fontSize: 40,
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColors.light),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 3,
                               ),
-                              SizedBox(
-                                height: 50,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  padding: const EdgeInsets.only(left: 0),
-                                  itemCount: task.labels!.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 8.0),
-                                      child: ViLabelChip(
-                                        tag: task.labels![index],
-                                      ),
-                                    );
-                                  },
+                              if (task.labels!.isNotEmpty)
+                                SizedBox(
+                                  height: 50,
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    padding: const EdgeInsets.only(left: 0),
+                                    itemCount: task.labels!.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 8.0),
+                                        child: ViLabelChip(
+                                          tag: task.labels![index],
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ),
-                              ),
                             ],
                           ),
                         ),

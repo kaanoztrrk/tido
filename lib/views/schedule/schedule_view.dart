@@ -86,8 +86,6 @@ class _ScheduleViewState extends State<ScheduleView> {
           _selectedDay = selectedDay;
           _focusedDay = focusedDay;
         });
-
-        // Seçilen güne göre filtreleme işlemi
         context.read<HomeBloc>().add(FilterTasksByDate(selectedDay));
       },
       onFormatChanged: (format) {
@@ -96,7 +94,32 @@ class _ScheduleViewState extends State<ScheduleView> {
         }
       },
       onPageChanged: (focusedDay) => _focusedDay = focusedDay,
-      // Kalan kodlar
+      calendarStyle: CalendarStyle(
+        selectedDecoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          shape: BoxShape.circle,
+        ),
+        todayDecoration: BoxDecoration(
+          color: Theme.of(context).primaryColor.withOpacity(0.4),
+          shape: BoxShape.circle,
+        ),
+      ),
+      headerStyle: HeaderStyle(
+        titleTextStyle: TextStyle(color: Theme.of(context).primaryColor),
+        formatButtonDecoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        formatButtonTextStyle: TextStyle(color: Colors.white),
+        leftChevronIcon: Icon(
+          Icons.chevron_left,
+          color: Theme.of(context).primaryColor,
+        ),
+        rightChevronIcon: Icon(
+          Icons.chevron_right,
+          color: Theme.of(context).primaryColor,
+        ),
+      ),
     );
   }
 }

@@ -84,11 +84,8 @@ class _ViSwiperButtonState extends State<ViSwiperButton> {
                   widget.isCompleted
                       ? "Completed"
                       : (widget.text ?? "Drag to mark done"),
-                  style: dark
-                      ? ViTextTheme.darkTextTheme.bodyMedium
-                          ?.copyWith(fontWeight: FontWeight.w600)
-                      : ViTextTheme.ligthTextTheme.bodyMedium
-                          ?.copyWith(fontWeight: FontWeight.w600),
+                  style: ViTextTheme.darkTextTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w600, color: AppColors.light),
                 ),
                 widget.isCompleted
                     ? const SizedBox(width: 20)
