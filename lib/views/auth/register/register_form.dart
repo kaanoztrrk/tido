@@ -6,6 +6,7 @@ import '../../../../utils/Constant/sizes.dart';
 import '../../../../utils/Helpers/helpers_functions.dart';
 import '../../../../utils/Theme/custom_theme.dart/text_theme.dart';
 import '../../../../utils/validators/validationHelpers.dart';
+import '../../../core/l10n/l10n.dart';
 
 class ViRegisterForm extends StatelessWidget {
   const ViRegisterForm({
@@ -38,7 +39,7 @@ class ViRegisterForm extends StatelessWidget {
             controller: nameController,
             decoration: InputDecoration(
               prefixIcon: const Icon(Iconsax.user),
-              hintText: ViTexts.name,
+              hintText: AppLocalizations.of(context)!.name,
               hintStyle: dark
                   ? ViTextTheme.darkTextTheme.titleLarge
                       ?.copyWith(fontWeight: FontWeight.normal)
@@ -49,10 +50,10 @@ class ViRegisterForm extends StatelessWidget {
           const SizedBox(height: ViSizes.spaceBtwItems),
           TextFormField(
             controller: emailController,
-            validator: (value) => ViValidator.validateEmail(value),
+            validator: (value) => ViValidator.validateEmail(context, value),
             decoration: InputDecoration(
               prefixIcon: const Icon(Iconsax.direct_right),
-              hintText: ViTexts.email,
+              hintText: AppLocalizations.of(context)!.email,
               hintStyle: dark
                   ? ViTextTheme.darkTextTheme.titleLarge
                       ?.copyWith(fontWeight: FontWeight.normal)
@@ -64,9 +65,9 @@ class ViRegisterForm extends StatelessWidget {
           TextFormField(
             controller: passwordController,
             obscureText: obscureTextValue ?? false,
-            validator: (value) => ViValidator.validatePassword(value),
+            validator: (value) => ViValidator.validatePassword(context, value),
             decoration: InputDecoration(
-              hintText: ViTexts.password,
+              hintText: AppLocalizations.of(context)!.password,
               hintStyle: dark
                   ? ViTextTheme.darkTextTheme.titleLarge
                       ?.copyWith(fontWeight: FontWeight.normal)

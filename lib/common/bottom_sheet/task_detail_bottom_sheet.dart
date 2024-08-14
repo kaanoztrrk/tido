@@ -11,6 +11,7 @@ void showTaskDetailBottomSheet(BuildContext context, TaskModel task) {
 
   showModalBottomSheet(
     context: context,
+    showDragHandle: true,
     isScrollControlled: true,
     builder: (BuildContext context) {
       return SingleChildScrollView(

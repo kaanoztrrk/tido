@@ -11,6 +11,7 @@ import 'package:tido/utils/Constant/text_strings.dart';
 import 'package:tido/views/auth/otp/widget/otp_textfield.dart';
 
 import '../../../common/widget/appbar/appbar.dart';
+import '../../../core/l10n/l10n.dart';
 
 class OtpView extends StatefulWidget {
   const OtpView({super.key});
@@ -29,9 +30,9 @@ class _OtpViewState extends State<OtpView> {
         padding: const EdgeInsets.all(ViSizes.defaultSpace),
         child: Column(
           children: [
-            const AuthHeader(
-              title: ViTexts.otp_title,
-              subTitle: ViTexts.otp_subTitle,
+            AuthHeader(
+              title: AppLocalizations.of(context)!.otp_title,
+              subTitle: AppLocalizations.of(context)!.otp_subTitle,
               smallSizeSubTitle: true,
             ),
             const SizedBox(height: ViSizes.spaceBtwSections),
@@ -40,7 +41,7 @@ class _OtpViewState extends State<OtpView> {
             }),
             const SizedBox(height: ViSizes.spaceBtwSections),
             ViPrimaryButton(
-              text: ViTexts.otp_submit_button_text,
+              text: AppLocalizations.of(context)!.otp_submit_button_text,
               onTap: () {
                 EmailOTP.verifyOTP(otp: otpController.text);
                 context.push(ViRoutes.home);

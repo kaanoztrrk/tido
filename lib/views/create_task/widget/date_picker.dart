@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:tido/common/styles/container_style.dart';
+import 'package:tido/core/l10n/l10n.dart';
 import 'package:tido/utils/Helpers/helpers_functions.dart';
 
 import '../../../common/widget/button/ratio_button.dart';
@@ -113,7 +114,8 @@ class _ViDatePickerState extends State<ViDatePicker> {
                     : Padding(
                         padding: const EdgeInsets.all(ViSizes.sm),
                         child: Text.rich(TextSpan(
-                            text: widget.title ?? "Selected\n",
+                            text: widget.title ??
+                                "${AppLocalizations.of(context)!.date}\n",
                             style: dark
                                 ? ViTextTheme.darkTextTheme.headlineMedium
                                     ?.copyWith(
@@ -125,7 +127,8 @@ class _ViDatePickerState extends State<ViDatePicker> {
                                         fontWeight: FontWeight.bold),
                             children: [
                               TextSpan(
-                                text: widget.subtitle ?? "Date & Time",
+                                text: widget.subtitle ??
+                                    "${AppLocalizations.of(context)!.selected}",
                                 style: dark
                                     ? ViTextTheme.darkTextTheme.titleLarge
                                         ?.copyWith(

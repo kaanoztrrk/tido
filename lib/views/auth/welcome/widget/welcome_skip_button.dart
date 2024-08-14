@@ -7,6 +7,7 @@ import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
 
 import '../../../../blocs/main_bloc/main_bloc.dart';
 import '../../../../blocs/main_bloc/main_event.dart';
+import '../../../../core/l10n/l10n.dart';
 
 class WelcomeSkipButton extends StatelessWidget {
   const WelcomeSkipButton({super.key});
@@ -22,7 +23,7 @@ class WelcomeSkipButton extends StatelessWidget {
           context.read<MainBloc>().add(SkipPage(context));
         },
         child: Text(
-          ViTexts.skip,
+          AppLocalizations.of(context)!.skip,
           style: dark
               ? ViTextTheme.ligthTextTheme.headlineSmall
                   ?.copyWith(color: AppColors.primary)

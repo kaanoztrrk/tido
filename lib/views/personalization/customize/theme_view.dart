@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tido/blocs/main_bloc/main_bloc.dart';
-import 'package:tido/common/styles/container_style.dart';
 import 'package:tido/common/widget/Text/title.dart';
 import 'package:tido/common/widget/appbar/appbar.dart';
-import 'package:tido/core/routes/routes.dart';
+import 'package:tido/core/l10n/l10n.dart';
 import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Constant/sizes.dart';
 import 'package:tido/utils/Device/device_utility.dart';
@@ -32,17 +30,18 @@ class _ThemeViewState extends State<ThemeView> {
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
           return Scaffold(
-            appBar: const ViAppBar(
+            appBar: ViAppBar(
               showBackArrow: true,
               centerTitle: true,
-              title: Text("Theme"),
+              title: Text(AppLocalizations.of(context)!.theme),
             ),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
+                Padding(
                   padding: EdgeInsets.all(ViSizes.defaultSpace),
-                  child: ViPrimaryTitle(title: "Primary Color"),
+                  child: ViPrimaryTitle(
+                      title: AppLocalizations.of(context)!.primary_color),
                 ),
                 SizedBox(
                   height: 100,
@@ -83,9 +82,10 @@ class _ThemeViewState extends State<ThemeView> {
                     },
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.all(ViSizes.defaultSpace),
-                  child: ViPrimaryTitle(title: "Theme Mode"),
+                  child: ViPrimaryTitle(
+                      title: AppLocalizations.of(context)!.theme_mode),
                 ),
                 Expanded(
                   child: Row(
@@ -97,8 +97,8 @@ class _ThemeViewState extends State<ThemeView> {
                             .read<ThemeBloc>()
                             .add(ChangeThemeModeEvent(ThemeMode.light)),
                         itemColor: Theme.of(context).primaryColor,
-                        bgColor: const Color.fromARGB(255, 219, 206, 206),
-                        title: "Light",
+                        bgColor: const Color.fromARGB(255, 238, 225, 225),
+                        title: AppLocalizations.of(context)!.light,
                         isSelected: state.themeMode == ThemeMode.light,
                       ),
                       // System Mode
@@ -115,7 +115,7 @@ class _ThemeViewState extends State<ThemeView> {
                             .add(ChangeThemeModeEvent(ThemeMode.dark)),
                         itemColor: Theme.of(context).primaryColor,
                         bgColor: AppColors.dark,
-                        title: "Dark",
+                        title: AppLocalizations.of(context)!.dark,
                         isSelected: state.themeMode == ThemeMode.dark,
                       ),
                     ],
@@ -234,7 +234,7 @@ class ThemeModeSystemItem extends StatelessWidget {
                 border: Border.all(
                   color: isSelected
                       ? Theme.of(context).primaryColor
-                      : Colors.transparent,
+                      : Colors.black,
                   width: 3,
                 ),
                 borderRadius: BorderRadius.circular(20),
@@ -257,7 +257,7 @@ class ThemeModeSystemItem extends StatelessWidget {
                       Expanded(
                         child: Container(
                           decoration: const BoxDecoration(
-                            color: AppColors.light,
+                            color: const Color.fromARGB(255, 238, 225, 225),
                             borderRadius: BorderRadius.only(
                               topRight: Radius.circular(15),
                               bottomRight: Radius.circular(15),
@@ -306,7 +306,7 @@ class ThemeModeSystemItem extends StatelessWidget {
               ),
             ),
           ),
-          Text("System"),
+          Text(AppLocalizations.of(context)!.system),
         ],
       ),
     );

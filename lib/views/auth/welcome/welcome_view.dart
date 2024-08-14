@@ -9,6 +9,7 @@ import 'package:tido/views/auth/welcome/widget/welcome_skip_button.dart';
 
 import '../../../blocs/main_bloc/main_bloc.dart';
 import '../../../blocs/main_bloc/main_event.dart';
+import '../../../core/l10n/l10n.dart';
 
 class WelcomeView extends StatelessWidget {
   final PageController pageController;
@@ -28,19 +29,22 @@ class WelcomeView extends StatelessWidget {
             onPageChanged: (index) {
               context.read<MainBloc>().add(UpdatePageIndicator(index));
             },
-            children: const [
+            children: [
               WelcomePart(
                   image: ViImages.welcome_parts_1,
-                  title: ViTexts.welcomePagePart_title_1,
-                  subtitle: ViTexts.welcomePagePart_subtitle_1),
+                  title: AppLocalizations.of(context)!.welcomePagePart_title_1,
+                  subtitle:
+                      AppLocalizations.of(context)!.welcomePagePart_subtitle_1),
               WelcomePart(
                   image: ViImages.welcome_parts_2,
-                  title: ViTexts.welcomePagePart_title_2,
-                  subtitle: ViTexts.welcomePagePart_subtitle_2),
+                  title: AppLocalizations.of(context)!.welcomePagePart_title_2,
+                  subtitle:
+                      AppLocalizations.of(context)!.welcomePagePart_subtitle_2),
               WelcomePart(
                   image: ViImages.welcome_parts_3,
-                  title: ViTexts.welcomePagePart_title_3,
-                  subtitle: ViTexts.welcomePagePart_subtitle_3),
+                  title: AppLocalizations.of(context)!.welcomePagePart_title_3,
+                  subtitle:
+                      AppLocalizations.of(context)!.welcomePagePart_subtitle_3),
             ],
           ),
           const WelcomeDotNavigation(),

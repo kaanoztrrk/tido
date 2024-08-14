@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tido/core/l10n/l10n.dart';
 import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Helpers/helpers_functions.dart';
 import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
@@ -23,10 +24,10 @@ class HomeHeader extends StatelessWidget {
           padding: const EdgeInsets.only(right: 40),
           child: Text.rich(
             TextSpan(
-              text: "Hi $firstName,\n",
+              text: "${AppLocalizations.of(context)!.hi_text} $firstName,\n",
               children: [
                 TextSpan(
-                  text: "nice to see you",
+                  text: AppLocalizations.of(context)!.nice_to_see_you,
                   style: dark
                       ? ViTextTheme.darkTextTheme.headlineLarge?.copyWith(
                           fontWeight: FontWeight.w500,
@@ -53,10 +54,6 @@ class HomeHeader extends StatelessWidget {
   String extractFirstName(String fullName) {
     if (fullName.isEmpty) return '';
     List<String> nameParts = fullName.split(' ');
-    if (nameParts.length > 1) {
-      return '${nameParts[0]} ${nameParts[1]}';
-    } else {
-      return nameParts.first;
-    }
+    return nameParts.first;
   }
 }

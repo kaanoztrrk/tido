@@ -7,10 +7,9 @@ import 'package:tido/blocs/home_bloc/home_event.dart';
 import 'package:tido/common/bottom_sheet/task_option_bottom_sheet.dart';
 import 'package:tido/common/empty_screen/empty_screen.dart';
 import 'package:tido/common/layout/swiper_layout.dart';
-import 'package:tido/common/styles/container_style.dart';
 import 'package:tido/common/widget/chip/category_chip.dart';
+import 'package:tido/core/l10n/l10n.dart';
 import 'package:tido/core/routes/routes.dart';
-import 'package:tido/data/models/category_model/category_model.dart';
 import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Constant/image_strings.dart';
 import 'package:tido/utils/Constant/sizes.dart';
@@ -18,7 +17,6 @@ import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
 import '../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_state.dart';
-import '../../common/bottom_sheet/edit_task_bottom_sheet.dart';
 import '../../common/widget/appbar/home_appbar.dart';
 import '../../common/widget/button/ratio_button.dart';
 import '../../common/widget/task_tile/main_task_tile.dart';
@@ -102,10 +100,12 @@ class HomeView extends StatelessWidget {
                     //* Task List
                     Expanded(
                       child: tasksToShow.isEmpty
-                          ? const ViEmptyScreen(
+                          ? ViEmptyScreen(
                               image: ViImages.empty_screen_image_1,
-                              title: "No Tasks Found",
-                              subTitle: "Start by adding a new task.",
+                              title:
+                                  AppLocalizations.of(context)!.no_tasks_found,
+                              subTitle: AppLocalizations.of(context)!
+                                  .no_tasks_found_subTitle,
                             )
                           : ViSwiperLayout(
                               itemCount: tasksToShow.length,

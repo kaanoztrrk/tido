@@ -6,6 +6,7 @@ import '../../../../blocs/main_bloc/main_bloc.dart';
 import '../../../../blocs/main_bloc/main_event.dart';
 import '../../../../blocs/main_bloc/main_state.dart';
 import '../../../../common/widget/button/primary_button.dart';
+import '../../../../core/l10n/l10n.dart';
 
 class WelcomeNextButton extends StatelessWidget {
   const WelcomeNextButton({super.key});
@@ -19,7 +20,9 @@ class WelcomeNextButton extends StatelessWidget {
       child: BlocBuilder<MainBloc, MainState>(
         builder: (context, state) {
           return ViPrimaryButton(
-            text: state.currentPageIndex == 2 ? ViTexts.done : ViTexts.next,
+            text: state.currentPageIndex == 2
+                ? AppLocalizations.of(context)!.done
+                : AppLocalizations.of(context)!.continue_text,
             onTap: () {
               if (state.currentPageIndex == 2) {
                 // Perform Done action

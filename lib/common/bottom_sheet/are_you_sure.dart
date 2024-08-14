@@ -16,6 +16,7 @@ class ViAreYouSureBottomSheet {
     required String subTitle,
   }) {
     showModalBottomSheet(
+      showDragHandle: true,
       context: context,
       isScrollControlled: true,
       builder: (BuildContext context) {
@@ -36,9 +37,7 @@ class ViAreYouSureBottomSheet {
                   color: iconColor ?? Theme.of(context).primaryColor,
                 ),
                 const SizedBox(height: ViSizes.spaceBtwItems),
-                ViPrimaryTitle(
-                  title: title,
-                ),
+                ViPrimaryTitle(title: title),
                 const SizedBox(height: ViSizes.spaceBtwItems),
                 ViPrimaryTitle(
                   title: subTitle,

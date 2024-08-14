@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:tido/core/l10n/l10n.dart';
 import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Helpers/helpers_functions.dart';
 import 'package:tido/views/home/home_view.dart';
@@ -51,26 +52,26 @@ class _HomeNavigatorState extends State<HomeNavigator> {
                   : AppColors.bottomNavigatorItemActiveBg,
               padding: const EdgeInsets.all(12),
               duration: const Duration(milliseconds: 400),
-              tabs: const [
+              tabs: [
                 GButton(
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                   icon: Iconsax.home,
-                  text: 'Home',
+                  text: AppLocalizations.of(context)!.home,
                 ),
                 GButton(
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                   icon: Iconsax.calendar,
-                  text: 'Schedule',
+                  text: AppLocalizations.of(context)!.schedule,
                 ),
                 GButton(
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                   icon: Iconsax.document,
-                  text: 'Documents',
+                  text: AppLocalizations.of(context)!.documents,
                 ),
                 GButton(
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                   icon: Iconsax.setting,
-                  text: 'Settings',
+                  text: AppLocalizations.of(context)!.settings,
                 ),
               ],
               selectedIndex: _selectedIndex,

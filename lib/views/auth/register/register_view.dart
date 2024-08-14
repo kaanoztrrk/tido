@@ -15,6 +15,7 @@ import 'package:tido/views/auth/register/register_form.dart';
 import '../../../blocs/auth_blocs/sign_up_bloc/sign_up_event.dart';
 import '../../../blocs/auth_blocs/sign_up_bloc/sign_up_state.dart';
 import '../../../common/widget/login_signup/login_header.dart';
+import '../../../core/l10n/l10n.dart';
 import '../../../data/models/user_model/models.dart';
 
 class RegisterView extends StatefulWidget {
@@ -38,7 +39,9 @@ class _RegisterViewState extends State<RegisterView> {
         } else if (state is SignUpFailure) {
           // Show a snackbar or other error message
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message ?? 'Sign up failed')),
+            SnackBar(
+                content: Text(state.message ??
+                    AppLocalizations.of(context)!.sign_up_failed)),
           );
         }
       },
@@ -53,9 +56,11 @@ class _RegisterViewState extends State<RegisterView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Spacer(),
-                  const AuthHeader(
-                      title: ViTexts.register_welcome_title,
-                      subTitle: ViTexts.register_welcome_subTitle),
+                  AuthHeader(
+                      title:
+                          AppLocalizations.of(context)!.register_welcome_title,
+                      subTitle: AppLocalizations.of(context)!
+                          .register_welcome_subTitle),
                   const SizedBox(height: ViSizes.spaceBtwSections),
                   ViRegisterForm(
                     formKey: formKey,
@@ -73,17 +78,18 @@ class _RegisterViewState extends State<RegisterView> {
                     },
                   ),
                   const SizedBox(height: ViSizes.spaceBtwSections),
-                  const ViFormDivider(dividerText: ViTexts.or),
+                  ViFormDivider(dividerText: AppLocalizations.of(context)!.or),
                   const SizedBox(height: ViSizes.spaceBtwSections),
                   const Spacer(),
                   ViRichTexts(
                     onSignInTap: () => context.pop(),
-                    normalText: ViTexts.doYouHaveAnAccount,
-                    boldText: ViTexts.signIn,
+                    normalText:
+                        AppLocalizations.of(context)!.doYouHaveAnAccount,
+                    boldText: AppLocalizations.of(context)!.signIn,
                   ),
                   const SizedBox(height: ViSizes.spaceBtwItems),
                   ViPrimaryButton(
-                    text: ViTexts.signUp,
+                    text: AppLocalizations.of(context)!.signUp,
                     onTap: () {
                       if (formKey.currentState!.validate()) {
                         UserModel myUser = UserModel.empty;

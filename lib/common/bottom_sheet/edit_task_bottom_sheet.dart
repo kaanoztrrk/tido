@@ -24,6 +24,7 @@ class ViEditBottomSheet {
         TextEditingController(text: task.title);
     var dark = ViHelpersFunctions.isDarkMode(context);
     showModalBottomSheet(
+      showDragHandle: true,
       context: context,
       isScrollControlled: true,
       builder: (BuildContext context) {

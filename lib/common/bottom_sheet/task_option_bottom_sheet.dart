@@ -15,6 +15,7 @@ class ViOptionBottomSheet {
   }) {
     var dark = ViHelpersFunctions.isDarkMode(context);
     showModalBottomSheet(
+      showDragHandle: true,
       context: context,
       builder: (BuildContext context) {
         return Padding(

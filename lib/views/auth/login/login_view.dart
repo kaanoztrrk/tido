@@ -18,6 +18,7 @@ import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_event.dart';
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_state.dart';
 import '../../../blocs/home_bloc/home_bloc.dart';
 import '../../../common/styles/container_style.dart';
+import '../../../core/l10n/l10n.dart';
 import '../../../utils/Constant/image_strings.dart';
 import '../../../utils/Device/device_utility.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
@@ -80,17 +81,19 @@ class _LoginViewState extends State<LoginView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Spacer(),
-                  const AuthHeader(
-                    title: ViTexts.login_welcome_title,
-                    subTitle: ViTexts.login_welcome_subTitle,
+                  AuthHeader(
+                    title: AppLocalizations.of(context)!.login_welcome_title,
+                    subTitle:
+                        AppLocalizations.of(context)!.login_welcome_subTitle,
                   ),
                   const SizedBox(height: ViSizes.spaceBtwSections * 2),
                   TextFormField(
                     controller: emailController,
-                    validator: (value) => ViValidator.validateEmail(value),
+                    validator: (value) =>
+                        ViValidator.validateEmail(context, value),
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Iconsax.direct_right),
-                      hintText: ViTexts.email,
+                      hintText: AppLocalizations.of(context)!.email,
                       hintStyle: dark
                           ? ViTextTheme.darkTextTheme.titleLarge
                               ?.copyWith(fontWeight: FontWeight.normal)
@@ -102,10 +105,11 @@ class _LoginViewState extends State<LoginView> {
                   TextFormField(
                     controller: passwordController,
                     obscureText: obscurePassword,
-                    validator: (value) => ViValidator.validatePassword(value),
+                    validator: (value) =>
+                        ViValidator.validatePassword(context, value),
                     decoration: InputDecoration(
                       errorText: _errorMsg,
-                      hintText: ViTexts.password,
+                      hintText: AppLocalizations.of(context)!.password,
                       hintStyle: dark
                           ? ViTextTheme.darkTextTheme.titleLarge
                               ?.copyWith(fontWeight: FontWeight.normal)
@@ -133,7 +137,7 @@ class _LoginViewState extends State<LoginView> {
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        ViTexts.forgot_password,
+                        AppLocalizations.of(context)!.forgot_password,
                         style: dark
                             ? ViTextTheme.darkTextTheme.titleLarge
                                 ?.copyWith(fontWeight: FontWeight.normal)
@@ -143,7 +147,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   const SizedBox(height: ViSizes.spaceBtwSections),
-                  const ViFormDivider(dividerText: ViTexts.or),
+                  ViFormDivider(dividerText: AppLocalizations.of(context)!.or),
                   const SizedBox(height: ViSizes.spaceBtwSections),
                   Center(
                     child: ViContainer(
@@ -160,7 +164,7 @@ class _LoginViewState extends State<LoginView> {
                         children: [
                           Image.asset(ViImages.googleLogo),
                           Text(
-                            "Sign in with Google",
+                            AppLocalizations.of(context)!.google_sign_in,
                             style: ViTextTheme.darkTextTheme.bodyLarge,
                           )
                         ],
@@ -170,13 +174,13 @@ class _LoginViewState extends State<LoginView> {
                   const Spacer(),
                   ViRichTexts(
                     onSignInTap: () => context.push(ViRoutes.register),
-                    normalText: ViTexts.dontHaveAnAccount,
-                    boldText: ViTexts.signUp,
+                    normalText: AppLocalizations.of(context)!.dontHaveAnAccount,
+                    boldText: AppLocalizations.of(context)!.signUp,
                   ),
                   const SizedBox(height: ViSizes.spaceBtwItems),
                   !signInRequired
                       ? ViPrimaryButton(
-                          text: ViTexts.signIn,
+                          text: AppLocalizations.of(context)!.signIn,
                           onTap: () {
                             if (_formKey.currentState!.validate()) {
                               context.read<SignInBloc>().add(SignInRequired(

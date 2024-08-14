@@ -9,8 +9,10 @@ import 'package:tido/blocs/home_bloc/home_bloc.dart';
 import 'package:tido/blocs/home_bloc/home_event.dart';
 import 'package:tido/blocs/theme_bloc/theme_bloc.dart';
 import 'package:tido/common/bottom_sheet/are_you_sure.dart';
+import 'package:tido/common/bottom_sheet/change_language_bottom_sheet.dart';
 import 'package:tido/common/styles/container_style.dart';
 import 'package:tido/common/widget/Text/title.dart';
+import 'package:tido/core/l10n/l10n.dart';
 import 'package:tido/core/locator/locator.dart';
 import 'package:tido/core/routes/routes.dart';
 import 'package:tido/core/widget/user/profile_image.dart';
@@ -54,12 +56,15 @@ class SettingsView extends StatelessWidget {
                           onEdit: true,
                         ),
                         const SizedBox(height: ViSizes.spaceBtwItems),
-                        Text(state.user?.displayName ?? "Unkown User",
+                        Text(
+                            state.user?.displayName ??
+                                AppLocalizations.of(context)!.unkownUser,
                             style: dark
                                 ? ViTextTheme.darkTextTheme.headlineMedium
                                 : ViTextTheme.ligthTextTheme.headlineMedium),
                         Text(
-                          state.user?.email ?? "Unkown Email",
+                          state.user?.email ??
+                              AppLocalizations.of(context)!.unkownEmail,
                           style: dark
                               ? ViTextTheme.darkTextTheme.titleMedium
                                   ?.copyWith(color: AppColors.secondaryText)
@@ -75,7 +80,9 @@ class SettingsView extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const ViPrimaryTitle(title: "CUSTOMIZE"),
+                    ViPrimaryTitle(
+                      title: AppLocalizations.of(context)!.customize,
+                    ),
                     const SizedBox(height: ViSizes.spaceBtwItems),
                     ViContainer(
                       borderRadius: BorderRadius.circular(20),
@@ -84,34 +91,37 @@ class SettingsView extends StatelessWidget {
                           ListTile(
                             onTap: () => context.push(ViRoutes.theme_view),
                             leading: const Icon(Iconsax.color_swatch),
-                            title: const Text("Theme"),
+                            title: Text(AppLocalizations.of(context)!.theme),
                           ),
                           const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
                           ),
-                          const ListTile(
+                          ListTile(
                             leading: Icon(Iconsax.layer),
-                            title: Text("Widget"),
+                            title: Text(AppLocalizations.of(context)!.widget),
                           ),
                           const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
                           ),
-                          const ListTile(
+                          ListTile(
+                            onTap: () => ChangeLanguageBottomSheet
+                                .showLanguageBottomSheet(context),
                             leading: Icon(Iconsax.translate),
-                            title: Text("Language"),
+                            title: Text(AppLocalizations.of(context)!.language),
                           ),
                           const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
                           ),
-                          const ListTile(
+                          ListTile(
                             leading: Icon(Iconsax.notification),
-                            title: Text("Notification & Reminder"),
+                            title: Text(AppLocalizations.of(context)!
+                                .notification_reminder),
                           ),
                           const Padding(
                             padding: EdgeInsets.symmetric(
@@ -122,7 +132,8 @@ class SettingsView extends StatelessWidget {
                             builder: (context, state) {
                               return ListTile(
                                 leading: const Icon(Icons.vibration),
-                                title: const Text("Task completion tone"),
+                                title: Text(
+                                    AppLocalizations.of(context)!.task_tone),
                                 trailing: Switch(
                                   inactiveThumbColor: state.primaryColor,
                                   value: false,
@@ -140,24 +151,16 @@ class SettingsView extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const ViPrimaryTitle(title: "TASK & CATEGORY"),
+                    ViPrimaryTitle(
+                        title: AppLocalizations.of(context)!.task_category),
                     const SizedBox(height: ViSizes.spaceBtwItems),
                     ViContainer(
                       borderRadius: BorderRadius.circular(20),
-                      child: const Column(
+                      child: Column(
                         children: [
                           ListTile(
                             leading: Icon(Iconsax.archive),
-                            title: Text("Archive"),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: ViSizes.defaultSpace),
-                            child: Divider(),
-                          ),
-                          ListTile(
-                            leading: Icon(Iconsax.firstline),
-                            title: Text("Task Sorting Options"),
+                            title: Text(AppLocalizations.of(context)!.archive),
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(
@@ -166,7 +169,8 @@ class SettingsView extends StatelessWidget {
                           ),
                           ListTile(
                             leading: Icon(Iconsax.task_square),
-                            title: Text("Categories"),
+                            title:
+                                Text(AppLocalizations.of(context)!.categories),
                           ),
                         ],
                       ),
@@ -177,16 +181,19 @@ class SettingsView extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const ViPrimaryTitle(title: "DATE & TIME"),
+                    ViPrimaryTitle(
+                        title: AppLocalizations.of(context)!.date_time),
                     const SizedBox(height: ViSizes.spaceBtwItems),
                     ViContainer(
                       borderRadius: BorderRadius.circular(20),
-                      child: const Column(
+                      child: Column(
                         children: [
                           ListTile(
                             leading: Icon(Iconsax.timer),
-                            title: Text("Time Format"),
-                            subtitle: Text("System default"),
+                            title:
+                                Text(AppLocalizations.of(context)!.time_format),
+                            subtitle: Text(
+                                AppLocalizations.of(context)!.system_default),
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(
@@ -195,7 +202,8 @@ class SettingsView extends StatelessWidget {
                           ),
                           ListTile(
                             leading: Icon(Iconsax.calendar),
-                            title: Text("Date Format"),
+                            title:
+                                Text(AppLocalizations.of(context)!.date_format),
                             subtitle: Text("2024/07/30"),
                           ),
                           Padding(
@@ -205,7 +213,8 @@ class SettingsView extends StatelessWidget {
                           ),
                           ListTile(
                             leading: Icon(Iconsax.notification),
-                            title: Text("Task reminder default"),
+                            title: Text(AppLocalizations.of(context)!
+                                .task_reminder_default),
                             subtitle: Text("5 minutes before"),
                           ),
                         ],
@@ -217,26 +226,30 @@ class SettingsView extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const ViPrimaryTitle(title: "DATA & SECURITY "),
+                    ViPrimaryTitle(
+                        title: AppLocalizations.of(context)!.data_security),
                     const SizedBox(height: ViSizes.spaceBtwItems),
                     ViContainer(
                       borderRadius: BorderRadius.circular(20),
                       child: Column(
                         children: [
-                          const ListTile(
+                          ListTile(
                             leading: Icon(Iconsax.data),
-                            title: Text("Data Storage"),
+                            title: Text(
+                                AppLocalizations.of(context)!.data_storage),
                           ),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
                           ),
-                          const ListTile(
+                          ListTile(
                             leading: Icon(Iconsax.layer),
-                            title: Text("Backup Location"),
+                            title: Text(
+                              AppLocalizations.of(context)!.backup_location,
+                            ),
                           ),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
@@ -254,30 +267,36 @@ class SettingsView extends StatelessWidget {
                                           .add(DeleteAllCategoryEvent());
 
                                       ViSnackbar.showSuccess(
-                                          context, "Progress Complated");
+                                          context,
+                                          AppLocalizations.of(context)!
+                                              .progress_complated);
                                       context.pop();
                                     } catch (e) {
                                       ViSnackbar.showError(
-                                          context, "Progress Failed");
+                                          context,
+                                          AppLocalizations.of(context)!
+                                              .progress_failed);
                                       context.pop();
                                     }
                                   },
                                   cancelOnTap: () => context.pop(),
-                                  title: "All data will be deleted",
-                                  subTitle:
-                                      "This action cannot be undone. Are you sure you want to continue?");
+                                  title: AppLocalizations.of(context)!
+                                      .delete_all_title,
+                                  subTitle: AppLocalizations.of(context)!
+                                      .delete_all_subTitle);
                             },
                             leading: const Icon(Iconsax.trash),
-                            title: const Text("Clear Data"),
+                            title:
+                                Text(AppLocalizations.of(context)!.clear_data),
                           ),
                           const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
                           ),
-                          const ListTile(
+                          ListTile(
                             leading: Icon(Iconsax.password_check),
-                            title: Text("Password"),
+                            title: Text(AppLocalizations.of(context)!.password),
                           ),
                         ],
                       ),
@@ -288,15 +307,15 @@ class SettingsView extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const ViPrimaryTitle(title: "ABOUT"),
+                    ViPrimaryTitle(title: AppLocalizations.of(context)!.about),
                     const SizedBox(height: ViSizes.spaceBtwItems),
                     ViContainer(
                       borderRadius: BorderRadius.circular(20),
-                      child: const Column(
+                      child: Column(
                         children: [
                           ListTile(
                             leading: Icon(Iconsax.star),
-                            title: Text("Rate us"),
+                            title: Text(AppLocalizations.of(context)!.rate_us),
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(
@@ -305,7 +324,8 @@ class SettingsView extends StatelessWidget {
                           ),
                           ListTile(
                             leading: Icon(Iconsax.share),
-                            title: Text("Share app"),
+                            title:
+                                Text(AppLocalizations.of(context)!.share_app),
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(
@@ -314,7 +334,7 @@ class SettingsView extends StatelessWidget {
                           ),
                           ListTile(
                             leading: Icon(Iconsax.edit_2),
-                            title: Text("Feedback"),
+                            title: Text(AppLocalizations.of(context)!.feedback),
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(
@@ -323,7 +343,8 @@ class SettingsView extends StatelessWidget {
                           ),
                           ListTile(
                             leading: Icon(Iconsax.security),
-                            title: Text("Privacy Policy"),
+                            title: Text(
+                                AppLocalizations.of(context)!.privacy_policy),
                           ),
                         ],
                       ),
@@ -343,7 +364,7 @@ class SettingsView extends StatelessWidget {
                         color: AppColors.warning,
                       ),
                       title: Text(
-                        "Log Out",
+                        AppLocalizations.of(context)!.log_out,
                         style: ViTextTheme.ligthTextTheme.titleLarge
                             ?.copyWith(color: AppColors.warning),
                       ),

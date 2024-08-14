@@ -18,6 +18,7 @@ class ViAddCategoryBottomSheet {
     var dark = ViHelpersFunctions.isDarkMode(context);
 
     showModalBottomSheet(
+      showDragHandle: true,
       context: context,
       isScrollControlled: true,
       builder: (BuildContext context) {

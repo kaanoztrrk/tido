@@ -8,6 +8,7 @@ import 'package:tido/utils/Snackbar/snacbar_service.dart';
 import 'package:tido/utils/Helpers/helpers_functions.dart';
 import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
 import '../../../common/bottom_sheet/files_bottom_sheet.dart';
+import '../../../core/l10n/l10n.dart';
 
 class ViFolderUpload extends StatefulWidget {
   final Function(List<String>) onFilesSelected;
@@ -47,7 +48,8 @@ class _ViFolderUploadState extends State<ViFolderUpload> {
 
       widget.onFilesSelected(widget.selectedFiles!);
     } else {
-      ViSnackbar.showWarning(context, "No file selected");
+      ViSnackbar.showWarning(
+          context, AppLocalizations.of(context)!.no_file_selected);
     }
   }
 
@@ -108,7 +110,7 @@ class _ViFolderUploadState extends State<ViFolderUpload> {
                 ),
           children: [
             TextSpan(
-              text: "Files attached",
+              text: AppLocalizations.of(context)!.files_attached,
               style: isDarkMode
                   ? ViTextTheme.darkTextTheme.titleLarge?.copyWith(
                       color: AppColors.secondaryText,
@@ -128,7 +130,7 @@ class _ViFolderUploadState extends State<ViFolderUpload> {
       padding: const EdgeInsets.all(ViSizes.sm),
       child: Text.rich(
         TextSpan(
-          text: widget.title ?? "Selected\n",
+          text: widget.title ?? "${AppLocalizations.of(context)!.files}\n",
           style: isDarkMode
               ? ViTextTheme.darkTextTheme.headlineMedium?.copyWith(
                   color: AppColors.white,
@@ -140,7 +142,7 @@ class _ViFolderUploadState extends State<ViFolderUpload> {
                 ),
           children: [
             TextSpan(
-              text: "Files",
+              text: AppLocalizations.of(context)!.selected,
               style: isDarkMode
                   ? ViTextTheme.darkTextTheme.titleLarge?.copyWith(
                       color: AppColors.secondaryText,

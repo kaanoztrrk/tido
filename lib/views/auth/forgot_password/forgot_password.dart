@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:tido/common/widget/appbar/appbar.dart';
 import 'package:tido/common/widget/button/primary_button.dart';
 import 'package:tido/common/widget/login_signup/login_header.dart';
+import 'package:tido/core/l10n/l10n.dart';
 import 'package:tido/core/routes/routes.dart';
 import 'package:tido/utils/Constant/sizes.dart';
 import 'package:tido/utils/Constant/text_strings.dart';
@@ -27,14 +28,14 @@ class ForgotPasswordView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AuthHeader(
+            AuthHeader(
               smallSizeSubTitle: true,
-              title: ViTexts.forgot_password_title,
-              subTitle: ViTexts.forgot_password_subTitle,
+              title: AppLocalizations.of(context)!.forgot_password_title,
+              subTitle: AppLocalizations.of(context)!.forgot_password_subTitle,
             ),
             const SizedBox(height: ViSizes.spaceBtwSections),
             TextFormField(
-              validator: (value) => ViValidator.validateEmail(value),
+              validator: (value) => ViValidator.validateEmail(context, value),
               decoration: InputDecoration(
                 prefixIcon: const Icon(Iconsax.direct_right),
                 hintText: ViTexts.email,
@@ -47,7 +48,7 @@ class ForgotPasswordView extends StatelessWidget {
             ),
             const SizedBox(height: ViSizes.spaceBtwSections),
             ViPrimaryButton(
-              text: ViTexts.continuetext,
+              text: AppLocalizations.of(context)!.continue_text,
               onTap: () => context.push(ViRoutes.login),
             ),
           ],

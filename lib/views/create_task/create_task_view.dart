@@ -6,6 +6,7 @@ import 'package:tido/blocs/home_bloc/home_bloc.dart';
 import 'package:tido/common/widget/appbar/appbar.dart';
 import 'package:tido/common/widget/button/ratio_button.dart';
 import 'package:tido/common/widget/label_widget.dart';
+import 'package:tido/core/l10n/l10n.dart';
 import 'package:tido/utils/Snackbar/snacbar_service.dart';
 import 'package:tido/views/create_task/widget/date_picker.dart';
 import 'package:tido/views/create_task/widget/folder_upload.dart';
@@ -53,7 +54,7 @@ class _CreateTaskViewState extends State<CreateTaskView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ViPrimaryTitle(
-              title: "TITLE",
+              title: AppLocalizations.of(context)!.title_text,
               textColor: dark ? AppColors.dark : AppColors.light,
             ),
             const SizedBox(height: ViSizes.spaceBtwItems),
@@ -68,7 +69,7 @@ class _CreateTaskViewState extends State<CreateTaskView> {
                 controller: titleController,
                 decoration: InputDecoration(
                   filled: false,
-                  hintText: "Title",
+                  hintText: AppLocalizations.of(context)!.title_text,
                   hintStyle: dark
                       ? ViTextTheme.darkTextTheme.titleLarge
                           ?.copyWith(fontWeight: FontWeight.normal)
@@ -94,7 +95,7 @@ class _CreateTaskViewState extends State<CreateTaskView> {
                 controller: descriptionController,
                 decoration: InputDecoration(
                   filled: false,
-                  hintText: "Description",
+                  hintText: AppLocalizations.of(context)!.description,
                   hintStyle: dark
                       ? ViTextTheme.darkTextTheme.titleLarge
                           ?.copyWith(fontWeight: FontWeight.normal)
@@ -109,7 +110,7 @@ class _CreateTaskViewState extends State<CreateTaskView> {
               ),
             ),
             const SizedBox(height: ViSizes.spaceBtwSections),
-            const ViPrimaryTitle(title: "DETAILES"),
+            ViPrimaryTitle(title: AppLocalizations.of(context)!.detailes_text),
             const SizedBox(height: ViSizes.spaceBtwItems),
             Row(
               children: [
@@ -158,12 +159,13 @@ class _CreateTaskViewState extends State<CreateTaskView> {
                     ),
                   );
 
-                  ViSnackbar.showSuccess(context, "Task created successfully.");
+                  ViSnackbar.showSuccess(
+                      context, AppLocalizations.of(context)!.task_complated);
                   context.pop();
                   ViDeviceUtils.hideKeyboard(context);
                 }
               },
-              text: "Create Task",
+              text: AppLocalizations.of(context)!.create_task_text,
             ),
           ],
         ),

@@ -1,51 +1,56 @@
 // ignore_for_file: file_names
 
+import 'package:flutter/material.dart';
+
+import '../../core/l10n/l10n.dart';
+
 class ViValidator {
-  static String? validateEmtyText(String? fieldName, String? value) {
+  static String? validateEmptyText(
+      BuildContext context, String? fieldName, String? value) {
     if (value == null || value.isEmpty) {
-      return '$fieldName is required';
+      return '${AppLocalizations.of(context)!.required} $fieldName';
     }
     return null;
   }
 
-  static String? validateEmail(String? value) {
+  static String? validateEmail(BuildContext context, String? value) {
     if (value == null || value.isEmpty) {
-      return 'Email is required';
+      return AppLocalizations.of(context)!.emailRequired;
     }
     final emailRegExp = RegExp(r'^[\w-\.]+@([\w*]+\.)+[\w-]{2,4}$');
 
     if (!emailRegExp.hasMatch(value)) {
-      return 'Invalid email address';
+      return AppLocalizations.of(context)!.invalidEmail;
     }
     return null;
   }
 
-  static String? validatePassword(String? value) {
+  static String? validatePassword(BuildContext context, String? value) {
     if (value == null || value.isEmpty) {
-      return 'Password is required';
+      return AppLocalizations.of(context)!.passwordRequired;
     }
     if (value.length < 6) {
-      return 'Password must be at least 6 characters long';
+      return AppLocalizations.of(context)!.passwordTooShort;
     }
     if (!value.contains(RegExp(r'[A-Z]'))) {
-      return 'Password must contain at least one uppercase letter';
+      return AppLocalizations.of(context)!.passwordUppercase;
     }
     if (!value.contains(RegExp(r'[0-9]'))) {
-      return 'Password must contain at least one number';
+      return AppLocalizations.of(context)!.passwordNumber;
     }
     if (!value.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))) {
-      return 'Password must contain at least one special character';
+      return AppLocalizations.of(context)!.passwordSpecialChar;
     }
     return null;
   }
 
-  static String? validatePhoneNumber(String value) {
+  static String? validatePhoneNumber(BuildContext context, String value) {
     if (value.isEmpty) {
-      return 'phoneNumber is required';
+      return AppLocalizations.of(context)!.phoneRequired;
     }
     final phoneReExp = RegExp(r'^\d{10}$');
     if (!phoneReExp.hasMatch(value)) {
-      return "Invalid phone number format (10 digits required)";
+      return AppLocalizations.of(context)!.invalidPhoneNumber;
     }
     return null;
   }

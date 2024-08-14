@@ -18,6 +18,7 @@ class AddCategoryLabelBottomSheet {
     final TextEditingController tagController = TextEditingController();
 
     showModalBottomSheet(
+      showDragHandle: true,
       context: context,
       isScrollControlled: true,
       builder: (BuildContext context) {

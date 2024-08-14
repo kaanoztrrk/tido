@@ -16,6 +16,7 @@ import '../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import '../../blocs/home_bloc/home_state.dart';
 import '../../common/styles/square_container_style.dart';
 import '../../common/widget/Text/title.dart';
+import '../../core/l10n/l10n.dart';
 import '../../core/locator/locator.dart';
 import '../../core/routes/routes.dart';
 
@@ -44,28 +45,28 @@ class DocumentView extends StatelessWidget {
                       Flexible(
                         child: ViSquareContainer(
                           icon: Iconsax.document_1,
-                          title: "Doc",
-                          subTitle: "Folder",
+                          title: AppLocalizations.of(context)!.doc,
+                          subTitle: AppLocalizations.of(context)!.files,
                           ontap: () => context.push(
                             ViRoutes.doc_folder_detailes,
-                            extra: "Doc",
                           ),
                         ),
                       ),
                       Flexible(
                         child: ViSquareContainer(
                           icon: Iconsax.image,
-                          title: "Image",
-                          subTitle: "Folder",
+                          title: AppLocalizations.of(context)!.image,
+                          subTitle: AppLocalizations.of(context)!.files,
                           ontap: () => context.push(
-                              ViRoutes.image_folder_detailes,
-                              extra: "Image"),
+                            ViRoutes.image_folder_detailes,
+                          ),
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: ViSizes.spaceBtwSections),
-                  const ViPrimaryTitle(title: "RECEND FILES"),
+                  ViPrimaryTitle(
+                      title: AppLocalizations.of(context)!.recend_files),
                   Expanded(child: BlocBuilder<HomeBloc, HomeState>(
                     builder: (context, state) {
                       final List<TaskModel> tasks = state.allTasksList;
@@ -76,9 +77,10 @@ class DocumentView extends StatelessWidget {
                                   ViDeviceUtils.getScreenHeigth(context) * 0.1,
                               color: AppColors.darkGrey,
                               image: ViImages.empty_screen_no_image,
-                              title: "No images found",
-                              subTitle:
-                                  "Add images to your task to display them."),
+                              title:
+                                  AppLocalizations.of(context)!.no_images_found,
+                              subTitle: AppLocalizations.of(context)!
+                                  .no_images_subTitle),
                         );
                       } else {
                         return ListView.builder(

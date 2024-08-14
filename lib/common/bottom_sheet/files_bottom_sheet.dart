@@ -17,6 +17,7 @@ class ViUploadBottomSheet {
     Set<String> selectedItems = {};
 
     showModalBottomSheet(
+      showDragHandle: true,
       context: context,
       builder: (BuildContext context) {
         return StatefulBuilder(

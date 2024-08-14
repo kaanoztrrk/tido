@@ -2,7 +2,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:http/http.dart';
 import 'package:tido/blocs/auth_blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:tido/blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:tido/blocs/auth_blocs/sign_up_bloc/sign_up_bloc.dart';
@@ -48,7 +47,7 @@ final GoRouter router = GoRouter(
           BlocProvider.value(value: getIt<HomeBloc>()),
           BlocProvider.value(value: getIt<AuthenticationBloc>()),
           BlocProvider.value(value: getIt<SignInBloc>()),
-        ], child: LoginView());
+        ], child: const LoginView());
       },
     ),
     GoRoute(
@@ -113,22 +112,18 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: ViRoutes.image_folder_detailes,
       builder: (BuildContext context, GoRouterState state) {
-        // `extra` özelliği ile veri alınıyor
-        final String title = state.extra as String? ?? 'Default Title';
         return BlocProvider.value(
           value: getIt<HomeBloc>(),
-          child: ImageFolderDetailesView(title: title),
+          child: ImageFolderDetailesView(),
         );
       },
     ),
     GoRoute(
       path: ViRoutes.doc_folder_detailes,
       builder: (BuildContext context, GoRouterState state) {
-        // `extra` özelliği ile veri alınıyor
-        final String title = state.extra as String? ?? 'Default Title';
         return BlocProvider.value(
           value: getIt<HomeBloc>(),
-          child: DocFolderDetailesView(title: title),
+          child: DocFolderDetailesView(),
         );
       },
     ),

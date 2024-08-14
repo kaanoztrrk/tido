@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:tido/core/l10n/l10n.dart';
 
 import '../../../common/widget/appbar/appbar.dart';
 import '../../../common/widget/button/primary_button.dart';
@@ -27,18 +28,18 @@ class ValidateEmailView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AuthHeader(
+            AuthHeader(
               smallSizeSubTitle: true,
-              title: ViTexts.email_validation_title,
-              subTitle: ViTexts.email_validation_subtitle,
+              title: AppLocalizations.of(context)!.email_validation_title,
+              subTitle: AppLocalizations.of(context)!.email_validation_subTitle,
             ),
             const SizedBox(height: ViSizes.spaceBtwSections),
             TextFormField(
               controller: emailController,
-              validator: (value) => ViValidator.validateEmail(value),
+              validator: (value) => ViValidator.validateEmail(context, value),
               decoration: InputDecoration(
                 prefixIcon: const Icon(Iconsax.direct_right),
-                hintText: ViTexts.email,
+                hintText: AppLocalizations.of(context)!.email,
                 hintStyle: dark
                     ? ViTextTheme.darkTextTheme.titleLarge
                         ?.copyWith(fontWeight: FontWeight.normal)
@@ -48,7 +49,7 @@ class ValidateEmailView extends StatelessWidget {
             ),
             const SizedBox(height: ViSizes.spaceBtwSections),
             ViPrimaryButton(
-                text: ViTexts.continuetext,
+                text: AppLocalizations.of(context)!.continue_text,
                 onTap: () {
                   context.push(ViRoutes.otp, extra: emailController);
                 }),

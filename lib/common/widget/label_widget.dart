@@ -7,6 +7,7 @@ import 'package:tido/utils/Device/device_utility.dart';
 import 'package:tido/utils/Helpers/helpers_functions.dart';
 import 'package:tido/utils/Snackbar/snacbar_service.dart';
 
+import '../../core/l10n/l10n.dart';
 import '../bottom_sheet/add_label_bottom_sheet.dart';
 import '../styles/square_container_style.dart';
 import 'chip/label_chip.dart';
@@ -48,7 +49,8 @@ class _ViLabeWidgetState extends State<ViLabeWidget> {
       });
       widget.onTagsUpdated(updatedTags);
     } else {
-      ViSnackbar.showInfo(context, "You can create up to three labels.");
+      ViSnackbar.showInfo(
+          context, AppLocalizations.of(context)!.create_label_text);
     }
   }
 
@@ -72,7 +74,8 @@ class _ViLabeWidgetState extends State<ViLabeWidget> {
           );
           ViDeviceUtils.hideKeyboard(context);
         } else {
-          ViSnackbar.showInfo(context, "You can create up to three labels.");
+          ViSnackbar.showInfo(
+              context, AppLocalizations.of(context)!.create_label_text);
         }
       },
       height: ViDeviceUtils.getScreenHeigth(context) * 0.2,
@@ -86,7 +89,7 @@ class _ViLabeWidgetState extends State<ViLabeWidget> {
                 Padding(
                   padding: const EdgeInsets.all(ViSizes.md),
                   child: Text.rich(TextSpan(
-                      text: "Label\n",
+                      text: "${AppLocalizations.of(context)!.label_text}\n",
                       style: dark
                           ? ViTextTheme.darkTextTheme.headlineMedium?.copyWith(
                               color: AppColors.white,
@@ -96,7 +99,7 @@ class _ViLabeWidgetState extends State<ViLabeWidget> {
                               fontWeight: FontWeight.bold),
                       children: [
                         TextSpan(
-                          text: "Selected",
+                          text: AppLocalizations.of(context)!.selected,
                           style: dark
                               ? ViTextTheme.darkTextTheme.titleLarge
                                   ?.copyWith(color: AppColors.secondaryText)
