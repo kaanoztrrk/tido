@@ -42,7 +42,7 @@ class ViAreYouSureBottomSheet {
                 const SizedBox(height: ViSizes.spaceBtwItems),
                 ViPrimaryTitle(
                   title: subTitle,
-                  secondTextColor: AppColors.secondaryText,
+                  textColor: AppColors.secondaryText,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: ViSizes.spaceBtwItems),

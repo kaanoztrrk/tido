@@ -50,6 +50,10 @@ class AppColors {
   static const Color bottomNavigatorBackground = Color(0xffECECEC);
   static const Color bottomNavigatorItemDefaultBg = Color(0xffE6E6E6);
   static const Color bottomNavigatorItemActiveBg = Color(0xffD4D5D7);
+  //* Dark Mode Bottom Navigator Colors
+  static const Color bottomNavigatorBackgroundDark = Color(0xff1C1C1E);
+  static const Color bottomNavigatorItemDefaultBgDark = Color(0xff2C2C2E);
+  static const Color bottomNavigatorItemActiveBgDark = Color(0xff3A3A3C);
 
   //* Neutral Shades
   static const Color black = Color(0xff232323);

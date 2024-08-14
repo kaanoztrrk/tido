@@ -52,7 +52,10 @@ class _CreateTaskViewState extends State<CreateTaskView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const ViPrimaryTitle(title: "TITLE"),
+            ViPrimaryTitle(
+              title: "TITLE",
+              textColor: dark ? AppColors.dark : AppColors.light,
+            ),
             const SizedBox(height: ViSizes.spaceBtwItems),
             ViContainer(
               padding: const EdgeInsets.only(left: 5, top: 10),

@@ -11,7 +11,7 @@ class ViPrimaryTitle extends StatelessWidget {
     this.smallText = false,
     this.bigText = false,
     this.primaryTextColor,
-    this.secondTextColor,
+    this.textColor,
     this.textAlign,
   });
 
@@ -19,37 +19,18 @@ class ViPrimaryTitle extends StatelessWidget {
   final bool smallText;
   final bool bigText;
   final Color? primaryTextColor;
-  final Color? secondTextColor;
+  final Color? textColor;
   final TextAlign? textAlign;
 
   @override
   Widget build(BuildContext context) {
     var dark = ViHelpersFunctions.isDarkMode(context);
-    TextStyle? textStyle;
-
-    if (smallText) {
-      textStyle = dark
-          ? ViTextTheme.darkTextTheme.titleMedium
-          : ViTextTheme.ligthTextTheme.titleMedium;
-    } else if (bigText) {
-      textStyle = dark
-          ? ViTextTheme.darkTextTheme.headlineLarge
-          : ViTextTheme.ligthTextTheme.headlineLarge;
-    } else {
-      textStyle = dark
-          ? ViTextTheme.darkTextTheme.titleLarge
-          : ViTextTheme.ligthTextTheme.titleLarge;
-    }
-
-    var textColor = dark
-        ? primaryTextColor ?? AppColors.primaryText
-        : secondTextColor ?? AppColors.primaryText;
 
     return Text(
       title,
-      style: textStyle?.copyWith(
-        color: textColor,
-      ),
+      style: dark
+          ? ViTextTheme.darkTextTheme.titleLarge
+          : ViTextTheme.ligthTextTheme.titleLarge,
       textAlign: textAlign,
     );
   }

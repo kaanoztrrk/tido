@@ -9,12 +9,14 @@ class ThemeState extends Equatable {
   final List<String> allBackgroundList;
   final Color primaryColor;
   final String? backgroundImage;
+  final ThemeMode themeMode;
 
   ThemeState({
     required this.primaryColor,
     required this.backgroundImage,
     required this.allColorList,
     required this.allBackgroundList,
+    required this.themeMode,
   });
 
   factory ThemeState.initial() {
@@ -40,6 +42,7 @@ class ThemeState extends Equatable {
         ViImages.texture_3,
       ],
       backgroundImage: null,
+      themeMode: ThemeMode.system,
     );
   }
 
@@ -49,16 +52,23 @@ class ThemeState extends Equatable {
     List<Color>? allColorList,
     List<Gradient>? allGradientList,
     List<String>? allTextureList,
+    ThemeMode? themeMode,
   }) {
     return ThemeState(
       allColorList: allColorList ?? this.allColorList,
       allBackgroundList: allTextureList ?? this.allBackgroundList,
       primaryColor: primaryColor ?? this.primaryColor,
       backgroundImage: backgroundImage,
+      themeMode: themeMode ?? this.themeMode,
     );
   }
 
   @override
-  List<Object?> get props =>
-      [primaryColor, allColorList, allBackgroundList, backgroundImage];
+  List<Object?> get props => [
+        primaryColor,
+        allColorList,
+        allBackgroundList,
+        backgroundImage,
+        themeMode
+      ];
 }

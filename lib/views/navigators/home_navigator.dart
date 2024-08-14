@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:tido/utils/Constant/colors.dart';
+import 'package:tido/utils/Helpers/helpers_functions.dart';
 import 'package:tido/views/home/home_view.dart';
 
 import '../../blocs/home_bloc/home_bloc.dart';
@@ -24,6 +25,7 @@ class _HomeNavigatorState extends State<HomeNavigator> {
   int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
+    var dark = ViHelpersFunctions.isDarkMode(context);
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return Scaffold(
@@ -35,14 +37,18 @@ class _HomeNavigatorState extends State<HomeNavigator> {
                 const EdgeInsets.only(bottom: 8),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
             decoration: BoxDecoration(
-              color: AppColors.bottomNavigatorBackground,
+              color: dark
+                  ? AppColors.bottomNavigatorBackgroundDark
+                  : AppColors.bottomNavigatorBackground,
               borderRadius: BorderRadius.circular(40),
             ),
             child: GNav(
               gap: 8,
-              activeColor: Colors.black,
+              activeColor: dark ? AppColors.light : AppColors.dark,
               iconSize: 24,
-              tabBackgroundColor: AppColors.bottomNavigatorItemActiveBg,
+              tabBackgroundColor: dark
+                  ? AppColors.bottomNavigatorItemActiveBgDark
+                  : AppColors.bottomNavigatorItemActiveBg,
               padding: const EdgeInsets.all(12),
               duration: const Duration(milliseconds: 400),
               tabs: const [

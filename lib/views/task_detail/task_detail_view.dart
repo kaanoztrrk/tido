@@ -81,7 +81,7 @@ class TaskDetailView extends StatelessWidget {
                               ViPrimaryTitle(
                                 title: task.title,
                                 bigText: true,
-                                secondTextColor: AppColors.white,
+                                textColor: AppColors.white,
                               ),
                               SizedBox(
                                 height: 50,
@@ -117,7 +117,7 @@ class TaskDetailView extends StatelessWidget {
                               const SizedBox(height: ViSizes.spaceBtwItems),
                               ViPrimaryTitle(
                                   title: task.description.toString(),
-                                  secondTextColor: AppColors.secondaryText),
+                                  textColor: AppColors.secondaryText),
                               const SizedBox(height: ViSizes.spaceBtwSections),
                             ],
                           ),

@@ -40,7 +40,7 @@ void showTaskDetailBottomSheet(BuildContext context, TaskModel task) {
                 title:
                     "Reprehenderit excepteur ad irure magna sit adipisicing. Reprehenderit excepteur ad irure magna sit adipisicing.",
                 smallText: true,
-                secondTextColor: AppColors.secondaryText,
+                textColor: AppColors.secondaryText,
               ),
             ],
           ),

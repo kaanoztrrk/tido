@@ -31,3 +31,9 @@ class ChangeBackgroundImageEvent extends ThemeEvent {
   @override
   List<Object> get props => [newImage];
 }
+
+class ChangeThemeModeEvent extends ThemeEvent {
+  final ThemeMode themeMode;
+
+  const ChangeThemeModeEvent(this.themeMode);
+}

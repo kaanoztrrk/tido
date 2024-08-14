@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:tido/common/styles/container_style.dart';
 import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Constant/sizes.dart';
+import 'package:tido/utils/Helpers/helpers_functions.dart';
+
+import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class ViSwiperButton extends StatefulWidget {
   const ViSwiperButton({
@@ -61,11 +64,12 @@ class _ViSwiperButtonState extends State<ViSwiperButton> {
 
   @override
   Widget build(BuildContext context) {
+    var dark = ViHelpersFunctions.isDarkMode(context);
     return Center(
       child: ViContainer(
         width: widget.width ?? MediaQuery.of(context).size.width * 0.65,
         bgColor: widget.isCompleted
-            ? AppColors.success
+            ? AppColors.darkerGrey
             : AppColors.lightGrey.withOpacity(0.5),
         borderRadius: BorderRadius.circular(ViSizes.borderRadiusLg * 2),
         height: widget.height ?? 70.0,
@@ -80,10 +84,11 @@ class _ViSwiperButtonState extends State<ViSwiperButton> {
                   widget.isCompleted
                       ? "Completed"
                       : (widget.text ?? "Drag to mark done"),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.0,
-                  ),
+                  style: dark
+                      ? ViTextTheme.darkTextTheme.bodyMedium
+                          ?.copyWith(fontWeight: FontWeight.w600)
+                      : ViTextTheme.ligthTextTheme.bodyMedium
+                          ?.copyWith(fontWeight: FontWeight.w600),
                 ),
                 widget.isCompleted
                     ? const SizedBox(width: 20)
@@ -112,7 +117,9 @@ class _ViSwiperButtonState extends State<ViSwiperButton> {
                           ? Colors.green
                           : Theme.of(context).primaryColor),
                   child: Icon(
-                    Icons.chevron_right,
+                    widget.isCompleted
+                        ? Icons.done
+                        : Icons.double_arrow_rounded,
                     color: widget.isCompleted ? Colors.white : AppColors.white,
                   ),
                 ),

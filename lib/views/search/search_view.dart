@@ -37,6 +37,7 @@ class SearchView extends StatelessWidget {
           child: Column(
             children: [
               ViContainer(
+                margin: EdgeInsets.symmetric(vertical: ViSizes.defaultSpace),
                 padding: const EdgeInsets.only(left: 5, top: 10),
                 height: 65,
                 decoration: BoxDecoration(
@@ -74,7 +75,7 @@ class SearchView extends StatelessWidget {
                           color: AppColors.darkerGrey,
                           title: "No Search Results Found",
                           subTitle:
-                              "We couldn't find any matches for your search. Try different keywords.",
+                              "We couldn't find any matches for your search.\nTry different keywords.",
                           image: ViImages.empty_screen_no_result);
                     } else {
                       return ListView.builder(

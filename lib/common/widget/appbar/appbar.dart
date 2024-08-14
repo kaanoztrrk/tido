@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tido/utils/Constant/colors.dart';
+import 'package:tido/utils/Helpers/helpers_functions.dart';
 
 import '../../../utils/Constant/sizes.dart';
 import '../../../utils/Device/device_utility.dart';
@@ -30,11 +31,12 @@ class ViAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    var dark = ViHelpersFunctions.isDarkMode(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: ViSizes.md),
       child: AppBar(
         centerTitle: centerTitle,
-        backgroundColor: AppColors.light,
+        backgroundColor: dark ? AppColors.dark : AppColors.light,
         automaticallyImplyLeading: false,
         leading: showBackArrow
             ? ViRotioButton(

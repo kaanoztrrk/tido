@@ -10,8 +10,9 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   ThemeBloc() : super(ThemeState.initial()) {
     on<ChangeThemeColorEvent>(_onChangeThemeColor);
     on<ChangeBackgroundImageEvent>(_onChangeBackgroundImage);
+    on<ChangeThemeModeEvent>(_onChangeThemeMode);
 
-    // Uygulama başlarken kaydedilen temayı yükle
+    // Load the saved theme settings at the start
     _loadSavedTheme();
   }
 
@@ -21,7 +22,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     final colorValue = event.newColor.value;
     await SharedPreferencesService.instance.setInt('primary_color', colorValue);
 
-    // Eğer arka plan resmi varsa, onu null yap
+    // If a background image is set, remove it
     await SharedPreferencesService.instance.remove('background_image');
     emit(state.copyWith(backgroundImage: null));
   }
@@ -30,12 +31,19 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
       ChangeBackgroundImageEvent event, Emitter<ThemeState> emit) async {
     emit(state.copyWith(backgroundImage: event.newImage));
 
-    // Arka plan resmini kaydet
+    // Save the background image
     await SharedPreferencesService.instance
         .setString('background_image', event.newImage);
 
-    // Renk seçimlerini varsayılan hale getir
+    // Reset color selections
     emit(state.copyWith(primaryColor: Colors.transparent));
+  }
+
+  void _onChangeThemeMode(
+      ChangeThemeModeEvent event, Emitter<ThemeState> emit) async {
+    emit(state.copyWith(themeMode: event.themeMode));
+    await SharedPreferencesService.instance
+        .setString('theme_mode', event.themeMode.toString());
   }
 
   Future<void> _loadSavedTheme() async {
@@ -43,12 +51,26 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
         await SharedPreferencesService.instance.getInt('primary_color');
     final savedBackgroundImage =
         await SharedPreferencesService.instance.getString('background_image');
+    final savedThemeModeString =
+        await SharedPreferencesService.instance.getString('theme_mode');
+
+    ThemeMode? savedThemeMode;
+    if (savedThemeModeString != null) {
+      savedThemeMode = ThemeMode.values.firstWhere(
+        (mode) => mode.toString() == savedThemeModeString,
+        orElse: () => ThemeMode.system,
+      );
+    }
 
     if (savedBackgroundImage != null) {
       add(ChangeBackgroundImageEvent(savedBackgroundImage));
     } else if (savedColorValue != null) {
       final savedColor = Color(savedColorValue);
       add(ChangeThemeColorEvent(savedColor));
+    }
+
+    if (savedThemeMode != null) {
+      add(ChangeThemeModeEvent(savedThemeMode));
     }
   }
 }

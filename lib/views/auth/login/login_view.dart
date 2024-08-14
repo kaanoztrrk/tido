@@ -151,6 +151,7 @@ class _LoginViewState extends State<LoginView> {
                         BlocProvider.of<SignInBloc>(context)
                             .add(GoogleSignInRequired());
                       },
+                      bgColor: Theme.of(context).primaryColor,
                       height: 50,
                       width: ViDeviceUtils.getScreenWidth(context) * 0.7,
                       borderRadius: BorderRadius.circular(20),
@@ -158,7 +159,10 @@ class _LoginViewState extends State<LoginView> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(ViImages.googleLogo),
-                          Text("Sign in with Google")
+                          Text(
+                            "Sign in with Google",
+                            style: ViTextTheme.darkTextTheme.bodyLarge,
+                          )
                         ],
                       ),
                     ),

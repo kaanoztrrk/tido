@@ -81,9 +81,9 @@ class HomeMainTaskTile extends StatelessWidget {
                       child: Text(
                         title,
                         style: dark
-                            ? ViTextTheme.ligthTextTheme.headlineLarge
+                            ? ViTextTheme.darkTextTheme.headlineLarge
                                 ?.copyWith(fontWeight: FontWeight.w600)
-                            : ViTextTheme.darkTextTheme.headlineLarge
+                            : ViTextTheme.ligthTextTheme.headlineLarge
                                 ?.copyWith(fontWeight: FontWeight.w600),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
@@ -100,8 +100,11 @@ class HomeMainTaskTile extends StatelessWidget {
                       ViRotioButton(
                         onTap: optionTap,
                         size: 70,
-                        bgColor: AppColors.white,
-                        child: const Icon(Iconsax.edit_2),
+                        bgColor: AppColors.lightGrey.withOpacity(0.7),
+                        child: Icon(
+                          Iconsax.edit_2,
+                          color: AppColors.dark,
+                        ),
                       ),
                     ],
                   ),

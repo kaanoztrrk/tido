@@ -50,8 +50,8 @@ class MainNavigator extends StatelessWidget {
               create: (context) =>
                   AuthenticationBloc(userRepository: userRepository),
             ),
-            BlocProvider<MainBloc>(
-              create: (context) => MainBloc(pageController),
+            BlocProvider.value(
+              value: getIt<MainBloc>(),
             ),
           ],
           child: BlocBuilder<AuthenticationBloc, AuthenticationState>(

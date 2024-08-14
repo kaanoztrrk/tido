@@ -27,13 +27,6 @@ class ViPrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var dark = ViHelpersFunctions.isDarkMode(context);
-    var textStyle = dark
-        ? (smallText
-            ? ViTextTheme.ligthTextTheme.titleMedium
-            : ViTextTheme.ligthTextTheme.headlineMedium)
-        : (smallText
-            ? ViTextTheme.darkTextTheme.titleMedium
-            : ViTextTheme.darkTextTheme.headlineMedium);
 
     return BlocProvider.value(
       value: getIt<ThemeBloc>(),
@@ -50,7 +43,9 @@ class ViPrimaryButton extends StatelessWidget {
                   color: Theme.of(context).primaryColor),
               child: Text(
                 text,
-                style: textStyle,
+                style: dark
+                    ? ViTextTheme.darkTextTheme.headlineSmall
+                    : ViTextTheme.ligthTextTheme.headlineSmall,
               ),
             ),
           );

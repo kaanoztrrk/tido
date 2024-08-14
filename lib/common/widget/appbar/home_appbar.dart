@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:tido/common/widget/button/create_task_button.dart';
+import 'package:tido/utils/Constant/colors.dart';
+import 'package:tido/utils/Helpers/helpers_functions.dart';
 import 'package:tido/views/home/widget/time_button.dart';
 
 import '../../../core/widget/user/profile_image.dart';
@@ -35,6 +37,7 @@ class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    var dark = ViHelpersFunctions.isDarkMode(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: ViSizes.md),
       child: Container(
@@ -46,16 +49,8 @@ class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               leadingWidget ?? Container()
             else
               const ViCreateTaskButton(),
-            Row(
-              children: [
-                ViRotioButton(
-                  onTap: notificationOnPressed,
-                  child: const Icon(Iconsax.notification, size: ViSizes.iconLg),
-                ),
-                const SizedBox(width: ViSizes.spaceBtwItems / 2),
-                const ViProfileImage(),
-              ],
-            ),
+            const SizedBox(width: ViSizes.spaceBtwItems / 2),
+            const ViProfileImage(),
           ],
         ),
       ),

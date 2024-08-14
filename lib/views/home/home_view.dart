@@ -3,12 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:tido/blocs/home_bloc/home_event.dart';
-import 'package:tido/common/bottom_sheet/add_category_bottom_sheet.dart';
+
 import 'package:tido/common/bottom_sheet/task_option_bottom_sheet.dart';
 import 'package:tido/common/empty_screen/empty_screen.dart';
 import 'package:tido/common/layout/swiper_layout.dart';
 import 'package:tido/common/styles/container_style.dart';
+import 'package:tido/common/widget/chip/category_chip.dart';
 import 'package:tido/core/routes/routes.dart';
+import 'package:tido/data/models/category_model/category_model.dart';
 import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Constant/image_strings.dart';
 import 'package:tido/utils/Constant/sizes.dart';
@@ -23,7 +25,6 @@ import '../../common/widget/task_tile/main_task_tile.dart';
 import '../../core/locator/locator.dart';
 import '../../data/models/task_model/task_model.dart';
 import '../../utils/Helpers/helpers_functions.dart';
-import 'widget/category_list.dart';
 import 'widget/home_header.dart';
 
 class HomeView extends StatelessWidget {
@@ -53,73 +54,28 @@ class HomeView extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    //* Home Header
                     const Padding(
                         padding: EdgeInsets.all(ViSizes.defaultSpace),
                         child: HomeHeader()),
                     const SizedBox(height: ViSizes.spaceBtwItems),
+                    //* Category
                     Row(
                       children: [
+                        //* Category List
                         Expanded(
                           child: SizedBox(
                             height: 50,
                             child: ListView.builder(
                               padding: const EdgeInsets.only(left: 10),
                               scrollDirection: Axis.horizontal,
-                              itemCount:
-                                  1, // sadece 1 öğe göstermek için itemCount'ı 1 olarak ayarladık
+                              itemCount: 1,
                               itemBuilder: (context, index) {
                                 if (index == 0 &&
                                     state.allCategoryList.isNotEmpty) {
                                   final category = state.allCategoryList[0];
-                                  return GestureDetector(
-                                    onTap: () {
-                                      BlocProvider.of<HomeBloc>(context).add(
-                                          const CategoryUpdateTab(
-                                              0)); // sadece 0. index için güncelleme
-                                    },
-                                    onLongPress: () {
-                                      ViOptionBottomSheet()
-                                          .showEditCategoryBottomSheet(
-                                        context,
-                                        onEdit: () {
-                                          ViEditBottomSheet
-                                              .onEditCategoryBottomSheet(
-                                            context: context,
-                                            oldCategory: category,
-                                            bloc: BlocProvider.of<HomeBloc>(
-                                                context),
-                                          );
-                                        },
-                                        onDelete: () {
-                                          print("object");
-                                          BlocProvider.of<HomeBloc>(context)
-                                              .add(DeleteCategoryEvent(
-                                                  categoryModel: category));
-                                          Navigator.pop(context);
-                                        },
-                                      );
-                                    },
-                                    child: ViContainer(
-                                      bgColor: state.taskCategoryIndex == 0
-                                          ? Theme.of(context).primaryColor
-                                          : AppColors.lightGrey,
-                                      margin: const EdgeInsets.only(
-                                          right: ViSizes.sm),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      borderRadius: BorderRadius.circular(50),
-                                      child: Center(
-                                        child: Text(
-                                          "${category.name} (${state.getTaskCount(0)})",
-                                          style: state.taskCategoryIndex == 0
-                                              ? ViTextTheme
-                                                  .darkTextTheme.titleSmall
-                                              : ViTextTheme
-                                                  .ligthTextTheme.titleSmall,
-                                        ),
-                                      ),
-                                    ),
-                                  );
+                                  return ViCategoryChip(
+                                      category: category, state: state);
                                 } else {
                                   return const SizedBox
                                       .shrink(); // diğer indexler için boş bir widget döndür
@@ -128,15 +84,22 @@ class HomeView extends StatelessWidget {
                             ),
                           ),
                         ),
+
+                        //* Search Button
                         ViRotioButton(
                           onTap: () {
                             context.push(ViRoutes.search_view);
                           },
-                          child: const Icon(Iconsax.search_normal),
+                          child: Icon(
+                            Iconsax.search_normal,
+                            color: dark ? AppColors.light : AppColors.dark,
+                          ),
                         ),
                         const SizedBox(width: ViSizes.sm),
                       ],
                     ),
+
+                    //* Task List
                     Expanded(
                       child: tasksToShow.isEmpty
                           ? const ViEmptyScreen(

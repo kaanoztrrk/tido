@@ -11,7 +11,6 @@ import 'package:tido/blocs/theme_bloc/theme_bloc.dart';
 import 'package:tido/common/bottom_sheet/are_you_sure.dart';
 import 'package:tido/common/styles/container_style.dart';
 import 'package:tido/common/widget/Text/title.dart';
-import 'package:tido/common/widget/button/primary_button.dart';
 import 'package:tido/core/locator/locator.dart';
 import 'package:tido/core/routes/routes.dart';
 import 'package:tido/core/widget/user/profile_image.dart';
@@ -55,14 +54,10 @@ class SettingsView extends StatelessWidget {
                           onEdit: true,
                         ),
                         const SizedBox(height: ViSizes.spaceBtwItems),
-                        Text(
-                          state.user?.displayName ?? "Unkown User",
-                          style: dark
-                              ? ViTextTheme.darkTextTheme.headlineMedium
-                                  ?.copyWith(color: AppColors.primaryText)
-                              : ViTextTheme.ligthTextTheme.headlineMedium
-                                  ?.copyWith(color: AppColors.primaryText),
-                        ),
+                        Text(state.user?.displayName ?? "Unkown User",
+                            style: dark
+                                ? ViTextTheme.darkTextTheme.headlineMedium
+                                : ViTextTheme.ligthTextTheme.headlineMedium),
                         Text(
                           state.user?.email ?? "Unkown Email",
                           style: dark
@@ -71,13 +66,7 @@ class SettingsView extends StatelessWidget {
                               : ViTextTheme.ligthTextTheme.titleMedium
                                   ?.copyWith(color: AppColors.secondaryText),
                         ),
-                        const SizedBox(height: ViSizes.spaceBtwItems),
-                        ViPrimaryButton(
-                          text: "Edit Profile",
-                          height: 50,
-                          width: 120,
-                          smallText: true,
-                        ),
+                        const SizedBox(height: ViSizes.spaceBtwItems * 1.5),
                       ],
                     );
                   },

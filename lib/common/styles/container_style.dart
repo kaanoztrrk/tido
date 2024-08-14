@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tido/utils/Constant/colors.dart';
+import 'package:tido/utils/Helpers/helpers_functions.dart';
 
 class ViContainer extends StatelessWidget {
   const ViContainer({
@@ -31,6 +32,10 @@ class ViContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var dark = ViHelpersFunctions.isDarkMode(context);
+
+    Color defaultBgColor =
+        dark ? AppColors.dark : AppColors.lightGrey.withOpacity(0.7);
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -41,7 +46,7 @@ class ViContainer extends StatelessWidget {
         height: height,
         decoration: decoration ??
             BoxDecoration(
-                color: bgColor ?? AppColors.lightGrey,
+                color: bgColor ?? defaultBgColor,
                 border: Border.all(width: 2, color: AppColors.white),
                 borderRadius: borderRadius,
                 gradient: gradient),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Constant/image_strings.dart';
+import 'package:tido/utils/Helpers/helpers_functions.dart';
 
 class ViRotioButton extends StatelessWidget {
   const ViRotioButton({
@@ -24,6 +25,11 @@ class ViRotioButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool dark = ViHelpersFunctions.isDarkMode(context);
+
+    Color defaultBgColor =
+        dark ? AppColors.dark : AppColors.lightGrey.withOpacity(0.7);
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -31,7 +37,7 @@ class ViRotioButton extends StatelessWidget {
         height: size,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: bgColor ?? AppColors.lightGrey.withOpacity(0.7),
+          color: bgColor ?? defaultBgColor,
           image: hasImage
               ? DecorationImage(
                   image: isNetworkImage
