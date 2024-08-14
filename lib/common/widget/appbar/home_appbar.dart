@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:tido/common/widget/button/create_task_button.dart';
 import 'package:tido/views/home/widget/time_button.dart';
 
 import '../../../core/widget/user/profile_image.dart';
@@ -44,10 +45,7 @@ class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             if (createTaskButton == false)
               leadingWidget ?? Container()
             else
-              ViTimeButton(
-                createTaskTap: leadingOnPressed,
-                icon: Iconsax.add,
-              ),
+              const ViCreateTaskButton(),
             Row(
               children: [
                 ViRotioButton(

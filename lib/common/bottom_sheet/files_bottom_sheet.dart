@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tido/common/widget/button/primary_button.dart';
 import 'dart:io';
 import '../../utils/Constant/colors.dart';
 import '../../utils/Constant/sizes.dart';
@@ -9,10 +10,11 @@ class ViUploadBottomSheet {
   void showFilesBottomSheet(
     BuildContext context,
     List<String>? initialFiles,
+    Function(List<String>) onFilesUpdated, // Liste güncellenmesi callback
   ) {
     List<String> selectedFiles =
         initialFiles != null ? List.from(initialFiles) : [];
-    Set<String> selectedItems = {}; // Seçili dosyalar için bir set
+    Set<String> selectedItems = {};
 
     showModalBottomSheet(
       context: context,
@@ -21,7 +23,7 @@ class ViUploadBottomSheet {
           builder: (BuildContext context, StateSetter setState) {
             return Container(
               padding: const EdgeInsets.all(ViSizes.sm),
-              height: 400, // Yüksekliği artırdık çünkü silme butonları eklendi
+              height: 400,
               child: Column(
                 children: [
                   Expanded(
@@ -30,6 +32,7 @@ class ViUploadBottomSheet {
                             itemCount: selectedFiles.length,
                             itemBuilder: (context, index) {
                               return SelectedFilesTile(
+                                enableLongPress: true,
                                 leading: _buildFileItem(selectedFiles[index]),
                                 title: selectedFiles[index].split('/').last,
                                 isSelected: selectedItems
@@ -49,21 +52,18 @@ class ViUploadBottomSheet {
                           )
                         : const Center(child: Text("No files selected")),
                   ),
-                  if (selectedItems
-                      .isNotEmpty) // Silme butonunu sadece dosya seçildiyse göster
-                    Padding(
-                      padding: const EdgeInsets.all(ViSizes.sm),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            selectedFiles.removeWhere(
-                                (file) => selectedItems.contains(file));
-                            selectedItems.clear();
-                          });
-                        },
-                        child: Text('Delete Selected Files'),
-                      ),
-                    ),
+                  if (selectedItems.isNotEmpty)
+                    ViPrimaryButton(
+                      text: "Delete",
+                      onTap: () {
+                        setState(() {
+                          selectedFiles.removeWhere(
+                              (file) => selectedItems.contains(file));
+                          selectedItems.clear();
+                        });
+                        onFilesUpdated(selectedFiles);
+                      },
+                    )
                 ],
               ),
             );

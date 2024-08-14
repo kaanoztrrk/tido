@@ -6,6 +6,7 @@ import 'package:tido/blocs/theme_bloc/theme_bloc.dart';
 import 'package:tido/common/styles/container_style.dart';
 import 'package:tido/common/widget/chip/label_chip.dart';
 import 'package:tido/core/locator/locator.dart';
+import 'package:tido/core/routes/routes.dart';
 import 'package:tido/data/models/task_model/task_model.dart';
 import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Constant/sizes.dart';
@@ -15,9 +16,11 @@ import 'package:tido/views/task_detail/widget/task_info.dart';
 import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_state.dart';
 import '../../blocs/theme_bloc/theme_state.dart';
+import '../../common/empty_screen/empty_screen.dart';
 import '../../common/widget/Text/title.dart';
 import '../../common/widget/button/ratio_button.dart';
 import '../../common/widget/task_tile/selected_files_tile.dart';
+import '../../utils/Constant/image_strings.dart';
 
 class TaskDetailView extends StatelessWidget {
   final TaskModel task;
@@ -35,6 +38,7 @@ class TaskDetailView extends StatelessWidget {
               padding: const EdgeInsets.all(ViSizes.defaultSpace),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ViContainer(
                     height: ViDeviceUtils.getScreenHeigth(context) * 0.4,
@@ -56,6 +60,14 @@ class TaskDetailView extends StatelessWidget {
                               onTap: () => context.pop(),
                               child: const Icon(
                                 Icons.arrow_back_ios_new_rounded,
+                                color: AppColors.white,
+                              ),
+                            ),
+                            ViRotioButton(
+                              onTap: () => context.push(ViRoutes.task_edit_view,
+                                  extra: task),
+                              child: const Icon(
+                                Icons.edit,
                                 color: AppColors.white,
                               ),
                             ),
@@ -113,32 +125,40 @@ class TaskDetailView extends StatelessWidget {
                           task: task,
                         ),
                         const SizedBox(height: ViSizes.spaceBtwSections),
-                        const ViPrimaryTitle(title: "FILES"),
+                        if (task.files!.isEmpty)
+                          const ViPrimaryTitle(title: "FILES"),
                         BlocBuilder<HomeBloc, HomeState>(
                           builder: (context, state) {
+                            final files = task.files ?? [];
+
                             return ListView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              reverse: false,
-                              itemCount: state.allTasksList.length,
+                              itemCount: files.isEmpty ? 1 : files.length,
                               itemBuilder: (context, index) {
-                                final task = state.allTasksList[index];
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ...task.files?.map((filePath) {
-                                          return SelectedFilesTile(
-                                            leading: _buildFileItem(filePath),
-                                            title: filePath.split('/').last,
-                                          );
-                                        }) ??
-                                        [
-                                          SelectedFilesTile(
-                                            leading: _buildFileItem(""),
-                                            title: "No File",
-                                          ),
-                                        ],
-                                  ],
+                                if (files.isEmpty) {
+                                  return Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(
+                                          ViSizes.defaultSpace),
+                                      child: ViEmptyScreen(
+                                        size: ViDeviceUtils.getScreenHeigth(
+                                                context) *
+                                            0.15,
+                                        color: AppColors.darkGrey,
+                                        image: ViImages.empty_screen_no_image,
+                                        title: "No images found",
+                                        subTitle:
+                                            "Add images to your task to display them.",
+                                      ),
+                                    ),
+                                  );
+                                }
+
+                                final filePath = files[index];
+                                return SelectedFilesTile(
+                                  leading: _buildFileItem(filePath),
+                                  title: filePath.split('/').last,
                                 );
                               },
                             );

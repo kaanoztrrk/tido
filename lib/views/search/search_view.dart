@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tido/blocs/home_bloc/home_bloc.dart';
 import 'package:tido/common/widget/Text/title.dart';
+import 'package:tido/common/widget/task_tile/calender_task_tile.dart';
 import 'package:tido/core/locator/locator.dart';
 import 'package:tido/utils/Constant/image_strings.dart';
+import 'package:tido/utils/Device/device_utility.dart';
 import 'package:tido/utils/Helpers/helpers_functions.dart';
 import '../../blocs/home_bloc/home_event.dart';
 import '../../blocs/home_bloc/home_state.dart';
@@ -67,48 +69,24 @@ class SearchView extends StatelessWidget {
                 child: BlocBuilder<HomeBloc, HomeState>(
                   builder: (context, state) {
                     if (state.searchResults.isEmpty) {
-                      return ListView.builder(
-                        itemCount: state.allTasksList.length,
-                        itemBuilder: (context, index) {
-                          var task = state.allTasksList[index];
-
-                          return ViContainer(
-                            alignment: Alignment.centerLeft,
-                            margin: EdgeInsets.only(top: ViSizes.defaultSpace),
-                            padding: EdgeInsets.all(ViSizes.defaultSpace),
-                            height: 120,
-                            borderRadius: BorderRadius.circular(30),
-                            child: Text(
-                              task.title,
-                              style: dark
-                                  ? ViTextTheme.darkTextTheme.headlineMedium
-                                      ?.copyWith(color: AppColors.white)
-                                  : ViTextTheme.ligthTextTheme.headlineMedium
-                                      ?.copyWith(color: AppColors.white),
-                            ),
-                          );
-                        },
-                      );
+                      return ViEmptyScreen(
+                          size: ViDeviceUtils.getScreenHeigth(context) * 0.15,
+                          color: AppColors.darkerGrey,
+                          title: "No Search Results Found",
+                          subTitle:
+                              "We couldn't find any matches for your search. Try different keywords.",
+                          image: ViImages.empty_screen_no_result);
                     } else {
                       return ListView.builder(
                         itemCount: state.searchResults.length,
                         itemBuilder: (context, index) {
                           var task = state.searchResults[index];
 
-                          return ViContainer(
-                            height: 80,
-                            bgColor: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.circular(30),
-                            child: ListTile(
-                              title: Text(
-                                task.title,
-                                style: dark
-                                    ? ViTextTheme.darkTextTheme.headlineMedium
-                                        ?.copyWith(color: AppColors.white)
-                                    : ViTextTheme.ligthTextTheme.headlineMedium
-                                        ?.copyWith(color: AppColors.white),
-                              ),
-                            ),
+                          return CalenderTaskTile(
+                            title: task.title,
+                            timerText: task.formattedTaskTime,
+                            dateText: task.formattedDate,
+                            task: task,
                           );
                         },
                       );

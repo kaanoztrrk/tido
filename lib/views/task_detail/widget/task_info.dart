@@ -6,9 +6,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart'; // Tarih formatlama için gerekli paket
 import 'package:tido/blocs/auth_blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:tido/blocs/auth_blocs/authentication_bloc/authentication_state.dart';
-import 'package:tido/blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 
-import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_state.dart';
 import '../../../common/widget/button/ratio_button.dart';
 import '../../../core/widget/user/profile_image.dart';
 import '../../../data/models/task_model/task_model.dart';
@@ -37,7 +35,10 @@ class ViTaskInfoWidget extends StatelessWidget {
   Row dead_time(bool dark) {
     // Due date formatlama
     final DateFormat formatter = DateFormat('dd MMM yyyy');
-    final String dueDate = formatter.format(task.taskTime!);
+    // Ensure task.taskTime is not null
+    final String dueDate = task.taskTime != null
+        ? formatter.format(task.taskTime!)
+        : "No Due Date";
 
     return Row(
       children: [
@@ -86,8 +87,10 @@ class ViTaskInfoWidget extends StatelessWidget {
             ),
             BlocBuilder<AuthenticationBloc, AuthenticationState>(
               builder: (context, state) {
+                // Ensure state.user is not null
+                final userName = state.user?.displayName ?? "No Name";
                 return Text(
-                  state.user!.displayName.toString(),
+                  userName,
                   style: dark
                       ? ViTextTheme.darkTextTheme.titleLarge?.copyWith(
                           color: AppColors.secondaryText,

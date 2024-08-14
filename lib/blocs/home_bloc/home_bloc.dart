@@ -158,6 +158,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   void _onFilterTasksByDate(FilterTasksByDate event, Emitter<HomeState> emit) {
+    if (state.selectedDate == event.date) {
+      return;
+    }
+
     final filteredTasks = state.allTasksList.where((task) {
       final taskDate = task.taskTime;
       return taskDate != null &&
@@ -165,7 +169,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           taskDate.month == event.date.month &&
           taskDate.day == event.date.day;
     }).toList();
-    emit(state.copyWith(filteredTasks: filteredTasks));
+
+    emit(state.copyWith(
+      filteredTasks: filteredTasks,
+      selectedDate: event.date,
+    ));
   }
 
   void _startTimer(StartTimerEvent event, Emitter<HomeState> emit) {

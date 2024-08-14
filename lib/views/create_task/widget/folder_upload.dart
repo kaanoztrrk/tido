@@ -30,8 +30,6 @@ class ViFolderUpload extends StatefulWidget {
 }
 
 class _ViFolderUploadState extends State<ViFolderUpload> {
-  bool _isGridView = false;
-
   Future<void> _pickFiles() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowMultiple: true,
@@ -57,6 +55,12 @@ class _ViFolderUploadState extends State<ViFolderUpload> {
     ViUploadBottomSheet().showFilesBottomSheet(
       context,
       widget.selectedFiles,
+      (updatedFiles) {
+        setState(() {
+          widget.selectedFiles = updatedFiles;
+        });
+        widget.onFilesSelected(updatedFiles);
+      },
     );
   }
 

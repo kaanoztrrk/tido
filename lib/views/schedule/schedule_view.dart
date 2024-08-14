@@ -2,15 +2,22 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:tido/blocs/main_bloc/main_bloc.dart';
 import 'package:tido/common/widget/appbar/home_appbar.dart';
+import 'package:tido/common/widget/button/ratio_button.dart';
+import 'package:tido/core/routes/routes.dart';
 import 'package:tido/utils/Constant/colors.dart';
+import 'package:tido/views/home/widget/time_button.dart';
 import 'package:tido/views/schedule/widget/schedule_heading_time.dart';
 import '../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_event.dart';
 import '../../blocs/home_bloc/home_state.dart';
+import '../../common/widget/button/create_task_button.dart';
 import '../../common/widget/task_tile/calender_task_tile.dart';
 import '../../core/locator/locator.dart';
 import '../../utils/Constant/sizes.dart';
@@ -36,6 +43,7 @@ class _ScheduleViewState extends State<ScheduleView> {
         ],
         child: SafeArea(
           child: Scaffold(
+            floatingActionButton: const ViCreateTaskButton(),
             appBar: const ViHomeAppBar(
                 height: ViSizes.appBarHeigth * 1.5,
                 leadingWidget: ViScheduleHeaderTime()),
@@ -50,10 +58,9 @@ class _ScheduleViewState extends State<ScheduleView> {
                         itemBuilder: (context, index) {
                           final task = state.filteredTasks[index];
                           return CalenderTaskTile(
+                            task: task,
                             title: task.title,
-                            dateText: DateFormat.MMMM('en_US')
-                                .add_d()
-                                .format(task.taskTime ?? DateTime.now()),
+                            dateText: task.formattedDate,
                             timerText: task.formattedTaskTime,
                           );
                         },
@@ -79,6 +86,8 @@ class _ScheduleViewState extends State<ScheduleView> {
           _selectedDay = selectedDay;
           _focusedDay = focusedDay;
         });
+
+        // Seçilen güne göre filtreleme işlemi
         context.read<HomeBloc>().add(FilterTasksByDate(selectedDay));
       },
       onFormatChanged: (format) {
@@ -87,39 +96,7 @@ class _ScheduleViewState extends State<ScheduleView> {
         }
       },
       onPageChanged: (focusedDay) => _focusedDay = focusedDay,
-
-      // Özelleştirme
-      headerStyle: HeaderStyle(
-        titleTextStyle: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Theme.of(context).primaryColor),
-        formatButtonVisible: true,
-        leftChevronIcon:
-            Icon(Icons.chevron_left, color: Theme.of(context).primaryColor),
-        rightChevronIcon:
-            Icon(Icons.chevron_right, color: Theme.of(context).primaryColor),
-        decoration: BoxDecoration(
-          color: Colors.grey[200],
-        ),
-      ),
-      calendarStyle: CalendarStyle(
-        isTodayHighlighted: true,
-        selectedDecoration: BoxDecoration(
-          color: AppColors.darkgrey,
-          shape: BoxShape.circle,
-        ),
-        selectedTextStyle: TextStyle(color: Colors.white),
-        todayDecoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          shape: BoxShape.circle,
-        ),
-        todayTextStyle: TextStyle(color: Colors.white),
-        outsideDecoration: BoxDecoration(
-          color: Colors.transparent,
-        ),
-        outsideTextStyle: TextStyle(color: Colors.grey),
-      ),
+      // Kalan kodlar
     );
   }
 }
