@@ -8,6 +8,7 @@ import 'package:tido/blocs/auth_blocs/authentication_bloc/authentication_bloc.da
 import 'package:tido/blocs/auth_blocs/authentication_bloc/authentication_state.dart';
 
 import '../../../common/widget/button/ratio_button.dart';
+import '../../../core/l10n/l10n.dart';
 import '../../../core/widget/user/profile_image.dart';
 import '../../../data/models/task_model/task_model.dart';
 import '../../../utils/Constant/colors.dart';
@@ -26,19 +27,19 @@ class ViTaskInfoWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        created_info(dark),
-        dead_time(dark),
+        created_info(context, dark),
+        dead_time(context, dark),
       ],
     );
   }
 
-  Row dead_time(bool dark) {
+  Row dead_time(BuildContext context, bool dark) {
     // Due date formatlama
     final DateFormat formatter = DateFormat('dd MMM yyyy');
     // Ensure task.taskTime is not null
     final String dueDate = task.taskTime != null
         ? formatter.format(task.taskTime!)
-        : "No Due Date";
+        : AppLocalizations.of(context)!.no_due_time;
 
     return Row(
       children: [
@@ -50,7 +51,7 @@ class ViTaskInfoWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Due Time",
+              AppLocalizations.of(context)!.due_time,
               style: dark
                   ? ViTextTheme.darkTextTheme.titleLarge
                   : ViTextTheme.ligthTextTheme.titleLarge,
@@ -71,7 +72,7 @@ class ViTaskInfoWidget extends StatelessWidget {
     );
   }
 
-  Row created_info(bool dark) {
+  Row created_info(BuildContext context, bool dark) {
     return Row(
       children: [
         const ViProfileImage(),
@@ -80,7 +81,7 @@ class ViTaskInfoWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Created",
+              AppLocalizations.of(context)!.created,
               style: dark
                   ? ViTextTheme.darkTextTheme.titleLarge
                   : ViTextTheme.ligthTextTheme.titleLarge,
@@ -88,7 +89,8 @@ class ViTaskInfoWidget extends StatelessWidget {
             BlocBuilder<AuthenticationBloc, AuthenticationState>(
               builder: (context, state) {
                 // Ensure state.user is not null
-                final userName = state.user?.displayName ?? "No Name";
+                final userName = state.user?.displayName ??
+                    AppLocalizations.of(context)!.unkownUser;
                 return Text(
                   userName,
                   style: dark

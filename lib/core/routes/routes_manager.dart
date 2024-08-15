@@ -17,8 +17,12 @@ import 'package:tido/views/auth/login/login_view.dart';
 import 'package:tido/views/auth/otp/otp_view.dart';
 import 'package:tido/views/navigators/home_navigator.dart';
 import 'package:tido/views/notification/notification_view.dart';
-import 'package:tido/views/personalization/customize/theme_view.dart';
+import 'package:tido/views/settings/data_security/backup_location_view.dart';
+import 'package:tido/views/settings/data_security/data_storage_view.dart';
+import 'package:tido/views/settings/task_category/archive/archive.dart';
+import 'package:tido/views/settings/customize/theme/theme_view.dart';
 import 'package:tido/views/search/search_view.dart';
+import 'package:tido/views/settings/task_category/categories/categories_view.dart';
 import 'package:tido/views/task_edit/task_edit_view.dart';
 
 import '../../data/repositories/firebase_user_repositories.dart';
@@ -182,20 +186,11 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
-      path: ViRoutes.categories,
-      builder: (BuildContext context, GoRouterState state) {
-        return BlocProvider.value(
-          value: getIt<HomeBloc>(),
-          child: const HomeNavigator(),
-        );
-      },
-    ),
-    GoRoute(
       path: ViRoutes.data_stroge,
       builder: (BuildContext context, GoRouterState state) {
         return BlocProvider.value(
           value: getIt<HomeBloc>(),
-          child: const HomeNavigator(),
+          child: const DataStorageView(),
         );
       },
     ),
@@ -204,7 +199,7 @@ final GoRouter router = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return BlocProvider.value(
           value: getIt<HomeBloc>(),
-          child: const HomeNavigator(),
+          child: const BackupLocationView(),
         );
       },
     ),
@@ -239,6 +234,24 @@ final GoRouter router = GoRouter(
         return BlocProvider.value(
           value: getIt<HomeBloc>(),
           child: const SearchView(),
+        );
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.archive,
+      builder: (BuildContext context, GoRouterState state) {
+        return BlocProvider.value(
+          value: getIt<HomeBloc>(),
+          child: const ArchiveView(),
+        );
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.categories,
+      builder: (BuildContext context, GoRouterState state) {
+        return BlocProvider.value(
+          value: getIt<HomeBloc>(),
+          child: const CategoriesView(),
         );
       },
     ),

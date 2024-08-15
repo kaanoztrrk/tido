@@ -194,3 +194,14 @@ class UpdateCategoryEvent extends HomeEvent {
   @override
   List<Object> get props => [oldCategory, newCategory];
 }
+
+class LoadTimeFormatEvent extends HomeEvent {}
+
+class SetTimeFormatEvent extends HomeEvent {
+  final bool is24HourFormat;
+
+  SetTimeFormatEvent(this.is24HourFormat);
+
+  @override
+  List<Object> get props => [is24HourFormat];
+}

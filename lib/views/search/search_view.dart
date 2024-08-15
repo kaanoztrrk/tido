@@ -12,6 +12,8 @@ import '../../blocs/home_bloc/home_state.dart';
 import '../../common/empty_screen/empty_screen.dart';
 import '../../common/styles/container_style.dart';
 import '../../common/widget/appbar/appbar.dart';
+import '../../core/l10n/l10n.dart';
+import '../../data/services/date_formetter_service.dart';
 import '../../utils/Constant/colors.dart';
 import '../../utils/Constant/sizes.dart';
 import '../../utils/Theme/custom_theme.dart/text_theme.dart';
@@ -26,10 +28,10 @@ class SearchView extends StatelessWidget {
     return BlocProvider.value(
       value: getIt<HomeBloc>(),
       child: Scaffold(
-        appBar: const ViAppBar(
+        appBar: ViAppBar(
           showBackArrow: true,
           centerTitle: true,
-          title: Text("To-Do Task Search"),
+          title: Text(AppLocalizations.of(context)!.tasksearch_title),
         ),
         body: Padding(
           padding:
@@ -52,7 +54,7 @@ class SearchView extends StatelessWidget {
                   },
                   decoration: InputDecoration(
                     filled: false,
-                    hintText: "Search",
+                    hintText: AppLocalizations.of(context)!.search_title,
                     hintStyle: dark
                         ? ViTextTheme.darkTextTheme.titleLarge
                             ?.copyWith(fontWeight: FontWeight.normal)
@@ -73,9 +75,9 @@ class SearchView extends StatelessWidget {
                       return ViEmptyScreen(
                           size: ViDeviceUtils.getScreenHeigth(context) * 0.15,
                           color: AppColors.darkerGrey,
-                          title: "No Search Results Found",
+                          title: AppLocalizations.of(context)!.no_seach_found,
                           subTitle:
-                              "We couldn't find any matches for your search.\nTry different keywords.",
+                              AppLocalizations.of(context)!.no_search_subTitle,
                           image: ViImages.empty_screen_no_result);
                     } else {
                       return ListView.builder(
@@ -85,8 +87,10 @@ class SearchView extends StatelessWidget {
 
                           return CalenderTaskTile(
                             title: task.title,
-                            timerText: task.formattedTaskTime,
-                            dateText: task.formattedDate,
+                            dateText: task.formattedTaskTime(
+                                DateFormatterService(context)),
+                            timerText: task
+                                .formattedDate(DateFormatterService(context)),
                             task: task,
                           );
                         },

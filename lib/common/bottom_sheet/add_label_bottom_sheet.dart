@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tido/common/widget/button/primary_button.dart';
+import 'package:tido/core/l10n/l10n.dart';
 import 'package:tido/utils/Constant/text_strings.dart';
 import 'package:tido/utils/Helpers/helpers_functions.dart';
 
@@ -46,7 +47,7 @@ class AddCategoryLabelBottomSheet {
                     controller: tagController,
                     decoration: InputDecoration(
                       filled: false,
-                      hintText: "Add Label",
+                      hintText: AppLocalizations.of(context)!.add_label,
                       hintStyle: dark
                           ? ViTextTheme.darkTextTheme.titleLarge
                               ?.copyWith(fontWeight: FontWeight.normal)
@@ -63,7 +64,7 @@ class AddCategoryLabelBottomSheet {
                 ),
                 const SizedBox(height: ViSizes.sm),
                 ViPrimaryButton(
-                  text: ViTexts.done,
+                  text: AppLocalizations.of(context)!.done,
                   height: ViDeviceUtils.getScreenHeigth(context) * 0.08,
                   onTap: () {
                     if (tagController.text.isNotEmpty) {

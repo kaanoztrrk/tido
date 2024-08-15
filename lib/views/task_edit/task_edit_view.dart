@@ -13,6 +13,8 @@ import '../../common/widget/Text/title.dart';
 import '../../common/widget/appbar/appbar.dart';
 import '../../common/widget/button/primary_button.dart';
 import '../../common/widget/button/ratio_button.dart';
+import '../../core/l10n/l10n.dart';
+import '../../data/services/date_formetter_service.dart';
 import '../../utils/Constant/colors.dart';
 import '../../utils/Constant/sizes.dart';
 import '../../utils/Device/device_utility.dart';
@@ -65,7 +67,7 @@ class _TaskEditViewState extends State<TaskEditView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const ViPrimaryTitle(title: "TITLE"),
+            ViPrimaryTitle(title: AppLocalizations.of(context)!.title_text),
             const SizedBox(height: ViSizes.spaceBtwItems),
             ViContainer(
               padding: const EdgeInsets.only(left: 5, top: 10),
@@ -119,18 +121,23 @@ class _TaskEditViewState extends State<TaskEditView> {
               ),
             ),
             const SizedBox(height: ViSizes.spaceBtwItems),
-            const ViPrimaryTitle(title: "DETAILES"),
+            ViPrimaryTitle(title: AppLocalizations.of(context)!.description),
             const SizedBox(height: ViSizes.spaceBtwItems),
             Row(
               children: [
                 Flexible(
                   child: ViDatePicker(
-                    title: widget.task.formattedTaskTime.isNotEmpty
+                    title: widget.task
+                            .formattedTaskTime(DateFormatterService(context))
+                            .isNotEmpty
                         ? "${widget.task.formattedTaskTime}\n"
-                        : "No Date\n",
-                    subtitle: widget.task.formattedDate.isNotEmpty
-                        ? widget.task.formattedDate
-                        : "Date Time\n",
+                        : "${AppLocalizations.of(context)!.date}\n",
+                    subtitle: widget.task
+                            .formattedDate(DateFormatterService(context))
+                            .isNotEmpty
+                        ? widget.task
+                            .formattedDate(DateFormatterService(context))
+                        : AppLocalizations.of(context)!.selected,
                     onDateTimeChanged: (dateTime) {
                       setState(() {
                         taskTime = dateTime;
@@ -159,7 +166,8 @@ class _TaskEditViewState extends State<TaskEditView> {
             ViPrimaryButton(
               onTap: () {
                 if (titleController.text.isEmpty) {
-                  ViSnackbar.showError(context, "Title cannot be empty.");
+                  ViSnackbar.showError(
+                      context, AppLocalizations.of(context)!.title_empty);
                   return;
                 }
 
@@ -181,12 +189,13 @@ class _TaskEditViewState extends State<TaskEditView> {
                 );
 
                 // Show success message and navigate back
-                ViSnackbar.showSuccess(context, "Task updated successfully.");
+                ViSnackbar.showSuccess(
+                    context, AppLocalizations.of(context)!.task_complated);
                 context.pop(context);
                 context.pop(context);
                 ViDeviceUtils.hideKeyboard(context);
               },
-              text: "Update Task",
+              text: AppLocalizations.of(context)!.update_task,
             )
           ],
         ),

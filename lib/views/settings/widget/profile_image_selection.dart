@@ -9,9 +9,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-import '../../../../common/widget/button/ratio_button.dart';
-import '../../../../utils/Constant/colors.dart';
-import '../../../../utils/Device/device_utility.dart';
+import '../../../common/widget/button/ratio_button.dart';
+import '../../../utils/Constant/colors.dart';
+import '../../../utils/Device/device_utility.dart';
 
 class ViProfileSelectionWidget extends StatefulWidget {
   const ViProfileSelectionWidget({super.key});

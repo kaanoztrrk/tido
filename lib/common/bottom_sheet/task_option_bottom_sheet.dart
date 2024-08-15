@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 import 'package:tido/utils/Constant/sizes.dart';
+import '../../core/l10n/l10n.dart';
 import '../../utils/Constant/colors.dart';
 import '../../utils/Helpers/helpers_functions.dart';
 import '../../utils/Theme/custom_theme.dart/text_theme.dart';
@@ -22,11 +23,13 @@ class ViOptionBottomSheet {
           padding: const EdgeInsets.all(8.0),
           child: Wrap(
             children: [
-              _itemTile(onEdit, dark, Iconsax.edit_2, "Task Edit"),
-              _itemTile(onDelete, dark, Iconsax.trash, "Task Delete"),
+              _itemTile(onEdit, dark, Iconsax.edit_2,
+                  AppLocalizations.of(context)!.task_edit),
+              _itemTile(onDelete, dark, Iconsax.trash,
+                  AppLocalizations.of(context)!.task_delete),
               if (onMarkAsComplete != null)
                 _itemTile(onMarkAsComplete, dark, Iconsax.tick_circle,
-                    "Task Completed"),
+                    AppLocalizations.of(context)!.task_complated_text),
             ],
           ),
         );
@@ -47,8 +50,10 @@ class ViOptionBottomSheet {
           padding: const EdgeInsets.all(8.0),
           child: Wrap(
             children: [
-              _itemTile(onEdit, dark, Iconsax.edit_2, "Edit Category"),
-              _itemTile(onDelete, dark, Iconsax.trash, "Delete Category"),
+              _itemTile(onEdit, dark, Iconsax.edit_2,
+                  AppLocalizations.of(context)!.edit_category),
+              _itemTile(onDelete, dark, Iconsax.trash,
+                  AppLocalizations.of(context)!.delete_category),
             ],
           ),
         );
@@ -61,7 +66,6 @@ class ViOptionBottomSheet {
     return GestureDetector(
       onTap: () {
         if (ontap != null) {
-          print("Item tapped: $title"); // Log for debugging
           ontap();
         }
       },

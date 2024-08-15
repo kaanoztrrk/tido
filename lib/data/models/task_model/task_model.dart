@@ -3,6 +3,8 @@ import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../services/date_formetter_service.dart';
+
 part 'task_model.g.dart';
 
 @HiveType(typeId: 0)
@@ -100,11 +102,11 @@ class TaskModel extends HiveObject with EquatableMixin {
     );
   }
 
-  String get formattedTaskTime =>
-      taskTime != null ? DateFormat('HH:mm').format(taskTime!) : '';
+  String formattedTaskTime(DateFormatterService formatterService) =>
+      formatterService.formatTaskTime(taskTime);
 
-  String get formattedDate =>
-      taskTime != null ? DateFormat('yyyy-MM-dd').format(taskTime!) : '';
+  String formattedDate(DateFormatterService formatterService) =>
+      formatterService.formatDate(taskTime);
 
   @override
   List<Object?> get props => [

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tido/common/widget/button/primary_button.dart';
 import 'dart:io';
+import '../../core/l10n/l10n.dart';
 import '../../utils/Constant/colors.dart';
 import '../../utils/Constant/sizes.dart';
 import '../../utils/Theme/custom_theme.dart/text_theme.dart';
@@ -51,7 +52,9 @@ class ViUploadBottomSheet {
                               );
                             },
                           )
-                        : const Center(child: Text("No files selected")),
+                        : Center(
+                            child: Text(AppLocalizations.of(context)!
+                                .no_file_selected)),
                   ),
                   if (selectedItems.isNotEmpty)
                     ViPrimaryButton(

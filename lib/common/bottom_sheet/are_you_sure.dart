@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tido/common/widget/Text/title.dart';
 import 'package:tido/common/widget/button/primary_button.dart';
 import 'package:tido/utils/Constant/text_strings.dart';
+import '../../core/l10n/l10n.dart';
 import '../../utils/Constant/colors.dart';
 import '../../utils/Constant/sizes.dart';
 
@@ -51,7 +52,7 @@ class ViAreYouSureBottomSheet {
                 ),
                 MaterialButton(
                   onPressed: cancelOnTap,
-                  child: const Text("Cancel"),
+                  child: Text(AppLocalizations.of(context)!.cancel),
                 ),
                 const SizedBox(height: ViSizes.spaceBtwItems),
               ],

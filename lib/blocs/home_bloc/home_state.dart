@@ -14,6 +14,7 @@ class HomeState extends Equatable {
   final Duration? reminderDuration;
   final List<TaskModel> searchResults;
   final String remainingTime;
+  final bool timeFormat;
   final TaskModel? currentTask;
 
   const HomeState({
@@ -28,10 +29,12 @@ class HomeState extends Equatable {
     required this.selectedDate,
     required this.reminderDuration,
     required this.currentTask,
+    required this.timeFormat,
   });
 
   factory HomeState.initial() {
     return HomeState(
+      timeFormat: false,
       searchResults: const [],
       initialIndex: 0,
       taskCategoryIndex: 0,
@@ -60,6 +63,7 @@ class HomeState extends Equatable {
     List<TaskModel>? searchResults,
     String? remainingTime,
     TaskModel? currentTask,
+    bool? timeFormat,
   }) {
     return HomeState(
       initialIndex: initialIndex ?? this.initialIndex,
@@ -73,6 +77,7 @@ class HomeState extends Equatable {
       searchResults: searchResults ?? this.searchResults,
       remainingTime: remainingTime ?? this.remainingTime,
       currentTask: currentTask ?? this.currentTask,
+      timeFormat: timeFormat ?? this.timeFormat,
     );
   }
 
@@ -93,5 +98,6 @@ class HomeState extends Equatable {
         searchResults,
         remainingTime,
         currentTask,
+        timeFormat,
       ];
 }

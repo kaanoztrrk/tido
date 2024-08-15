@@ -114,18 +114,12 @@ class HomeView extends StatelessWidget {
                                 return HomeMainTaskTile(
                                   timer: task.taskTime != null
                                       ? Text(
-                                          "${task.taskTime!.hour}:${task.taskTime!.minute.toString().padLeft(2, '0')}",
-                                          style: dark
-                                              ? ViTextTheme
-                                                  .ligthTextTheme.titleSmall
-                                                  ?.copyWith(
-                                                      fontWeight:
-                                                          FontWeight.w600)
-                                              : ViTextTheme
-                                                  .darkTextTheme.titleSmall
-                                                  ?.copyWith(
-                                                      fontWeight:
-                                                          FontWeight.w600),
+                                          " ${task.taskTime!.hour}:${task.taskTime!.minute.toString().padLeft(2, '0')}",
+                                          style: ViTextTheme
+                                              .darkTextTheme.titleSmall
+                                              ?.copyWith(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: AppColors.dark),
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
                                         )

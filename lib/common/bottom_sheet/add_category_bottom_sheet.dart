@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tido/blocs/home_bloc/home_bloc.dart';
 import 'package:tido/common/widget/button/primary_button.dart';
 import '../../blocs/home_bloc/home_event.dart';
+import '../../core/l10n/l10n.dart';
 import '../../utils/Constant/colors.dart';
 import '../../utils/Constant/sizes.dart';
 import '../../utils/Device/device_utility.dart';
@@ -45,7 +46,7 @@ class ViAddCategoryBottomSheet {
                     controller: controller,
                     decoration: InputDecoration(
                       filled: false,
-                      hintText: "Category Name",
+                      hintText: AppLocalizations.of(context)!.categories,
                       hintStyle: dark
                           ? ViTextTheme.darkTextTheme.titleLarge
                               ?.copyWith(fontWeight: FontWeight.normal)
@@ -62,7 +63,7 @@ class ViAddCategoryBottomSheet {
                 ),
                 const SizedBox(height: ViSizes.lg),
                 ViPrimaryButton(
-                  text: "Save",
+                  text: AppLocalizations.of(context)!.done,
                   height: ViDeviceUtils.getScreenHeigth(context) * 0.08,
                   onTap: () {
                     final categoryName = controller.text.trim();

@@ -2,16 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:tido/blocs/main_bloc/main_bloc.dart';
 import 'package:tido/common/widget/appbar/home_appbar.dart';
-import 'package:tido/common/widget/button/ratio_button.dart';
-import 'package:tido/core/routes/routes.dart';
-import 'package:tido/utils/Constant/colors.dart';
-import 'package:tido/views/home/widget/time_button.dart';
+import 'package:tido/data/services/date_formetter_service.dart';
 import 'package:tido/views/schedule/widget/schedule_heading_time.dart';
 import '../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import '../../blocs/home_bloc/home_bloc.dart';
@@ -60,8 +53,10 @@ class _ScheduleViewState extends State<ScheduleView> {
                           return CalenderTaskTile(
                             task: task,
                             title: task.title,
-                            dateText: task.formattedDate,
-                            timerText: task.formattedTaskTime,
+                            dateText: task.formattedTaskTime(
+                                DateFormatterService(context)),
+                            timerText: task
+                                .formattedDate(DateFormatterService(context)),
                           );
                         },
                       ),
@@ -75,7 +70,11 @@ class _ScheduleViewState extends State<ScheduleView> {
   }
 
   Widget _buildDateSelector(BuildContext context) {
+    // Uygulamanın geçerli yerel ayarını (dilini) alıyoruz
+    final locale = Localizations.localeOf(context).toString();
+
     return TableCalendar(
+      locale: locale, // Dil parametresi buraya ekleniyor
       firstDay: DateTime.utc(2020, 1, 1),
       lastDay: DateTime.utc(2030, 12, 31),
       focusedDay: _focusedDay,

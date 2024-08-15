@@ -66,7 +66,7 @@ class HomeMainTaskTile extends StatelessWidget {
                         children: [
                           Icon(
                             Iconsax.timer_1,
-                            color: dark ? AppColors.dark : AppColors.white,
+                            color: AppColors.dark,
                           ),
                           Container(child: timer),
                         ],

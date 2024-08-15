@@ -20,6 +20,7 @@ import '../../common/empty_screen/empty_screen.dart';
 import '../../common/widget/Text/title.dart';
 import '../../common/widget/button/ratio_button.dart';
 import '../../common/widget/task_tile/selected_files_tile.dart';
+import '../../core/l10n/l10n.dart';
 import '../../utils/Constant/image_strings.dart';
 import '../../utils/Theme/custom_theme.dart/text_theme.dart';
 
@@ -116,11 +117,13 @@ class TaskDetailView extends StatelessWidget {
                   Expanded(
                     child: ListView(
                       children: [
-                        if (task.labels!.isNotEmpty)
+                        if (task.description!.isNotEmpty)
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const ViPrimaryTitle(title: "DESCRIPTION"),
+                              ViPrimaryTitle(
+                                  title: AppLocalizations.of(context)!
+                                      .description),
                               const SizedBox(height: ViSizes.spaceBtwItems),
                               ViPrimaryTitle(
                                   title: task.description.toString(),
@@ -128,12 +131,11 @@ class TaskDetailView extends StatelessWidget {
                               const SizedBox(height: ViSizes.spaceBtwSections),
                             ],
                           ),
-                        ViTaskInfoWidget(
-                          task: task,
-                        ),
+                        ViTaskInfoWidget(task: task),
                         const SizedBox(height: ViSizes.spaceBtwSections),
                         if (task.files!.isEmpty)
-                          const ViPrimaryTitle(title: "FILES"),
+                          ViPrimaryTitle(
+                              title: AppLocalizations.of(context)!.files),
                         BlocBuilder<HomeBloc, HomeState>(
                           builder: (context, state) {
                             final files = task.files ?? [];
@@ -154,9 +156,10 @@ class TaskDetailView extends StatelessWidget {
                                             0.15,
                                         color: AppColors.darkGrey,
                                         image: ViImages.empty_screen_no_image,
-                                        title: "No images found",
-                                        subTitle:
-                                            "Add images to your task to display them.",
+                                        title: AppLocalizations.of(context)!
+                                            .no_images_found,
+                                        subTitle: AppLocalizations.of(context)!
+                                            .no_images_subTitle,
                                       ),
                                     ),
                                   );

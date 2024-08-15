@@ -21,11 +21,11 @@ import 'package:tido/utils/Device/device_utility.dart';
 import 'package:tido/utils/Helpers/helpers_functions.dart';
 import 'package:tido/utils/Snackbar/snacbar_service.dart';
 
-import '../../../blocs/auth_blocs/authentication_bloc/authentication_state.dart';
-import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_state.dart';
-import '../../../blocs/theme_bloc/theme_state.dart';
-import '../../../utils/Constant/colors.dart';
-import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
+import '../../blocs/auth_blocs/authentication_bloc/authentication_state.dart';
+import '../../blocs/auth_blocs/sign_in_bloc/sign_in_state.dart';
+import '../../blocs/theme_bloc/theme_state.dart';
+import '../../utils/Constant/colors.dart';
+import '../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -99,7 +99,7 @@ class SettingsView extends StatelessWidget {
                             child: Divider(),
                           ),
                           ListTile(
-                            leading: Icon(Iconsax.layer),
+                            leading: const Icon(Iconsax.layer),
                             title: Text(AppLocalizations.of(context)!.widget),
                           ),
                           const Padding(
@@ -110,7 +110,7 @@ class SettingsView extends StatelessWidget {
                           ListTile(
                             onTap: () => ChangeLanguageBottomSheet
                                 .showLanguageBottomSheet(context),
-                            leading: Icon(Iconsax.translate),
+                            leading: const Icon(Iconsax.translate),
                             title: Text(AppLocalizations.of(context)!.language),
                           ),
                           const Padding(
@@ -119,7 +119,7 @@ class SettingsView extends StatelessWidget {
                             child: Divider(),
                           ),
                           ListTile(
-                            leading: Icon(Iconsax.notification),
+                            leading: const Icon(Iconsax.notification),
                             title: Text(AppLocalizations.of(context)!
                                 .notification_reminder),
                           ),
@@ -159,16 +159,18 @@ class SettingsView extends StatelessWidget {
                       child: Column(
                         children: [
                           ListTile(
-                            leading: Icon(Iconsax.archive),
+                            onTap: () => context.push(ViRoutes.archive),
+                            leading: const Icon(Iconsax.archive),
                             title: Text(AppLocalizations.of(context)!.archive),
                           ),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
                           ),
                           ListTile(
-                            leading: Icon(Iconsax.task_square),
+                            onTap: () => context.push(ViRoutes.categories),
+                            leading: const Icon(Iconsax.task_square),
                             title:
                                 Text(AppLocalizations.of(context)!.categories),
                           ),
@@ -189,34 +191,36 @@ class SettingsView extends StatelessWidget {
                       child: Column(
                         children: [
                           ListTile(
-                            leading: Icon(Iconsax.timer),
+                            leading: const Icon(Iconsax.timer),
                             title:
                                 Text(AppLocalizations.of(context)!.time_format),
                             subtitle: Text(
                                 AppLocalizations.of(context)!.system_default),
                           ),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
                           ),
                           ListTile(
-                            leading: Icon(Iconsax.calendar),
+                            leading: const Icon(Iconsax.calendar),
                             title:
                                 Text(AppLocalizations.of(context)!.date_format),
-                            subtitle: Text("2024/07/30"),
+                            subtitle: const Text("2024/07/30"),
                           ),
-                          Padding(
+                          /*   const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
                           ),
+                     
                           ListTile(
-                            leading: Icon(Iconsax.notification),
+                            leading: const Icon(Iconsax.notification),
                             title: Text(AppLocalizations.of(context)!
                                 .task_reminder_default),
-                            subtitle: Text("5 minutes before"),
+                            subtitle: const Text("5 minutes before"),
                           ),
+                          */
                         ],
                       ),
                     )
@@ -234,22 +238,24 @@ class SettingsView extends StatelessWidget {
                       child: Column(
                         children: [
                           ListTile(
-                            leading: Icon(Iconsax.data),
+                            onTap: () => context.push(ViRoutes.data_stroge),
+                            leading: const Icon(Iconsax.data),
                             title: Text(
                                 AppLocalizations.of(context)!.data_storage),
                           ),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
                           ),
                           ListTile(
-                            leading: Icon(Iconsax.layer),
+                            onTap: () => context.push(ViRoutes.backup_location),
+                            leading: const Icon(Iconsax.layer),
                             title: Text(
                               AppLocalizations.of(context)!.backup_location,
                             ),
                           ),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
@@ -295,7 +301,7 @@ class SettingsView extends StatelessWidget {
                             child: Divider(),
                           ),
                           ListTile(
-                            leading: Icon(Iconsax.password_check),
+                            leading: const Icon(Iconsax.password_check),
                             title: Text(AppLocalizations.of(context)!.password),
                           ),
                         ],
@@ -314,35 +320,35 @@ class SettingsView extends StatelessWidget {
                       child: Column(
                         children: [
                           ListTile(
-                            leading: Icon(Iconsax.star),
+                            leading: const Icon(Iconsax.star),
                             title: Text(AppLocalizations.of(context)!.rate_us),
                           ),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
                           ),
                           ListTile(
-                            leading: Icon(Iconsax.share),
+                            leading: const Icon(Iconsax.share),
                             title:
                                 Text(AppLocalizations.of(context)!.share_app),
                           ),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
                           ),
                           ListTile(
-                            leading: Icon(Iconsax.edit_2),
+                            leading: const Icon(Iconsax.edit_2),
                             title: Text(AppLocalizations.of(context)!.feedback),
                           ),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
                           ),
                           ListTile(
-                            leading: Icon(Iconsax.security),
+                            leading: const Icon(Iconsax.security),
                             title: Text(
                                 AppLocalizations.of(context)!.privacy_policy),
                           ),

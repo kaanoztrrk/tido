@@ -5,6 +5,7 @@ import 'package:tido/data/models/task_model/task_model.dart';
 import 'package:tido/utils/Snackbar/snacbar_service.dart';
 
 import '../../blocs/home_bloc/home_event.dart';
+import '../../core/l10n/l10n.dart';
 import '../../data/models/category_model/category_model.dart';
 import '../../utils/Constant/colors.dart';
 import '../../utils/Constant/sizes.dart';
@@ -50,7 +51,7 @@ class ViEditBottomSheet {
                     controller: controller,
                     decoration: InputDecoration(
                       filled: false,
-                      hintText: "Description",
+                      hintText: AppLocalizations.of(context)!.description,
                       hintStyle: dark
                           ? ViTextTheme.darkTextTheme.titleLarge
                               ?.copyWith(fontWeight: FontWeight.normal)
@@ -67,7 +68,7 @@ class ViEditBottomSheet {
                 ),
                 const SizedBox(height: ViSizes.lg),
                 ViPrimaryButton(
-                  text: "Save",
+                  text: AppLocalizations.of(context)!.done,
                   height: ViDeviceUtils.getScreenHeigth(context) * 0.08,
                   onTap: () {
                     final updatedTask = TaskModel(

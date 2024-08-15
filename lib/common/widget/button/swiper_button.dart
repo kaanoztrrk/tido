@@ -4,6 +4,7 @@ import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Constant/sizes.dart';
 import 'package:tido/utils/Helpers/helpers_functions.dart';
 
+import '../../../core/l10n/l10n.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class ViSwiperButton extends StatefulWidget {
@@ -82,8 +83,9 @@ class _ViSwiperButtonState extends State<ViSwiperButton> {
               children: [
                 Text(
                   widget.isCompleted
-                      ? "Completed"
-                      : (widget.text ?? "Drag to mark done"),
+                      ? AppLocalizations.of(context)!.task_complated_text
+                      : (widget.text ??
+                          AppLocalizations.of(context)!.drag_mark_done),
                   style: ViTextTheme.darkTextTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w600, color: AppColors.light),
                 ),
