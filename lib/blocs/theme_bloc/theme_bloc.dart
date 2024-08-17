@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../data/services/shared_preferences_service.dart';
 import 'theme_event.dart';
 import 'theme_state.dart';

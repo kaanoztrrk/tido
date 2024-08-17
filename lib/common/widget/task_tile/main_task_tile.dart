@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
@@ -9,7 +7,6 @@ import 'package:tido/common/widget/button/ratio_button.dart';
 import 'package:tido/common/widget/button/swiper_button.dart';
 import 'package:tido/core/locator/locator.dart';
 import 'package:tido/utils/Constant/sizes.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
 import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
 import '../../../blocs/theme_bloc/theme_state.dart';
 import '../../../utils/Constant/colors.dart';
@@ -34,7 +31,6 @@ class HomeMainTaskTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dark = ViHelpersFunctions.isDarkMode(context);
     return BlocProvider.value(
       value: getIt<ThemeBloc>(),
       child: BlocBuilder<ThemeBloc, ThemeState>(
@@ -64,7 +60,7 @@ class HomeMainTaskTile extends StatelessWidget {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
+                          const Icon(
                             Iconsax.timer_1,
                             color: AppColors.dark,
                           ),
@@ -100,7 +96,7 @@ class HomeMainTaskTile extends StatelessWidget {
                         onTap: optionTap,
                         size: 70,
                         bgColor: AppColors.lightGrey.withOpacity(0.7),
-                        child: Icon(
+                        child: const Icon(
                           Iconsax.edit_2,
                           color: AppColors.dark,
                         ),

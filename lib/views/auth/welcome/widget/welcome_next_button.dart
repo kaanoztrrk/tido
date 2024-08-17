@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tido/utils/Constant/text_strings.dart';
 
 import '../../../../blocs/main_bloc/main_bloc.dart';
 import '../../../../blocs/main_bloc/main_event.dart';

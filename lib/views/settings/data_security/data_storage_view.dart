@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tido/common/styles/container_style.dart';
 import 'package:tido/utils/Constant/sizes.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
 import '../../../common/widget/appbar/appbar.dart';
 import '../../../core/l10n/l10n.dart';
 import '../../../data/services/hive_data_service.dart';
@@ -32,7 +31,7 @@ class DataStorageView extends StatelessWidget {
           ]),
           builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
 
             if (snapshot.hasError) {
@@ -40,7 +39,7 @@ class DataStorageView extends StatelessWidget {
             }
 
             if (!snapshot.hasData) {
-              return Center(child: Text('No data available'));
+              return const Center(child: Text('No data available'));
             }
 
             final databaseSize = snapshot.data![0] as String;
@@ -92,10 +91,9 @@ class DataStorageView extends StatelessWidget {
 
   Widget _buildStatCard(BuildContext context,
       {required String title, required String value}) {
-    var dark = ViHelpersFunctions.isDarkMode(context);
     return ViContainer(
-      margin: EdgeInsets.all(ViSizes.defaultSpace / 2),
-      padding: EdgeInsets.all(ViSizes.defaultSpace / 2),
+      margin: const EdgeInsets.all(ViSizes.defaultSpace / 2),
+      padding: const EdgeInsets.all(ViSizes.defaultSpace / 2),
       borderRadius: BorderRadius.circular(20.0),
       child: ListTile(
         title: Text(title),

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, depend_on_referenced_packages
+
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';

@@ -1,8 +1,9 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:tido/common/styles/container_style.dart';
 import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Constant/sizes.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
 
 import '../../../core/l10n/l10n.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
@@ -65,7 +66,6 @@ class _ViSwiperButtonState extends State<ViSwiperButton> {
 
   @override
   Widget build(BuildContext context) {
-    var dark = ViHelpersFunctions.isDarkMode(context);
     return Center(
       child: ViContainer(
         width: widget.width ?? MediaQuery.of(context).size.width * 0.65,

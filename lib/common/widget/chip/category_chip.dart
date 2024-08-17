@@ -5,7 +5,6 @@ import 'package:tido/blocs/home_bloc/home_state.dart';
 import '../../../blocs/home_bloc/home_bloc.dart';
 import '../../../blocs/home_bloc/home_event.dart';
 import '../../../data/models/category_model/category_model.dart';
-import '../../../utils/Constant/colors.dart';
 import '../../../utils/Constant/sizes.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 import '../../bottom_sheet/edit_task_bottom_sheet.dart';

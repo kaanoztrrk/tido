@@ -243,6 +243,7 @@ class SettingsView extends StatelessWidget {
                             title: Text(
                                 AppLocalizations.of(context)!.data_storage),
                           ),
+                          /*
                           const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),
@@ -254,7 +255,7 @@ class SettingsView extends StatelessWidget {
                             title: Text(
                               AppLocalizations.of(context)!.backup_location,
                             ),
-                          ),
+                          ),*/
                           const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),

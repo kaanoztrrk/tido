@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -6,7 +8,6 @@ import 'package:tido/common/widget/appbar/appbar.dart';
 import 'package:tido/core/l10n/l10n.dart';
 import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Constant/sizes.dart';
-import 'package:tido/utils/Device/device_utility.dart';
 
 import '../../../../blocs/theme_bloc/theme_bloc.dart';
 import '../../../../blocs/theme_bloc/theme_event.dart';
@@ -40,7 +41,7 @@ class _ThemeViewState extends State<ThemeView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.all(ViSizes.defaultSpace),
+                  padding: const EdgeInsets.all(ViSizes.defaultSpace),
                   child: ViPrimaryTitle(
                       title: AppLocalizations.of(context)!.primary_color),
                 ),
@@ -84,7 +85,7 @@ class _ThemeViewState extends State<ThemeView> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(ViSizes.defaultSpace),
+                  padding: const EdgeInsets.all(ViSizes.defaultSpace),
                   child: ViPrimaryTitle(
                       title: AppLocalizations.of(context)!.theme_mode),
                 ),
@@ -96,7 +97,7 @@ class _ThemeViewState extends State<ThemeView> {
                       ThemeModeItem(
                         onTap: () => context
                             .read<ThemeBloc>()
-                            .add(ChangeThemeModeEvent(ThemeMode.light)),
+                            .add(const ChangeThemeModeEvent(ThemeMode.light)),
                         itemColor: Theme.of(context).primaryColor,
                         bgColor: const Color.fromARGB(255, 238, 225, 225),
                         title: AppLocalizations.of(context)!.light,
@@ -106,14 +107,14 @@ class _ThemeViewState extends State<ThemeView> {
                       ThemeModeSystemItem(
                         onTap: () => context
                             .read<ThemeBloc>()
-                            .add(ChangeThemeModeEvent(ThemeMode.system)),
+                            .add(const ChangeThemeModeEvent(ThemeMode.system)),
                         isSelected: state.themeMode == ThemeMode.system,
                       ),
                       // Dark Mode
                       ThemeModeItem(
                         onTap: () => context
                             .read<ThemeBloc>()
-                            .add(ChangeThemeModeEvent(ThemeMode.dark)),
+                            .add(const ChangeThemeModeEvent(ThemeMode.dark)),
                         itemColor: Theme.of(context).primaryColor,
                         bgColor: AppColors.dark,
                         title: AppLocalizations.of(context)!.dark,

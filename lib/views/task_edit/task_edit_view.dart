@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tido/blocs/home_bloc/home_bloc.dart';
 import 'package:tido/blocs/home_bloc/home_event.dart';
-import 'package:tido/common/bottom_sheet/files_bottom_sheet.dart';
 import 'package:tido/data/models/task_model/task_model.dart';
 import 'package:tido/common/widget/label_widget.dart';
 
@@ -44,7 +43,7 @@ class _TaskEditViewState extends State<TaskEditView> {
   void initState() {
     super.initState();
     selectedFiles = widget.task.files ?? [];
-    titleController.text = widget.task.title ?? '';
+    titleController.text = widget.task.title;
     descriptionController.text = widget.task.description ?? '';
   }
 

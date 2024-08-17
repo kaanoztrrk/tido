@@ -7,7 +7,6 @@ import 'package:tido/common/widget/button/primary_button.dart';
 import 'package:tido/common/widget/login_signup/login_header.dart';
 import 'package:tido/core/routes/routes.dart';
 import 'package:tido/utils/Constant/sizes.dart';
-import 'package:tido/utils/Constant/text_strings.dart';
 import 'package:tido/views/auth/otp/widget/otp_textfield.dart';
 
 import '../../../common/widget/appbar/appbar.dart';

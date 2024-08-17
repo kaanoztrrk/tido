@@ -26,8 +26,6 @@ class ViPrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dark = ViHelpersFunctions.isDarkMode(context);
-
     return BlocProvider.value(
       value: getIt<ThemeBloc>(),
       child: BlocBuilder<ThemeBloc, ThemeState>(

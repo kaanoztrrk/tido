@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:tido/utils/Constant/text_strings.dart';
 
 import '../../../../utils/Constant/sizes.dart';
 import '../../../../utils/Helpers/helpers_functions.dart';

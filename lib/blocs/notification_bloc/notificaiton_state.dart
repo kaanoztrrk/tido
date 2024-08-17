@@ -7,7 +7,7 @@ class NotificationState extends Equatable {
   const NotificationState({required this.notifications});
 
   factory NotificationState.initial() {
-    return NotificationState(notifications: []);
+    return const NotificationState(notifications: []);
   }
 
   NotificationState copyWith({List<RemoteMessage>? notifications}) {

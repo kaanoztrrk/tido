@@ -1,21 +1,17 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:tido/blocs/localization_bloc/localization_bloc.dart';
 import 'package:tido/blocs/localization_bloc/localization_state.dart';
 import 'package:tido/common/widget/Text/title.dart';
 import 'package:tido/core/l10n/l10n.dart';
-import 'package:tido/core/routes/routes_manager.dart';
 import 'package:tido/data/models/language_model/language_model.dart';
-import 'package:tido/utils/Constant/colors.dart';
 import 'package:tido/utils/Constant/sizes.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
-import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
 
 final class ChangeLanguageBottomSheet {
   static void showLanguageBottomSheet(BuildContext context) {
-    var dark = ViHelpersFunctions.isDarkMode(context);
     showModalBottomSheet(
       context: context,
       showDragHandle: true,
@@ -23,7 +19,7 @@ final class ChangeLanguageBottomSheet {
       builder: (BuildContext context) {
         return SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(ViSizes.defaultSpace),
+            padding: const EdgeInsets.all(ViSizes.defaultSpace),
             child: Column(
               children: [
                 ViPrimaryTitle(
@@ -34,7 +30,7 @@ final class ChangeLanguageBottomSheet {
                       previous.selectedLanguage != current.selectedLanguage,
                   builder: (context, state) {
                     return ListView.separated(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         final bool isLanguageChosen =

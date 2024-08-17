@@ -54,22 +54,26 @@ class _HomeNavigatorState extends State<HomeNavigator> {
               duration: const Duration(milliseconds: 400),
               tabs: [
                 GButton(
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                   icon: Iconsax.home,
                   text: AppLocalizations.of(context)!.home,
                 ),
                 GButton(
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                   icon: Iconsax.calendar,
                   text: AppLocalizations.of(context)!.schedule,
                 ),
                 GButton(
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                   icon: Iconsax.document,
                   text: AppLocalizations.of(context)!.documents,
                 ),
                 GButton(
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                   icon: Iconsax.setting,
                   text: AppLocalizations.of(context)!.settings,
                 ),

@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tido/blocs/localization_bloc/localization_state.dart';
 import 'package:tido/data/models/language_model/language_model.dart';

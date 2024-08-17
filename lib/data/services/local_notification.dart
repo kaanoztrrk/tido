@@ -7,7 +7,7 @@ Future<void> initializeNotifications() async {
   const AndroidInitializationSettings initializationSettingsAndroid =
       AndroidInitializationSettings('app_icon');
 
-  final InitializationSettings initializationSettings = InitializationSettings(
+  const InitializationSettings initializationSettings = InitializationSettings(
     android: initializationSettingsAndroid,
   );
 

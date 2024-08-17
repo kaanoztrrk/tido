@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tido/blocs/home_bloc/home_bloc.dart';
-import 'package:tido/common/widget/Text/title.dart';
 import 'package:tido/common/widget/task_tile/calender_task_tile.dart';
 import 'package:tido/core/locator/locator.dart';
 import 'package:tido/utils/Constant/image_strings.dart';
@@ -39,7 +38,8 @@ class SearchView extends StatelessWidget {
           child: Column(
             children: [
               ViContainer(
-                margin: EdgeInsets.symmetric(vertical: ViSizes.defaultSpace),
+                margin:
+                    const EdgeInsets.symmetric(vertical: ViSizes.defaultSpace),
                 padding: const EdgeInsets.only(left: 5, top: 10),
                 height: 65,
                 decoration: BoxDecoration(

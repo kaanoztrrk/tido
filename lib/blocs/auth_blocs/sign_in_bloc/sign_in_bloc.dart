@@ -20,7 +20,6 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     on<UploadProfileImage>(_onUploadProfileImage);
     on<LoadUserProfileImage>(_onLoadUserProfileImage);
     on<GoogleSignInRequired>(_onGoogleSignInRequired);
-    on<AppleSignInRequired>(_onAppleSignInRequired);
   }
 
   Future<void> _onSignInRequired(
@@ -91,19 +90,6 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     emit(SignInProcess());
     try {
       await _userRepository.signInWithGoogle();
-      emit(SignInSuccess());
-    } on FirebaseAuthException catch (e) {
-      emit(SignInFailure(message: e.code));
-    } catch (e) {
-      emit(const SignInFailure());
-    }
-  }
-
-  Future<void> _onAppleSignInRequired(
-      AppleSignInRequired event, Emitter<SignInState> emit) async {
-    emit(SignInProcess());
-    try {
-      await _userRepository.signInWithApple();
       emit(SignInSuccess());
     } on FirebaseAuthException catch (e) {
       emit(SignInFailure(message: e.code));

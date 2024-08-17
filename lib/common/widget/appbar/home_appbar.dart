@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:tido/common/widget/button/create_task_button.dart';
-import 'package:tido/utils/Constant/colors.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
-import 'package:tido/views/home/widget/time_button.dart';
 
 import '../../../core/widget/user/profile_image.dart';
 import '../../../utils/Constant/sizes.dart';
 import '../../../utils/Device/device_utility.dart';
-import '../button/ratio_button.dart';
 
 class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ViHomeAppBar({
@@ -37,7 +32,6 @@ class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dark = ViHelpersFunctions.isDarkMode(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: ViSizes.md),
       child: Container(

@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches
+
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:hive/hive.dart';
@@ -109,9 +111,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       try {
         await taskBox.putAt(index, updatedTask); // Async operation
         emit(state.copyWith(allTasksList: updatedAllTasksList));
-      } catch (error) {
-        print("Error updating task: $error");
-      }
+      } catch (error) {}
     }
   }
 
@@ -208,7 +208,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       try {
         taskTime = DateTime.parse(task.taskTime.toString());
       } catch (e) {
-        print("Invalid date format: $e");
         emit(state.copyWith(
           remainingTime: "Invalid Date Format",
           currentTask: task,

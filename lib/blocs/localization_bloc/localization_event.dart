@@ -4,7 +4,6 @@ sealed class LocalizationEvent extends Equatable {
   const LocalizationEvent();
 
   @override
-  // TODO: implement props
   List<Object> get props => [];
 }
 
@@ -14,7 +13,6 @@ class ChangeAppLocalization extends LocalizationEvent {
   const ChangeAppLocalization({required this.selectedLanguage});
 
   @override
-  // TODO: implement props
   List<Object> get props => [selectedLanguage];
 }
 

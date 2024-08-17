@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tido/utils/Constant/image_strings.dart';
-import 'package:tido/utils/Constant/text_strings.dart';
 import 'package:tido/views/auth/welcome/widget/welcome_dot_navigation.dart';
 import 'package:tido/views/auth/welcome/widget/welcome_parts.dart';
 import 'package:tido/views/auth/welcome/widget/welcome_next_button.dart';

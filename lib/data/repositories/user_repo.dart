@@ -18,6 +18,4 @@ abstract class UserRepository {
   Future<void> uploadProfileImage(File image);
 
   Future<void> signInWithGoogle();
-
-  Future<void> signInWithApple();
 }

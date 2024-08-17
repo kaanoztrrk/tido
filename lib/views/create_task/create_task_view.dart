@@ -19,7 +19,6 @@ import '../../utils/Constant/colors.dart';
 import '../../utils/Constant/sizes.dart';
 import '../../utils/Device/device_utility.dart';
 import '../../utils/Helpers/helpers_functions.dart';
-import '../../utils/Loader/vi_loader.dart';
 import '../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class CreateTaskView extends StatefulWidget {

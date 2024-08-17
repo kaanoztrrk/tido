@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:tido/common/styles/container_style.dart';
 import 'package:tido/common/widget/button/ratio_button.dart';

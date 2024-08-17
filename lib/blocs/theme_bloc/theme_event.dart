@@ -20,13 +20,13 @@ class ChangeThemeColorEvent extends ThemeEvent {
 class ChangeButtonGradientEvent extends ThemeEvent {
   final Gradient newGradient;
 
-  ChangeButtonGradientEvent(this.newGradient);
+  const ChangeButtonGradientEvent(this.newGradient);
 }
 
 class ChangeBackgroundImageEvent extends ThemeEvent {
   final String newImage;
 
-  ChangeBackgroundImageEvent(this.newImage);
+  const ChangeBackgroundImageEvent(this.newImage);
 
   @override
   List<Object> get props => [newImage];

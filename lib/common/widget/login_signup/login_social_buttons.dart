@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tido/blocs/auth_blocs/sign_in_bloc/sign_in_event.dart';
 import 'package:tido/common/styles/container_style.dart';
-import 'package:tido/utils/Constant/colors.dart';
+import 'package:tido/core/l10n/l10n.dart';
 import 'package:tido/utils/Device/device_utility.dart';
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_state.dart';
@@ -33,7 +33,7 @@ class ViSocialButtons extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(ViImages.googleLogo),
-                  Text("Sign in with Google")
+                  Text(AppLocalizations.of(context)!.google_sign_in),
                 ],
               ),
             ),

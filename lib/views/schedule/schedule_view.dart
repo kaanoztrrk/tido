@@ -109,7 +109,7 @@ class _ScheduleViewState extends State<ScheduleView> {
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(12.0),
         ),
-        formatButtonTextStyle: TextStyle(color: Colors.white),
+        formatButtonTextStyle: const TextStyle(color: Colors.white),
         leftChevronIcon: Icon(
           Icons.chevron_left,
           color: Theme.of(context).primaryColor,

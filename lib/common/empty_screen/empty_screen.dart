@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:tido/utils/Constant/image_strings.dart';
 import 'package:tido/utils/Constant/sizes.dart';
 import 'package:tido/utils/Helpers/helpers_functions.dart';
 
@@ -34,7 +32,7 @@ class ViEmptyScreen extends StatelessWidget {
           width: size,
           color: color,
         ),
-        SizedBox(height: ViSizes.lg),
+        const SizedBox(height: ViSizes.lg),
         Text(
           title,
           style: dark

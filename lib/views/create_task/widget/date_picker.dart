@@ -74,7 +74,7 @@ class _ViDatePickerState extends State<ViDatePicker> {
           children: [
             ViRotioButton(
               bgColor: Theme.of(context).primaryColor,
-              child: Icon(
+              child: const Icon(
                 Iconsax.calendar_1,
                 color: AppColors.white,
               ),
@@ -128,7 +128,7 @@ class _ViDatePickerState extends State<ViDatePicker> {
                             children: [
                               TextSpan(
                                 text: widget.subtitle ??
-                                    "${AppLocalizations.of(context)!.selected}",
+                                    AppLocalizations.of(context)!.selected,
                                 style: dark
                                     ? ViTextTheme.darkTextTheme.titleLarge
                                         ?.copyWith(

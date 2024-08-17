@@ -19,7 +19,7 @@ class LanguageModel {
   );
 
   static var turkiye = LanguageModel(
-    locale: Locale('tr', 'TR'),
+    locale: const Locale('tr', 'TR'),
     image: Assets.image.language.turkiye,
     text: 'Turkish',
   );

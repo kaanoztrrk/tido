@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:iconsax/iconsax.dart';
@@ -18,15 +20,16 @@ class ViFolderUpload extends StatefulWidget {
   List<String>? selectedFiles;
 
   ViFolderUpload({
-    Key? key,
+    super.key,
     required this.onFilesSelected,
     this.title,
     this.subtitle,
     this.onLongPress,
     this.selectedFiles,
-  }) : super(key: key);
+  });
 
   @override
+  // ignore: library_private_types_in_public_api
   _ViFolderUploadState createState() => _ViFolderUploadState();
 }
 

@@ -132,7 +132,7 @@ class ThemeModeSystemItem extends StatelessWidget {
                       Expanded(
                         child: Container(
                           decoration: const BoxDecoration(
-                            color: const Color.fromARGB(255, 238, 225, 225),
+                            color: Color.fromARGB(255, 238, 225, 225),
                             borderRadius: BorderRadius.only(
                               topRight: Radius.circular(15),
                               bottomRight: Radius.circular(15),

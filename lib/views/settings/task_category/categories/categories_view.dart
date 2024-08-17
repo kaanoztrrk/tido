@@ -2,28 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tido/core/routes/routes.dart';
-import 'package:tido/core/routes/routes_manager.dart';
 
 import '../../../../blocs/home_bloc/home_bloc.dart';
-import '../../../../blocs/home_bloc/home_event.dart';
 import '../../../../blocs/home_bloc/home_state.dart';
-import '../../../../common/bottom_sheet/edit_task_bottom_sheet.dart';
-import '../../../../common/bottom_sheet/task_option_bottom_sheet.dart';
 import '../../../../common/empty_screen/empty_screen.dart';
 import '../../../../common/styles/container_style.dart';
 import '../../../../common/widget/appbar/appbar.dart';
 import '../../../../core/l10n/l10n.dart';
-import '../../../../data/models/task_model/task_model.dart';
 import '../../../../utils/Constant/image_strings.dart';
 import '../../../../utils/Constant/sizes.dart';
-import '../../../../utils/Helpers/helpers_functions.dart';
 
 class CategoriesView extends StatelessWidget {
   const CategoriesView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var dark = ViHelpersFunctions.isDarkMode(context);
     return Scaffold(
       appBar: ViAppBar(
         showBackArrow: true,
@@ -59,7 +52,7 @@ class CategoriesView extends StatelessWidget {
                         .toList();
 
                     return ViContainer(
-                      margin: EdgeInsets.symmetric(
+                      margin: const EdgeInsets.symmetric(
                           horizontal: ViSizes.defaultSpace,
                           vertical: ViSizes.defaultSpace / 2),
                       borderRadius: BorderRadius.circular(20),

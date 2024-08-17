@@ -4,7 +4,6 @@ import 'dart:io';
 import '../../core/l10n/l10n.dart';
 import '../../utils/Constant/colors.dart';
 import '../../utils/Constant/sizes.dart';
-import '../../utils/Theme/custom_theme.dart/text_theme.dart';
 import '../widget/task_tile/selected_files_tile.dart';
 
 class ViUploadBottomSheet {

@@ -1,8 +1,8 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:tido/common/styles/container_style.dart';
-import 'package:tido/common/widget/button/ratio_button.dart';
 import 'package:tido/utils/Device/device_utility.dart';
 import 'package:tido/utils/Helpers/helpers_functions.dart';
 import 'package:tido/utils/Snackbar/snacbar_service.dart';

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, avoid_print, use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -43,12 +45,12 @@ class _BackupLocationViewState extends State<BackupLocationView> {
       await _loadBackupData();
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Yedekleme başarıyla tamamlandı.')),
+        const SnackBar(content: Text('Yedekleme başarıyla tamamlandı.')),
       );
     } catch (e) {
       print('Error starting backup: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Yedekleme sırasında hata oluştu.')),
+        const SnackBar(content: Text('Yedekleme sırasında hata oluştu.')),
       );
     }
   }
@@ -90,7 +92,7 @@ class _BackupLocationViewState extends State<BackupLocationView> {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return ListTile(
                           title: Text(file.path.split('/').last),
-                          subtitle: Text('Yükleniyor...'),
+                          subtitle: const Text('Yükleniyor...'),
                         );
                       }
                       if (snapshot.hasError) {
@@ -107,7 +109,7 @@ class _BackupLocationViewState extends State<BackupLocationView> {
                         subtitle: Text(
                             'Boyut: $fileSize\nSon Değişiklik: $modificationDate'),
                         trailing: IconButton(
-                          icon: Icon(Icons.delete),
+                          icon: const Icon(Icons.delete),
                           onPressed: () async {
                             await _backupService.deleteBackupFile(file.path);
                             _loadBackupData(); // Yedekleme dosyalarını yeniden yükle
@@ -124,8 +126,8 @@ class _BackupLocationViewState extends State<BackupLocationView> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _startBackup,
-        child: Icon(Icons.backup),
         tooltip: 'Yedekle',
+        child: const Icon(Icons.backup),
       ),
     );
   }

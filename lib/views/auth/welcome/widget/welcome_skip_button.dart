@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tido/utils/Constant/colors.dart';
-import 'package:tido/utils/Constant/text_strings.dart';
 import 'package:tido/utils/Helpers/helpers_functions.dart';
 import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
 

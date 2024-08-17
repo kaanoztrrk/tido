@@ -118,7 +118,7 @@ final GoRouter router = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return BlocProvider.value(
           value: getIt<HomeBloc>(),
-          child: ImageFolderDetailesView(),
+          child: const ImageFolderDetailesView(),
         );
       },
     ),
@@ -127,7 +127,7 @@ final GoRouter router = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return BlocProvider.value(
           value: getIt<HomeBloc>(),
-          child: DocFolderDetailesView(),
+          child: const DocFolderDetailesView(),
         );
       },
     ),

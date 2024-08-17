@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages, empty_catches
+
 import 'dart:convert';
 import 'dart:io';
 import 'package:hive/hive.dart';
@@ -8,7 +10,7 @@ class HiveBackupService {
   // Yedekleme işlemi
   Future<void> backupTaskBox() async {
     try {
-      final boxName = 'allTasksBox';
+      const boxName = 'allTasksBox';
 
       // Check if the box is already open
       Box<TaskModel>? box;
@@ -36,10 +38,7 @@ class HiveBackupService {
 
       final jsonString = jsonEncode(data);
       await backupFile.writeAsString(jsonString);
-
-      print('Backup created: ${backupFile.path}');
     } catch (e) {
-      print('Error during backup: $e');
       rethrow;
     }
   }
@@ -50,11 +49,8 @@ class HiveBackupService {
       final file = File(filePath);
       if (await file.exists()) {
         await file.delete();
-        print('Backup file deleted: $filePath');
       }
-    } catch (e) {
-      print('Error deleting backup file: $e');
-    }
+    } catch (e) {}
   }
 
   // Yedekleme dosyalarını listeleme
@@ -69,7 +65,6 @@ class HiveBackupService {
         return [];
       }
     } catch (e) {
-      print('Error getting backup files: $e');
       return [];
     }
   }
@@ -86,7 +81,6 @@ class HiveBackupService {
         return 'Yedekleme yapılmadı';
       }
     } catch (e) {
-      print('Error getting last backup date: $e');
       return 'Hata';
     }
   }
@@ -95,9 +89,8 @@ class HiveBackupService {
   Future<String> getFileSize(File file) async {
     try {
       final sizeInBytes = await file.length();
-      return (sizeInBytes / (1024 * 1024)).toStringAsFixed(2) + ' MB';
+      return '${(sizeInBytes / (1024 * 1024)).toStringAsFixed(2)} MB';
     } catch (e) {
-      print('Error getting file size: $e');
       return 'Hata';
     }
   }
@@ -108,7 +101,6 @@ class HiveBackupService {
       final stat = await file.stat();
       return stat.modified.toIso8601String();
     } catch (e) {
-      print('Error getting file modification date: $e');
       return 'Hata';
     }
   }

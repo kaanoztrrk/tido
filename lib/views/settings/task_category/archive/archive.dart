@@ -13,14 +13,12 @@ import '../../../../core/l10n/l10n.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../../data/models/task_model/task_model.dart';
 import '../../../../utils/Constant/image_strings.dart';
-import '../../../../utils/Helpers/helpers_functions.dart';
 
 class ArchiveView extends StatelessWidget {
   const ArchiveView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var dark = ViHelpersFunctions.isDarkMode(context);
     return Scaffold(
         appBar: ViAppBar(
           showBackArrow: true,
@@ -43,7 +41,7 @@ class ArchiveView extends StatelessWidget {
                     itemCount: tasksToShow.length,
                     itemBuilder: (context, index) {
                       return ViContainer(
-                        margin: EdgeInsets.all(ViSizes.defaultSpace),
+                        margin: const EdgeInsets.all(ViSizes.defaultSpace / 2),
                         borderRadius: BorderRadius.circular(20),
                         child: ListTile(
                           onTap: () {

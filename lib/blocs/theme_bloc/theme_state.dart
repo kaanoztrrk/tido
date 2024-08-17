@@ -11,7 +11,7 @@ class ThemeState extends Equatable {
   final String? backgroundImage;
   final ThemeMode themeMode;
 
-  ThemeState({
+  const ThemeState({
     required this.primaryColor,
     required this.backgroundImage,
     required this.allColorList,
@@ -20,9 +20,9 @@ class ThemeState extends Equatable {
   });
 
   factory ThemeState.initial() {
-    return ThemeState(
+    return const ThemeState(
       primaryColor: AppColors.primary,
-      allColorList: const [
+      allColorList: [
         AppColors.primary,
         AppColors.secondary,
         AppColors.darkGreen,
@@ -36,7 +36,7 @@ class ThemeState extends Equatable {
         AppColors.darkBrown,
         AppColors.borwn,
       ],
-      allBackgroundList: const [
+      allBackgroundList: [
         ViImages.texture_1,
         ViImages.texture_2,
         ViImages.texture_3,
@@ -56,7 +56,7 @@ class ThemeState extends Equatable {
   }) {
     return ThemeState(
       allColorList: allColorList ?? this.allColorList,
-      allBackgroundList: allTextureList ?? this.allBackgroundList,
+      allBackgroundList: allTextureList ?? allBackgroundList,
       primaryColor: primaryColor ?? this.primaryColor,
       backgroundImage: backgroundImage,
       themeMode: themeMode ?? this.themeMode,

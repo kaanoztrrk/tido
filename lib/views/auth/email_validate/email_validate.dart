@@ -8,7 +8,6 @@ import '../../../common/widget/button/primary_button.dart';
 import '../../../common/widget/login_signup/login_header.dart';
 import '../../../core/routes/routes.dart';
 import '../../../utils/Constant/sizes.dart';
-import '../../../utils/Constant/text_strings.dart';
 import '../../../utils/Helpers/helpers_functions.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 import '../../../utils/validators/validationHelpers.dart';

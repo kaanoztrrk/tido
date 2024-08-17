@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tido/blocs/theme_bloc/theme_bloc.dart';
-import 'package:tido/common/widget/appbar/appbar.dart';
 import 'package:tido/core/locator/locator.dart';
-import 'package:tido/utils/Constant/colors.dart';
 
 import '../../../blocs/theme_bloc/theme_state.dart';
 

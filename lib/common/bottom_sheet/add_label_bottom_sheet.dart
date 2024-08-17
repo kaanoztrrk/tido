@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tido/common/widget/button/primary_button.dart';
 import 'package:tido/core/l10n/l10n.dart';
-import 'package:tido/utils/Constant/text_strings.dart';
 import 'package:tido/utils/Helpers/helpers_functions.dart';
 
 import '../../utils/Constant/colors.dart';

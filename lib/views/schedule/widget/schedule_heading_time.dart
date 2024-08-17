@@ -1,9 +1,10 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../../core/l10n/l10n.dart';
 import '../../../utils/Constant/colors.dart';
 import '../../../utils/Helpers/helpers_functions.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
