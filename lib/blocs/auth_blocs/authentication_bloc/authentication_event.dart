@@ -16,3 +16,15 @@ class AuthenticationUserChanged extends AuthenticationEvent {
   @override
   List<Object?> get props => [user];
 }
+
+class DeleteUser extends AuthenticationEvent {}
+
+class ChangePassword extends AuthenticationEvent {
+  final String oldPassword;
+  final String newPassword;
+
+  const ChangePassword(this.oldPassword, this.newPassword);
+
+  @override
+  List<Object?> get props => [oldPassword, newPassword];
+}

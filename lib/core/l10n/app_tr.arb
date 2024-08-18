@@ -120,5 +120,9 @@
     "edit_category": "Kategoriyi Düzenle",
     "delete_category": "Kategoriyi Sil",
     "drag_mark_done": "Sürükleyin",
+    "profile": "Profil",
+    "personal_information": "Kişisel Bilgiler",
+    "delete_account": "Hesabı Sil",
+    "ask_help": "Yardım İste",
     "@@locale": "tr"
 }

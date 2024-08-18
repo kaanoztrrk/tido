@@ -53,15 +53,18 @@ class SettingsView extends StatelessWidget {
                       children: [
                         ViProfileImage(
                           size: ViDeviceUtils.getScreenWidth(context) * 0.3,
-                          onEdit: true,
+                          onTap: () => context.push(ViRoutes.profile_view),
                         ),
                         const SizedBox(height: ViSizes.spaceBtwItems),
-                        Text(
-                            state.user?.displayName ??
-                                AppLocalizations.of(context)!.unkownUser,
-                            style: dark
-                                ? ViTextTheme.darkTextTheme.headlineMedium
-                                : ViTextTheme.ligthTextTheme.headlineMedium),
+                        GestureDetector(
+                          onTap: () => context.push(ViRoutes.profile_view),
+                          child: Text(
+                              state.user?.displayName ??
+                                  AppLocalizations.of(context)!.unkownUser,
+                              style: dark
+                                  ? ViTextTheme.darkTextTheme.headlineMedium
+                                  : ViTextTheme.ligthTextTheme.headlineMedium),
+                        ),
                         Text(
                           state.user?.email ??
                               AppLocalizations.of(context)!.unkownEmail,
@@ -296,15 +299,6 @@ class SettingsView extends StatelessWidget {
                             title:
                                 Text(AppLocalizations.of(context)!.clear_data),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: ViSizes.defaultSpace),
-                            child: Divider(),
-                          ),
-                          ListTile(
-                            leading: const Icon(Iconsax.password_check),
-                            title: Text(AppLocalizations.of(context)!.password),
-                          ),
                         ],
                       ),
                     )
@@ -320,7 +314,8 @@ class SettingsView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       child: Column(
                         children: [
-                          ListTile(
+                          /*
+                                    ListTile(
                             leading: const Icon(Iconsax.star),
                             title: Text(AppLocalizations.of(context)!.rate_us),
                           ),
@@ -348,6 +343,8 @@ class SettingsView extends StatelessWidget {
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
                           ),
+                          
+                           */
                           ListTile(
                             leading: const Icon(Iconsax.security),
                             title: Text(

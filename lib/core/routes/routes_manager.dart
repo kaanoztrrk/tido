@@ -10,6 +10,7 @@ import 'package:tido/blocs/notification_bloc/notificaiton_bloc.dart';
 import 'package:tido/core/locator/locator.dart';
 import 'package:tido/core/routes/routes.dart';
 import 'package:tido/data/models/task_model/task_model.dart';
+import 'package:tido/views/auth/welcome/welcome_view.dart';
 import 'package:tido/views/create_task/create_task_view.dart';
 import 'package:tido/views/folder_detailes.dart/doc_folder_detailes.dart';
 import 'package:tido/views/navigators/main_navigator.dart';
@@ -19,6 +20,7 @@ import 'package:tido/views/navigators/home_navigator.dart';
 import 'package:tido/views/notification/notification_view.dart';
 import 'package:tido/views/settings/data_security/backup_location_view.dart';
 import 'package:tido/views/settings/data_security/data_storage_view.dart';
+import 'package:tido/views/settings/profile/profile_view.dart';
 import 'package:tido/views/settings/task_category/archive/archive.dart';
 import 'package:tido/views/settings/customize/theme/theme_view.dart';
 import 'package:tido/views/search/search_view.dart';
@@ -30,6 +32,7 @@ import '../../views/auth/email_validate/email_validate.dart';
 import '../../views/auth/register/register_view.dart';
 import '../../views/auth/forgot_password/forgot_password.dart';
 
+import '../../views/auth/splash/splash_view.dart';
 import '../../views/folder_detailes.dart/image_folder_detailes.dart';
 import '../../views/task_detail/task_detail_view.dart';
 
@@ -38,6 +41,18 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 final GoRouter router = GoRouter(
   navigatorKey: navigatorKey,
   routes: [
+    GoRoute(
+      path: ViRoutes.splash_view,
+      builder: (BuildContext context, GoRouterState state) {
+        return SplashView();
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.welcome_view,
+      builder: (BuildContext context, GoRouterState state) {
+        return WelcomeView();
+      },
+    ),
     GoRoute(
       path: ViRoutes.main,
       builder: (BuildContext context, GoRouterState state) {
@@ -111,6 +126,16 @@ final GoRouter router = GoRouter(
           BlocProvider.value(value: getIt<AuthenticationBloc>()),
           BlocProvider.value(value: getIt<SignInBloc>()),
         ], child: TaskDetailView(task: task));
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.profile_view,
+      builder: (BuildContext context, GoRouterState state) {
+        return MultiBlocProvider(providers: [
+          BlocProvider.value(value: getIt<HomeBloc>()),
+          BlocProvider.value(value: getIt<AuthenticationBloc>()),
+          BlocProvider.value(value: getIt<SignInBloc>()),
+        ], child: ProfileView());
       },
     ),
     GoRoute(

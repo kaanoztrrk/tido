@@ -34,7 +34,7 @@ Future<void> setupLocator() async {
     ),
   );
   getIt.registerLazySingleton<MainBloc>(
-    () => MainBloc(PageController()),
+    () => MainBloc(pageController: PageController()),
   );
 
   getIt.registerLazySingleton<HomeBloc>(() => HomeBloc());

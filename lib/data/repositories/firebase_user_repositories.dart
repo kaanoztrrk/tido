@@ -125,4 +125,42 @@ class FirebaseUserRepo implements UserRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<void> deleteUser() async {
+    final user = _firebaseAuth.currentUser;
+
+    if (user != null) {
+      // 1. Delete user data from Firestore
+      await userCollection.doc(user.uid).delete();
+
+      // 2. Delete user from Firebase Authentication
+      await user.delete();
+
+      // 3. Optionally, delete user data from other services if needed
+    } else {
+      throw Exception('No user is currently signed in.');
+    }
+  }
+
+  @override
+  Future<void> changePassword(String oldPassword, String newPassword) async {
+    final user = _firebaseAuth.currentUser;
+
+    if (user != null) {
+      try {
+        final credential = EmailAuthProvider.credential(
+          email: user.email!,
+          password: oldPassword,
+        );
+
+        await user.reauthenticateWithCredential(credential);
+        await user.updatePassword(newPassword);
+      } catch (e) {
+        throw Exception('Error changing password: $e');
+      }
+    } else {
+      throw Exception('No user is currently signed in.');
+    }
+  }
 }

@@ -1,47 +1,72 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tido/core/routes/routes.dart';
 import 'main_event.dart';
 import 'main_state.dart';
 
 class MainBloc extends Bloc<MainEvent, MainState> {
   final PageController pageController;
 
-  MainBloc(this.pageController)
+  MainBloc({required this.pageController})
       : super(const MainState(currentPageIndex: 0, isFirstTime: true)) {
-    on<UpdatePageIndicator>((event, emit) {
-      emit(state.copyWith(currentPageIndex: event.index));
-    });
-
-    on<DoNavigationClick>((event, emit) {
-      pageController.jumpToPage(event.index);
-      emit(state.copyWith(currentPageIndex: event.index));
-    });
-
-    on<NextPage>((event, emit) {
-      if (state.currentPageIndex < 2) {
-        int nextPage = state.currentPageIndex + 1;
-        pageController.jumpToPage(nextPage);
-        emit(state.copyWith(currentPageIndex: nextPage));
-      } else {
-        add(CompleteOnBoarding(event.context));
-      }
-    });
-
-    on<CompleteOnBoarding>((event, emit) {
-      _completeOnBoarding(event.context, emit);
-    });
-
-    on<SkipPage>((event, emit) {
-      pageController.jumpToPage(2);
-      emit(state.copyWith(currentPageIndex: 2));
-      add(CompleteOnBoarding(event.context));
-    });
+    on<UpdatePageIndicator>(_onUpdatePageIndicator);
+    on<DoNavigationClick>(_onDoNavigationClick);
+    on<NextPage>(_onNextPage);
+    on<CompleteOnBoarding>(_onCompleteOnBoarding);
+    on<SkipPage>(_onSkipPage);
   }
 
-  void _completeOnBoarding(BuildContext context, Emitter<MainState> emit) {
+  void _onUpdatePageIndicator(
+      UpdatePageIndicator event, Emitter<MainState> emit) {
+    emit(state.copyWith(currentPageIndex: event.index));
+  }
+
+  void _onDoNavigationClick(DoNavigationClick event, Emitter<MainState> emit) {
+    if (pageController.hasClients) {
+      pageController.jumpToPage(event.index);
+      emit(state.copyWith(currentPageIndex: event.index));
+    }
+  }
+
+  void _onNextPage(NextPage event, Emitter<MainState> emit) {
+    if (state.currentPageIndex < 2) {
+      final nextPage = state.currentPageIndex + 1;
+
+      // Delaying the navigation to the next frame
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (pageController.hasClients) {
+          pageController.animateToPage(
+            nextPage,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
+          emit(state.copyWith(currentPageIndex: nextPage));
+        }
+      });
+    } else {
+      // Indicate that onboarding is completed
+      emit(state.copyWith(isFirstTime: false));
+    }
+  }
+
+  void _onCompleteOnBoarding(
+      CompleteOnBoarding event, Emitter<MainState> emit) {
     emit(state.copyWith(isFirstTime: false));
-    context.push(ViRoutes.login);
+
+    // Notify view to navigate to login page
+    // We need to handle navigation in the view
+  }
+
+  void _onSkipPage(SkipPage event, Emitter<MainState> emit) {
+    if (pageController.hasClients) {
+      pageController.jumpToPage(2);
+      emit(state.copyWith(currentPageIndex: 2));
+
+      // Indicate that onboarding is completed
+      emit(state.copyWith(isFirstTime: false));
+
+      // Notify view to navigate to login page
+      // We need to handle navigation in the view
+    }
   }
 }

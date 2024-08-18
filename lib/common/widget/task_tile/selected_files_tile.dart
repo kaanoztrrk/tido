@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 import 'package:tido/common/styles/container_style.dart';
 import 'package:tido/common/widget/button/ratio_button.dart';
@@ -15,14 +13,14 @@ class SelectedFilesTile extends StatefulWidget {
     this.title,
     this.isSelected = false,
     this.onSelected,
-    this.enableLongPress = false, // Yeni parametre
+    this.enableLongPress = false,
   });
 
   final Widget? leading;
   final String? title;
   final bool isSelected;
   final void Function(bool)? onSelected;
-  final bool enableLongPress; // Uzun basma özelliği kontrolü
+  final bool enableLongPress;
 
   @override
   _SelectedFilesTileState createState() => _SelectedFilesTileState();
@@ -41,15 +39,28 @@ class _SelectedFilesTileState extends State<SelectedFilesTile> {
   Widget build(BuildContext context) {
     var dark = ViHelpersFunctions.isDarkMode(context);
     return GestureDetector(
+      onTap: () {
+        if (widget.leading != null) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return Dialog(
+                child: InteractiveViewer(
+                  child: widget.leading!,
+                ),
+              );
+            },
+          );
+        }
+      },
       onLongPress: widget.enableLongPress
           ? () {
-              // Uzun basma ile seçme modunu başlat
               setState(() {
                 _isSelected = !_isSelected;
               });
               widget.onSelected?.call(_isSelected);
             }
-          : null, // Uzun basmayı devre dışı bırak
+          : null,
       child: ViContainer(
         margin: const EdgeInsets.all(ViSizes.sm),
         decoration: BoxDecoration(

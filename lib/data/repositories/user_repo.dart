@@ -18,4 +18,8 @@ abstract class UserRepository {
   Future<void> uploadProfileImage(File image);
 
   Future<void> signInWithGoogle();
+
+  Future<void> deleteUser();
+
+  Future<void> changePassword(String oldPassword, String newPassword);
 }

@@ -14,20 +14,8 @@ class DoNavigationClick extends MainEvent {
   DoNavigationClick(this.index);
 }
 
-class NextPage extends MainEvent {
-  final BuildContext context;
+class NextPage extends MainEvent {}
 
-  NextPage(this.context);
-}
+class CompleteOnBoarding extends MainEvent {}
 
-class CompleteOnBoarding extends MainEvent {
-  final BuildContext context;
-
-  CompleteOnBoarding(this.context);
-}
-
-class SkipPage extends MainEvent {
-  final BuildContext context;
-
-  SkipPage(this.context);
-}
+class SkipPage extends MainEvent {}

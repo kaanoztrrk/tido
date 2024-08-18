@@ -1,8 +1,9 @@
 // ignore_for_file: constant_identifier_names
 
 class ViRoutes {
-  static const String main = '/';
-  static const String splash_view = '/splash_view';
+  static const String splash_view = '/';
+  static const String main = '/main';
+  static const String welcome_view = '/welcome_view';
   static const String login = '/login';
   static const String register = '/register';
   static const String validate_email = '/validate_email';
@@ -32,4 +33,5 @@ class ViRoutes {
   static const String notification_page = '/notification_page';
   static const String task_detail_view = '/task_detail_view';
   static const String theme_view = '/theme_view';
+  static const String profile_view = '/profile_view';
 }

@@ -120,5 +120,9 @@
     "edit_category": "Edit Category",
     "delete_category": "Delete Category",
     "drag_mark_done": "Drag to mark done",
+    "profile": "Profile",
+    "personal_information": "Personal Information",
+    "delete_account": "Delete Account",
+    "ask_help": "Ask Help Desk",
     "@@locale": "en"
 }

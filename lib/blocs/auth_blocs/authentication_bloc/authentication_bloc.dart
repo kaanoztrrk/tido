@@ -1,9 +1,13 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../data/repositories/user_repo.dart';
+import 'package:hive/hive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'authentication_event.dart';
 import 'authentication_state.dart';
+import '../../../data/repositories/user_repo.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
@@ -13,20 +17,54 @@ class AuthenticationBloc
   AuthenticationBloc({
     required this.userRepository,
   }) : super(const AuthenticationState.unknown()) {
-    // Initialize with unknown state
     _userSubscription = userRepository.user.listen((user) {
-      // Listen for user changes and update state accordingly
       add(AuthenticationUserChanged(user));
     });
 
-    // Handle AuthenticationUserChanged event
-    on<AuthenticationUserChanged>((event, emit) {
-      if (event.user != null) {
-        emit(AuthenticationState.authenticated(event.user!));
-      } else {
-        emit(const AuthenticationState.unauthenticated());
-      }
-    });
+    on<AuthenticationUserChanged>(_onAuthenticationUserChanged);
+    on<DeleteUser>(_onDeleteUser);
+    on<ChangePassword>(_onChangePassword);
+  }
+
+  void _onAuthenticationUserChanged(
+      AuthenticationUserChanged event, Emitter<AuthenticationState> emit) {
+    if (event.user != null) {
+      emit(AuthenticationState.authenticated(event.user!));
+    } else {
+      emit(const AuthenticationState.unauthenticated());
+    }
+  }
+
+  Future<void> _onDeleteUser(
+      DeleteUser event, Emitter<AuthenticationState> emit) async {
+    emit(const AuthenticationState.deleting());
+    try {
+      await userRepository.deleteUser();
+
+      await Hive.deleteFromDisk();
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.clear();
+
+      emit(const AuthenticationState.unauthenticated());
+
+      SystemNavigator.pop();
+    } catch (e) {
+      print('Error deleting user: $e');
+      emit(AuthenticationState.error(e.toString()));
+    }
+  }
+
+  Future<void> _onChangePassword(
+      ChangePassword event, Emitter<AuthenticationState> emit) async {
+    emit(const AuthenticationState.deleting());
+    try {
+      await userRepository.changePassword(event.oldPassword, event.newPassword);
+      emit(AuthenticationState.authenticated(
+          FirebaseAuth.instance.currentUser!));
+    } catch (e) {
+      print('Error changing password: $e');
+      emit(AuthenticationState.error(e.toString()));
+    }
   }
 
   @override

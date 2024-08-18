@@ -9,6 +9,13 @@ class MainState extends Equatable {
     required this.isFirstTime,
   });
 
+  factory MainState.initial() {
+    return const MainState(
+      currentPageIndex: 0,
+      isFirstTime: true,
+    );
+  }
+
   MainState copyWith({
     int? currentPageIndex,
     bool? isFirstTime,
