@@ -34,4 +34,5 @@ class ViRoutes {
   static const String task_detail_view = '/task_detail_view';
   static const String theme_view = '/theme_view';
   static const String profile_view = '/profile_view';
+  static const String change_password = '/change_password';
 }

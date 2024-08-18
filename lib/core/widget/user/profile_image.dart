@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -86,9 +84,10 @@ class _ViProfileImageState extends State<ViProfileImage> {
                     image: imageUrl.startsWith('http') ||
                             imageUrl.startsWith('https')
                         ? NetworkImage(imageUrl) as ImageProvider
-                        : File(imageUrl).existsSync()
+                        : (File(imageUrl).existsSync()
                             ? FileImage(File(imageUrl))
-                            : AssetImage(imageUrl) as ImageProvider,
+                            : AssetImage(ViImages.default_user)
+                                as ImageProvider),
                   ),
                   border: Border.all(width: 2, color: AppColors.white),
                 ),

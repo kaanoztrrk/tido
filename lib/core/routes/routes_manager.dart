@@ -28,6 +28,7 @@ import 'package:tido/views/settings/task_category/categories/categories_view.dar
 import 'package:tido/views/task_edit/task_edit_view.dart';
 
 import '../../data/repositories/firebase_user_repositories.dart';
+import '../../views/auth/change_password/change_password_view.dart';
 import '../../views/auth/email_validate/email_validate.dart';
 import '../../views/auth/register/register_view.dart';
 import '../../views/auth/forgot_password/forgot_password.dart';
@@ -296,6 +297,17 @@ final GoRouter router = GoRouter(
           BlocProvider.value(value: getIt<SignInBloc>()),
           BlocProvider.value(value: getIt<NotificationBloc>()),
         ], child: TaskEditView(task: task));
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.change_password,
+      builder: (BuildContext context, GoRouterState state) {
+        return MultiBlocProvider(providers: [
+          BlocProvider.value(value: getIt<HomeBloc>()),
+          BlocProvider.value(value: getIt<AuthenticationBloc>()),
+          BlocProvider.value(value: getIt<SignInBloc>()),
+          BlocProvider.value(value: getIt<NotificationBloc>()),
+        ], child: ChangePasswordView());
       },
     ),
   ],

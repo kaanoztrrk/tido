@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
@@ -6,8 +8,7 @@ import 'package:tido/blocs/auth_blocs/authentication_bloc/authentication_bloc.da
 import 'package:tido/blocs/auth_blocs/authentication_bloc/authentication_event.dart';
 import 'package:tido/blocs/auth_blocs/authentication_bloc/authentication_state.dart';
 import 'package:tido/common/bottom_sheet/are_you_sure.dart';
-import 'package:tido/data/repositories/firebase_user_repositories.dart';
-import 'package:tido/views/navigators/main_navigator.dart';
+import 'package:tido/common/bottom_sheet/change_language_bottom_sheet.dart';
 
 import '../../../blocs/localization_bloc/localization_bloc.dart';
 import '../../../blocs/localization_bloc/localization_state.dart';
@@ -19,16 +20,17 @@ import '../../../core/widget/user/profile_image.dart';
 import '../../../utils/Constant/colors.dart';
 import '../../../utils/Constant/sizes.dart';
 import '../../../utils/Device/device_utility.dart';
-import '../../../utils/Helpers/helpers_functions.dart';
+
 import '../../../utils/Snackbar/snacbar_service.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class ProfileView extends StatelessWidget {
-  const ProfileView({super.key});
+  const ProfileView({super.key, this.user});
+
+  final User? user;
 
   @override
   Widget build(BuildContext context) {
-    var dark = ViHelpersFunctions.isDarkMode(context);
     return Scaffold(
       appBar: ViAppBar(
         showBackArrow: true,
@@ -100,6 +102,8 @@ class ProfileView extends StatelessWidget {
                                 );
                               },
                             ),
+                            /*
+                          
                             const Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: ViSizes.defaultSpace),
@@ -109,11 +113,9 @@ class ProfileView extends StatelessWidget {
                               leading: const Icon(Iconsax.password_check),
                               title:
                                   Text(AppLocalizations.of(context)!.password),
-                              onTap: () {
-                                // Navigate to password change page
-                                GoRouter.of(context).push('/change-password');
-                              },
+                              onTap: () {},
                             ),
+                           */
                             BlocBuilder<LocalizationBloc, LocalizationState>(
                               builder: (context, state) {
                                 return Column(
@@ -124,6 +126,8 @@ class ProfileView extends StatelessWidget {
                                       child: Divider(),
                                     ),
                                     ListTile(
+                                      onTap: () => ChangeLanguageBottomSheet
+                                          .showLanguageBottomSheet(context),
                                       leading: const Icon(Iconsax.translate),
                                       title: Text(AppLocalizations.of(context)!
                                           .language),
@@ -161,46 +165,52 @@ class ProfileView extends StatelessWidget {
                                   horizontal: ViSizes.defaultSpace),
                               child: Divider(),
                             ),
-                            ListTile(
-                              onTap: () async {
-                                final shouldDelete = ViAreYouSureBottomSheet
-                                    .onAreYouSureBottomSheet(
-                                  context: context,
-                                  icon: Iconsax.trash,
-                                  title: AppLocalizations.of(context)!
-                                      .delete_all_title,
-                                  subTitle: AppLocalizations.of(context)!
-                                      .delete_all_subTitle,
+                            BlocBuilder<AuthenticationBloc,
+                                AuthenticationState>(
+                              builder: (context, state) {
+                                return ListTile(
                                   onTap: () async {
-                                    try {
-                                      BlocProvider.of<AuthenticationBloc>(
-                                              context)
-                                          .add(DeleteUser());
+                                    ViAreYouSureBottomSheet
+                                        .onAreYouSureBottomSheet(
+                                      context: context,
+                                      icon: Iconsax.trash,
+                                      title: AppLocalizations.of(context)!
+                                          .delete_all_title,
+                                      subTitle: AppLocalizations.of(context)!
+                                          .delete_all_subTitle,
+                                      onTap: () async {
+                                        try {
+                                          BlocProvider.of<AuthenticationBloc>(
+                                                  context)
+                                              .add(DeleteUser(state.user?.uid));
 
-                                      ViSnackbar.showSuccess(
-                                        context,
-                                        AppLocalizations.of(context)!
-                                            .progress_complated,
-                                      );
-                                      context.pop();
-                                    } catch (e) {
-                                      ViSnackbar.showError(
-                                        context,
-                                        AppLocalizations.of(context)!
-                                            .progress_failed,
-                                      );
-                                    }
+                                          ViSnackbar.showSuccess(
+                                            context,
+                                            AppLocalizations.of(context)!
+                                                .progress_complated,
+                                          );
+                                          // Uygulamayı kapat
+                                          SystemNavigator.pop();
+                                        } catch (e) {
+                                          ViSnackbar.showError(
+                                            context,
+                                            AppLocalizations.of(context)!
+                                                .progress_failed,
+                                          );
+                                        }
+                                      },
+                                      cancelOnTap: () => context.pop(),
+                                    );
                                   },
-                                  cancelOnTap: () => context.pop(),
+                                  leading: const Icon(Iconsax.profile_delete,
+                                      color: AppColors.warning),
+                                  title: Text(
+                                    AppLocalizations.of(context)!
+                                        .delete_account,
+                                    style: TextStyle(color: AppColors.warning),
+                                  ),
                                 );
-                                // The above code assumes `onAreYouSureBottomSheet` returns a Future<bool>.
                               },
-                              leading: const Icon(Iconsax.profile_delete,
-                                  color: AppColors.warning),
-                              title: Text(
-                                AppLocalizations.of(context)!.delete_account,
-                                style: TextStyle(color: AppColors.warning),
-                              ),
                             ),
                           ],
                         ),

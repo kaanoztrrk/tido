@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
@@ -58,11 +57,25 @@ class AuthenticationBloc
       ChangePassword event, Emitter<AuthenticationState> emit) async {
     emit(const AuthenticationState.deleting());
     try {
-      await userRepository.changePassword(event.oldPassword, event.newPassword);
-      emit(AuthenticationState.authenticated(
-          FirebaseAuth.instance.currentUser!));
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        emit(const AuthenticationState.unauthenticated());
+        return;
+      }
+
+      final credential = EmailAuthProvider.credential(
+        email: user.email!,
+        password: event.oldPassword,
+      );
+
+      // Re-authenticate user
+      await user.reauthenticateWithCredential(credential);
+
+      // Update password
+      await user.updatePassword(event.newPassword);
+
+      emit(AuthenticationState.authenticated(user));
     } catch (e) {
-      print('Error changing password: $e');
       emit(AuthenticationState.error(e.toString()));
     }
   }

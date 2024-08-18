@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:tido/blocs/main_bloc/main_bloc.dart';
+
 import 'package:tido/core/routes/routes.dart';
 import 'package:tido/utils/Constant/image_strings.dart';
 import 'package:tido/views/auth/welcome/widget/welcome_parts.dart';

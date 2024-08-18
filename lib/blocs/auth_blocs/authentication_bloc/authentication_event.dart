@@ -17,7 +17,13 @@ class AuthenticationUserChanged extends AuthenticationEvent {
   List<Object?> get props => [user];
 }
 
-class DeleteUser extends AuthenticationEvent {}
+class DeleteUser extends AuthenticationEvent {
+  final String? userId;
+  const DeleteUser(this.userId);
+
+  @override
+  List<Object?> get props => [userId];
+}
 
 class ChangePassword extends AuthenticationEvent {
   final String oldPassword;
