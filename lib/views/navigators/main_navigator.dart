@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tido/blocs/auth_blocs/authentication_bloc/authentication_bloc.dart';
-import 'package:tido/blocs/main_bloc/main_bloc.dart';
-import 'package:tido/core/locator/locator.dart';
-import 'package:tido/data/repositories/user_repo.dart';
 
+import '../../blocs/auth_blocs/authentication_bloc/authentication_bloc.dart';
 import '../../blocs/auth_blocs/authentication_bloc/authentication_state.dart';
 
+import '../../blocs/main_bloc/main_bloc.dart';
+import '../../core/locator/locator.dart';
+import '../../data/repositories/user_repo.dart';
 import '../auth/login/login_view.dart';
 
 import 'home_navigator.dart';

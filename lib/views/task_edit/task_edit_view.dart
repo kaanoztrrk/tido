@@ -2,17 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tido/blocs/home_bloc/home_bloc.dart';
-import 'package:tido/blocs/home_bloc/home_event.dart';
-import 'package:tido/data/models/task_model/task_model.dart';
-import 'package:tido/common/widget/label_widget.dart';
 
+import '../../blocs/home_bloc/home_bloc.dart';
+import '../../blocs/home_bloc/home_event.dart';
 import '../../common/styles/container_style.dart';
 import '../../common/widget/Text/title.dart';
 import '../../common/widget/appbar/appbar.dart';
 import '../../common/widget/button/primary_button.dart';
 import '../../common/widget/button/ratio_button.dart';
+import '../../common/widget/label_widget.dart';
 import '../../core/l10n/l10n.dart';
+import '../../data/models/task_model/task_model.dart';
 import '../../data/services/date_formetter_service.dart';
 import '../../utils/Constant/colors.dart';
 import '../../utils/Constant/sizes.dart';
@@ -129,7 +129,7 @@ class _TaskEditViewState extends State<TaskEditView> {
                     title: widget.task
                             .formattedTaskTime(DateFormatterService(context))
                             .isNotEmpty
-                        ? "${widget.task.formattedTaskTime}\n"
+                        ? "${widget.task.formattedTaskTime(DateFormatterService(context))}\n"
                         : "${AppLocalizations.of(context)!.date}\n",
                     subtitle: widget.task
                             .formattedDate(DateFormatterService(context))

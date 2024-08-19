@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:tido/blocs/theme_bloc/theme_bloc.dart';
-import 'package:tido/common/styles/container_style.dart';
-import 'package:tido/common/widget/button/ratio_button.dart';
-import 'package:tido/common/widget/button/swiper_button.dart';
-import 'package:tido/core/locator/locator.dart';
-import 'package:tido/utils/Constant/sizes.dart';
-import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
+
+import '../../../blocs/theme_bloc/theme_bloc.dart';
 import '../../../blocs/theme_bloc/theme_state.dart';
+import '../../../core/locator/locator.dart';
 import '../../../utils/Constant/colors.dart';
+import '../../../utils/Constant/sizes.dart';
+import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
+import '../../styles/container_style.dart';
+import '../button/ratio_button.dart';
+import '../button/swiper_button.dart';
 
 class HomeMainTaskTile extends StatelessWidget {
   const HomeMainTaskTile({

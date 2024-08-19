@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tido/utils/Constant/image_strings.dart';
-import 'package:tido/utils/Snackbar/snacbar_service.dart';
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_event.dart';
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_state.dart';
 import '../../../utils/Constant/colors.dart';
+import '../../../utils/Constant/image_strings.dart';
+import '../../../utils/Snackbar/snacbar_service.dart';
 
 class ViProfileImage extends StatefulWidget {
   const ViProfileImage({
@@ -50,7 +50,7 @@ class _ViProfileImageState extends State<ViProfileImage> {
       setState(() {
         _image = File(pickedFile.path);
       });
-      context.read<SignInBloc>().add(UploadProfileImage(_image!));
+      context.read<SignInBloc>().add(UploadProfileImage(imageFile: _image!));
     } else {
       ViSnackbar.showWarning(context, "No image selected.");
     }

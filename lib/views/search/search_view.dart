@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tido/blocs/home_bloc/home_bloc.dart';
-import 'package:tido/common/widget/task_tile/calender_task_tile.dart';
-import 'package:tido/core/locator/locator.dart';
-import 'package:tido/utils/Constant/image_strings.dart';
-import 'package:tido/utils/Device/device_utility.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
+
+import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_event.dart';
 import '../../blocs/home_bloc/home_state.dart';
 import '../../common/empty_screen/empty_screen.dart';
 import '../../common/styles/container_style.dart';
 import '../../common/widget/appbar/appbar.dart';
+import '../../common/widget/task_tile/calender_task_tile.dart';
 import '../../core/l10n/l10n.dart';
+import '../../core/locator/locator.dart';
 import '../../data/services/date_formetter_service.dart';
 import '../../utils/Constant/colors.dart';
+import '../../utils/Constant/image_strings.dart';
 import '../../utils/Constant/sizes.dart';
+import '../../utils/Device/device_utility.dart';
+import '../../utils/Helpers/helpers_functions.dart';
 import '../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class SearchView extends StatelessWidget {

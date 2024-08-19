@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:tido/utils/Constant/image_strings.dart';
 
 import '../../utils/Constant/colors.dart';
+import '../../utils/Constant/image_strings.dart';
 
 class ThemeState extends Equatable {
   final List<Color> allColorList;

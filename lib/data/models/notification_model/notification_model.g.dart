@@ -17,19 +17,25 @@ class NotificationModelAdapter extends TypeAdapter<NotificationModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return NotificationModel(
-      title: fields[0] as String,
-      body: fields[1] as String,
+      id: fields[0] as int,
+      title: fields[1] as String,
+      body: fields[2] as String,
+      scheduleDateTime: fields[3] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, NotificationModel obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(4)
       ..writeByte(0)
-      ..write(obj.title)
+      ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.body);
+      ..write(obj.title)
+      ..writeByte(2)
+      ..write(obj.body)
+      ..writeByte(3)
+      ..write(obj.scheduleDateTime);
   }
 
   @override

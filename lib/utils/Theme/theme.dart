@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tido/utils/Constant/colors.dart';
-import 'package:tido/utils/Theme/custom_theme.dart/bottom_sheet_theme.dart';
-import 'package:tido/utils/Theme/custom_theme.dart/switch_theme.dart';
-import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
-import 'package:tido/utils/Theme/custom_theme.dart/text_field_theme.dart';
+
+import '../Constant/colors.dart';
+import 'custom_theme.dart/bottom_sheet_theme.dart';
+import 'custom_theme.dart/switch_theme.dart';
+import 'custom_theme.dart/text_field_theme.dart';
+import 'custom_theme.dart/text_theme.dart';
 
 class ViAppTheme {
   ViAppTheme._();

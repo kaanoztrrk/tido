@@ -1,27 +1,26 @@
 import 'dart:io';
+import 'package:TiDo/views/task_detail/widget/task_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tido/blocs/theme_bloc/theme_bloc.dart';
-import 'package:tido/common/styles/container_style.dart';
-import 'package:tido/common/widget/chip/label_chip.dart';
-import 'package:tido/core/locator/locator.dart';
-import 'package:tido/core/routes/routes.dart';
-import 'package:tido/data/models/task_model/task_model.dart';
-import 'package:tido/utils/Constant/colors.dart';
-import 'package:tido/utils/Constant/sizes.dart';
-import 'package:tido/utils/Device/device_utility.dart';
-import 'package:tido/views/task_detail/widget/task_info.dart';
-
 import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_state.dart';
+import '../../blocs/theme_bloc/theme_bloc.dart';
 import '../../blocs/theme_bloc/theme_state.dart';
 import '../../common/empty_screen/empty_screen.dart';
+import '../../common/styles/container_style.dart';
 import '../../common/widget/Text/title.dart';
 import '../../common/widget/button/ratio_button.dart';
+import '../../common/widget/chip/label_chip.dart';
 import '../../common/widget/task_tile/selected_files_tile.dart';
 import '../../core/l10n/l10n.dart';
+import '../../core/locator/locator.dart';
+import '../../core/routes/routes.dart';
+import '../../data/models/task_model/task_model.dart';
+import '../../utils/Constant/colors.dart';
 import '../../utils/Constant/image_strings.dart';
+import '../../utils/Constant/sizes.dart';
+import '../../utils/Device/device_utility.dart';
 import '../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class TaskDetailView extends StatelessWidget {

@@ -3,11 +3,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:tido/utils/Device/device_utility.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
-import 'package:tido/utils/Snackbar/snacbar_service.dart';
 
 import '../../core/l10n/l10n.dart';
+import '../../utils/Device/device_utility.dart';
+import '../../utils/Helpers/helpers_functions.dart';
+import '../../utils/Snackbar/snacbar_service.dart';
 import '../bottom_sheet/add_label_bottom_sheet.dart';
 import '../styles/square_container_style.dart';
 import 'chip/label_chip.dart';

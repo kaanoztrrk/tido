@@ -3,12 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tido/blocs/localization_bloc/localization_bloc.dart';
-import 'package:tido/blocs/localization_bloc/localization_state.dart';
-import 'package:tido/common/widget/Text/title.dart';
-import 'package:tido/core/l10n/l10n.dart';
-import 'package:tido/data/models/language_model/language_model.dart';
-import 'package:tido/utils/Constant/sizes.dart';
+
+import '../../blocs/localization_bloc/localization_bloc.dart';
+import '../../blocs/localization_bloc/localization_state.dart';
+import '../../core/l10n/l10n.dart';
+import '../../data/models/language_model/language_model.dart';
+import '../../utils/Constant/sizes.dart';
+import '../widget/Text/title.dart';
 
 final class ChangeLanguageBottomSheet {
   static void showLanguageBottomSheet(BuildContext context) {

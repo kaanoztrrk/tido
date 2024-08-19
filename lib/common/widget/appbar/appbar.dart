@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tido/utils/Constant/colors.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
 
+import '../../../utils/Constant/colors.dart';
 import '../../../utils/Constant/sizes.dart';
 import '../../../utils/Device/device_utility.dart';
+import '../../../utils/Helpers/helpers_functions.dart';
 import '../button/ratio_button.dart';
 
 class ViAppBar extends StatelessWidget implements PreferredSizeWidget {

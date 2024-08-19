@@ -1,11 +1,11 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:tido/common/widget/button/ratio_button.dart';
-import 'package:tido/utils/Constant/colors.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
 
+import '../../../common/widget/button/ratio_button.dart';
+import '../../../utils/Constant/colors.dart';
 import '../../../utils/Constant/sizes.dart';
+import '../../../utils/Helpers/helpers_functions.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class ViTimePicker extends StatefulWidget {

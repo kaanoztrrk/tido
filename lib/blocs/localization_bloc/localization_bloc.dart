@@ -1,9 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tido/blocs/localization_bloc/localization_state.dart';
-import 'package:tido/data/models/language_model/language_model.dart';
-import 'package:tido/utils/Constant/app_constants.dart';
+
+import '../../data/models/language_model/language_model.dart';
+import '../../utils/Constant/app_constants.dart';
+import 'localization_state.dart';
 
 part 'localization_event.dart';
 

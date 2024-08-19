@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
 
+import '../../../utils/Helpers/helpers_functions.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class ViPrimaryTitle extends StatelessWidget {

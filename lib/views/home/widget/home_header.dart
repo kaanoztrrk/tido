@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tido/core/l10n/l10n.dart';
-import 'package:tido/utils/Constant/colors.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
-import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
 
 import '../../../blocs/auth_blocs/authentication_bloc/authentication_bloc.dart';
 import '../../../blocs/auth_blocs/authentication_bloc/authentication_state.dart';
+import '../../../core/l10n/l10n.dart';
+import '../../../utils/Constant/colors.dart';
+import '../../../utils/Helpers/helpers_functions.dart';
+import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
@@ -24,7 +24,8 @@ class HomeHeader extends StatelessWidget {
           padding: const EdgeInsets.only(right: 40),
           child: Text.rich(
             TextSpan(
-              text: "${AppLocalizations.of(context)!.hi_text} $firstName,\n",
+              //${AppLocalizations.of(context)!.hi_text} $firstName,\n
+              text: "${AppLocalizations.of(context)!.hi_text} $firstName\n",
               children: [
                 TextSpan(
                   text: AppLocalizations.of(context)!.nice_to_see_you,

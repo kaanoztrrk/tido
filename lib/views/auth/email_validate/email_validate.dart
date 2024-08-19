@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:tido/core/l10n/l10n.dart';
 
 import '../../../common/widget/appbar/appbar.dart';
 import '../../../common/widget/button/primary_button.dart';
 import '../../../common/widget/login_signup/login_header.dart';
+import '../../../core/l10n/l10n.dart';
 import '../../../core/routes/routes.dart';
 import '../../../utils/Constant/sizes.dart';
 import '../../../utils/Helpers/helpers_functions.dart';

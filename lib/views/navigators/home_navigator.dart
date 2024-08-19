@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:tido/core/l10n/l10n.dart';
-import 'package:tido/utils/Constant/colors.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
-import 'package:tido/views/home/home_view.dart';
 
 import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_state.dart';
+import '../../core/l10n/l10n.dart';
+import '../../utils/Constant/colors.dart';
+import '../../utils/Helpers/helpers_functions.dart';
+import '../home/home_view.dart';
 import '../settings/settings_view.dart';
 import '../document/document_view.dart';
 import '../schedule/schedule_view.dart';

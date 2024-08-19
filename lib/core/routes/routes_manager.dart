@@ -2,40 +2,42 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tido/blocs/auth_blocs/authentication_bloc/authentication_bloc.dart';
-import 'package:tido/blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
-import 'package:tido/blocs/auth_blocs/sign_up_bloc/sign_up_bloc.dart';
-import 'package:tido/blocs/home_bloc/home_bloc.dart';
-import 'package:tido/blocs/notification_bloc/notificaiton_bloc.dart';
-import 'package:tido/core/locator/locator.dart';
-import 'package:tido/core/routes/routes.dart';
-import 'package:tido/data/models/task_model/task_model.dart';
-import 'package:tido/views/auth/welcome/welcome_view.dart';
-import 'package:tido/views/create_task/create_task_view.dart';
-import 'package:tido/views/folder_detailes.dart/doc_folder_detailes.dart';
-import 'package:tido/views/navigators/main_navigator.dart';
-import 'package:tido/views/auth/login/login_view.dart';
-import 'package:tido/views/auth/otp/otp_view.dart';
-import 'package:tido/views/navigators/home_navigator.dart';
-import 'package:tido/views/notification/notification_view.dart';
-import 'package:tido/views/settings/data_security/backup_location_view.dart';
-import 'package:tido/views/settings/data_security/data_storage_view.dart';
-import 'package:tido/views/settings/profile/profile_view.dart';
-import 'package:tido/views/settings/task_category/archive/archive.dart';
-import 'package:tido/views/settings/customize/theme/theme_view.dart';
-import 'package:tido/views/search/search_view.dart';
-import 'package:tido/views/settings/task_category/categories/categories_view.dart';
-import 'package:tido/views/task_edit/task_edit_view.dart';
 
+import '../../blocs/auth_blocs/authentication_bloc/authentication_bloc.dart';
+import '../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
+import '../../blocs/auth_blocs/sign_up_bloc/sign_up_bloc.dart';
+import '../../blocs/home_bloc/home_bloc.dart';
+import '../../blocs/notification_bloc/notificaiton_bloc.dart';
+import '../../data/models/otp_arguments/otp_arguments_model.dart';
+import '../../data/models/task_model/task_model.dart';
+import '../../data/models/user_model/user_model.dart';
 import '../../data/repositories/firebase_user_repositories.dart';
 import '../../views/auth/change_password/change_password_view.dart';
 import '../../views/auth/email_validate/email_validate.dart';
+import '../../views/auth/login/login_view.dart';
+import '../../views/auth/otp/otp_view.dart';
 import '../../views/auth/register/register_view.dart';
 import '../../views/auth/forgot_password/forgot_password.dart';
 
 import '../../views/auth/splash/splash_view.dart';
+import '../../views/auth/welcome/welcome_view.dart';
+import '../../views/create_task/create_task_view.dart';
+import '../../views/folder_detailes.dart/doc_folder_detailes.dart';
 import '../../views/folder_detailes.dart/image_folder_detailes.dart';
+import '../../views/navigators/home_navigator.dart';
+import '../../views/navigators/main_navigator.dart';
+import '../../views/notification/notification_view.dart';
+import '../../views/search/search_view.dart';
+import '../../views/settings/customize/theme/theme_view.dart';
+import '../../views/settings/data_security/backup_location_view.dart';
+import '../../views/settings/data_security/data_storage_view.dart';
+import '../../views/settings/profile/profile_view.dart';
+import '../../views/settings/task_category/archive/archive.dart';
+import '../../views/settings/task_category/categories/categories_view.dart';
 import '../../views/task_detail/task_detail_view.dart';
+import '../../views/task_edit/task_edit_view.dart';
+import '../locator/locator.dart';
+import 'routes.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -45,13 +47,13 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: ViRoutes.splash_view,
       builder: (BuildContext context, GoRouterState state) {
-        return SplashView();
+        return const SplashView();
       },
     ),
     GoRoute(
       path: ViRoutes.welcome_view,
       builder: (BuildContext context, GoRouterState state) {
-        return WelcomeView();
+        return const WelcomeView();
       },
     ),
     GoRoute(
@@ -84,7 +86,7 @@ final GoRouter router = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return BlocProvider.value(
           value: getIt<SignInBloc>(),
-          child: const ForgotPasswordView(),
+          child: ForgotPasswordView(),
         );
       },
     ),
@@ -97,9 +99,11 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: ViRoutes.otp,
       builder: (BuildContext context, GoRouterState state) {
+        final args = state.extra as OtpRouteArguments;
+
         return BlocProvider.value(
           value: getIt<SignUpBloc>(),
-          child: const OtpView(),
+          child: OtpView(userModel: args.userModel, password: args.password),
         );
       },
     ),
@@ -136,7 +140,7 @@ final GoRouter router = GoRouter(
           BlocProvider.value(value: getIt<HomeBloc>()),
           BlocProvider.value(value: getIt<AuthenticationBloc>()),
           BlocProvider.value(value: getIt<SignInBloc>()),
-        ], child: ProfileView());
+        ], child: const ProfileView());
       },
     ),
     GoRoute(
@@ -241,17 +245,12 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: ViRoutes.notification_page,
       builder: (BuildContext context, GoRouterState state) {
-        final RemoteMessage? message = state.extra as RemoteMessage?;
-        return MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: getIt<HomeBloc>()),
-              BlocProvider.value(value: getIt<AuthenticationBloc>()),
-              BlocProvider.value(value: getIt<SignInBloc>()),
-              BlocProvider.value(value: getIt<NotificationBloc>()),
-            ],
-            child: NotificationView(
-              message: message,
-            ));
+        return MultiBlocProvider(providers: [
+          BlocProvider.value(value: getIt<HomeBloc>()),
+          BlocProvider.value(value: getIt<AuthenticationBloc>()),
+          BlocProvider.value(value: getIt<SignInBloc>()),
+          BlocProvider.value(value: getIt<NotificationBloc>()),
+        ], child: const NotificationView());
       },
     ),
     GoRoute(
@@ -307,7 +306,7 @@ final GoRouter router = GoRouter(
           BlocProvider.value(value: getIt<AuthenticationBloc>()),
           BlocProvider.value(value: getIt<SignInBloc>()),
           BlocProvider.value(value: getIt<NotificationBloc>()),
-        ], child: ChangePasswordView());
+        ], child: const ChangePasswordView());
       },
     ),
   ],

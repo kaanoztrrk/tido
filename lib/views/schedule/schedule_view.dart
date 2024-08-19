@@ -1,19 +1,24 @@
-// ignore_for_file: library_private_types_in_public_api
-
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:tido/common/widget/appbar/home_appbar.dart';
-import 'package:tido/data/services/date_formetter_service.dart';
-import 'package:tido/views/schedule/widget/schedule_heading_time.dart';
+
 import '../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_event.dart';
 import '../../blocs/home_bloc/home_state.dart';
+import '../../common/widget/appbar/home_appbar.dart';
 import '../../common/widget/button/create_task_button.dart';
 import '../../common/widget/task_tile/calender_task_tile.dart';
 import '../../core/locator/locator.dart';
+import '../../data/services/date_formetter_service.dart';
+
+import '../../utils/Constant/image_strings.dart';
 import '../../utils/Constant/sizes.dart';
+
+import '../../common/empty_screen/empty_screen.dart';
+import '../../utils/Helpers/helpers_functions.dart';
+import 'widget/schedule_heading_time.dart';
 
 class ScheduleView extends StatefulWidget {
   const ScheduleView({super.key});
@@ -42,24 +47,38 @@ class _ScheduleViewState extends State<ScheduleView> {
                 leadingWidget: ViScheduleHeaderTime()),
             body: BlocBuilder<HomeBloc, HomeState>(
               builder: (context, state) {
+                final hasTasks = state.filteredTasks.isNotEmpty;
+
                 return Column(
                   children: [
                     _buildDateSelector(context),
                     Expanded(
-                      child: ListView.builder(
-                        itemCount: state.filteredTasks.length,
-                        itemBuilder: (context, index) {
-                          final task = state.filteredTasks[index];
-                          return CalenderTaskTile(
-                            task: task,
-                            title: task.title,
-                            dateText: task.formattedTaskTime(
-                                DateFormatterService(context)),
-                            timerText: task
-                                .formattedDate(DateFormatterService(context)),
-                          );
-                        },
-                      ),
+                      child: hasTasks
+                          ? ListView.builder(
+                              itemCount: state.filteredTasks.length,
+                              itemBuilder: (context, index) {
+                                final task = state.filteredTasks[index];
+                                return CalenderTaskTile(
+                                  task: task,
+                                  title: task.title,
+                                  dateText: task.formattedTaskTime(
+                                      DateFormatterService(context)),
+                                  timerText: task.formattedDate(
+                                      DateFormatterService(context)),
+                                );
+                              },
+                            )
+                          : Center(
+                              child: ViEmptyScreen(
+                                bannerAlignment: Alignment.topCenter,
+                                size: ViHelpersFunctions.screenHeigth(context) *
+                                    0.3,
+                                image: ViImages.empty_screen_image_1,
+                                title: 'No Tasks Found',
+                                subTitle:
+                                    'There are no tasks for the selected date.',
+                              ),
+                            ),
                     ),
                   ],
                 );
@@ -70,11 +89,10 @@ class _ScheduleViewState extends State<ScheduleView> {
   }
 
   Widget _buildDateSelector(BuildContext context) {
-    // Uygulamanın geçerli yerel ayarını (dilini) alıyoruz
     final locale = Localizations.localeOf(context).toString();
 
     return TableCalendar(
-      locale: locale, // Dil parametresi buraya ekleniyor
+      locale: locale,
       firstDay: DateTime.utc(2020, 1, 1),
       lastDay: DateTime.utc(2030, 12, 31),
       focusedDay: _focusedDay,

@@ -1,20 +1,21 @@
+import 'package:TiDo/data/models/otp_arguments/otp_arguments_model.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tido/blocs/auth_blocs/sign_up_bloc/sign_up_bloc.dart';
-import 'package:tido/common/widget/button/primary_button.dart';
-import 'package:tido/core/routes/routes.dart';
-import 'package:tido/utils/Constant/sizes.dart';
-import 'package:tido/common/widget/login_signup/login_divider.dart';
-import 'package:tido/views/auth/login/widget/register_button.dart';
-import 'package:tido/views/auth/register/register_form.dart';
+
+import '../../../blocs/auth_blocs/sign_up_bloc/sign_up_bloc.dart';
 import '../../../blocs/auth_blocs/sign_up_bloc/sign_up_event.dart';
 import '../../../blocs/auth_blocs/sign_up_bloc/sign_up_state.dart';
+import '../../../common/widget/button/primary_button.dart';
 import '../../../common/widget/login_signup/login_header.dart';
 import '../../../core/l10n/l10n.dart';
+import '../../../core/routes/routes.dart';
 import '../../../data/models/user_model/models.dart';
+import '../../../utils/Constant/sizes.dart';
+import '../login/widget/register_button.dart';
+import 'register_form.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -76,8 +77,6 @@ class _RegisterViewState extends State<RegisterView> {
                     },
                   ),
                   const SizedBox(height: ViSizes.spaceBtwSections),
-                  ViFormDivider(dividerText: AppLocalizations.of(context)!.or),
-                  const SizedBox(height: ViSizes.spaceBtwSections),
                   const Spacer(),
                   ViRichTexts(
                     onSignInTap: () => context.pop(),
@@ -96,11 +95,14 @@ class _RegisterViewState extends State<RegisterView> {
                           name: nameController.text,
                           profileImageUrl: null,
                         );
-                        context.read<SignUpBloc>().add(
-                              SignUpRequired(myUser, passwordController.text),
-                            );
+
                         EmailOTP.sendOTP(email: emailController.text);
-                        context.push(ViRoutes.otp);
+                        context.push(
+                          ViRoutes.otp,
+                          extra: OtpRouteArguments(
+                              userModel: myUser,
+                              password: passwordController.text),
+                        );
                       }
                     },
                   )

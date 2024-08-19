@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tido/blocs/home_bloc/home_state.dart';
 
 import '../../../blocs/home_bloc/home_bloc.dart';
 import '../../../blocs/home_bloc/home_event.dart';
+import '../../../blocs/home_bloc/home_state.dart';
 import '../../../data/models/category_model/category_model.dart';
 import '../../../utils/Constant/sizes.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';

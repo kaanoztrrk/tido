@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:tido/common/widget/button/ratio_button.dart';
-import 'package:tido/core/routes/routes.dart';
-import 'package:tido/utils/Constant/colors.dart';
 
+import '../../../core/routes/routes.dart';
+import '../../../utils/Constant/colors.dart';
 import '../../../utils/Helpers/helpers_functions.dart';
+import 'ratio_button.dart';
 
 class ViCreateTaskButton extends StatelessWidget {
   const ViCreateTaskButton({super.key});

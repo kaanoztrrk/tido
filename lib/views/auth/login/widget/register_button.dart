@@ -1,8 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:tido/utils/Constant/colors.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
-import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
+
+import '../../../../utils/Constant/colors.dart';
+import '../../../../utils/Helpers/helpers_functions.dart';
+import '../../../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class ViRichTexts extends StatelessWidget {
   const ViRichTexts({

@@ -124,5 +124,6 @@
     "personal_information": "Kişisel Bilgiler",
     "delete_account": "Hesabı Sil",
     "ask_help": "Yardım İste",
+     "notification": "Bildirimler",
     "@@locale": "tr"
 }

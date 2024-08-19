@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tido/utils/Constant/colors.dart';
+
+import '../../Constant/colors.dart';
 
 class ViTextFormFieldTheme {
   ViTextFormFieldTheme._();

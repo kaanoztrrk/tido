@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:tido/data/models/category_model/category_model.dart';
-import 'package:tido/data/models/task_model/task_model.dart';
+
+import '../../data/models/category_model/category_model.dart';
+import '../../data/models/task_model/task_model.dart';
 
 class HomeState extends Equatable {
   final int initialIndex;

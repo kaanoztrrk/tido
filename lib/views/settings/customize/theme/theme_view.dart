@@ -3,16 +3,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tido/common/widget/Text/title.dart';
-import 'package:tido/common/widget/appbar/appbar.dart';
-import 'package:tido/core/l10n/l10n.dart';
-import 'package:tido/utils/Constant/colors.dart';
-import 'package:tido/utils/Constant/sizes.dart';
 
 import '../../../../blocs/theme_bloc/theme_bloc.dart';
 import '../../../../blocs/theme_bloc/theme_event.dart';
 import '../../../../blocs/theme_bloc/theme_state.dart';
+import '../../../../common/widget/Text/title.dart';
+import '../../../../common/widget/appbar/appbar.dart';
+import '../../../../core/l10n/l10n.dart';
 import '../../../../core/locator/locator.dart';
+import '../../../../utils/Constant/colors.dart';
+import '../../../../utils/Constant/sizes.dart';
 import 'widget/theme_tile.dart';
 
 class ThemeView extends StatefulWidget {

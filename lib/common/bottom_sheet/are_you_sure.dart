@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tido/common/widget/Text/title.dart';
-import 'package:tido/common/widget/button/primary_button.dart';
-import 'package:tido/utils/Constant/text_strings.dart';
+
 import '../../core/l10n/l10n.dart';
 import '../../utils/Constant/colors.dart';
 import '../../utils/Constant/sizes.dart';
+import '../widget/Text/title.dart';
+import '../widget/button/primary_button.dart';
 
 class ViAreYouSureBottomSheet {
   static void onAreYouSureBottomSheet({
@@ -47,7 +47,7 @@ class ViAreYouSureBottomSheet {
                 ),
                 const SizedBox(height: ViSizes.spaceBtwItems),
                 ViPrimaryButton(
-                  text: ViTexts.done,
+                  text: AppLocalizations.of(context)!.done,
                   onTap: onTap,
                 ),
                 MaterialButton(

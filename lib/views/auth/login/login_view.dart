@@ -3,25 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:tido/common/widget/button/primary_button.dart';
-import 'package:tido/core/locator/locator.dart';
-import 'package:tido/core/routes/routes.dart';
-import 'package:tido/utils/Constant/sizes.dart';
-import 'package:tido/common/widget/login_signup/login_divider.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
-import 'package:tido/views/auth/login/widget/register_button.dart';
+
 import '../../../blocs/auth_blocs/authentication_bloc/authentication_bloc.dart';
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_event.dart';
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_state.dart';
 import '../../../blocs/home_bloc/home_bloc.dart';
 import '../../../common/styles/container_style.dart';
+import '../../../common/widget/button/primary_button.dart';
+import '../../../common/widget/login_signup/login_divider.dart';
 import '../../../core/l10n/l10n.dart';
+import '../../../core/locator/locator.dart';
+import '../../../core/routes/routes.dart';
 import '../../../utils/Constant/image_strings.dart';
+import '../../../utils/Constant/sizes.dart';
 import '../../../utils/Device/device_utility.dart';
+import '../../../utils/Helpers/helpers_functions.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 import '../../../utils/validators/validationHelpers.dart';
 import '../../../common/widget/login_signup/login_header.dart';
+import 'widget/register_button.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -51,21 +52,20 @@ class _LoginViewState extends State<LoginView> {
       child: BlocListener<SignInBloc, SignInState>(
         listener: (context, state) {
           if (state is SignInSuccess) {
-            setState(() {
-              signInRequired = false;
-            });
             context.push(ViRoutes.home);
           } else if (state is SignInProcess) {
             setState(() {
               signInRequired = true;
             });
           } else if (state is SignInFailure) {
-            setState(
-              () {
-                signInRequired = false;
-                _errorMsg = 'Invalid email or password';
-              },
-            );
+            setState(() {
+              signInRequired = false;
+              _errorMsg = state.message;
+            });
+          } else if (state is PasswordResetSuccess) {
+            setState(() {
+              signInRequired = false;
+            });
           }
         },
         child: Scaffold(
@@ -118,11 +118,9 @@ class _LoginViewState extends State<LoginView> {
                         onPressed: () {
                           setState(() {
                             obscurePassword = !obscurePassword;
-                            if (obscurePassword) {
-                              iconPassword = CupertinoIcons.eye_fill;
-                            } else {
-                              iconPassword = CupertinoIcons.eye_slash_fill;
-                            }
+                            iconPassword = obscurePassword
+                                ? CupertinoIcons.eye_fill
+                                : CupertinoIcons.eye_slash_fill;
                           });
                         },
                         icon: Icon(iconPassword),
@@ -176,18 +174,18 @@ class _LoginViewState extends State<LoginView> {
                     boldText: AppLocalizations.of(context)!.signUp,
                   ),
                   const SizedBox(height: ViSizes.spaceBtwItems),
-                  !signInRequired
-                      ? ViPrimaryButton(
+                  signInRequired
+                      ? const Center(child: CircularProgressIndicator())
+                      : ViPrimaryButton(
                           text: AppLocalizations.of(context)!.signIn,
                           onTap: () {
                             if (_formKey.currentState!.validate()) {
                               context.read<SignInBloc>().add(SignInRequired(
-                                  emailController.text,
-                                  passwordController.text));
+                                  email: emailController.text,
+                                  password: passwordController.text));
                             }
                           },
-                        )
-                      : const Center(child: CircularProgressIndicator()),
+                        ),
                 ],
               ),
             ),

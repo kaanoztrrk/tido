@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tido/common/styles/container_style.dart';
-import 'package:tido/common/widget/button/ratio_button.dart';
-import 'package:tido/utils/Constant/sizes.dart';
+
 import '../../../utils/Constant/colors.dart';
+import '../../../utils/Constant/sizes.dart';
 import '../../../utils/Helpers/helpers_functions.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
+import '../../styles/container_style.dart';
+import '../button/ratio_button.dart';
 
 class SelectedFilesTile extends StatefulWidget {
   const SelectedFilesTile({

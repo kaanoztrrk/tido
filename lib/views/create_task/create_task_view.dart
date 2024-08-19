@@ -2,24 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tido/blocs/home_bloc/home_bloc.dart';
-import 'package:tido/common/widget/appbar/appbar.dart';
-import 'package:tido/common/widget/button/ratio_button.dart';
-import 'package:tido/common/widget/label_widget.dart';
-import 'package:tido/core/l10n/l10n.dart';
-import 'package:tido/utils/Snackbar/snacbar_service.dart';
-import 'package:tido/views/create_task/widget/date_picker.dart';
-import 'package:tido/views/create_task/widget/folder_upload.dart';
 
+import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_event.dart';
 import '../../common/styles/container_style.dart';
 import '../../common/widget/Text/title.dart';
+import '../../common/widget/appbar/appbar.dart';
 import '../../common/widget/button/primary_button.dart';
+import '../../common/widget/button/ratio_button.dart';
+import '../../common/widget/label_widget.dart';
+import '../../core/l10n/l10n.dart';
+import '../../data/services/local_notification.dart';
 import '../../utils/Constant/colors.dart';
 import '../../utils/Constant/sizes.dart';
 import '../../utils/Device/device_utility.dart';
 import '../../utils/Helpers/helpers_functions.dart';
+import '../../utils/Snackbar/snacbar_service.dart';
 import '../../utils/Theme/custom_theme.dart/text_theme.dart';
+import 'widget/date_picker.dart';
+import 'widget/folder_upload.dart';
 
 class CreateTaskView extends StatefulWidget {
   const CreateTaskView({super.key});
@@ -144,7 +145,7 @@ class _CreateTaskViewState extends State<CreateTaskView> {
             ),
             const Spacer(),
             ViPrimaryButton(
-              onTap: () {
+              onTap: () async {
                 if (titleController.text.isEmpty) {
                 } else {
                   BlocProvider.of<HomeBloc>(context).add(
@@ -162,6 +163,12 @@ class _CreateTaskViewState extends State<CreateTaskView> {
                       context, AppLocalizations.of(context)!.task_complated);
                   context.pop();
                   ViDeviceUtils.hideKeyboard(context);
+                  await LocalNotificationService.scheduleNotification(
+                    id: 1,
+                    title: 'Görev Hatırlatıcısı',
+                    body: 'Bu görev için bir hatırlatmanız var!',
+                    scheduleDateTime: DateTime.now(),
+                  );
                 }
               },
               text: AppLocalizations.of(context)!.create_task_text,

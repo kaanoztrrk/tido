@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tido/blocs/auth_blocs/sign_in_bloc/sign_in_event.dart';
-import 'package:tido/common/styles/container_style.dart';
-import 'package:tido/core/l10n/l10n.dart';
-import 'package:tido/utils/Device/device_utility.dart';
+
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
+import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_event.dart';
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_state.dart';
+import '../../../core/l10n/l10n.dart';
 import '../../../utils/Constant/image_strings.dart';
 import '../../../utils/Constant/sizes.dart';
+import '../../../utils/Device/device_utility.dart';
+import '../../styles/container_style.dart';
 
 class ViSocialButtons extends StatelessWidget {
   const ViSocialButtons({

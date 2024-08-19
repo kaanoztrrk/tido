@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tido/blocs/home_bloc/home_bloc.dart';
-import 'package:tido/common/widget/button/primary_button.dart';
+import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_event.dart';
 import '../../core/l10n/l10n.dart';
 import '../../utils/Constant/colors.dart';
@@ -9,6 +8,7 @@ import '../../utils/Device/device_utility.dart';
 import '../../utils/Helpers/helpers_functions.dart';
 import '../../utils/Theme/custom_theme.dart/text_theme.dart';
 import '../styles/container_style.dart';
+import '../widget/button/primary_button.dart';
 
 class ViAddCategoryBottomSheet {
   static void onAddCategoryBottomSheet({

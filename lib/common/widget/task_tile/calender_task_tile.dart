@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:tido/blocs/theme_bloc/theme_bloc.dart';
-import 'package:tido/common/styles/container_style.dart';
-import 'package:tido/core/locator/locator.dart';
-import 'package:tido/core/routes/routes.dart';
-import 'package:tido/utils/Constant/colors.dart';
-import 'package:tido/utils/Constant/sizes.dart';
+
+import '../../../blocs/theme_bloc/theme_bloc.dart';
 import '../../../blocs/theme_bloc/theme_state.dart';
+import '../../../core/locator/locator.dart';
+import '../../../core/routes/routes.dart';
 import '../../../data/models/task_model/task_model.dart';
+import '../../../utils/Constant/colors.dart';
+import '../../../utils/Constant/sizes.dart';
 import '../../../utils/Helpers/helpers_functions.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
+import '../../styles/container_style.dart';
 
 class CalenderTaskTile extends StatelessWidget {
   const CalenderTaskTile(

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tido/common/styles/container_style.dart';
-import 'package:tido/utils/Constant/sizes.dart';
+
+import '../../../common/styles/container_style.dart';
 import '../../../common/widget/appbar/appbar.dart';
 import '../../../core/l10n/l10n.dart';
 import '../../../data/services/hive_data_service.dart';
+import '../../../utils/Constant/sizes.dart';
 
 class DataStorageView extends StatelessWidget {
   const DataStorageView({super.key});

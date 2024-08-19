@@ -2,29 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:tido/blocs/auth_blocs/authentication_bloc/authentication_bloc.dart';
-import 'package:tido/blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
-import 'package:tido/blocs/auth_blocs/sign_in_bloc/sign_in_event.dart';
-import 'package:tido/blocs/home_bloc/home_bloc.dart';
-import 'package:tido/blocs/home_bloc/home_event.dart';
-import 'package:tido/blocs/theme_bloc/theme_bloc.dart';
-import 'package:tido/common/bottom_sheet/are_you_sure.dart';
-import 'package:tido/common/bottom_sheet/change_language_bottom_sheet.dart';
-import 'package:tido/common/styles/container_style.dart';
-import 'package:tido/common/widget/Text/title.dart';
-import 'package:tido/core/l10n/l10n.dart';
-import 'package:tido/core/locator/locator.dart';
-import 'package:tido/core/routes/routes.dart';
-import 'package:tido/core/widget/user/profile_image.dart';
-import 'package:tido/utils/Constant/sizes.dart';
-import 'package:tido/utils/Device/device_utility.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
-import 'package:tido/utils/Snackbar/snacbar_service.dart';
 
+import '../../blocs/auth_blocs/authentication_bloc/authentication_bloc.dart';
 import '../../blocs/auth_blocs/authentication_bloc/authentication_state.dart';
+import '../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
+import '../../blocs/auth_blocs/sign_in_bloc/sign_in_event.dart';
 import '../../blocs/auth_blocs/sign_in_bloc/sign_in_state.dart';
+import '../../blocs/home_bloc/home_bloc.dart';
+import '../../blocs/home_bloc/home_event.dart';
+import '../../blocs/theme_bloc/theme_bloc.dart';
 import '../../blocs/theme_bloc/theme_state.dart';
+import '../../common/bottom_sheet/are_you_sure.dart';
+import '../../common/bottom_sheet/change_language_bottom_sheet.dart';
+import '../../common/styles/container_style.dart';
+import '../../common/widget/Text/title.dart';
+import '../../core/l10n/l10n.dart';
+import '../../core/locator/locator.dart';
+import '../../core/routes/routes.dart';
+import '../../core/widget/user/profile_image.dart';
 import '../../utils/Constant/colors.dart';
+import '../../utils/Constant/sizes.dart';
+import '../../utils/Device/device_utility.dart';
+import '../../utils/Helpers/helpers_functions.dart';
+import '../../utils/Snackbar/snacbar_service.dart';
 import '../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class SettingsView extends StatelessWidget {
@@ -361,7 +361,7 @@ class SettingsView extends StatelessWidget {
                     return ListTile(
                       onTap: () {
                         BlocProvider.of<SignInBloc>(context)
-                            .add(const SignOutRequired());
+                            .add(SignOutRequired());
                       },
                       leading: const Icon(
                         Iconsax.logout,

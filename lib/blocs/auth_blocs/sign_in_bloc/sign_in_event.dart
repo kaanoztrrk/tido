@@ -1,38 +1,30 @@
 import 'dart:io';
 
-import 'package:equatable/equatable.dart';
-
-sealed class SignInEvent extends Equatable {
-  const SignInEvent();
-
-  @override
-  List<Object?> get props => [];
-}
+abstract class SignInEvent {}
 
 class SignInRequired extends SignInEvent {
   final String email;
   final String password;
 
-  const SignInRequired(this.email, this.password);
+  SignInRequired({required this.email, required this.password});
 }
 
-class SignOutRequired extends SignInEvent {
-  const SignOutRequired();
-}
+class SignOutRequired extends SignInEvent {}
 
 class UploadProfileImage extends SignInEvent {
   final File imageFile;
 
-  const UploadProfileImage(this.imageFile);
-
-  @override
-  List<Object?> get props => [imageFile];
+  UploadProfileImage({required this.imageFile});
 }
 
 class LoadUserProfileImage extends SignInEvent {}
 
 class GoogleSignInRequired extends SignInEvent {}
 
-class FacebookSignInRequired extends SignInEvent {}
+class ForgotPasswordRequired extends SignInEvent {
+  final String email;
 
-class AppleSignInRequired extends SignInEvent {}
+  ForgotPasswordRequired({required this.email});
+}
+
+class LoadUserProfile extends SignInEvent {}

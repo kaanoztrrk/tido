@@ -2,11 +2,11 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tido/blocs/theme_bloc/theme_bloc.dart';
-import 'package:tido/core/locator/locator.dart';
-import 'package:tido/utils/Constant/colors.dart';
 
+import '../../blocs/theme_bloc/theme_bloc.dart';
 import '../../blocs/theme_bloc/theme_state.dart';
+import '../../core/locator/locator.dart';
+import '../../utils/Constant/colors.dart';
 
 class ViSwiperLayout extends StatelessWidget {
   const ViSwiperLayout({super.key, this.itemBuilder, this.itemCount});

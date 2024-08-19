@@ -124,5 +124,6 @@
     "personal_information": "Personal Information",
     "delete_account": "Delete Account",
     "ask_help": "Ask Help Desk",
+    "notification": "Notification",
     "@@locale": "en"
 }

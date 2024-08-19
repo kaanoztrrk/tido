@@ -1,9 +1,9 @@
 // ignore_for_file: non_constant_identifier_names, avoid_print
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:tido/core/routes/routes_manager.dart';
 
 import '../../core/routes/routes.dart';
+import '../../core/routes/routes_manager.dart';
 
 class FirebaseMessageService {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;

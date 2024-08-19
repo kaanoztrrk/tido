@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tido/utils/Constant/image_strings.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
-import 'package:tido/core/routes/routes.dart';
-import 'package:tido/data/services/shared_preferences_service.dart';
-import 'package:tido/utils/Constant/app_constants.dart';
+
+import '../../../core/routes/routes.dart';
+import '../../../data/services/shared_preferences_service.dart';
+import '../../../utils/Constant/app_constants.dart';
+import '../../../utils/Constant/image_strings.dart';
+import '../../../utils/Helpers/helpers_functions.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});

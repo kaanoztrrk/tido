@@ -2,27 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:tido/blocs/home_bloc/home_event.dart';
 
-import 'package:tido/common/bottom_sheet/task_option_bottom_sheet.dart';
-import 'package:tido/common/empty_screen/empty_screen.dart';
-import 'package:tido/common/layout/swiper_layout.dart';
-import 'package:tido/common/widget/chip/category_chip.dart';
-import 'package:tido/core/l10n/l10n.dart';
-import 'package:tido/core/routes/routes.dart';
-import 'package:tido/utils/Constant/colors.dart';
-import 'package:tido/utils/Constant/image_strings.dart';
-import 'package:tido/utils/Constant/sizes.dart';
-import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
 import '../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import '../../blocs/home_bloc/home_bloc.dart';
+import '../../blocs/home_bloc/home_event.dart';
 import '../../blocs/home_bloc/home_state.dart';
+import '../../common/bottom_sheet/task_option_bottom_sheet.dart';
+import '../../common/empty_screen/empty_screen.dart';
+import '../../common/layout/swiper_layout.dart';
 import '../../common/widget/appbar/home_appbar.dart';
 import '../../common/widget/button/ratio_button.dart';
+import '../../common/widget/chip/category_chip.dart';
 import '../../common/widget/task_tile/main_task_tile.dart';
+import '../../core/l10n/l10n.dart';
 import '../../core/locator/locator.dart';
+import '../../core/routes/routes.dart';
 import '../../data/models/task_model/task_model.dart';
+import '../../utils/Constant/colors.dart';
+import '../../utils/Constant/image_strings.dart';
+import '../../utils/Constant/sizes.dart';
 import '../../utils/Helpers/helpers_functions.dart';
+import '../../utils/Theme/custom_theme.dart/text_theme.dart';
 import 'widget/home_header.dart';
 
 class HomeView extends StatelessWidget {
@@ -85,7 +85,7 @@ class HomeView extends StatelessWidget {
 
                         //* Search Button
                         ViRotioButton(
-                          onTap: () {
+                          onTap: () async {
                             context.push(ViRoutes.search_view);
                           },
                           child: Icon(
@@ -100,12 +100,17 @@ class HomeView extends StatelessWidget {
                     //* Task List
                     Expanded(
                       child: tasksToShow.isEmpty
-                          ? ViEmptyScreen(
-                              image: ViImages.empty_screen_image_1,
-                              title:
-                                  AppLocalizations.of(context)!.no_tasks_found,
-                              subTitle: AppLocalizations.of(context)!
-                                  .no_tasks_found_subTitle,
+                          ? Center(
+                              child: ViEmptyScreen(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                size: ViHelpersFunctions.screenHeigth(context) *
+                                    0.3,
+                                image: ViImages.empty_screen_image_1,
+                                title: AppLocalizations.of(context)!
+                                    .no_tasks_found,
+                                subTitle: AppLocalizations.of(context)!
+                                    .no_tasks_found_subTitle,
+                              ),
                             )
                           : ViSwiperLayout(
                               itemCount: tasksToShow.length,

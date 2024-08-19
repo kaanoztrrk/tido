@@ -3,22 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:tido/blocs/home_bloc/home_bloc.dart';
-import 'package:tido/common/empty_screen/empty_screen.dart';
-import 'package:tido/common/widget/appbar/home_appbar.dart';
-import 'package:tido/common/widget/task_tile/selected_files_tile.dart';
-import 'package:tido/data/models/task_model/task_model.dart';
-import 'package:tido/utils/Constant/colors.dart';
-import 'package:tido/utils/Constant/image_strings.dart';
-import 'package:tido/utils/Constant/sizes.dart';
-import 'package:tido/utils/Device/device_utility.dart';
+
 import '../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
+import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_state.dart';
+import '../../common/empty_screen/empty_screen.dart';
 import '../../common/styles/square_container_style.dart';
 import '../../common/widget/Text/title.dart';
+import '../../common/widget/appbar/home_appbar.dart';
+import '../../common/widget/task_tile/selected_files_tile.dart';
 import '../../core/l10n/l10n.dart';
 import '../../core/locator/locator.dart';
 import '../../core/routes/routes.dart';
+import '../../data/models/task_model/task_model.dart';
+import '../../utils/Constant/colors.dart';
+import '../../utils/Constant/image_strings.dart';
+import '../../utils/Constant/sizes.dart';
+import '../../utils/Helpers/helpers_functions.dart';
 
 class DocumentView extends StatelessWidget {
   const DocumentView({super.key});
@@ -35,12 +36,12 @@ class DocumentView extends StatelessWidget {
             appBar: const ViHomeAppBar(
               height: ViSizes.appBarHeigth * 1.5,
             ),
-            body: Padding(
-              padding: const EdgeInsets.all(ViSizes.defaultSpace),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(ViSizes.defaultSpace),
+                  child: Row(
                     children: [
                       Flexible(
                         child: ViSquareContainer(
@@ -64,23 +65,30 @@ class DocumentView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: ViSizes.spaceBtwSections),
-                  ViPrimaryTitle(
+                ),
+                const SizedBox(height: ViSizes.spaceBtwSections),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: ViSizes.defaultSpace),
+                  child: ViPrimaryTitle(
                       title: AppLocalizations.of(context)!.recend_files),
-                  Expanded(child: BlocBuilder<HomeBloc, HomeState>(
+                ),
+                Expanded(
+                  child: BlocBuilder<HomeBloc, HomeState>(
                     builder: (context, state) {
                       final List<TaskModel> tasks = state.allTasksList;
                       if (tasks.isEmpty) {
                         return Center(
                           child: ViEmptyScreen(
-                              size:
-                                  ViDeviceUtils.getScreenHeigth(context) * 0.1,
-                              color: AppColors.darkGrey,
-                              image: ViImages.empty_screen_no_image,
-                              title:
-                                  AppLocalizations.of(context)!.no_images_found,
-                              subTitle: AppLocalizations.of(context)!
-                                  .no_images_subTitle),
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            size:
+                                ViHelpersFunctions.screenHeigth(context) * 0.2,
+                            image: ViImages.empty_screen_image_1,
+                            title:
+                                AppLocalizations.of(context)!.no_images_found,
+                            subTitle: AppLocalizations.of(context)!
+                                .no_images_subTitle,
+                          ),
                         );
                       } else {
                         return ListView.builder(
@@ -109,9 +117,9 @@ class DocumentView extends StatelessWidget {
                         );
                       }
                     },
-                  )),
-                ],
-              ),
+                  ),
+                ),
+              ],
             ),
           ),
         ));

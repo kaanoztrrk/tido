@@ -2,17 +2,17 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tido/blocs/home_bloc/home_bloc.dart';
-import 'package:tido/common/widget/task_tile/selected_files_tile.dart';
-import 'package:tido/core/l10n/l10n.dart';
-import 'package:tido/data/models/task_model/task_model.dart';
-import 'package:tido/utils/Constant/colors.dart';
-import 'package:tido/utils/Constant/sizes.dart';
-import 'package:tido/utils/Theme/custom_theme.dart/text_theme.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
 
+import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_state.dart';
 import '../../common/widget/appbar/appbar.dart';
+import '../../common/widget/task_tile/selected_files_tile.dart';
+import '../../core/l10n/l10n.dart';
+import '../../data/models/task_model/task_model.dart';
+import '../../utils/Constant/colors.dart';
+import '../../utils/Constant/sizes.dart';
+import '../../utils/Helpers/helpers_functions.dart';
+import '../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class ImageFolderDetailesView extends StatelessWidget {
   const ImageFolderDetailesView({super.key});

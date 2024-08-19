@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 
-import 'package:tido/common/widget/button/create_task_button.dart';
-import 'package:tido/core/routes/routes.dart';
-
+import '../../../core/routes/routes.dart';
 import '../../../core/widget/user/profile_image.dart';
 import '../../../utils/Constant/sizes.dart';
 import '../../../utils/Device/device_utility.dart';
+import '../button/create_task_button.dart';
+import '../button/ratio_button.dart';
 
 class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ViHomeAppBar({
@@ -47,9 +48,18 @@ class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             else
               const ViCreateTaskButton(),
             const SizedBox(width: ViSizes.spaceBtwItems / 2),
-            ViProfileImage(
-              onTap: () => context.push(ViRoutes.profile_view),
-            ),
+            Row(
+              children: [
+                ViRotioButton(
+                  onTap: notificationOnPressed,
+                  child: const Icon(Iconsax.notification),
+                ),
+                const SizedBox(width: ViSizes.sm),
+                ViProfileImage(
+                  onTap: () => context.push(ViRoutes.profile_view),
+                ),
+              ],
+            )
           ],
         ),
       ),

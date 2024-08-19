@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import 'package:tido/core/routes/routes.dart';
-import 'package:tido/utils/Constant/image_strings.dart';
-import 'package:tido/views/auth/welcome/widget/welcome_parts.dart';
 import '../../../common/widget/button/primary_button.dart';
 import '../../../core/l10n/l10n.dart';
+import '../../../core/routes/routes.dart';
 import '../../../utils/Constant/colors.dart';
+import '../../../utils/Constant/image_strings.dart';
 import '../../../utils/Device/device_utility.dart';
 import '../../../utils/Helpers/helpers_functions.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
+import 'widget/welcome_parts.dart';
 
 class WelcomeView extends StatefulWidget {
   const WelcomeView({Key? key}) : super(key: key);
@@ -47,8 +47,6 @@ class _WelcomeViewState extends State<WelcomeView> {
   }
 
   void _completeOnBoarding() {
-    // Burada onboarding tamamlandığında yapılacak işlemleri ekleyin.
-    // Örneğin, kullanıcıyı giriş sayfasına yönlendirme.
     context.push(ViRoutes.login);
   }
 

@@ -159,36 +159,38 @@ class FirebaseUserRepo implements UserRepository {
   Future<void> deleteUser() async {
     final user = _firebaseAuth.currentUser;
 
-    if (user != null) {
-      try {
-        // 1. Delete user data from Firestore
-        await userCollection.doc(user.uid).delete();
-
-        // 2. Delete user from Firebase Authentication
-        await user.delete();
-
-        // 3. Delete user images from Firebase Storage
-        final storage = FirebaseStorage.instance;
-        final imageRef = storage.ref().child('profile_images/${user.uid}');
-        final ListResult result = await imageRef.listAll();
-        for (var item in result.items) {
-          await item.delete(); // Delete each image
-        }
-
-        // 4. Delete user data from Hive
-        await Hive.deleteFromDisk();
-
-        // 5. Clear SharedPreferences
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.clear();
-
-        // Optionally: handle additional cleanup if needed
-      } catch (e) {
-        print('Error deleting user: $e');
-        throw Exception('Error deleting user: $e');
-      }
-    } else {
+    if (user == null) {
       throw Exception('No user is currently signed in.');
+    }
+
+    try {
+      final uid = user.uid;
+
+      // 1. Kullanıcı verilerini Firestore'dan sil
+      await userCollection.doc(uid).delete();
+
+      // 2. Kullanıcıyı Firebase Authentication'dan sil
+      await user.delete();
+
+      // 3. Kullanıcının Firebase Storage'daki profil resimlerini sil
+      final storage = FirebaseStorage.instance;
+      final imageRef = storage.ref().child('profile_images/$uid');
+      final ListResult result = await imageRef.listAll();
+      for (var item in result.items) {
+        await item.delete(); // Her bir resmi sil
+      }
+
+      // 4. Hive veritabanındaki kullanıcı verilerini sil
+      await Hive.deleteFromDisk();
+
+      // 5. SharedPreferences'taki tüm verileri temizle
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.clear();
+
+      // Ekstra temizlik işlemleri gerekebilir
+    } catch (e) {
+      print('Error deleting user: $e');
+      throw Exception('Error deleting user: $e');
     }
   }
 
@@ -210,6 +212,17 @@ class FirebaseUserRepo implements UserRepository {
       }
     } else {
       throw Exception('No user is currently signed in.');
+    }
+  }
+
+  @override
+  Future<void> resetPassword(String email) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+      log("Password reset email sent");
+    } catch (e) {
+      log("Error sending password reset email: $e");
+      rethrow;
     }
   }
 }

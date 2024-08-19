@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tido/utils/Constant/colors.dart';
-import 'package:tido/utils/Helpers/helpers_functions.dart';
+
+import '../../utils/Constant/colors.dart';
+import '../../utils/Helpers/helpers_functions.dart';
 
 class ViContainer extends StatelessWidget {
   const ViContainer({
