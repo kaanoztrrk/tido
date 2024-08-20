@@ -10,6 +10,7 @@ import '../../blocs/home_bloc/home_state.dart';
 import '../../common/bottom_sheet/task_option_bottom_sheet.dart';
 import '../../common/empty_screen/empty_screen.dart';
 import '../../common/layout/swiper_layout.dart';
+import '../../common/widget/admob_banner/adMob_banner.dart';
 import '../../common/widget/appbar/home_appbar.dart';
 import '../../common/widget/button/ratio_button.dart';
 import '../../common/widget/chip/category_chip.dart';
@@ -100,72 +101,91 @@ class HomeView extends StatelessWidget {
                     //* Task List
                     Expanded(
                       child: tasksToShow.isEmpty
-                          ? Center(
-                              child: ViEmptyScreen(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                size: ViHelpersFunctions.screenHeigth(context) *
-                                    0.3,
-                                image: ViImages.empty_screen_image_1,
-                                title: AppLocalizations.of(context)!
-                                    .no_tasks_found,
-                                subTitle: AppLocalizations.of(context)!
-                                    .no_tasks_found_subTitle,
-                              ),
+                          ? Stack(
+                              children: [
+                                Center(
+                                  child: ViEmptyScreen(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    size: ViHelpersFunctions.screenHeigth(
+                                            context) *
+                                        0.3,
+                                    image: ViImages.empty_screen_image_1,
+                                    title: AppLocalizations.of(context)!
+                                        .no_tasks_found,
+                                    subTitle: AppLocalizations.of(context)!
+                                        .no_tasks_found_subTitle,
+                                  ),
+                                ),
+                                const Align(
+                                  alignment: AlignmentDirectional.bottomStart,
+                                  child: AdMobBanner(),
+                                ),
+                              ],
                             )
-                          : ViSwiperLayout(
-                              itemCount: tasksToShow.length,
-                              itemBuilder: (context, index) {
-                                final task = tasksToShow[index];
-                                return HomeMainTaskTile(
-                                  timer: task.taskTime != null
-                                      ? Text(
-                                          " ${task.taskTime!.hour}:${task.taskTime!.minute.toString().padLeft(2, '0')}",
-                                          style: ViTextTheme
-                                              .darkTextTheme.titleSmall
-                                              ?.copyWith(
-                                                  fontWeight: FontWeight.w600,
-                                                  color: AppColors.dark),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                        )
-                                      : null,
-                                  title: task.title,
-                                  onSwipe: () {
-                                    BlocProvider.of<HomeBloc>(context).add(
-                                      ChangeCheckBoxEvent(
-                                        isChecked: !task.isChecked,
-                                        task: task,
+                          : Stack(
+                              children: [
+                                ViSwiperLayout(
+                                  itemCount: tasksToShow.length,
+                                  itemBuilder: (context, index) {
+                                    final task = tasksToShow[index];
+                                    return HomeMainTaskTile(
+                                      timer: task.taskTime != null
+                                          ? Text(
+                                              " ${task.taskTime!.hour}:${task.taskTime!.minute.toString().padLeft(2, '0')}",
+                                              style: ViTextTheme
+                                                  .darkTextTheme.titleSmall
+                                                  ?.copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: AppColors.dark),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                            )
+                                          : null,
+                                      title: task.title,
+                                      onSwipe: () {
+                                        BlocProvider.of<HomeBloc>(context).add(
+                                          ChangeCheckBoxEvent(
+                                            isChecked: !task.isChecked,
+                                            task: task,
+                                          ),
+                                        );
+                                      },
+                                      onTap: () {
+                                        context.push(ViRoutes.task_detail_view,
+                                            extra: task);
+                                      },
+                                      optionTap: () => ViOptionBottomSheet()
+                                          .showOptionBottomSheet(
+                                        context,
+                                        onEdit: () {
+                                          context.push(ViRoutes.task_edit_view,
+                                              extra: task);
+                                        },
+                                        onDelete: () {
+                                          BlocProvider.of<HomeBloc>(context)
+                                              .add(DeleteToDoEvent(task: task));
+                                          context.pop();
+                                        },
+                                        onMarkAsComplete: () {
+                                          BlocProvider.of<HomeBloc>(context)
+                                              .add(
+                                            ChangeCheckBoxEvent(
+                                              isChecked: !task.isChecked,
+                                              task: task,
+                                            ),
+                                          );
+                                        },
                                       ),
+                                      isCompleted: task.isChecked,
                                     );
                                   },
-                                  onTap: () {
-                                    context.push(ViRoutes.task_detail_view,
-                                        extra: task);
-                                  },
-                                  optionTap: () => ViOptionBottomSheet()
-                                      .showOptionBottomSheet(
-                                    context,
-                                    onEdit: () {
-                                      context.push(ViRoutes.task_edit_view,
-                                          extra: task);
-                                    },
-                                    onDelete: () {
-                                      BlocProvider.of<HomeBloc>(context)
-                                          .add(DeleteToDoEvent(task: task));
-                                      context.pop();
-                                    },
-                                    onMarkAsComplete: () {
-                                      BlocProvider.of<HomeBloc>(context).add(
-                                        ChangeCheckBoxEvent(
-                                          isChecked: !task.isChecked,
-                                          task: task,
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                  isCompleted: task.isChecked,
-                                );
-                              },
+                                ),
+                                const Align(
+                                  alignment: AlignmentDirectional.bottomStart,
+                                  child: AdMobBanner(),
+                                ),
+                              ],
                             ),
                     ),
                   ],

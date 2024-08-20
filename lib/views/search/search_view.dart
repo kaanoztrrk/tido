@@ -1,3 +1,4 @@
+import 'package:TiDo/common/widget/admob_banner/adMob_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -73,13 +74,23 @@ class SearchView extends StatelessWidget {
                 child: BlocBuilder<HomeBloc, HomeState>(
                   builder: (context, state) {
                     if (state.searchResults.isEmpty) {
-                      return ViEmptyScreen(
-                          size: ViDeviceUtils.getScreenHeigth(context) * 0.15,
-                          color: AppColors.darkerGrey,
-                          title: AppLocalizations.of(context)!.no_seach_found,
-                          subTitle:
-                              AppLocalizations.of(context)!.no_search_subTitle,
-                          image: ViImages.empty_screen_no_result);
+                      return Stack(
+                        children: [
+                          ViEmptyScreen(
+                              size:
+                                  ViDeviceUtils.getScreenHeigth(context) * 0.15,
+                              color: AppColors.darkerGrey,
+                              title:
+                                  AppLocalizations.of(context)!.no_seach_found,
+                              subTitle: AppLocalizations.of(context)!
+                                  .no_search_subTitle,
+                              image: ViImages.empty_screen_no_result),
+                          const Align(
+                            alignment: Alignment.bottomCenter,
+                            child: AdMobBanner(),
+                          )
+                        ],
+                      );
                     } else {
                       return ListView.builder(
                         itemCount: state.searchResults.length,

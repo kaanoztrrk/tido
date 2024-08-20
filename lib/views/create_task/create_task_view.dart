@@ -147,6 +147,8 @@ class _CreateTaskViewState extends State<CreateTaskView> {
             ViPrimaryButton(
               onTap: () async {
                 if (titleController.text.isEmpty) {
+                  ViSnackbar.showError(
+                      context, AppLocalizations.of(context)!.title_required);
                 } else {
                   BlocProvider.of<HomeBloc>(context).add(
                     CreateToDoEvent(
@@ -163,12 +165,6 @@ class _CreateTaskViewState extends State<CreateTaskView> {
                       context, AppLocalizations.of(context)!.task_complated);
                   context.pop();
                   ViDeviceUtils.hideKeyboard(context);
-                  await LocalNotificationService.scheduleNotification(
-                    id: 1,
-                    title: 'Görev Hatırlatıcısı',
-                    body: 'Bu görev için bir hatırlatmanız var!',
-                    scheduleDateTime: DateTime.now(),
-                  );
                 }
               },
               text: AppLocalizations.of(context)!.create_task_text,

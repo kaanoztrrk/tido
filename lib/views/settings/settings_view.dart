@@ -1,3 +1,4 @@
+import 'package:TiDo/data/services/date_formetter_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -10,6 +11,7 @@ import '../../blocs/auth_blocs/sign_in_bloc/sign_in_event.dart';
 import '../../blocs/auth_blocs/sign_in_bloc/sign_in_state.dart';
 import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_event.dart';
+import '../../blocs/home_bloc/home_state.dart';
 import '../../blocs/theme_bloc/theme_bloc.dart';
 import '../../blocs/theme_bloc/theme_state.dart';
 import '../../common/bottom_sheet/are_you_sure.dart';
@@ -197,8 +199,8 @@ class SettingsView extends StatelessWidget {
                             leading: const Icon(Iconsax.timer),
                             title:
                                 Text(AppLocalizations.of(context)!.time_format),
-                            subtitle: Text(
-                                AppLocalizations.of(context)!.system_default),
+                            subtitle: Text(DateFormatterService(context)
+                                .formatTaskTime(DateTime.now())),
                           ),
                           const Padding(
                             padding: EdgeInsets.symmetric(
@@ -209,7 +211,8 @@ class SettingsView extends StatelessWidget {
                             leading: const Icon(Iconsax.calendar),
                             title:
                                 Text(AppLocalizations.of(context)!.date_format),
-                            subtitle: const Text("2024/07/30"),
+                            subtitle: Text(DateFormatterService(context)
+                                .formatDate(DateTime.now())),
                           ),
                           /*   const Padding(
                             padding: EdgeInsets.symmetric(

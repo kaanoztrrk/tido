@@ -5,19 +5,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_state.dart';
+import '../../common/empty_screen/empty_screen.dart';
 import '../../common/widget/appbar/appbar.dart';
 import '../../common/widget/task_tile/selected_files_tile.dart';
 import '../../core/l10n/l10n.dart';
 import '../../data/models/task_model/task_model.dart';
 import '../../utils/Constant/colors.dart';
+import '../../utils/Constant/image_strings.dart';
 import '../../utils/Constant/sizes.dart';
 import '../../utils/Helpers/helpers_functions.dart';
 import '../../utils/Theme/custom_theme.dart/text_theme.dart';
 
 class DocFolderDetailesView extends StatelessWidget {
-  const DocFolderDetailesView({
-    super.key,
-  });
+  const DocFolderDetailesView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,46 +37,39 @@ class DocFolderDetailesView extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(ViSizes.defaultSpace),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: BlocBuilder<HomeBloc, HomeState>(
-                builder: (context, state) {
-                  final List<TaskModel> tasks = state.allTasksList;
+        child: BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            final List<TaskModel> tasks = state.allTasksList;
+            final documentFiles =
+                tasks.expand((task) => task.files ?? []).where((filePath) {
+              final fileExtension = filePath.split('.').last.toLowerCase();
+              return ['pdf', 'doc', 'docx'].contains(fileExtension);
+            }).toList();
 
-                  return ListView.builder(
-                    reverse: false,
-                    itemCount: tasks.length,
-                    itemBuilder: (context, index) {
-                      final task = tasks[index];
-                      final docFiles = task.files?.where((filePath) {
-                            final fileExtension =
-                                filePath.split('.').last.toLowerCase();
-                            return ['pdf', 'doc', 'docx']
-                                .contains(fileExtension);
-                          }).toList() ??
-                          [];
+            if (documentFiles.isEmpty) {
+              return Center(
+                child: ViEmptyScreen(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  size: ViHelpersFunctions.screenHeigth(context) * 0.3,
+                  image: ViImages.empty_screen_image_1,
+                  title: AppLocalizations.of(context)!.no_files_found,
+                  subTitle: AppLocalizations.of(context)!.no_files_subTitle,
+                ),
+              );
+            }
 
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (docFiles.isNotEmpty) ...[
-                            ...docFiles.map((filePath) {
-                              return SelectedFilesTile(
-                                leading: _buildFileItem(filePath),
-                                title: filePath.split('/').last,
-                              );
-                            }),
-                          ],
-                        ],
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
+            return ListView.builder(
+              itemCount: documentFiles.length,
+              itemBuilder: (context, index) {
+                final filePath = documentFiles[index];
+                return SelectedFilesTile(
+                  leading: _buildFileItem(filePath),
+                  title: filePath.split('/').last,
+                );
+              },
+            );
+          },
         ),
       ),
     );
@@ -94,12 +87,7 @@ class DocFolderDetailesView extends StatelessWidget {
     final fileName = filePath.split('/').last;
     final fileExtension = fileName.split('.').last.toLowerCase();
 
-    if (['jpg', 'jpeg', 'png'].contains(fileExtension)) {
-      return Image.file(
-        File(filePath),
-        fit: BoxFit.cover,
-      );
-    } else {
+    if (['pdf', 'doc', 'docx'].contains(fileExtension)) {
       IconData iconData;
       switch (fileExtension) {
         case 'pdf':
@@ -121,6 +109,12 @@ class DocFolderDetailesView extends StatelessWidget {
             color: AppColors.white,
           ),
         ],
+      );
+    } else {
+      return const Icon(
+        Icons.insert_drive_file,
+        size: 30,
+        color: AppColors.white,
       );
     }
   }

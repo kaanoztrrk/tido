@@ -1,3 +1,4 @@
+import 'package:TiDo/utils/Device/device_utility.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/Constant/colors.dart';
@@ -74,8 +75,9 @@ class _SelectedFilesTileState extends State<SelectedFilesTile> {
         child: Row(
           children: [
             const SizedBox(width: ViSizes.md),
-            ViRotioButton(
-              bgColor: Theme.of(context).primaryColor,
+            ViContainer(
+              width: ViDeviceUtils.getScreenHeigth(context) * 0.075,
+              height: ViDeviceUtils.getScreenHeigth(context) * 0.075,
               child: widget.leading,
             ),
             const SizedBox(width: ViSizes.md),

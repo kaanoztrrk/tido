@@ -27,102 +27,84 @@ class DocumentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [
-          BlocProvider.value(value: getIt<HomeBloc>()),
-          BlocProvider.value(value: getIt<SignInBloc>())
-        ],
-        child: SafeArea(
-          child: Scaffold(
-            appBar: const ViHomeAppBar(
-              height: ViSizes.appBarHeigth * 1.5,
-            ),
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(ViSizes.defaultSpace),
-                  child: Row(
-                    children: [
-                      Flexible(
-                        child: ViSquareContainer(
-                          icon: Iconsax.document_1,
-                          title: AppLocalizations.of(context)!.doc,
-                          subTitle: AppLocalizations.of(context)!.files,
-                          ontap: () => context.push(
-                            ViRoutes.doc_folder_detailes,
-                          ),
-                        ),
-                      ),
-                      Flexible(
-                        child: ViSquareContainer(
-                          icon: Iconsax.image,
-                          title: AppLocalizations.of(context)!.image,
-                          subTitle: AppLocalizations.of(context)!.files,
-                          ontap: () => context.push(
-                            ViRoutes.image_folder_detailes,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: ViSizes.spaceBtwSections),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: ViSizes.defaultSpace),
-                  child: ViPrimaryTitle(
-                      title: AppLocalizations.of(context)!.recend_files),
-                ),
-                Expanded(
-                  child: BlocBuilder<HomeBloc, HomeState>(
-                    builder: (context, state) {
-                      final List<TaskModel> tasks = state.allTasksList;
-                      if (tasks.isEmpty) {
-                        return Center(
-                          child: ViEmptyScreen(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            size:
-                                ViHelpersFunctions.screenHeigth(context) * 0.2,
-                            image: ViImages.empty_screen_image_1,
-                            title:
-                                AppLocalizations.of(context)!.no_images_found,
-                            subTitle: AppLocalizations.of(context)!
-                                .no_images_subTitle,
-                          ),
-                        );
-                      } else {
-                        return ListView.builder(
-                          reverse: false,
-                          itemCount: tasks.length,
-                          itemBuilder: (context, index) {
-                            final task = tasks[index];
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ...task.files?.map((filePath) {
-                                      return SelectedFilesTile(
-                                        leading: _buildFileItem(filePath),
-                                        title: filePath.split('/').last,
-                                      );
-                                    }) ??
-                                    [
-                                      SelectedFilesTile(
-                                        leading: _buildFileItem(""),
-                                        title: "No File",
-                                      ),
-                                    ],
-                              ],
-                            );
-                          },
-                        );
-                      }
-                    },
-                  ),
-                ),
-              ],
-            ),
+      providers: [
+        BlocProvider.value(value: getIt<HomeBloc>()),
+        BlocProvider.value(value: getIt<SignInBloc>()),
+      ],
+      child: SafeArea(
+        child: Scaffold(
+          appBar: const ViHomeAppBar(
+            height: ViSizes.appBarHeigth * 1.5,
           ),
-        ));
+          body: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(ViSizes.defaultSpace),
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: ViSquareContainer(
+                        icon: Iconsax.document_1,
+                        title: AppLocalizations.of(context)!.doc,
+                        subTitle: AppLocalizations.of(context)!.files,
+                        ontap: () => context.push(ViRoutes.doc_folder_detailes),
+                      ),
+                    ),
+                    Flexible(
+                      child: ViSquareContainer(
+                        icon: Iconsax.image,
+                        title: AppLocalizations.of(context)!.image,
+                        subTitle: AppLocalizations.of(context)!.files,
+                        ontap: () =>
+                            context.push(ViRoutes.image_folder_detailes),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: ViSizes.spaceBtwSections),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: ViSizes.defaultSpace),
+                child: ViPrimaryTitle(
+                    title: AppLocalizations.of(context)!.recend_files),
+              ),
+              BlocBuilder<HomeBloc, HomeState>(
+                builder: (context, state) {
+                  final List<TaskModel> tasks = state.allTasksList;
+                  final List allFiles =
+                      tasks.expand((task) => task.files ?? []).toList();
+
+                  if (allFiles.isEmpty) {
+                    return Center(
+                      child: ViEmptyScreen(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        size: ViHelpersFunctions.screenHeigth(context) * 0.3,
+                        image: ViImages.empty_screen_image_1,
+                        title: AppLocalizations.of(context)!.no_files_found,
+                        subTitle:
+                            AppLocalizations.of(context)!.no_files_subTitle,
+                      ),
+                    );
+                  }
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: allFiles.map((filePath) {
+                      return SelectedFilesTile(
+                        leading: _buildFileItem(filePath),
+                        title: filePath.split('/').last,
+                      );
+                    }).toList(),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _buildFileItem(String filePath) {

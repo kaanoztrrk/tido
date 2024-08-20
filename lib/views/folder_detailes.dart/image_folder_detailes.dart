@@ -5,11 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_state.dart';
+import '../../common/empty_screen/empty_screen.dart';
 import '../../common/widget/appbar/appbar.dart';
 import '../../common/widget/task_tile/selected_files_tile.dart';
 import '../../core/l10n/l10n.dart';
 import '../../data/models/task_model/task_model.dart';
 import '../../utils/Constant/colors.dart';
+import '../../utils/Constant/image_strings.dart';
 import '../../utils/Constant/sizes.dart';
 import '../../utils/Helpers/helpers_functions.dart';
 import '../../utils/Theme/custom_theme.dart/text_theme.dart';
@@ -35,49 +37,39 @@ class ImageFolderDetailesView extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(ViSizes.defaultSpace),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: BlocBuilder<HomeBloc, HomeState>(
-                builder: (context, state) {
-                  final List<TaskModel> tasks = state.allTasksList;
+        child: BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            final List<TaskModel> tasks = state.allTasksList;
+            final imageFiles =
+                tasks.expand((task) => task.files ?? []).where((filePath) {
+              final fileExtension = filePath.split('.').last.toLowerCase();
+              return ['jpg', 'jpeg', 'png'].contains(fileExtension);
+            }).toList();
 
-                  return ListView.builder(
-                    reverse: false,
-                    itemCount: tasks.length,
-                    itemBuilder: (context, index) {
-                      final task = tasks[index];
-                      final imageFiles = task.files?.where((filePath) {
-                            final fileExtension =
-                                filePath.split('.').last.toLowerCase();
-                            return ['jpg', 'jpeg', 'png']
-                                .contains(fileExtension);
-                          }).toList() ??
-                          [];
+            if (imageFiles.isEmpty) {
+              return Center(
+                child: ViEmptyScreen(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  size: ViHelpersFunctions.screenHeigth(context) * 0.3,
+                  image: ViImages.empty_screen_image_1,
+                  title: AppLocalizations.of(context)!.no_images_found,
+                  subTitle: AppLocalizations.of(context)!.no_images_subTitle,
+                ),
+              );
+            }
 
-                      if (imageFiles.isEmpty) {
-                        return SelectedFilesTile(
-                          leading: _buildFileItem(""),
-                          title: "No Image File",
-                        );
-                      }
-
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: imageFiles.map((filePath) {
-                          return SelectedFilesTile(
-                            leading: _buildFileItem(filePath),
-                            title: filePath.split('/').last,
-                          );
-                        }).toList(),
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
+            return ListView.builder(
+              itemCount: imageFiles.length,
+              itemBuilder: (context, index) {
+                final filePath = imageFiles[index];
+                return SelectedFilesTile(
+                  leading: _buildFileItem(filePath),
+                  title: filePath.split('/').last,
+                );
+              },
+            );
+          },
         ),
       ),
     );

@@ -56,7 +56,6 @@ class _TaskEditViewState extends State<TaskEditView> {
         leadingWidget: ViRotioButton(
           onTap: () {
             context.pop();
-            context.pop();
           },
           child: const Icon(CupertinoIcons.clear),
         ),

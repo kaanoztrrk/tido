@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:path/path.dart';
 
 import '../../core/l10n/l10n.dart';
 import '../../utils/Constant/colors.dart';
@@ -23,12 +25,12 @@ class ViOptionBottomSheet {
           padding: const EdgeInsets.all(8.0),
           child: Wrap(
             children: [
-              _itemTile(onEdit, dark, Iconsax.edit_2,
+              _itemTile(context, onEdit, dark, Iconsax.edit_2,
                   AppLocalizations.of(context)!.task_edit),
-              _itemTile(onDelete, dark, Iconsax.trash,
+              _itemTile(context, onDelete, dark, Iconsax.trash,
                   AppLocalizations.of(context)!.task_delete),
               if (onMarkAsComplete != null)
-                _itemTile(onMarkAsComplete, dark, Iconsax.tick_circle,
+                _itemTile(context, onMarkAsComplete, dark, Iconsax.tick_circle,
                     AppLocalizations.of(context)!.task_complated_text),
             ],
           ),
@@ -50,9 +52,9 @@ class ViOptionBottomSheet {
           padding: const EdgeInsets.all(8.0),
           child: Wrap(
             children: [
-              _itemTile(onEdit, dark, Iconsax.edit_2,
+              _itemTile(context, onEdit, dark, Iconsax.edit_2,
                   AppLocalizations.of(context)!.edit_category),
-              _itemTile(onDelete, dark, Iconsax.trash,
+              _itemTile(context, onDelete, dark, Iconsax.trash,
                   AppLocalizations.of(context)!.delete_category),
             ],
           ),
@@ -61,12 +63,13 @@ class ViOptionBottomSheet {
     );
   }
 
-  GestureDetector _itemTile(
-      VoidCallback? ontap, bool dark, IconData icon, String title) {
+  GestureDetector _itemTile(BuildContext context, VoidCallback? ontap,
+      bool dark, IconData icon, String title) {
     return GestureDetector(
       onTap: () {
         if (ontap != null) {
           ontap();
+          context.pop();
         }
       },
       child: Container(

@@ -59,6 +59,8 @@
     "doc": "Belge",
     "recend_files": "SON DOSYALAR",
     "no_images_found": "Resim bulunamadı.",
+    "no_files_found": "Dosya bulunamadı",
+    "no_files_subTitle": "Görüntülemek için görevinize dosyalar ekleyin.",
     "hi_text": "Selam",
     "no_images_subTitle": "Görüntülemek için görevinize resimler ekleyin.",
     "nice_to_see_you": "seni görmek güzel",
@@ -124,6 +126,7 @@
     "personal_information": "Kişisel Bilgiler",
     "delete_account": "Hesabı Sil",
     "ask_help": "Yardım İste",
-     "notification": "Bildirimler",
+    "notification": "Bildirimler",
+    "title_required": "Lütfen başlık giriniz.",
     "@@locale": "tr"
 }

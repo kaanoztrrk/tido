@@ -60,7 +60,9 @@
     "hi_text": "Hi",
     "recend_files": "RECEND FILES",
     "no_images_found": "No Images Found",
+    "no_files_found": "No Files Found",
     "no_images_subTitle": "Add images to your task to display them.",
+    "no_files_subTitle": "Add files to your task to display them.",
     "nice_to_see_you": "nice to see you",
     "no_tasks_found": "No Tasks Found",
     "no_tasks_found_subTitle": "Start by adding a new task.",
@@ -125,5 +127,6 @@
     "delete_account": "Delete Account",
     "ask_help": "Ask Help Desk",
     "notification": "Notification",
+    "title_required": "Please enter title.",
     "@@locale": "en"
 }

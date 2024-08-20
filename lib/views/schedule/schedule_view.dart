@@ -68,16 +68,20 @@ class _ScheduleViewState extends State<ScheduleView> {
                                 );
                               },
                             )
-                          : Center(
-                              child: ViEmptyScreen(
-                                bannerAlignment: Alignment.topCenter,
-                                size: ViHelpersFunctions.screenHeigth(context) *
-                                    0.3,
-                                image: ViImages.empty_screen_image_1,
-                                title: 'No Tasks Found',
-                                subTitle:
-                                    'There are no tasks for the selected date.',
-                              ),
+                          : Stack(
+                              children: [
+                                Center(
+                                  child: ViEmptyScreen(
+                                    size: ViHelpersFunctions.screenHeigth(
+                                            context) *
+                                        0.3,
+                                    image: ViImages.empty_screen_image_1,
+                                    title: 'No Tasks Found',
+                                    subTitle:
+                                        'There are no tasks for the selected date.',
+                                  ),
+                                ),
+                              ],
                             ),
                     ),
                   ],
@@ -96,7 +100,7 @@ class _ScheduleViewState extends State<ScheduleView> {
       firstDay: DateTime.utc(2020, 1, 1),
       lastDay: DateTime.utc(2030, 12, 31),
       focusedDay: _focusedDay,
-      calendarFormat: _calendarFormat,
+      calendarFormat: CalendarFormat.week,
       selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
       onDaySelected: (selectedDay, focusedDay) {
         setState(() {
