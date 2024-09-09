@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:TiDo/utils/bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -8,7 +9,6 @@ import '../../core/l10n/l10n.dart';
 import '../../utils/Device/device_utility.dart';
 import '../../utils/Helpers/helpers_functions.dart';
 import '../../utils/Snackbar/snacbar_service.dart';
-import '../bottom_sheet/add_label_bottom_sheet.dart';
 import '../styles/square_container_style.dart';
 import 'chip/label_chip.dart';
 import '../../utils/Constant/colors.dart';
@@ -67,7 +67,7 @@ class _ViLabeWidgetState extends State<ViLabeWidget> {
     return ViSquareContainer(
       ontap: () {
         if (_tags.length < 3) {
-          AddCategoryLabelBottomSheet.showAddTagBottomSheet(
+          ViBottomSheet.showAddTagBottomSheet(
             context: context,
             tags: _tags,
             onTagsUpdated: _updateTags,

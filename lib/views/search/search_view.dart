@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_event.dart';
 import '../../blocs/home_bloc/home_state.dart';
-import '../../common/empty_screen/empty_screen.dart';
+import '../common/empty_screen/empty_screen.dart';
 import '../../common/styles/container_style.dart';
 import '../../common/widget/appbar/appbar.dart';
 import '../../common/widget/task_tile/calender_task_tile.dart';
@@ -87,7 +87,10 @@ class SearchView extends StatelessWidget {
                               image: ViImages.empty_screen_no_result),
                           const Align(
                             alignment: Alignment.bottomCenter,
-                            child: AdMobBanner(),
+                            child: Padding(
+                              padding: EdgeInsets.all(ViSizes.defaultSpace),
+                              child: AdMobBanner(),
+                            ),
                           )
                         ],
                       );

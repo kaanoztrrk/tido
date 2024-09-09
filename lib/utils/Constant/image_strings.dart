@@ -29,4 +29,7 @@ class ViImages {
   static const String texture_1 = "assets/image/theme/texture/texture_1.jpg";
   static const String texture_2 = "assets/image/theme/texture/texture_2.jpg";
   static const String texture_3 = "assets/image/theme/texture/texture_3.jpg";
+
+  static const String pomodoro = "assets/image/planner/pomodoro.png";
+  static const String traveller_image = "assets/image/traveller.png";
 }

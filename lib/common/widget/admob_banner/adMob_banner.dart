@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -9,10 +11,10 @@ class AdMobBanner extends StatefulWidget {
   final Color backgroundColor;
 
   const AdMobBanner({
-    Key? key,
+    super.key,
     this.height = 90,
     this.backgroundColor = Colors.grey,
-  }) : super(key: key);
+  });
 
   @override
   _AdMobBannerState createState() => _AdMobBannerState();
@@ -41,15 +43,6 @@ class _AdMobBannerState extends State<AdMobBanner> {
             height: _adsService.bannerAd!.size.height.toDouble(),
             child: AdWidget(ad: _adsService.bannerAd!),
           )
-        : Container(
-            width: double.infinity,
-            height: widget.height,
-            child: Center(
-              child: Text(
-                'Ad loading...',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          );
+        : const SizedBox();
   }
 }

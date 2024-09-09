@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 
 import '../../../utils/Constant/colors.dart';
 import '../../../utils/Constant/sizes.dart';
@@ -35,18 +36,15 @@ class ViAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: ViSizes.md),
       child: AppBar(
-        centerTitle: centerTitle,
-        backgroundColor: dark ? AppColors.dark : AppColors.light,
-        automaticallyImplyLeading: false,
         leading: showBackArrow
             ? ViRotioButton(
                 onTap: () => context.pop(),
                 child: const Icon(Icons.arrow_back_ios_new_rounded),
               )
-            : leadingIcon != null
-                ? IconButton(
-                    onPressed: leadingOnPressed, icon: Icon(leadingIcon))
-                : leadingWidget,
+            : leadingWidget,
+        centerTitle: centerTitle,
+        backgroundColor: dark ? AppColors.dark : AppColors.light,
+        automaticallyImplyLeading: false,
         title: title,
         actions: actions,
       ),

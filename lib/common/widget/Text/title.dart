@@ -25,11 +25,30 @@ class ViPrimaryTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     var dark = ViHelpersFunctions.isDarkMode(context);
 
+    // Default style
+    TextStyle textStyle = dark
+        ? ViTextTheme.darkTextTheme.titleLarge!
+        : ViTextTheme.ligthTextTheme.titleLarge!;
+
+    // Adjust text style based on smallText or bigText
+    if (smallText) {
+      textStyle = dark
+          ? ViTextTheme.darkTextTheme.titleSmall!
+          : ViTextTheme.ligthTextTheme.titleSmall!;
+    } else if (bigText) {
+      textStyle = dark
+          ? ViTextTheme.darkTextTheme.headlineMedium!
+          : ViTextTheme.ligthTextTheme.headlineMedium!;
+    }
+
+    // Apply custom text color if provided
+    if (textColor != null) {
+      textStyle = textStyle.copyWith(color: textColor);
+    }
+
     return Text(
       title,
-      style: dark
-          ? ViTextTheme.darkTextTheme.titleLarge
-          : ViTextTheme.ligthTextTheme.titleLarge,
+      style: textStyle,
       textAlign: textAlign,
     );
   }

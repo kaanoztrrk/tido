@@ -48,7 +48,6 @@ class AuthenticationBloc
 
       SystemNavigator.pop();
     } catch (e) {
-      print('Error deleting user: $e');
       emit(AuthenticationState.error(e.toString()));
     }
   }

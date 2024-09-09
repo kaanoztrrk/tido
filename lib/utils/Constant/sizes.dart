@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class ViSizes {
   //* Padding and Marin sizes
   static const double xs = 4.0;
@@ -21,9 +19,9 @@ class ViSizes {
 
   //* Button Sizes
 
-  static const double buttonHeigth = 18.0;
+  static const double buttonHeigth = 50.0;
   static const double buttonRadius = 12.0;
-  static const double buttonWidth = 120.0;
+  static const double buttonWidth = 50.0;
   static const double buttonElevation = 4.0;
 
   //* AppBar Heigth
@@ -72,21 +70,4 @@ class ViSizes {
 
   //* Grid view Spaceing
   static const double gridViewSpacing = 16.0;
-}
-
-//* MediaQuery Size
-Size displaySize(BuildContext context) {
-  return MediaQuery.of(context).size;
-}
-
-double displayHeight(BuildContext context) {
-  return displaySize(context).height;
-}
-
-double displayWidth(BuildContext context) {
-  return displaySize(context).width;
-}
-
-TextTheme textTheme(BuildContext context) {
-  return Theme.of(context).textTheme;
 }

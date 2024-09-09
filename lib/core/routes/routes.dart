@@ -16,6 +16,7 @@ class ViRoutes {
   static const String doc_folder_detailes = "/doc_folder_detailes";
   static const String search_view = '/search_view';
   static const String task_edit_view = '/task_edit_view';
+  static const String document_view = '/document_view';
 
   //* Settigs
   static const String edit_page = '/edit_page';
@@ -35,4 +36,7 @@ class ViRoutes {
   static const String theme_view = '/theme_view';
   static const String profile_view = '/profile_view';
   static const String change_password = '/change_password';
+  static const String pomodoro_view = '/pomodoro_view';
+  static const String pomodoro_settings = '/pomodoro_settings';
+  static const String pomodoro_history = '/pomodoro_history';
 }

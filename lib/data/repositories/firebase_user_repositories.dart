@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
@@ -109,9 +108,9 @@ class FirebaseUserRepo implements UserRepository {
     await _firebaseAuth.signOut();
   }
 
+  @override
   Future<UserCredential> signInWithGoogle() async {
     try {
-      // 1. Google ile giriş yapma
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
         throw Exception('Google kullanıcı girişi başarısız.');
@@ -125,7 +124,6 @@ class FirebaseUserRepo implements UserRepository {
         idToken: googleAuth.idToken,
       );
 
-      // 2. Firebase ile kimlik doğrulama
       final UserCredential userCredential =
           await _firebaseAuth.signInWithCredential(credential);
       final user = userCredential.user;
@@ -134,14 +132,12 @@ class FirebaseUserRepo implements UserRepository {
         final userDoc = userCollection.doc(user.uid);
         final userDocSnapshot = await userDoc.get();
 
-        // 3. Kullanıcı verilerini Firestore'a kaydetme
         if (!userDocSnapshot.exists) {
           await userDoc.set({
             'uid': user.uid,
             'email': user.email,
             'displayName': user.displayName,
             'photoURL': user.photoURL,
-            // Diğer kullanıcı bilgilerini buraya ekleyebilirsiniz
           });
         }
       } else {

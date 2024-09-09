@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:TiDo/utils/Device/device_utility.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +8,6 @@ import '../../../utils/Constant/sizes.dart';
 import '../../../utils/Helpers/helpers_functions.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 import '../../styles/container_style.dart';
-import '../button/ratio_button.dart';
 
 class SelectedFilesTile extends StatefulWidget {
   const SelectedFilesTile({

@@ -5,8 +5,14 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
-    namespace "com.example.tido"
+    namespace "com.theviacoder.tido"
     compileSdk 34
     ndkVersion flutter.ndkVersion
 
@@ -29,16 +35,24 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.tido"
+        applicationId "com.theviacoder.tido"
         minSdkVersion 23
         targetSdkVersion 34
-        versionCode 1  // Varsayılan bir sürüm kodu
-        versionName "1.0"  // Varsayılan bir sürüm adı
+        versionCode 1
+        versionName "1.0"
     }
 
+     signingConfigs {
+        release {
+            keyAlias = keystoreProperties['keyAlias']
+            keyPassword = keystoreProperties['keyPassword']
+            storeFile = keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword = keystoreProperties['storePassword']
+        }
+    }
     buildTypes {
         release {
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
 }

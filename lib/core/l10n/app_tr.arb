@@ -128,5 +128,6 @@
     "ask_help": "Yardım İste",
     "notification": "Bildirimler",
     "title_required": "Lütfen başlık giriniz.",
+    "planner": "Planlayıcı",
     "@@locale": "tr"
 }

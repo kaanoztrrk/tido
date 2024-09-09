@@ -52,7 +52,8 @@ class _LoginViewState extends State<LoginView> {
       child: BlocListener<SignInBloc, SignInState>(
         listener: (context, state) {
           if (state is SignInSuccess) {
-            context.push(ViRoutes.home);
+            // Google Sign-In başarılı olduğunda ViRoutes.main rotasına yönlendir.
+            context.push(ViRoutes.main);
           } else if (state is SignInProcess) {
             setState(() {
               signInRequired = true;

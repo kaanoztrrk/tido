@@ -1,4 +1,7 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:TiDo/views/document/document_view.dart';
+import 'package:TiDo/views/study_technique/pomodoro/pomodoro_history.dart';
+import 'package:TiDo/views/study_technique/pomodoro/pomodoro_settings.dart';
+import 'package:TiDo/views/study_technique/pomodoro/pomodoro_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -10,7 +13,6 @@ import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/notification_bloc/notificaiton_bloc.dart';
 import '../../data/models/otp_arguments/otp_arguments_model.dart';
 import '../../data/models/task_model/task_model.dart';
-import '../../data/models/user_model/user_model.dart';
 import '../../data/repositories/firebase_user_repositories.dart';
 import '../../views/auth/change_password/change_password_view.dart';
 import '../../views/auth/email_validate/email_validate.dart';
@@ -19,23 +21,23 @@ import '../../views/auth/otp/otp_view.dart';
 import '../../views/auth/register/register_view.dart';
 import '../../views/auth/forgot_password/forgot_password.dart';
 
-import '../../views/auth/splash/splash_view.dart';
+import '../../views/common/splash/splash_view.dart';
 import '../../views/auth/welcome/welcome_view.dart';
-import '../../views/create_task/create_task_view.dart';
+import '../../views/task/create_task/create_task_view.dart';
 import '../../views/folder_detailes.dart/doc_folder_detailes.dart';
 import '../../views/folder_detailes.dart/image_folder_detailes.dart';
-import '../../views/navigators/home_navigator.dart';
-import '../../views/navigators/main_navigator.dart';
+import '../../views/layout/home_navigator.dart';
+import '../../views/layout/main_navigator.dart';
 import '../../views/notification/notification_view.dart';
 import '../../views/search/search_view.dart';
-import '../../views/settings/customize/theme/theme_view.dart';
-import '../../views/settings/data_security/backup_location_view.dart';
-import '../../views/settings/data_security/data_storage_view.dart';
-import '../../views/settings/profile/profile_view.dart';
-import '../../views/settings/task_category/archive/archive.dart';
-import '../../views/settings/task_category/categories/categories_view.dart';
-import '../../views/task_detail/task_detail_view.dart';
-import '../../views/task_edit/task_edit_view.dart';
+import '../../views/main_view/settings/customize/theme/theme_view.dart';
+import '../../views/main_view/settings/data_security/backup_location_view.dart';
+import '../../views/main_view/settings/data_security/data_storage_view.dart';
+import '../../views/main_view/settings/profile/profile_view.dart';
+import '../../views/main_view/settings/task_category/archive/archive.dart';
+import '../../views/main_view/settings/task_category/categories/categories_view.dart';
+import '../../views/task/task_detail/task_detail_view.dart';
+import '../../views/task/task_edit/task_edit_view.dart';
 import '../locator/locator.dart';
 import 'routes.dart';
 
@@ -307,6 +309,41 @@ final GoRouter router = GoRouter(
           BlocProvider.value(value: getIt<SignInBloc>()),
           BlocProvider.value(value: getIt<NotificationBloc>()),
         ], child: const ChangePasswordView());
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.document_view,
+      builder: (BuildContext context, GoRouterState state) {
+        return MultiBlocProvider(providers: [
+          BlocProvider.value(value: getIt<HomeBloc>()),
+          BlocProvider.value(value: getIt<AuthenticationBloc>()),
+          BlocProvider.value(value: getIt<SignInBloc>()),
+          BlocProvider.value(value: getIt<NotificationBloc>()),
+        ], child: const DocumentView());
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.pomodoro_view,
+      builder: (BuildContext context, GoRouterState state) {
+        return MultiBlocProvider(providers: [
+          BlocProvider.value(value: getIt<HomeBloc>()),
+        ], child: PomodoroView());
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.pomodoro_settings,
+      builder: (BuildContext context, GoRouterState state) {
+        return MultiBlocProvider(providers: [
+          BlocProvider.value(value: getIt<HomeBloc>()),
+        ], child: const PomodoroSettings());
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.pomodoro_history,
+      builder: (BuildContext context, GoRouterState state) {
+        return MultiBlocProvider(providers: [
+          BlocProvider.value(value: getIt<HomeBloc>()),
+        ], child: const PomodoroHistory());
       },
     ),
   ],

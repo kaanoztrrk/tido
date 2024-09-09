@@ -50,4 +50,40 @@ class SharedPreferencesService {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(key);
   }
+
+  Future<void> savePomodoroSettings({
+    required int focusTime,
+    required int shortBreakTime,
+    required int longBreakTime,
+    required String intervals,
+  }) async {
+    await SharedPreferencesService.instance.setInt('focusTime', focusTime);
+    await SharedPreferencesService.instance
+        .setInt('shortBreakTime', shortBreakTime);
+    await SharedPreferencesService.instance
+        .setInt('longBreakTime', longBreakTime);
+    await SharedPreferencesService.instance.setString('intervals', intervals);
+  }
+
+  Future<Map<String, dynamic>> loadPomodoroSettings() async {
+    final focusTime =
+        await SharedPreferencesService.instance.getInt('focusTime') ??
+            60; // Varsayılan 25 dakika
+    final shortBreakTime =
+        await SharedPreferencesService.instance.getInt('shortBreakTime') ??
+            300; // Varsayılan 5 dakika
+    final longBreakTime =
+        await SharedPreferencesService.instance.getInt('longBreakTime') ??
+            300; // Varsayılan 5 dakika
+    final intervals =
+        await SharedPreferencesService.instance.getString('intervals') ??
+            '4 intervals'; // Varsayılan 4 interval
+
+    return {
+      'focusTime': focusTime,
+      'shortBreakTime': shortBreakTime,
+      'longBreakTime': longBreakTime,
+      'intervals': intervals,
+    };
+  }
 }

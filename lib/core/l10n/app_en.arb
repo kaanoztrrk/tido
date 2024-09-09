@@ -128,5 +128,6 @@
     "ask_help": "Ask Help Desk",
     "notification": "Notification",
     "title_required": "Please enter title.",
+    "planner": "Planner",
     "@@locale": "en"
 }

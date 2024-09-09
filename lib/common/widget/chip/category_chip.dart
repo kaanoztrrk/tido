@@ -1,3 +1,4 @@
+import 'package:TiDo/utils/bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,8 +8,6 @@ import '../../../blocs/home_bloc/home_state.dart';
 import '../../../data/models/category_model/category_model.dart';
 import '../../../utils/Constant/sizes.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
-import '../../bottom_sheet/edit_task_bottom_sheet.dart';
-import '../../bottom_sheet/task_option_bottom_sheet.dart';
 import '../../styles/container_style.dart';
 
 class ViCategoryChip extends StatelessWidget {
@@ -28,10 +27,10 @@ class ViCategoryChip extends StatelessWidget {
         BlocProvider.of<HomeBloc>(context).add(const CategoryUpdateTab(0));
       },
       onLongPress: () {
-        ViOptionBottomSheet().showEditCategoryBottomSheet(
+        ViBottomSheet.showEditCategoryBottomSheet(
           context,
           onEdit: () {
-            ViEditBottomSheet.onEditCategoryBottomSheet(
+            ViBottomSheet.onEditCategoryBottomSheet(
               context: context,
               oldCategory: category,
               bloc: BlocProvider.of<HomeBloc>(context),

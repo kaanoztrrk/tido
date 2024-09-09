@@ -7,7 +7,7 @@ import 'package:iconsax/iconsax.dart';
 import '../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_state.dart';
-import '../../common/empty_screen/empty_screen.dart';
+import '../common/empty_screen/empty_screen.dart';
 import '../../common/styles/square_container_style.dart';
 import '../../common/widget/Text/title.dart';
 import '../../common/widget/appbar/home_appbar.dart';
@@ -33,9 +33,6 @@ class DocumentView extends StatelessWidget {
       ],
       child: SafeArea(
         child: Scaffold(
-          appBar: const ViHomeAppBar(
-            height: ViSizes.appBarHeigth * 1.5,
-          ),
           body: ListView(
             children: [
               Padding(

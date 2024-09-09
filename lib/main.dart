@@ -1,8 +1,11 @@
+import 'package:TiDo/data/services/study_technique/pomodoro_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:email_otp/email_otp.dart';
+import 'package:provider/provider.dart';
 import 'app.dart';
 import 'core/locator/locator.dart';
 import 'data/models/category_model/category_model.dart';
@@ -45,5 +48,7 @@ void main() async {
     otpLength: 4,
   );
 
-  runApp(const TIDO());
+  runApp(MultiBlocProvider(providers: [
+    ChangeNotifierProvider(create: (_) => PomodoroService()),
+  ], child: const TIDO()));
 }
