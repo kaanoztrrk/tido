@@ -206,7 +206,8 @@ class ProfileView extends StatelessWidget {
                                   title: Text(
                                     AppLocalizations.of(context)!
                                         .delete_account,
-                                    style: TextStyle(color: AppColors.warning),
+                                    style: const TextStyle(
+                                        color: AppColors.warning),
                                   ),
                                 );
                               },

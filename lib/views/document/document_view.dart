@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:TiDo/common/widget/appbar/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -10,7 +11,6 @@ import '../../blocs/home_bloc/home_state.dart';
 import '../common/empty_screen/empty_screen.dart';
 import '../../common/styles/square_container_style.dart';
 import '../../common/widget/Text/title.dart';
-import '../../common/widget/appbar/home_appbar.dart';
 import '../../common/widget/task_tile/selected_files_tile.dart';
 import '../../core/l10n/l10n.dart';
 import '../../core/locator/locator.dart';
@@ -31,74 +31,75 @@ class DocumentView extends StatelessWidget {
         BlocProvider.value(value: getIt<HomeBloc>()),
         BlocProvider.value(value: getIt<SignInBloc>()),
       ],
-      child: SafeArea(
-        child: Scaffold(
-          body: ListView(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(ViSizes.defaultSpace),
-                child: Row(
-                  children: [
-                    Flexible(
-                      child: ViSquareContainer(
-                        icon: Iconsax.document_1,
-                        title: AppLocalizations.of(context)!.doc,
-                        subTitle: AppLocalizations.of(context)!.files,
-                        ontap: () => context.push(ViRoutes.doc_folder_detailes),
-                      ),
+      child: Scaffold(
+        appBar: ViAppBar(
+          showBackArrow: true,
+          centerTitle: true,
+          title: Text(AppLocalizations.of(context)!.documents),
+        ),
+        body: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(ViSizes.defaultSpace),
+              child: Row(
+                children: [
+                  Flexible(
+                    child: ViSquareContainer(
+                      icon: Iconsax.document_1,
+                      title: AppLocalizations.of(context)!.doc,
+                      subTitle: AppLocalizations.of(context)!.files,
+                      ontap: () => context.push(ViRoutes.doc_folder_detailes),
                     ),
-                    Flexible(
-                      child: ViSquareContainer(
-                        icon: Iconsax.image,
-                        title: AppLocalizations.of(context)!.image,
-                        subTitle: AppLocalizations.of(context)!.files,
-                        ontap: () =>
-                            context.push(ViRoutes.image_folder_detailes),
-                      ),
+                  ),
+                  Flexible(
+                    child: ViSquareContainer(
+                      icon: Iconsax.image,
+                      title: AppLocalizations.of(context)!.image,
+                      subTitle: AppLocalizations.of(context)!.files,
+                      ontap: () => context.push(ViRoutes.image_folder_detailes),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              const SizedBox(height: ViSizes.spaceBtwSections),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: ViSizes.defaultSpace),
-                child: ViPrimaryTitle(
-                    title: AppLocalizations.of(context)!.recend_files),
-              ),
-              BlocBuilder<HomeBloc, HomeState>(
-                builder: (context, state) {
-                  final List<TaskModel> tasks = state.allTasksList;
-                  final List allFiles =
-                      tasks.expand((task) => task.files ?? []).toList();
+            ),
+            const SizedBox(height: ViSizes.spaceBtwSections),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: ViSizes.defaultSpace),
+              child: ViPrimaryTitle(
+                  title: AppLocalizations.of(context)!.recend_files),
+            ),
+            BlocBuilder<HomeBloc, HomeState>(
+              builder: (context, state) {
+                final List<TaskModel> tasks = state.allTasksList;
+                final List allFiles =
+                    tasks.expand((task) => task.files ?? []).toList();
 
-                  if (allFiles.isEmpty) {
-                    return Center(
-                      child: ViEmptyScreen(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        size: ViHelpersFunctions.screenHeigth(context) * 0.3,
-                        image: ViImages.empty_screen_image_1,
-                        title: AppLocalizations.of(context)!.no_files_found,
-                        subTitle:
-                            AppLocalizations.of(context)!.no_files_subTitle,
-                      ),
-                    );
-                  }
-
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: allFiles.map((filePath) {
-                      return SelectedFilesTile(
-                        leading: _buildFileItem(filePath),
-                        title: filePath.split('/').last,
-                      );
-                    }).toList(),
+                if (allFiles.isEmpty) {
+                  return Center(
+                    child: ViEmptyScreen(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      size: ViHelpersFunctions.screenHeigth(context) * 0.3,
+                      image: ViImages.empty_screen_image_1,
+                      title: AppLocalizations.of(context)!.no_files_found,
+                      subTitle: AppLocalizations.of(context)!.no_files_subTitle,
+                    ),
                   );
-                },
-              ),
-            ],
-          ),
+                }
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: allFiles.map((filePath) {
+                    return SelectedFilesTile(
+                      leading: _buildFileItem(filePath),
+                      title: filePath.split('/').last,
+                    );
+                  }).toList(),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

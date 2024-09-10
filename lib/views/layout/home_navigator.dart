@@ -11,7 +11,6 @@ import '../../utils/Constant/colors.dart';
 import '../../utils/Helpers/helpers_functions.dart';
 import '../main_view/home/home_view.dart';
 import '../main_view/settings/settings_view.dart';
-import '../document/document_view.dart';
 import '../main_view/schedule/schedule_view.dart';
 
 class HomeNavigator extends StatefulWidget {

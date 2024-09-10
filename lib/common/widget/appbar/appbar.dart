@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconsax/iconsax.dart';
 
 import '../../../utils/Constant/colors.dart';
 import '../../../utils/Constant/sizes.dart';

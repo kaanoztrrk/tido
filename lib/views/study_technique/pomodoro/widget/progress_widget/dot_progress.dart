@@ -8,10 +8,10 @@ class DotProgress extends StatelessWidget {
   final int totalSteps;
 
   const DotProgress({
-    Key? key,
+    super.key,
     required this.currentStep,
     required this.totalSteps,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class DotProgress extends StatelessWidget {
       children: [
         Container(
           width: ViDeviceUtils.getScreenWidth(context) * 0.3,
-          color: AppColors.primary,
+          color: Theme.of(context).primaryColor,
           height: 1,
         ),
         Center(
@@ -33,10 +33,10 @@ class DotProgress extends StatelessWidget {
                 return AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   decoration: BoxDecoration(
-                    color: _getDotColor(index, dark),
+                    color: _getDotColor(context, index, dark),
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: _getBorderColor(index, dark),
+                      color: _getBorderColor(context, index, dark),
                       width: 2,
                     ),
                   ),
@@ -51,9 +51,9 @@ class DotProgress extends StatelessWidget {
     );
   }
 
-  Color _getDotColor(int index, bool dark) {
+  Color _getDotColor(BuildContext context, int index, bool dark) {
     if (index < currentStep) {
-      return AppColors.primary; // Tamamlanmış adım
+      return Theme.of(context).primaryColor; // Tamamlanmış adım
     } else if (index == currentStep) {
       return dark ? AppColors.dark : AppColors.light; // Şu an tamamlanıyor
     } else {
@@ -61,10 +61,9 @@ class DotProgress extends StatelessWidget {
     }
   }
 
-  Color _getBorderColor(int index, bool dark) {
+  Color _getBorderColor(BuildContext context, int index, bool dark) {
     if (index < currentStep) {
-      return AppColors
-          .primary; // Tamamlanmış ve tamamlanmakta olan adımın border rengi
+      return Theme.of(context).primaryColor;
     } else {
       return dark
           ? AppColors.darkerGrey

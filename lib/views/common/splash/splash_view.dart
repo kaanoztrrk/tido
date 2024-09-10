@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -28,10 +30,9 @@ class _SplashViewState extends State<SplashView> {
       final isFirstTime = await _isFirstTimeOpening();
       if (isFirstTime) {
         await _setFirstTimeOpening();
-        context
-            .go(ViRoutes.welcome_view); // İlk açılışta WelcomeView'e yönlendir
+        context.go(ViRoutes.welcome_view);
       } else {
-        context.go(ViRoutes.main); // Zaten açılmışsa MainNavigator'a yönlendir
+        context.go(ViRoutes.main);
       }
     }
   }

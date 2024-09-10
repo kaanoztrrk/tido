@@ -1,6 +1,4 @@
 import 'package:TiDo/views/document/document_view.dart';
-import 'package:TiDo/views/study_technique/pomodoro/pomodoro_history.dart';
-import 'package:TiDo/views/study_technique/pomodoro/pomodoro_settings.dart';
 import 'package:TiDo/views/study_technique/pomodoro/pomodoro_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +21,7 @@ import '../../views/auth/forgot_password/forgot_password.dart';
 
 import '../../views/common/splash/splash_view.dart';
 import '../../views/auth/welcome/welcome_view.dart';
+import '../../views/location_reminder/location_reminder_view.dart';
 import '../../views/task/create_task/create_task_view.dart';
 import '../../views/folder_detailes.dart/doc_folder_detailes.dart';
 import '../../views/folder_detailes.dart/image_folder_detailes.dart';
@@ -327,23 +326,15 @@ final GoRouter router = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return MultiBlocProvider(providers: [
           BlocProvider.value(value: getIt<HomeBloc>()),
-        ], child: PomodoroView());
+        ], child: const PomodoroView());
       },
     ),
     GoRoute(
-      path: ViRoutes.pomodoro_settings,
+      path: ViRoutes.location_reminder_view,
       builder: (BuildContext context, GoRouterState state) {
         return MultiBlocProvider(providers: [
           BlocProvider.value(value: getIt<HomeBloc>()),
-        ], child: const PomodoroSettings());
-      },
-    ),
-    GoRoute(
-      path: ViRoutes.pomodoro_history,
-      builder: (BuildContext context, GoRouterState state) {
-        return MultiBlocProvider(providers: [
-          BlocProvider.value(value: getIt<HomeBloc>()),
-        ], child: const PomodoroHistory());
+        ], child: const LocationReminderView());
       },
     ),
   ],

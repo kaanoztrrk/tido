@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -8,6 +10,8 @@ class CircularProgressPainter extends CustomPainter {
   final Color progressColor; // Progress color
   final Color outerCircleColor; // Outer circle color
   final Color outerCircleProgressColor; // Outer circle progress color
+  final Color innerDotBorderColor; // Inner dot border color
+  final Color innerDotFillColor; // Inner dot fill color
 
   CircularProgressPainter({
     required this.progress,
@@ -16,6 +20,8 @@ class CircularProgressPainter extends CustomPainter {
     required this.progressColor,
     required this.outerCircleColor,
     required this.outerCircleProgressColor,
+    required this.innerDotBorderColor,
+    required this.innerDotFillColor,
   });
 
   @override
@@ -47,12 +53,12 @@ class CircularProgressPainter extends CustomPainter {
       ..style = PaintingStyle.fill;
 
     final Paint innerDotBorderPaint = Paint()
-      ..color = Color(0xFFFE6E68) // Border color
+      ..color = innerDotBorderColor // Border color
       ..style = PaintingStyle.stroke
       ..strokeWidth = 5.0; // Border width
 
     final Paint innerDotFillPaint = Paint()
-      ..color = Colors.white // Fill color
+      ..color = innerDotFillColor // Fill color
       ..style = PaintingStyle.fill;
 
     final double radius = min(size.width / 2, size.height / 2) -

@@ -26,11 +26,12 @@ class TimeDropdownButton extends StatelessWidget {
 
     return DropdownButton<String>(
       value: provider.selectedTime.toString(),
-      icon: Icon(Icons.timer, color: AppColors.white),
+      icon: const Icon(Icons.timer, color: AppColors.white),
       iconSize: 24,
       elevation: 16,
-      style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold),
-      dropdownColor: AppColors.primary,
+      style: TextStyle(
+          color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),
+      dropdownColor: Theme.of(context).primaryColor,
       onChanged: (String? newValue) {
         if (newValue != null) {
           provider.selectTime(double.parse(newValue));
@@ -59,7 +60,7 @@ class TimeDropdownButton extends StatelessWidget {
               (int.parse(item) ~/ 60).toString(),
               style: TextStyle(
                 color: double.parse(item) == provider.selectedTime
-                    ? AppColors.primary
+                    ? Theme.of(context).primaryColor
                     : AppColors.white,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,

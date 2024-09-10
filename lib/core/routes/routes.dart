@@ -37,6 +37,5 @@ class ViRoutes {
   static const String profile_view = '/profile_view';
   static const String change_password = '/change_password';
   static const String pomodoro_view = '/pomodoro_view';
-  static const String pomodoro_settings = '/pomodoro_settings';
-  static const String pomodoro_history = '/pomodoro_history';
+  static const String location_reminder_view = '/location_reminder_view';
 }

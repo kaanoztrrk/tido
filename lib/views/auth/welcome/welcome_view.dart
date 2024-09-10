@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -13,7 +15,7 @@ import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 import 'widget/welcome_parts.dart';
 
 class WelcomeView extends StatefulWidget {
-  const WelcomeView({Key? key}) : super(key: key);
+  const WelcomeView({super.key});
 
   @override
   _WelcomeViewState createState() => _WelcomeViewState();

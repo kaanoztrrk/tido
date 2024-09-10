@@ -29,7 +29,7 @@ class DigitalTimer extends StatelessWidget {
               (provider.currentDuration ~/ 60).toString(),
               style: ViTextTheme.darkTextTheme.headlineLarge?.copyWith(
                 fontSize: ViDeviceUtils.getScreenHeigth(context) * 0.1,
-                color: AppColors.primary,
+                color: Theme.of(context).primaryColor,
               ),
             ),
           ),
@@ -51,9 +51,8 @@ class DigitalTimer extends StatelessWidget {
             child: Text(
               seconds == 0 ? "${seconds.round()}0" : seconds.round().toString(),
               style: ViTextTheme.darkTextTheme.headlineLarge?.copyWith(
-                fontSize: ViDeviceUtils.getScreenHeigth(context) * 0.1,
-                color: AppColors.primary,
-              ),
+                  fontSize: ViDeviceUtils.getScreenHeigth(context) * 0.1,
+                  color: Theme.of(context).primaryColor),
             ),
           ),
         ),

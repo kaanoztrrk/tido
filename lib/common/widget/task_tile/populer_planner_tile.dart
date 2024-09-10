@@ -38,7 +38,7 @@ class PopulerPlannerTile extends StatelessWidget {
             BoxShadow(
               color: Colors.black.withOpacity(0.1), // Gölgenin rengi
               blurRadius: 6, // Gölgenin yayılma miktarı
-              offset: Offset(0, 4), // Gölgenin yönü (x, y)
+              offset: const Offset(0, 4), // Gölgenin yönü (x, y)
             ),
           ],
         ),

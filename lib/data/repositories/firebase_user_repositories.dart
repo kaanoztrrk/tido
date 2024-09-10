@@ -185,7 +185,6 @@ class FirebaseUserRepo implements UserRepository {
 
       // Ekstra temizlik işlemleri gerekebilir
     } catch (e) {
-      print('Error deleting user: $e');
       throw Exception('Error deleting user: $e');
     }
   }

@@ -1,7 +1,6 @@
 import 'package:TiDo/utils/Constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../data/services/study_technique/pomodoro_service.dart';
@@ -20,8 +19,8 @@ class _TimeControllerState extends State<TimeController> {
     return Container(
       width: 100,
       height: 100,
-      decoration: const BoxDecoration(
-        color: AppColors.primary,
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
         shape: BoxShape.circle,
       ),
       child: IconButton(

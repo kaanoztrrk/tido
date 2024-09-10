@@ -1,4 +1,7 @@
+// ignore_for_file: avoid_print
+
 import 'package:TiDo/utils/Constant/app_constants.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class GoogleAdsService {
@@ -8,10 +11,14 @@ class GoogleAdsService {
   GoogleAdsService() {
     _bannerAdListener = BannerAdListener(
       onAdLoaded: (Ad ad) {
-        print('BannerAd loaded.');
+        if (kDebugMode) {
+          print('BannerAd loaded.');
+        }
       },
       onAdFailedToLoad: (Ad ad, LoadAdError error) {
-        print('BannerAd failed to load: $error');
+        if (kDebugMode) {
+          print('BannerAd failed to load: $error');
+        }
         ad.dispose();
         _bannerAd = null; // Dispose of the failed ad
       },

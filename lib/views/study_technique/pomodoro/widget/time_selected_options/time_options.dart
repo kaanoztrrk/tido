@@ -53,11 +53,11 @@ class TimeOptions extends StatelessWidget {
                 (int.parse(item) ~/ 60).toString(),
                 style: int.parse(item) == provider.selectedTime
                     ? TextStyle(
-                        color: AppColors.primary,
+                        color: Theme.of(context).primaryColor,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       )
-                    : TextStyle(
+                    : const TextStyle(
                         color: AppColors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,

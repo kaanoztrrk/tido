@@ -27,6 +27,7 @@ class PlannerView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             PlannerTile(
+                onTap: () => context.push(ViRoutes.location_reminder_view),
                 height: ViDeviceUtils.getScreenHeigth(context) * 0.25,
                 title: "Location",
                 subTitle: "Reminder",
