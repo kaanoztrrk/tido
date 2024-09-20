@@ -1,56 +1,21 @@
-// ignore_for_file: depend_on_referenced_packages
-
-import 'package:TiDo/data/services/study_technique/pomodoro_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:email_otp/email_otp.dart';
 import 'package:provider/provider.dart';
 import 'app.dart';
 import 'core/locator/locator.dart';
-import 'data/models/category_model/category_model.dart';
-import 'data/models/notification_model/notification_model.dart';
-import 'data/models/task_model/task_model.dart';
-import 'data/services/firebase_message_service.dart';
-import 'data/services/local_notification.dart';
-import 'firebase_options.dart';
-import 'package:timezone/data/latest.dart' as tz;
+import 'data/services/initialization_service.dart';
+import 'data/services/study_technique/pomodoro_service.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  MobileAds.instance.initialize();
-  await LocalNotificationService.initialize();
-  tz.initializeTimeZones();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await InitializationService.initializeApp();
 
-  await Hive.initFlutter();
-
-  Hive.registerAdapter(TaskModelAdapter());
-  Hive.registerAdapter(CategoryModelAdapter());
-  Hive.registerAdapter(NotificationModelAdapter());
-
-  await Hive.openBox<TaskModel>('allTasksBox');
-  await Hive.openBox<CategoryModel>('allCategoryBox');
-  await Hive.openBox<NotificationModel>('notifications');
-
-  final firebaseMessageService = FirebaseMessageService();
-  await firebaseMessageService.initNotifications();
-
+  // Dependency Injection
   await setupLocator();
 
-  await EmailOTP.config(
-    appName: 'TiDo',
-    otpType: OTPType.numeric,
-    emailTheme: EmailTheme.v1,
-    appEmail: 'kaanoztrrk411@gmail.com',
-    otpLength: 4,
-  );
-
-  runApp(MultiBlocProvider(providers: [
-    ChangeNotifierProvider(create: (_) => PomodoroService()),
-  ], child: const TIDO()));
+  runApp(MultiBlocProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => PomodoroService()),
+    ],
+    child: const TIDO(),
+  ));
 }

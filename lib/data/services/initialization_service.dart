@@ -1,0 +1,71 @@
+import 'package:TiDo/firebase_options.dart';
+import 'package:TiDo/utils/Constant/app_constants.dart';
+import 'package:email_otp/email_otp.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+import '../models/category_model/category_model.dart';
+import '../models/note_model/note_model.dart';
+import '../models/notification_model/notification_model.dart';
+import '../models/task_model/task_model.dart';
+import 'firebase_message_service.dart';
+import 'local_notification.dart';
+
+class InitializationService {
+  static Future<void> initializeApp() async {
+    // Gerekli başlangıç işlemleri
+    WidgetsFlutterBinding.ensureInitialized();
+
+    MobileAds.instance.initialize();
+
+    // Firebase başlatma
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+
+    // Hive veritabanı başlatma
+    await Hive.initFlutter();
+    _registerHiveAdapters();
+    await _openHiveBoxes();
+
+    // Bildirim servisleri başlatma
+    await LocalNotificationService.initialize();
+    final firebaseMessageService = FirebaseMessageService();
+    await firebaseMessageService.initNotifications();
+
+    // OTP ayarları
+    await EmailOTP.config(
+      appName: 'TiDo',
+      otpType: OTPType.numeric,
+      emailTheme: EmailTheme.v1,
+      appEmail: 'kaanoztrrk411@gmail.com',
+      otpLength: 4,
+    );
+  }
+
+  // Hive Adapter'ları kaydetme
+  static void _registerHiveAdapters() {
+    Hive.registerAdapter(TaskModelAdapter());
+    Hive.registerAdapter(CategoryModelAdapter());
+    Hive.registerAdapter(NotificationModelAdapter());
+    Hive.registerAdapter(NoteModelAdapter());
+  }
+
+  // Hive kutularını açma
+  static Future<void> _openHiveBoxes() async {
+    if (!Hive.isBoxOpen(APPContants.categoryBox)) {
+      await Hive.openBox<CategoryModel>(APPContants.categoryBox);
+    }
+    if (!Hive.isBoxOpen(APPContants.taskBox)) {
+      await Hive.openBox<TaskModel>(APPContants.taskBox);
+    }
+    if (!Hive.isBoxOpen(APPContants.noteBox)) {
+      await Hive.openBox<NoteModel>(APPContants.noteBox);
+    }
+    if (!Hive.isBoxOpen(APPContants.notificationsBox)) {
+      await Hive.openBox<NotificationModel>(APPContants.notificationsBox);
+    }
+  }
+}

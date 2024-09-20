@@ -35,6 +35,7 @@ class ViAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: ViSizes.md),
       child: AppBar(
+        toolbarHeight: height,
         leading: showBackArrow
             ? ViRotioButton(
                 onTap: () => context.pop(),

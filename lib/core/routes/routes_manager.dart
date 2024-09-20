@@ -1,4 +1,6 @@
+import 'package:TiDo/blocs/location_bloc/location_bloc.dart';
 import 'package:TiDo/views/document/document_view.dart';
+import 'package:TiDo/views/note/note_view.dart';
 import 'package:TiDo/views/study_technique/pomodoro/pomodoro_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -334,7 +336,16 @@ final GoRouter router = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return MultiBlocProvider(providers: [
           BlocProvider.value(value: getIt<HomeBloc>()),
+          BlocProvider.value(value: getIt<LocationBloc>()),
         ], child: const LocationReminderView());
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.note_view,
+      builder: (BuildContext context, GoRouterState state) {
+        return MultiBlocProvider(providers: [
+          BlocProvider.value(value: getIt<HomeBloc>()),
+        ], child: const NoteView());
       },
     ),
   ],

@@ -1,4 +1,7 @@
+import 'package:TiDo/core/routes/routes.dart';
+import 'package:TiDo/views/main_view/planner/planner_view.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../common/widget/button/ratio_button.dart';
@@ -11,12 +14,13 @@ class PlannerCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Column(
           children: [
             ViRotioButton(
+              onTap: () => context.push(ViRoutes.note_view),
               size: 70,
               child: Icon(Iconsax.archive_book),
             ),
@@ -24,7 +28,7 @@ class PlannerCategory extends StatelessWidget {
             Text("Notes")
           ],
         ),
-        Column(
+        const Column(
           children: [
             ViRotioButton(
               size: 70,
@@ -37,11 +41,12 @@ class PlannerCategory extends StatelessWidget {
         Column(
           children: [
             ViRotioButton(
+              onTap: () => context.push(ViRoutes.document_view),
               size: 70,
-              child: Icon(Iconsax.receipt_text),
+              child: const Icon(Iconsax.folder),
             ),
-            SizedBox(height: ViSizes.spaceBtwItems),
-            Text("Quotes")
+            const SizedBox(height: ViSizes.spaceBtwItems),
+            const Text("Folder")
           ],
         ),
       ],

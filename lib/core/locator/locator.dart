@@ -1,3 +1,4 @@
+import 'package:TiDo/blocs/location_bloc/location_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -49,6 +50,8 @@ Future<void> setupLocator() async {
   getIt.registerLazySingleton<ThemeBloc>(() => ThemeBloc());
 
   getIt.registerLazySingleton<NotificationBloc>(() => NotificationBloc());
+
+  getIt.registerLazySingleton<LocationBloc>(() => LocationBloc());
 
   getIt.registerLazySingleton(() => HiveDataService());
 

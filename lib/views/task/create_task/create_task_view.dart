@@ -34,7 +34,7 @@ class _CreateTaskViewState extends State<CreateTaskView> {
   DateTime? taskTime;
   List<String> selectedFiles = [];
   List<String> participantImages = [];
-  List<String> label = [];
+  List<String> category = [];
 
   @override
   Widget build(BuildContext context) {
@@ -135,10 +135,10 @@ class _CreateTaskViewState extends State<CreateTaskView> {
               ],
             ),
             ViLabeWidget(
-              tags: label,
-              onTagsUpdated: (labels) {
+              tags: category,
+              onTagsUpdated: (categories) {
                 setState(() {
-                  label = labels;
+                  category = categories;
                 });
               },
             ),
@@ -156,7 +156,7 @@ class _CreateTaskViewState extends State<CreateTaskView> {
                       taskTime: taskTime,
                       participantImages: participantImages,
                       files: selectedFiles,
-                      labels: label,
+                      labels: category,
                     ),
                   );
 

@@ -38,4 +38,6 @@ class ViRoutes {
   static const String change_password = '/change_password';
   static const String pomodoro_view = '/pomodoro_view';
   static const String location_reminder_view = '/location_reminder_view';
+
+  static const String note_view = '/note_view';
 }

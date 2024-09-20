@@ -9,15 +9,15 @@ import '../../../utils/Device/device_utility.dart';
 import '../button/create_task_button.dart';
 import '../button/ratio_button.dart';
 
-class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const ViHomeAppBar({
+class ViMapAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const ViMapAppBar({
     super.key,
     this.title,
     this.height,
     this.actions,
     this.leadingIcon,
     this.leadingWidget,
-    this.leadingOnPressed,
+    this.settingsOnPressed,
     this.notificationOnPressed,
     this.showBackArrow = false,
     this.createTaskButton = false,
@@ -28,7 +28,7 @@ class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final IconData? leadingIcon;
   final Widget? leadingWidget;
   final List<Widget>? actions;
-  final VoidCallback? leadingOnPressed;
+  final VoidCallback? settingsOnPressed;
   final double? height;
   final bool? createTaskButton;
 
@@ -39,7 +39,6 @@ class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: ViSizes.md),
       child: Container(
-        height: height,
         margin: const EdgeInsets.only(top: ViSizes.md),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,8 +51,8 @@ class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             Row(
               children: [
                 ViRotioButton(
-                  onTap: notificationOnPressed,
-                  child: const Icon(Iconsax.notification),
+                  onTap: settingsOnPressed,
+                  child: const Icon(Iconsax.setting),
                 ),
                 const SizedBox(width: ViSizes.sm),
                 ViProfileImage(

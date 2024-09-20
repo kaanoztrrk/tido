@@ -136,7 +136,7 @@ class ViBottomSheet {
                     controller: tagController,
                     decoration: InputDecoration(
                       filled: false,
-                      hintText: AppLocalizations.of(context)!.add_label,
+                      hintText: AppLocalizations.of(context)!.add_category,
                       hintStyle: dark
                           ? ViTextTheme.darkTextTheme.titleLarge
                               ?.copyWith(fontWeight: FontWeight.normal)

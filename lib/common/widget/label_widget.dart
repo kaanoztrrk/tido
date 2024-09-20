@@ -50,7 +50,7 @@ class _ViLabeWidgetState extends State<ViLabeWidget> {
       widget.onTagsUpdated(updatedTags);
     } else {
       ViSnackbar.showInfo(
-          context, AppLocalizations.of(context)!.create_label_text);
+          context, AppLocalizations.of(context)!.create_category_text);
     }
   }
 
@@ -75,7 +75,7 @@ class _ViLabeWidgetState extends State<ViLabeWidget> {
           ViDeviceUtils.hideKeyboard(context);
         } else {
           ViSnackbar.showInfo(
-              context, AppLocalizations.of(context)!.create_label_text);
+              context, AppLocalizations.of(context)!.create_category_text);
         }
       },
       height: ViDeviceUtils.getScreenHeigth(context) * 0.2,
@@ -89,7 +89,7 @@ class _ViLabeWidgetState extends State<ViLabeWidget> {
                 Padding(
                   padding: const EdgeInsets.all(ViSizes.md),
                   child: Text.rich(TextSpan(
-                      text: "${AppLocalizations.of(context)!.label_text}\n",
+                      text: "${AppLocalizations.of(context)!.category_text}\n",
                       style: dark
                           ? ViTextTheme.darkTextTheme.headlineMedium?.copyWith(
                               color: AppColors.white,

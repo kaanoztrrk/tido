@@ -15,34 +15,37 @@ class PlannerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: ViHomeAppBar(
-        height: ViSizes.appBarHeigth * 2,
-        leadingOnPressed: () => context.push(ViRoutes.create_task),
-        notificationOnPressed: () => context.push(ViRoutes.notification_page),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: ViSizes.defaultSpace),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            PlannerTile(
-                onTap: () => context.push(ViRoutes.location_reminder_view),
-                height: ViDeviceUtils.getScreenHeigth(context) * 0.25,
-                title: "Location",
-                subTitle: "Reminder",
-                image: ViImages.traveller_image),
-            const SizedBox(height: ViSizes.spaceBtwSections),
-            const PlannerCategory(),
-            const SizedBox(height: ViSizes.spaceBtwSections),
-            const ViPrimaryTitle(title: "🔥 Populer", bigText: true),
-            const SizedBox(height: ViSizes.spaceBtwItems),
-            PopulerPlannerTile(
-                onTap: () => context.push(ViRoutes.pomodoro_view),
-                title: "Pomodoro",
-                subTitle: "technique",
-                image: ViImages.pomodoro)
-          ],
+    return SafeArea(
+      child: Scaffold(
+        appBar: ViHomeAppBar(
+          height: ViSizes.appBarHeigth * 1.5,
+          leadingOnPressed: () => context.push(ViRoutes.create_task),
+          notificationOnPressed: () => context.push(ViRoutes.notification_page),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: ViSizes.defaultSpace),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: ViSizes.spaceBtwSections),
+              PlannerTile(
+                  onTap: () => context.push(ViRoutes.location_reminder_view),
+                  height: ViDeviceUtils.getScreenHeigth(context) * 0.25,
+                  title: "Location",
+                  subTitle: "Reminder",
+                  image: ViImages.traveller_image),
+              const SizedBox(height: ViSizes.spaceBtwSections),
+              const PlannerCategory(),
+              const SizedBox(height: ViSizes.spaceBtwSections),
+              const ViPrimaryTitle(title: "🔥 Populer", bigText: true),
+              const SizedBox(height: ViSizes.spaceBtwItems),
+              PopulerPlannerTile(
+                  onTap: () => context.push(ViRoutes.pomodoro_view),
+                  title: "Pomodoro",
+                  subTitle: "technique",
+                  image: ViImages.pomodoro)
+            ],
+          ),
         ),
       ),
     );
