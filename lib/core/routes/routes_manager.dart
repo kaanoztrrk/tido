@@ -10,7 +10,6 @@ import '../../blocs/auth_blocs/authentication_bloc/authentication_bloc.dart';
 import '../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import '../../blocs/auth_blocs/sign_up_bloc/sign_up_bloc.dart';
 import '../../blocs/home_bloc/home_bloc.dart';
-import '../../blocs/notification_bloc/notificaiton_bloc.dart';
 import '../../data/models/otp_arguments/otp_arguments_model.dart';
 import '../../data/models/task_model/task_model.dart';
 import '../../data/repositories/firebase_user_repositories.dart';
@@ -252,7 +251,6 @@ final GoRouter router = GoRouter(
           BlocProvider.value(value: getIt<HomeBloc>()),
           BlocProvider.value(value: getIt<AuthenticationBloc>()),
           BlocProvider.value(value: getIt<SignInBloc>()),
-          BlocProvider.value(value: getIt<NotificationBloc>()),
         ], child: const NotificationView());
       },
     ),
@@ -297,7 +295,6 @@ final GoRouter router = GoRouter(
           BlocProvider.value(value: getIt<HomeBloc>()),
           BlocProvider.value(value: getIt<AuthenticationBloc>()),
           BlocProvider.value(value: getIt<SignInBloc>()),
-          BlocProvider.value(value: getIt<NotificationBloc>()),
         ], child: TaskEditView(task: task));
       },
     ),
@@ -308,7 +305,6 @@ final GoRouter router = GoRouter(
           BlocProvider.value(value: getIt<HomeBloc>()),
           BlocProvider.value(value: getIt<AuthenticationBloc>()),
           BlocProvider.value(value: getIt<SignInBloc>()),
-          BlocProvider.value(value: getIt<NotificationBloc>()),
         ], child: const ChangePasswordView());
       },
     ),
@@ -319,7 +315,6 @@ final GoRouter router = GoRouter(
           BlocProvider.value(value: getIt<HomeBloc>()),
           BlocProvider.value(value: getIt<AuthenticationBloc>()),
           BlocProvider.value(value: getIt<SignInBloc>()),
-          BlocProvider.value(value: getIt<NotificationBloc>()),
         ], child: const DocumentView());
       },
     ),

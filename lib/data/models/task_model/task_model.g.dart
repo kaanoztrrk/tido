@@ -17,14 +17,14 @@ class TaskModelAdapter extends TypeAdapter<TaskModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return TaskModel(
-      id: fields[0] as String?,
+      id: fields[0] as int,
       title: fields[1] as String,
       isChecked: fields[2] as bool,
       taskTime: fields[3] as DateTime?,
       participantImages: (fields[4] as List?)?.cast<String>(),
       files: (fields[5] as List?)?.cast<String>(),
       description: fields[6] as String?,
-      labels: (fields[7] as List?)?.cast<String>(),
+      categories: (fields[7] as List?)?.cast<CategoryModel>(),
     );
   }
 
@@ -47,7 +47,7 @@ class TaskModelAdapter extends TypeAdapter<TaskModel> {
       ..writeByte(6)
       ..write(obj.description)
       ..writeByte(7)
-      ..write(obj.labels);
+      ..write(obj.categories);
   }
 
   @override

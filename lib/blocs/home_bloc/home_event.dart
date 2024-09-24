@@ -89,7 +89,7 @@ class CreateToDoEvent extends HomeEvent {
   final DateTime? taskTime;
   final List<String>? participantImages;
   final List<String>? files;
-  final List<String>? labels;
+  final List<CategoryModel>? categories;
 
   const CreateToDoEvent({
     required this.title,
@@ -97,7 +97,7 @@ class CreateToDoEvent extends HomeEvent {
     this.taskTime,
     this.participantImages,
     this.files,
-    this.labels,
+    this.categories,
   });
 
   @override
@@ -107,7 +107,7 @@ class CreateToDoEvent extends HomeEvent {
         taskTime ?? DateTime.now(),
         participantImages ?? [],
         files ?? [],
-        labels ?? []
+        categories ?? []
       ];
 }
 
@@ -205,4 +205,10 @@ class SetTimeFormatEvent extends HomeEvent {
 
   @override
   List<Object> get props => [is24HourFormat];
+}
+
+class FilterTasksByCategory extends HomeEvent {
+  final String categoryId;
+
+  FilterTasksByCategory({required this.categoryId});
 }

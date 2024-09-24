@@ -89,24 +89,6 @@ class TaskDetailView extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 3,
                               ),
-                              if (task.labels!.isNotEmpty)
-                                SizedBox(
-                                  height: 50,
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    padding: const EdgeInsets.only(left: 0),
-                                    itemCount: task.labels!.length,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 8.0),
-                                        child: ViLabelChip(
-                                          tag: task.labels![index],
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
                             ],
                           ),
                         ),

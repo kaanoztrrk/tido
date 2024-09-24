@@ -30,7 +30,7 @@ class CategoriesView extends StatelessWidget {
           // Tüm etiketleri toplamak için bir set oluşturun
           Set<String> allLabels = {};
           for (var task in state.allTasksList) {
-            allLabels.addAll(task.labels as Iterable<String>);
+            allLabels.addAll(task as Iterable<String>);
           }
           return allLabels.isEmpty
               ? ViEmptyScreen(
@@ -48,7 +48,7 @@ class CategoriesView extends StatelessWidget {
 
                     // Filtrelenmiş görevleri almak
                     final tasksWithLabel = state.allTasksList
-                        .where((task) => task.labels!.contains(selectedLabel))
+                        .where((task) => task.files!.contains(selectedLabel))
                         .toList();
 
                     return ViContainer(

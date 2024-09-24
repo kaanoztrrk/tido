@@ -5,6 +5,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 import '../models/category_model/category_model.dart';
 import '../models/note_model/note_model.dart';
@@ -30,8 +32,6 @@ class InitializationService {
     _registerHiveAdapters();
     await _openHiveBoxes();
 
-    // Bildirim servisleri başlatma
-    await LocalNotificationService.initialize();
     final firebaseMessageService = FirebaseMessageService();
     await firebaseMessageService.initNotifications();
 
@@ -43,6 +43,10 @@ class InitializationService {
       appEmail: 'kaanoztrrk411@gmail.com',
       otpLength: 4,
     );
+
+    // Timezone başlatma
+    tz.initializeTimeZones();
+    print('Timezones initialized successfully');
   }
 
   // Hive Adapter'ları kaydetme
@@ -53,8 +57,10 @@ class InitializationService {
     Hive.registerAdapter(NoteModelAdapter());
   }
 
-  // Hive kutularını açma
   static Future<void> _openHiveBoxes() async {
+    // Hive kutularını temizleyin (Geliştirme aşamasında kullanılabilir)
+    await Hive.deleteBoxFromDisk(APPContants.taskBox);
+
     if (!Hive.isBoxOpen(APPContants.categoryBox)) {
       await Hive.openBox<CategoryModel>(APPContants.categoryBox);
     }

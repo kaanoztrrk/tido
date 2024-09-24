@@ -2,6 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 import 'package:uuid/uuid.dart';
 
+import '../task_model/task_model.dart';
+
 part 'category_model.g.dart';
 
 @HiveType(typeId: 1)
@@ -32,6 +34,7 @@ class CategoryModel extends HiveObject with EquatableMixin {
   CategoryModel copyWith({
     String? id,
     String? name,
+    List<TaskModel>? taskList,
   }) {
     return CategoryModel(
       id: id ?? this.id,

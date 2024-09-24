@@ -1,16 +1,16 @@
 import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../services/date_formetter_service.dart';
+import '../category_model/category_model.dart';
 
 part 'task_model.g.dart';
 
 @HiveType(typeId: 0)
 class TaskModel extends HiveObject with EquatableMixin {
   @HiveField(0)
-  late String id;
+  late int id; // id'yi int olarak güncelledik
 
   @HiveField(1)
   late String title;
@@ -31,18 +31,21 @@ class TaskModel extends HiveObject with EquatableMixin {
   String? description;
 
   @HiveField(7)
-  List<String>? labels;
+  List<CategoryModel> categories; // Kategori listesi
 
   TaskModel({
-    String? id,
+    required this.id, // id'yi constructor'da zorunlu hale getirdik
     required this.title,
     this.isChecked = false,
     this.taskTime,
     this.participantImages,
     this.files,
     this.description,
-    this.labels,
-  }) : id = id ?? const Uuid().v4();
+    List<CategoryModel>? categories,
+  }) : categories = categories ??
+            [
+              CategoryModel(name: "All"),
+            ]; // Varsayılan olarak "All" kategorisini ekle
 
   factory TaskModel.fromJson(Map<String, dynamic> json) {
     final taskTime = json['taskTime'] != null
@@ -50,7 +53,7 @@ class TaskModel extends HiveObject with EquatableMixin {
         : null;
 
     return TaskModel(
-      id: json['id'] as String?,
+      id: json['id'] as int, // id'yi int olarak okuduk
       title: json['title'] as String,
       isChecked: json['isChecked'] as bool,
       taskTime: taskTime,
@@ -61,14 +64,18 @@ class TaskModel extends HiveObject with EquatableMixin {
           ? List<String>.from(json['files'] as List)
           : null,
       description: json['description'] as String?,
-      labels: json['labels'] != null
-          ? List<String>.from(json['labels'] as List)
-          : null,
+      categories: json['categories'] != null
+          ? (json['categories'] as List)
+              .map((categoryJson) => CategoryModel.fromJson(categoryJson))
+              .toList()
+          : [
+              CategoryModel(name: "All"),
+            ], // Varsayılan olarak "All" kategorisini ekle
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
+        'id': id, // id'yi int olarak ekledik
         'title': title,
         'isChecked': isChecked,
         'taskTime': taskTime != null
@@ -77,28 +84,28 @@ class TaskModel extends HiveObject with EquatableMixin {
         'participantImages': participantImages,
         'files': files,
         'description': description,
-        'labels': labels,
+        'categories': categories.map((category) => category.toJson()).toList(),
       };
 
   TaskModel copyWith({
-    String? id,
+    int? id, // id'yi int olarak güncelledik
     String? title,
     bool? isChecked,
     DateTime? taskTime,
     List<String>? participantImages,
     List<String>? files,
     String? description,
-    List<String>? labels,
+    List<CategoryModel>? categories,
   }) {
     return TaskModel(
-      id: id ?? this.id,
+      id: id ?? this.id, // id'yi int olarak kullanıyoruz
       title: title ?? this.title,
       isChecked: isChecked ?? this.isChecked,
       taskTime: taskTime ?? this.taskTime,
       participantImages: participantImages ?? this.participantImages,
       files: files ?? this.files,
       description: description ?? this.description,
-      labels: labels ?? this.labels,
+      categories: categories ?? this.categories,
     );
   }
 
@@ -117,6 +124,6 @@ class TaskModel extends HiveObject with EquatableMixin {
         participantImages,
         files,
         description,
-        labels,
+        categories,
       ];
 }

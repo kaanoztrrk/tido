@@ -1,12 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import '../../data/models/category_model/category_model.dart';
 import '../../data/models/task_model/task_model.dart';
 
 class HomeState extends Equatable {
   final int initialIndex;
-  final List<CategoryModel> allCategoryList;
   final List<TaskModel> allTasksList;
   final List<TaskModel> filteredTasks;
   final int taskCategoryIndex;
@@ -20,7 +18,6 @@ class HomeState extends Equatable {
 
   const HomeState({
     required this.searchResults,
-    required this.allCategoryList,
     required this.taskCategoryIndex,
     required this.initialIndex,
     required this.allTasksList,
@@ -39,9 +36,6 @@ class HomeState extends Equatable {
       searchResults: const [],
       initialIndex: 0,
       taskCategoryIndex: 0,
-      allCategoryList: [
-        CategoryModel(id: 'all', name: "All"),
-      ],
       allTasksList: const [],
       filteredTasks: const [],
       selectedTime: null,
@@ -55,7 +49,6 @@ class HomeState extends Equatable {
   HomeState copyWith({
     int? initialIndex,
     int? taskCategoryIndex,
-    List<CategoryModel>? allCategoryList,
     List<TaskModel>? allTasksList,
     List<TaskModel>? filteredTasks,
     TimeOfDay? selectedTime,
@@ -69,7 +62,6 @@ class HomeState extends Equatable {
     return HomeState(
       initialIndex: initialIndex ?? this.initialIndex,
       taskCategoryIndex: taskCategoryIndex ?? this.taskCategoryIndex,
-      allCategoryList: allCategoryList ?? this.allCategoryList,
       allTasksList: allTasksList ?? this.allTasksList,
       filteredTasks: filteredTasks ?? this.filteredTasks,
       selectedTime: selectedTime ?? this.selectedTime,
@@ -82,14 +74,13 @@ class HomeState extends Equatable {
     );
   }
 
-  int getTaskCount(int index) {
+  int getTaskCount() {
     return allTasksList.length;
   }
 
   @override
   List<Object?> get props => [
         initialIndex,
-        allCategoryList,
         taskCategoryIndex,
         allTasksList,
         filteredTasks,

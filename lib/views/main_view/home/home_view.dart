@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:TiDo/common/styles/container_style.dart';
+import 'package:TiDo/utils/Device/device_utility.dart';
 import 'package:TiDo/utils/bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,12 +12,13 @@ import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import '../../../blocs/home_bloc/home_bloc.dart';
 import '../../../blocs/home_bloc/home_event.dart';
 import '../../../blocs/home_bloc/home_state.dart';
+import '../../../data/services/local_notification.dart';
 import '../../common/empty_screen/empty_screen.dart';
 import '../../../common/layout/swiper_layout.dart';
 import '../../../common/widget/admob_banner/adMob_banner.dart';
 import '../../../common/widget/appbar/home_appbar.dart';
 import '../../../common/widget/button/ratio_button.dart';
-import '../../../common/widget/chip/category_chip.dart';
+
 import '../../../common/widget/task_tile/main_task_tile.dart';
 import '../../../core/l10n/l10n.dart';
 import '../../../core/locator/locator.dart';
@@ -25,6 +30,7 @@ import '../../../utils/Constant/sizes.dart';
 import '../../../utils/Helpers/helpers_functions.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 import 'widget/home_header.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -65,28 +71,38 @@ class HomeView extends StatelessWidget {
                         Expanded(
                           child: SizedBox(
                             height: 50,
-                            child: ListView.builder(
+                            child: ListView(
                               padding: const EdgeInsets.only(left: 10),
                               scrollDirection: Axis.horizontal,
-                              itemCount: 1,
-                              itemBuilder: (context, index) {
-                                if (index == 0 &&
-                                    state.allCategoryList.isNotEmpty) {
-                                  final category = state.allCategoryList[0];
-                                  return ViCategoryChip(
-                                      category: category, state: state);
-                                } else {
-                                  return const SizedBox
-                                      .shrink(); // diğer indexler için boş bir widget döndür
-                                }
-                              },
+                              children: [
+                                ViContainer(
+                                  width: ViDeviceUtils.getScreenWidth(context) *
+                                      0.2,
+                                  height:
+                                      ViDeviceUtils.getScreenHeigth(context) *
+                                          0.1,
+                                  borderRadius: BorderRadius.circular(
+                                      ViSizes.cardRadiusLg * 2),
+                                  bgColor: Theme.of(context).primaryColor,
+                                  child: Center(
+                                      child: Text(
+                                    "All (${state.allTasksList.length})",
+                                    style: ViTextTheme.darkTextTheme.bodyLarge
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColors.light),
+                                  )),
+                                )
+                              ],
                             ),
                           ),
                         ),
 
                         //* Search Button
                         ViRotioButton(
-                          onTap: () async {
+                          onTap: () {
+                            // Diğer sayfaya geçiş
+
                             context.push(ViRoutes.search_view);
                           },
                           child: Icon(

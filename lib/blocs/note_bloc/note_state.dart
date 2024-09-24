@@ -28,7 +28,10 @@ class NoteState extends Equatable {
       initialIndex: 0,
       noteCategoryIndex: 0,
       allCategoryList: [
-        CategoryModel(id: 'all', name: "All"),
+        CategoryModel(
+          id: 'all',
+          name: "All",
+        ),
       ],
       allNotesList: const [],
       filteredNotes: const [],

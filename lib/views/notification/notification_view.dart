@@ -1,7 +1,8 @@
+import 'package:TiDo/blocs/home_bloc/home_bloc.dart';
+import 'package:TiDo/blocs/home_bloc/home_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../blocs/notification_bloc/notificaiton_bloc.dart';
-import '../../blocs/notification_bloc/notificaiton_state.dart';
+
 import '../../common/widget/appbar/appbar.dart';
 import '../../core/l10n/l10n.dart';
 
@@ -16,7 +17,9 @@ class NotificationView extends StatelessWidget {
         centerTitle: true,
         title: Text(AppLocalizations.of(context)!.notification),
       ),
-      body: BlocBuilder<NotificationBloc, NotificationState>(
+      /*
+    
+      body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           return ListView.builder(
             itemCount: state.notifications.length,
@@ -32,6 +35,7 @@ class NotificationView extends StatelessWidget {
           );
         },
       ),
+     */
     );
   }
 }

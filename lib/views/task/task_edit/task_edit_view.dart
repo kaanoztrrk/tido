@@ -1,3 +1,4 @@
+import 'package:TiDo/data/models/category_model/category_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +11,7 @@ import '../../../common/widget/Text/title.dart';
 import '../../../common/widget/appbar/appbar.dart';
 import '../../../common/widget/button/primary_button.dart';
 import '../../../common/widget/button/ratio_button.dart';
-import '../../../common/widget/label_widget.dart';
+import '../../../common/widget/category_widget.dart';
 import '../../../core/l10n/l10n.dart';
 import '../../../data/models/task_model/task_model.dart';
 import '../../../data/services/date_formetter_service.dart';
@@ -20,7 +21,6 @@ import '../../../utils/Device/device_utility.dart';
 import '../../../utils/Helpers/helpers_functions.dart';
 import '../../../utils/Snackbar/snacbar_service.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
-import '../create_task/widget/date_picker.dart';
 import '../create_task/widget/folder_upload.dart';
 
 class TaskEditView extends StatefulWidget {
@@ -37,7 +37,7 @@ class _TaskEditViewState extends State<TaskEditView> {
   DateTime? taskTime;
   List<String> selectedFiles = [];
   List<String> participantImages = [];
-  List<String> label = [];
+  List<CategoryModel> label = [];
 
   @override
   void initState() {
@@ -121,26 +121,41 @@ class _TaskEditViewState extends State<TaskEditView> {
             const SizedBox(height: ViSizes.spaceBtwItems),
             ViPrimaryTitle(title: AppLocalizations.of(context)!.description),
             const SizedBox(height: ViSizes.spaceBtwItems),
+
+            // Custom Date Picker
             Row(
               children: [
                 Flexible(
-                  child: ViDatePicker(
-                    title: widget.task
-                            .formattedTaskTime(DateFormatterService(context))
-                            .isNotEmpty
-                        ? "${widget.task.formattedTaskTime(DateFormatterService(context))}\n"
-                        : "${AppLocalizations.of(context)!.date}\n",
-                    subtitle: widget.task
-                            .formattedDate(DateFormatterService(context))
-                            .isNotEmpty
-                        ? widget.task
-                            .formattedDate(DateFormatterService(context))
-                        : AppLocalizations.of(context)!.selected,
-                    onDateTimeChanged: (dateTime) {
-                      setState(() {
-                        taskTime = dateTime;
-                      });
+                  child: GestureDetector(
+                    onTap: () async {
+                      DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: taskTime ?? DateTime.now(),
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime(2101),
+                      );
+                      if (pickedDate != null) {
+                        setState(() {
+                          taskTime = pickedDate;
+                        });
+                      }
                     },
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: dark ? AppColors.black : AppColors.white,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Text(
+                        taskTime != null
+                            ? "${taskTime!.toLocal()}"
+                                .split(' ')[0] // Format the date
+                            : AppLocalizations.of(context)!.selected,
+                        style: dark
+                            ? ViTextTheme.darkTextTheme.titleLarge
+                            : ViTextTheme.ligthTextTheme.titleLarge,
+                      ),
+                    ),
                   ),
                 ),
                 Flexible(
@@ -156,10 +171,17 @@ class _TaskEditViewState extends State<TaskEditView> {
               ],
             ),
             const SizedBox(height: ViSizes.spaceBtwItems / 2),
-            ViLabeWidget(
-              tags: label,
-              onTagsUpdated: (labels) {},
+            ViCategoryWidget(
+              categoryName: "Categories",
+              categories: label,
+              onCategoriesUpdated: (updatedCategories) {
+                setState(() {
+                  label = updatedCategories; // Güncellenen kategorileri kaydet
+                });
+              },
             ),
+
+            // Seçilen kategorilerin gösterimi
             const Spacer(),
             ViPrimaryButton(
               onTap: () {
@@ -176,7 +198,6 @@ class _TaskEditViewState extends State<TaskEditView> {
                   description: descriptionController.text,
                   files:
                       selectedFiles.isEmpty ? widget.task.files : selectedFiles,
-                  labels: label.isNotEmpty ? label : widget.task.labels,
                 );
 
                 BlocProvider.of<HomeBloc>(context).add(
@@ -194,7 +215,7 @@ class _TaskEditViewState extends State<TaskEditView> {
                 ViDeviceUtils.hideKeyboard(context);
               },
               text: AppLocalizations.of(context)!.update_task,
-            )
+            ),
           ],
         ),
       ),

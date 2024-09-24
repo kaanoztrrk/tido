@@ -9,105 +9,6 @@
 
 import 'package:flutter/widgets.dart';
 
-class $AssetsIconGen {
-  const $AssetsIconGen();
-
-  /// File path: assets/icon/angry.png
-  AssetGenImage get angry => const AssetGenImage('assets/icon/angry.png');
-
-  /// File path: assets/icon/anxiety.png
-  AssetGenImage get anxiety => const AssetGenImage('assets/icon/anxiety.png');
-
-  /// File path: assets/icon/bored.png
-  AssetGenImage get bored => const AssetGenImage('assets/icon/bored.png');
-
-  /// File path: assets/icon/calm.png
-  AssetGenImage get calm => const AssetGenImage('assets/icon/calm.png');
-
-  /// File path: assets/icon/comfort.png
-  AssetGenImage get comfort => const AssetGenImage('assets/icon/comfort.png');
-
-  /// File path: assets/icon/despair.png
-  AssetGenImage get despair => const AssetGenImage('assets/icon/despair.png');
-
-  /// File path: assets/icon/disappointed.png
-  AssetGenImage get disappointed =>
-      const AssetGenImage('assets/icon/disappointed.png');
-
-  /// File path: assets/icon/emotions.png
-  AssetGenImage get emotions => const AssetGenImage('assets/icon/emotions.png');
-
-  /// File path: assets/icon/excitement.png
-  AssetGenImage get excitement =>
-      const AssetGenImage('assets/icon/excitement.png');
-
-  /// File path: assets/icon/fear.png
-  AssetGenImage get fear => const AssetGenImage('assets/icon/fear.png');
-
-  /// File path: assets/icon/gratitude.png
-  AssetGenImage get gratitude =>
-      const AssetGenImage('assets/icon/gratitude.png');
-
-  /// File path: assets/icon/happy.png
-  AssetGenImage get happy => const AssetGenImage('assets/icon/happy.png');
-
-  /// File path: assets/icon/hopelessness.png
-  AssetGenImage get hopelessness =>
-      const AssetGenImage('assets/icon/hopelessness.png');
-
-  /// File path: assets/icon/joy.png
-  AssetGenImage get joy => const AssetGenImage('assets/icon/joy.png');
-
-  /// File path: assets/icon/loneliness.png
-  AssetGenImage get loneliness =>
-      const AssetGenImage('assets/icon/loneliness.png');
-
-  /// File path: assets/icon/love.png
-  AssetGenImage get love => const AssetGenImage('assets/icon/love.png');
-
-  /// File path: assets/icon/pleasure.png
-  AssetGenImage get pleasure => const AssetGenImage('assets/icon/pleasure.png');
-
-  /// File path: assets/icon/pride.png
-  AssetGenImage get pride => const AssetGenImage('assets/icon/pride.png');
-
-  /// File path: assets/icon/sadness.png
-  AssetGenImage get sadness => const AssetGenImage('assets/icon/sadness.png');
-
-  /// File path: assets/icon/thoughtfulness.png
-  AssetGenImage get thoughtfulness =>
-      const AssetGenImage('assets/icon/thoughtfulness.png');
-
-  /// File path: assets/icon/uncertainty.png
-  AssetGenImage get uncertainty =>
-      const AssetGenImage('assets/icon/uncertainty.png');
-
-  /// List of all assets
-  List<AssetGenImage> get values => [
-        angry,
-        anxiety,
-        bored,
-        calm,
-        comfort,
-        despair,
-        disappointed,
-        emotions,
-        excitement,
-        fear,
-        gratitude,
-        happy,
-        hopelessness,
-        joy,
-        loneliness,
-        love,
-        pleasure,
-        pride,
-        sadness,
-        thoughtfulness,
-        uncertainty
-      ];
-}
-
 class $AssetsImageGen {
   const $AssetsImageGen();
 
@@ -284,7 +185,6 @@ class $AssetsImageThemeTextureGen {
 class Assets {
   Assets._();
 
-  static const $AssetsIconGen icon = $AssetsIconGen();
   static const $AssetsImageGen image = $AssetsImageGen();
   static const $AssetsSoundsGen sounds = $AssetsSoundsGen();
 }

@@ -8,7 +8,6 @@ import '../../blocs/auth_blocs/sign_up_bloc/sign_up_bloc.dart';
 import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/localization_bloc/localization_bloc.dart';
 import '../../blocs/main_bloc/main_bloc.dart';
-import '../../blocs/notification_bloc/notificaiton_bloc.dart';
 import '../../blocs/theme_bloc/theme_bloc.dart';
 import '../../data/repositories/firebase_user_repositories.dart';
 import '../../data/repositories/user_repo.dart';
@@ -48,8 +47,6 @@ Future<void> setupLocator() async {
   getIt.registerLazySingleton<HomeBloc>(() => HomeBloc());
 
   getIt.registerLazySingleton<ThemeBloc>(() => ThemeBloc());
-
-  getIt.registerLazySingleton<NotificationBloc>(() => NotificationBloc());
 
   getIt.registerLazySingleton<LocationBloc>(() => LocationBloc());
 
