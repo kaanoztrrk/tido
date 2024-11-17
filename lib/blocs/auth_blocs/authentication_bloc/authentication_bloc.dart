@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
@@ -38,13 +39,21 @@ class AuthenticationBloc
       DeleteUser event, Emitter<AuthenticationState> emit) async {
     emit(const AuthenticationState.deleting());
     try {
+      final uid = event.userId;
       await userRepository.deleteUser();
+      final storage = FirebaseStorage.instance;
+      final imageRef = storage.ref().child('profile_images/$uid');
+      final ListResult result = await imageRef.listAll();
+      for (var item in result.items) {
+        await item.delete(); // Her bir resmi sil
+      }
 
+      // 4. Hive veritabanındaki kullanıcı verilerini sil
       await Hive.deleteFromDisk();
+
+      // 5. SharedPreferences'taki tüm verileri temizle
       final prefs = await SharedPreferences.getInstance();
       await prefs.clear();
-
-      emit(const AuthenticationState.unauthenticated());
 
       SystemNavigator.pop();
     } catch (e) {

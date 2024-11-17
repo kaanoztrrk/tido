@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../blocs/auth_blocs/authentication_bloc/authentication_bloc.dart';
 import '../../../../blocs/auth_blocs/authentication_bloc/authentication_state.dart';
-import '../../../../core/l10n/l10n.dart';
 import '../../../../utils/Constant/colors.dart';
 import '../../../../utils/Helpers/helpers_functions.dart';
 import '../../../../utils/Theme/custom_theme.dart/text_theme.dart';

@@ -12,8 +12,8 @@ import '../../styles/container_style.dart';
 import '../button/ratio_button.dart';
 import '../button/swiper_button.dart';
 
-class HomeMainTaskTile extends StatelessWidget {
-  const HomeMainTaskTile({
+class ViTaskTile extends StatelessWidget {
+  const ViTaskTile({
     super.key,
     required this.timer,
     required this.title,

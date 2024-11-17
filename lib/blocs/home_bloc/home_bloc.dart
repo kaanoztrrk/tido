@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hive/hive.dart';
+import 'package:workmanager/workmanager.dart';
 import '../../data/models/task_model/task_model.dart';
 import '../../data/services/local_notification.dart';
 import 'home_event.dart';
@@ -42,28 +45,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(state.copyWith(allTasksList: []));
   }
 
-  void _deleteTask(DeleteToDoEvent event, Emitter<HomeState> emit) {
-    List<TaskModel> updatedAllTasksList = List.of(state.allTasksList);
-    int taskIndex = updatedAllTasksList.indexOf(event.task);
-
-    if (taskIndex != -1) {
-      updatedAllTasksList.removeAt(taskIndex);
-      taskBox.deleteAt(taskIndex);
-    }
-
-    emit(state.copyWith(allTasksList: updatedAllTasksList));
-  }
-
-  void _createTask(CreateToDoEvent event, Emitter<HomeState> emit) {
+  void _createTask(CreateToDoEvent event, Emitter<HomeState> emit) async {
     List<TaskModel> newAllTasksList = List.of(state.allTasksList);
 
-    // ID'yi veritabanından veya bir sayaçtan alarak atayın
-    int newId = newAllTasksList.isNotEmpty
-        ? newAllTasksList.last.id + 1 // Son id'ye 1 ekleyerek yeni id oluştur
-        : 1; // Liste boşsa ilk id 1 olacak
+    int newId = newAllTasksList.isNotEmpty ? newAllTasksList.last.id + 1 : 1;
 
     TaskModel newTask = TaskModel(
-      id: newId, // Yeni id'yi burada kullanıyoruz
+      id: newId,
       title: event.title,
       description: event.description,
       taskTime: event.taskTime,
@@ -76,33 +64,141 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     emit(state.copyWith(allTasksList: newAllTasksList));
 
-    Timer.periodic(Duration(milliseconds: 500), (timer) async {
-      // Şu anki zamanı al
-      final now = DateTime.now();
+    // Firestore veritabanına kullanıcıya göre görev ekleme
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      // Kullanıcının userId'sine göre veritabanına ekliyoruz
+      String userId = user.uid;
 
-      // Eğer görev zamanı geçmişse bildirim gönder
-      if (event.taskTime!.isBefore(now)) {
-        // Timer'ı iptal et (bir kerelik bildirim için)
-        timer.cancel();
+      // Firestore collection referansı
+      CollectionReference tasksRef = FirebaseFirestore.instance
+          .collection('user_tasks')
+          .doc(userId)
+          .collection('tasks');
 
-        await LocalNotificationService.showNotification(
-          title: "Görevin Zamanı Geldi!",
+      // Firestore'a yeni görevi ekle
+      await tasksRef.add({
+        'taskId': newId,
+        'title': event.title,
+        'description': event.description,
+        'taskTime': event.taskTime?.toIso8601String(),
+        'participantImages': event.participantImages,
+        'files': event.files,
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+    }
+
+    // Workmanager ile görev kaydetme
+    if (event.taskTime != null) {
+      final delay = event.taskTime!.difference(DateTime.now());
+
+      if (delay.isNegative) {
+        LocalNotificationService notificationService =
+            LocalNotificationService();
+        notificationService.showNotification(
+          id: newId,
+          title: "Görev Zamanı!",
           body: event.title,
         );
+      } else {
+        Workmanager().registerOneOffTask(
+          "Task_$newId",
+          "backup",
+          inputData: {
+            'taskId': newId,
+            'taskTitle': event.title,
+          },
+          initialDelay: delay,
+        );
       }
-    });
+    } else {
+      LocalNotificationService notificationService = LocalNotificationService();
+      notificationService.showNotification(
+        id: newId,
+        title: "Görev Oluşturuldu!",
+        body: event.title,
+      );
+    }
   }
 
-  void _updateTask(UpdateToDoEvent event, Emitter<HomeState> emit) {
+  void _updateTask(UpdateToDoEvent event, Emitter<HomeState> emit) async {
     List<TaskModel> updatedAllTasksList = List.of(state.allTasksList);
     int index = updatedAllTasksList.indexOf(event.oldTask);
 
     if (index != -1) {
       updatedAllTasksList[index] = event.newTask;
-      taskBox.putAt(index, event.newTask); // Update task
-    }
+      taskBox.putAt(index, event.newTask); // Task güncelleme işlemi
 
-    emit(state.copyWith(allTasksList: updatedAllTasksList));
+      // State'i güncelle
+      emit(state.copyWith(allTasksList: updatedAllTasksList));
+
+      // Firestore veritabanına görevi güncelleme işlemi
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        String userId = user.uid;
+
+        // Firestore collection referansı
+        CollectionReference tasksRef = FirebaseFirestore.instance
+            .collection('user_tasks')
+            .doc(userId)
+            .collection('tasks');
+
+        // Firestore'da mevcut görevi güncelle
+        try {
+          QuerySnapshot query =
+              await tasksRef.where('taskId', isEqualTo: event.oldTask.id).get();
+
+          if (query.docs.isNotEmpty) {
+            DocumentSnapshot doc = query.docs.first;
+
+            await doc.reference.update({
+              'title': event.newTask.title,
+              'description': event.newTask.description,
+              'taskTime': event.newTask.taskTime?.toIso8601String(),
+              'participantImages': event.newTask.participantImages,
+              'files': event.newTask.files,
+              'updatedAt': FieldValue.serverTimestamp(),
+            });
+          }
+        } catch (error) {
+          print('Firestore update error: $error');
+        }
+      }
+    }
+  }
+
+  void _deleteTask(DeleteToDoEvent event, Emitter<HomeState> emit) async {
+    List<TaskModel> updatedAllTasksList = List.of(state.allTasksList);
+    int taskIndex =
+        updatedAllTasksList.indexWhere((task) => task.id == event.task.id);
+
+    if (taskIndex != -1) {
+      // Görevi listeden ve Hive'dan sil
+      updatedAllTasksList.removeAt(taskIndex);
+      taskBox.deleteAt(taskIndex);
+
+      emit(state.copyWith(allTasksList: updatedAllTasksList));
+
+      // Firestore veritabanından görevi silme
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        String userId = user.uid;
+
+        // Firestore collection referansı
+        CollectionReference tasksRef = FirebaseFirestore.instance
+            .collection('user_tasks')
+            .doc(userId)
+            .collection('tasks');
+
+        // Firestore'da görevi sil
+        QuerySnapshot query =
+            await tasksRef.where('taskId', isEqualTo: event.task.id).get();
+        if (query.docs.isNotEmpty) {
+          DocumentSnapshot doc = query.docs.first;
+          await doc.reference.delete();
+        }
+      }
+    }
   }
 
   void _changeCheckBox(

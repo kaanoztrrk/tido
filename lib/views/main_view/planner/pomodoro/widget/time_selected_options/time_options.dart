@@ -2,7 +2,7 @@ import 'package:TiDo/utils/Constant/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../data/services/study_technique/pomodoro_service.dart';
+import '../../../../../../data/services/study_technique/pomodoro_service.dart';
 
 class TimeOptions extends StatelessWidget {
   const TimeOptions({super.key});

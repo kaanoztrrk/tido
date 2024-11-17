@@ -6,7 +6,7 @@ import '../../../core/routes/routes.dart';
 import '../../../core/widget/user/profile_image.dart';
 import '../../../utils/Constant/sizes.dart';
 import '../../../utils/Device/device_utility.dart';
-import '../button/create_task_button.dart';
+import '../button/create_button.dart';
 import '../button/ratio_button.dart';
 
 class ViMapAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -46,7 +46,9 @@ class ViMapAppBar extends StatelessWidget implements PreferredSizeWidget {
             if (createTaskButton == false)
               leadingWidget ?? Container()
             else
-              const ViCreateTaskButton(),
+              const ViCreateButton(
+                icon: Iconsax.add,
+              ),
             const SizedBox(width: ViSizes.spaceBtwItems / 2),
             Row(
               children: [

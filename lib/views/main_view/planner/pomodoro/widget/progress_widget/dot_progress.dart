@@ -1,7 +1,7 @@
 import 'package:TiDo/utils/Constant/colors.dart';
 import 'package:TiDo/utils/Helpers/helpers_functions.dart';
 import 'package:flutter/material.dart';
-import '../../../../../utils/Device/device_utility.dart';
+import '../../../../../../utils/Device/device_utility.dart';
 
 class DotProgress extends StatelessWidget {
   final int currentStep;

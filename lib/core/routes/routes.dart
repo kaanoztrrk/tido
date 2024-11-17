@@ -39,5 +39,5 @@ class ViRoutes {
   static const String pomodoro_view = '/pomodoro_view';
   static const String location_reminder_view = '/location_reminder_view';
 
-  static const String note_view = '/note_view';
+  static const String habit_view = '/habit_view';
 }

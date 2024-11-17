@@ -12,7 +12,7 @@ import 'user_repo.dart';
 
 class FirebaseUserRepo implements UserRepository {
   final FirebaseAuth _firebaseAuth;
-  final userCollection = FirebaseFirestore.instance.collection('user');
+  final userCollection = FirebaseFirestore.instance.collection('z');
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   FirebaseUserRepo({

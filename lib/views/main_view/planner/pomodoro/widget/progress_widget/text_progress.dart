@@ -3,7 +3,7 @@ import 'package:TiDo/utils/Theme/custom_theme.dart/text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../data/services/study_technique/pomodoro_service.dart';
+import '../../../../../../data/services/study_technique/pomodoro_service.dart';
 
 class TextProgress extends StatelessWidget {
   const TextProgress({super.key});

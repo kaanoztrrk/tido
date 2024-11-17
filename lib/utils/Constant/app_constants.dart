@@ -6,6 +6,7 @@ class APPContants {
   static const String adUniBannerId = "ca-app-pub-3940256099942544/6300978111";
   static const String taskBox = "allTasksBox";
   static const String noteBox = "allNotesBox";
+  static const String habitBox = "habitBox";
   static const String categoryBox = "allCategoryBox";
   static const String notificationsBox = "allCategoryBox";
 }

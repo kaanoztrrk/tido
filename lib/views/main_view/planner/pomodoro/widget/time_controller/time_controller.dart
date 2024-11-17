@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../data/services/study_technique/pomodoro_service.dart';
+import '../../../../../../data/services/study_technique/pomodoro_service.dart';
 
 class TimeController extends StatefulWidget {
   const TimeController({super.key});

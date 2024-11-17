@@ -1,7 +1,9 @@
 import 'package:TiDo/blocs/location_bloc/location_bloc.dart';
+import 'package:TiDo/data/models/habit_model/habit_model.dart';
 import 'package:TiDo/views/document/document_view.dart';
-import 'package:TiDo/views/note/note_view.dart';
-import 'package:TiDo/views/study_technique/pomodoro/pomodoro_view.dart';
+import 'package:TiDo/views/habit/habit_view.dart';
+
+import 'package:TiDo/views/main_view/planner/pomodoro/pomodoro_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -336,11 +338,16 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
-      path: ViRoutes.note_view,
+      path: ViRoutes.habit_view,
       builder: (BuildContext context, GoRouterState state) {
-        return MultiBlocProvider(providers: [
-          BlocProvider.value(value: getIt<HomeBloc>()),
-        ], child: const NoteView());
+        final habit = state.extra as HabitModel;
+        return MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: getIt<HomeBloc>()),
+            ],
+            child: HabitView(
+              habit: habit,
+            ));
       },
     ),
   ],

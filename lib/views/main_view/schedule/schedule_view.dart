@@ -1,7 +1,11 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:TiDo/common/widget/appbar/appbar.dart';
+import 'package:TiDo/core/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
@@ -9,7 +13,7 @@ import '../../../blocs/home_bloc/home_bloc.dart';
 import '../../../blocs/home_bloc/home_event.dart';
 import '../../../blocs/home_bloc/home_state.dart';
 import '../../../common/widget/appbar/home_appbar.dart';
-import '../../../common/widget/button/create_task_button.dart';
+import '../../../common/widget/button/create_button.dart';
 import '../../../common/widget/task_tile/calender_task_tile.dart';
 import '../../../core/locator/locator.dart';
 import '../../../data/services/date_formetter_service.dart';
@@ -42,7 +46,10 @@ class _ScheduleViewState extends State<ScheduleView> {
         ],
         child: SafeArea(
           child: Scaffold(
-            floatingActionButton: const ViCreateTaskButton(),
+            floatingActionButton: ViCreateButton(
+              icon: Iconsax.add,
+              onTap: () => context.push(ViRoutes.create_task),
+            ),
             appBar: const ViHomeAppBar(
                 height: ViSizes.appBarHeigth * 1.5,
                 leadingWidget: ViScheduleHeaderTime()),

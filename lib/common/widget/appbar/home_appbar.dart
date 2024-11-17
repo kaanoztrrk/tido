@@ -6,7 +6,7 @@ import '../../../core/routes/routes.dart';
 import '../../../core/widget/user/profile_image.dart';
 import '../../../utils/Constant/sizes.dart';
 import '../../../utils/Device/device_utility.dart';
-import '../button/create_task_button.dart';
+import '../button/create_button.dart';
 import '../button/ratio_button.dart';
 
 class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -31,7 +31,6 @@ class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? leadingOnPressed;
   final double? height;
   final bool? createTaskButton;
-
   final VoidCallback? notificationOnPressed;
 
   @override
@@ -44,23 +43,32 @@ class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            if (showBackArrow == true)
+              ViRotioButton(
+                onTap: () => context.pop(),
+                child: const Icon(Icons.arrow_back_ios_new_rounded),
+              ),
             if (createTaskButton == false)
               leadingWidget ?? Container()
             else
-              const ViCreateTaskButton(),
+              ViCreateButton(
+                icon: Iconsax.add,
+                onTap: () => context.push(ViRoutes.create_task),
+              ),
             const SizedBox(width: ViSizes.spaceBtwItems / 2),
             Row(
-              children: [
-                ViRotioButton(
-                  onTap: notificationOnPressed,
-                  child: const Icon(Iconsax.notification),
-                ),
-                const SizedBox(width: ViSizes.sm),
-                ViProfileImage(
-                  onTap: () => context.push(ViRoutes.profile_view),
-                ),
-              ],
-            )
+              children: actions ??
+                  [
+                    ViRotioButton(
+                      onTap: notificationOnPressed,
+                      child: const Icon(Iconsax.notification),
+                    ),
+                    const SizedBox(width: ViSizes.sm),
+                    ViProfileImage(
+                      onTap: () => context.push(ViRoutes.profile_view),
+                    ),
+                  ],
+            ),
           ],
         ),
       ),

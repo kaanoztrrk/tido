@@ -3,8 +3,8 @@
 import 'package:TiDo/utils/Constant/colors.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../common/styles/circular_progress_painter.dart';
-import '../../../../../data/services/study_technique/pomodoro_service.dart';
+import '../../../../../../common/styles/circular_progress_painter.dart';
+import '../../../../../../data/services/study_technique/pomodoro_service.dart';
 
 class ViCircularTimer extends StatefulWidget {
   final PomodoroService pomodoroService; // Pass the service instance

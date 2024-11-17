@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:TiDo/common/widget/bottom_navigator/bottom_navigator.dart';
 import 'package:TiDo/utils/bottom_sheet/bottom_sheet.dart';
 import 'package:TiDo/views/main_view/planner/planner_view.dart';
 import 'package:flutter/material.dart';
@@ -34,28 +35,17 @@ class _HomeNavigatorState extends State<HomeNavigator> {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return Scaffold(
-          body: Center(
-            child: _getPage(_selectedIndex),
-          ),
-          bottomNavigationBar: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 16) +
-                const EdgeInsets.only(bottom: 8),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-            decoration: BoxDecoration(
-              color: dark
-                  ? AppColors.bottomNavigatorBackgroundDark
-                  : AppColors.bottomNavigatorBackground,
-              borderRadius: BorderRadius.circular(40),
+            body: Center(
+              child: _getPage(_selectedIndex),
             ),
-            child: GNav(
-              gap: 8,
-              activeColor: dark ? AppColors.light : AppColors.dark,
-              iconSize: 24,
-              tabBackgroundColor: dark
-                  ? AppColors.bottomNavigatorItemActiveBgDark
-                  : AppColors.bottomNavigatorItemActiveBg,
-              padding: const EdgeInsets.all(12),
-              duration: const Duration(milliseconds: 400),
+            bottomNavigationBar: ViBottomNavigationBar(
+              darkMode: dark,
+              selectedIndex: _selectedIndex,
+              onTabChange: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
               tabs: [
                 GButton(
                   padding:
@@ -82,15 +72,7 @@ class _HomeNavigatorState extends State<HomeNavigator> {
                   text: AppLocalizations.of(context)!.settings,
                 ),
               ],
-              selectedIndex: _selectedIndex,
-              onTabChange: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-            ),
-          ),
-        );
+            ));
       },
     );
   }

@@ -10,14 +10,12 @@ class PopulerPlannerTile extends StatelessWidget {
   const PopulerPlannerTile({
     super.key,
     required this.title,
-    required this.subTitle,
     required this.image,
     this.onTap,
     this.height,
   });
 
   final String title;
-  final String subTitle;
   final String image;
   final Function()? onTap;
   final double? height;
@@ -25,6 +23,13 @@ class PopulerPlannerTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = ViHelpersFunctions.isDarkMode(context);
+
+    // İlk kelimeyi ayırma işlemi
+    final splitTitle = title.split(' ');
+    final firstWord = splitTitle.isNotEmpty ? splitTitle[0] : '';
+    final remainingTitle =
+        splitTitle.length > 1 ? title.substring(firstWord.length + 1) : '';
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -55,7 +60,7 @@ class PopulerPlannerTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  firstWord,
                   style: dark
                       ? ViTextTheme.darkTextTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.w700,
@@ -67,7 +72,7 @@ class PopulerPlannerTile extends StatelessWidget {
                         ),
                 ),
                 Text(
-                  subTitle,
+                  remainingTitle,
                   style: dark
                       ? ViTextTheme.darkTextTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.w500,

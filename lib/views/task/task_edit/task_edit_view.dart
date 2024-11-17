@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 
 import '../../../blocs/home_bloc/home_bloc.dart';
 import '../../../blocs/home_bloc/home_event.dart';
+import '../../../blocs/localization_bloc/localization_bloc.dart';
 import '../../../common/styles/container_style.dart';
 import '../../../common/widget/Text/title.dart';
 import '../../../common/widget/appbar/appbar.dart';
@@ -22,6 +24,8 @@ import '../../../utils/Helpers/helpers_functions.dart';
 import '../../../utils/Snackbar/snacbar_service.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 import '../create_task/widget/folder_upload.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart'
+    as picker;
 
 class TaskEditView extends StatefulWidget {
   final TaskModel task;
@@ -128,32 +132,139 @@ class _TaskEditViewState extends State<TaskEditView> {
                 Flexible(
                   child: GestureDetector(
                     onTap: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: taskTime ?? DateTime.now(),
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime(2101),
+                      final localizationState =
+                          context.read<LocalizationBloc>().state;
+                      final currentLocale =
+                          localizationState.selectedLanguage.locale;
+
+                      await picker.DatePicker.showDateTimePicker(
+                        context,
+                        showTitleActions: true,
+                        onConfirm: (date) {
+                          if (date.isBefore(DateTime.now())) {
+                            ViSnackbar.showError(
+                                context, "Please select a future date.");
+                          } else {
+                            setState(() {
+                              taskTime = date;
+                            });
+                          }
+                        },
+                        currentTime: DateTime.now().add(Duration(minutes: 1)),
+                        locale: currentLocale.languageCode == 'en'
+                            ? picker.LocaleType.en
+                            : picker.LocaleType.tr,
+                        theme: picker.DatePickerTheme(
+                          backgroundColor:
+                              dark ? AppColors.dark : AppColors.light,
+                          itemStyle: TextStyle(
+                            color: dark ? AppColors.light : AppColors.dark,
+                          ),
+                          cancelStyle: TextStyle(
+                            color: dark ? AppColors.light : AppColors.dark,
+                          ),
+                          doneStyle: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
                       );
-                      if (pickedDate != null) {
-                        setState(() {
-                          taskTime = pickedDate;
-                        });
-                      }
                     },
-                    child: Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: dark ? AppColors.black : AppColors.white,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Text(
-                        taskTime != null
-                            ? "${taskTime!.toLocal()}"
-                                .split(' ')[0] // Format the date
-                            : AppLocalizations.of(context)!.selected,
-                        style: dark
-                            ? ViTextTheme.darkTextTheme.titleLarge
-                            : ViTextTheme.ligthTextTheme.titleLarge,
+                    child: ViContainer(
+                      margin: const EdgeInsets.all(ViSizes.sm / 2),
+                      padding: const EdgeInsets.all(ViSizes.sm),
+                      borderRadius: BorderRadius.circular(30),
+                      height: 200,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ViRotioButton(
+                            bgColor: Theme.of(context).primaryColor,
+                            child: const Icon(
+                              Iconsax.calendar_1,
+                              color: AppColors.white,
+                            ),
+                          ),
+                          const Spacer(),
+                          Row(
+                            children: [
+                              taskTime != null
+                                  ? Padding(
+                                      padding: const EdgeInsets.all(ViSizes.sm),
+                                      child: Text.rich(TextSpan(
+                                        text:
+                                            "${taskTime!.hour}:${taskTime!.minute.toString().padLeft(2, '0')}\n",
+                                        style: dark
+                                            ? ViTextTheme
+                                                .darkTextTheme.headlineLarge
+                                                ?.copyWith(
+                                                    color: AppColors.white,
+                                                    fontWeight: FontWeight.bold)
+                                            : ViTextTheme
+                                                .ligthTextTheme.headlineLarge
+                                                ?.copyWith(
+                                                    color:
+                                                        AppColors.primaryText,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                        children: [
+                                          TextSpan(
+                                            text:
+                                                "${taskTime!.day}/${taskTime!.month}/${taskTime!.year}",
+                                            style: dark
+                                                ? ViTextTheme
+                                                    .darkTextTheme.titleLarge
+                                                    ?.copyWith(
+                                                        color: AppColors
+                                                            .secondaryText)
+                                                : ViTextTheme
+                                                    .ligthTextTheme.titleLarge
+                                                    ?.copyWith(
+                                                        color: AppColors
+                                                            .secondaryText),
+                                          ),
+                                        ],
+                                      )),
+                                    )
+                                  : Padding(
+                                      padding: const EdgeInsets.all(ViSizes.sm),
+                                      child: Text.rich(TextSpan(
+                                        text:
+                                            "${AppLocalizations.of(context)!.date}\n",
+                                        style: dark
+                                            ? ViTextTheme
+                                                .darkTextTheme.headlineMedium
+                                                ?.copyWith(
+                                                    color: AppColors.white,
+                                                    fontWeight: FontWeight.bold)
+                                            : ViTextTheme
+                                                .ligthTextTheme.headlineMedium
+                                                ?.copyWith(
+                                                    color:
+                                                        AppColors.primaryText,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                        children: [
+                                          TextSpan(
+                                            text: AppLocalizations.of(context)!
+                                                .selected,
+                                            style: dark
+                                                ? ViTextTheme
+                                                    .darkTextTheme.titleLarge
+                                                    ?.copyWith(
+                                                        color: AppColors
+                                                            .secondaryText)
+                                                : ViTextTheme
+                                                    .ligthTextTheme.titleLarge
+                                                    ?.copyWith(
+                                                        color: AppColors
+                                                            .secondaryText),
+                                          ),
+                                        ],
+                                      )),
+                                    ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -169,16 +280,6 @@ class _TaskEditViewState extends State<TaskEditView> {
                   ),
                 ),
               ],
-            ),
-            const SizedBox(height: ViSizes.spaceBtwItems / 2),
-            ViCategoryWidget(
-              categoryName: "Categories",
-              categories: label,
-              onCategoriesUpdated: (updatedCategories) {
-                setState(() {
-                  label = updatedCategories; // Güncellenen kategorileri kaydet
-                });
-              },
             ),
 
             // Seçilen kategorilerin gösterimi
