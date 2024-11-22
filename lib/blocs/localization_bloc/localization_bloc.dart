@@ -6,6 +6,7 @@ import 'package:timezone/timezone.dart' as tz;
 import '../../data/models/language_model/language_model.dart';
 import '../../utils/Constant/app_constants.dart';
 import 'localization_state.dart';
+import 'package:timezone/data/latest.dart' as tzData;
 
 part 'localization_event.dart';
 
@@ -13,6 +14,9 @@ class LocalizationBloc extends Bloc<LocalizationEvent, LocalizationState> {
   LocalizationBloc() : super(LocalizationState()) {
     on<ChangeAppLocalization>(onChangeLanguage);
     on<GetLanguage>(onGetLanguage);
+
+    // Timezone veritabanını başlat
+    tzData.initializeTimeZones();
   }
 
   onChangeLanguage(

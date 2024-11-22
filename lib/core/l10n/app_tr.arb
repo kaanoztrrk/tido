@@ -129,5 +129,9 @@
     "notification": "Bildirimler",
     "title_required": "Lütfen başlık giriniz.",
     "planner": "Planlayıcı",
-    "@@locale": "tr"
+    "@@locale": "tr",
+    "cancel_task": "Görevi iptal et",
+    "task_theme": "Görev Listesi Modu",
+    "back_task": "Göreviniz Başarılı bir şekilde tamamlanmış. Geri mi almak istiyorsunuz?",
+    "task_list_mode":"Görev Liste Modu"
 }

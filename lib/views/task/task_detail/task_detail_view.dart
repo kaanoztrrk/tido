@@ -1,13 +1,17 @@
 import 'dart:io';
+import 'package:TiDo/common/widget/button/primary_button.dart';
+import 'package:TiDo/utils/bottom_sheet/bottom_sheet.dart';
 import 'package:TiDo/views/task/task_detail/widget/task_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 import '../../../blocs/home_bloc/home_bloc.dart';
+import '../../../blocs/home_bloc/home_event.dart';
 import '../../../blocs/home_bloc/home_state.dart';
 import '../../../blocs/theme_bloc/theme_bloc.dart';
 import '../../../blocs/theme_bloc/theme_state.dart';
-import '../../common/empty_screen/empty_screen.dart';
+import '../../common/empty_view/empty_view.dart';
 import '../../../common/styles/container_style.dart';
 import '../../../common/widget/Text/title.dart';
 import '../../../common/widget/button/ratio_button.dart';
@@ -158,6 +162,44 @@ class TaskDetailView extends StatelessWidget {
                       ],
                     ),
                   ),
+                  task.isChecked == false
+                      ? ViPrimaryButton(
+                          text: AppLocalizations.of(context)!
+                              .task_complated_text, // Tamamlanmadıysa
+
+                          onTap: () {
+                            BlocProvider.of<HomeBloc>(context).add(
+                              ChangeCheckBoxEvent(
+                                isChecked: !task.isChecked,
+                                task: task,
+                              ),
+                            );
+                            context.pop();
+                          },
+                        )
+                      : ViPrimaryButton(
+                          text: AppLocalizations.of(context)!.task_complated,
+                          onTap: () {
+                            ViBottomSheet.onAreYouSureBottomSheet(
+                                context: context,
+                                icon: Iconsax.back_square,
+                                onTap: () {
+                                  BlocProvider.of<HomeBloc>(context).add(
+                                    ChangeCheckBoxEvent(
+                                      isChecked: !task.isChecked,
+                                      task: task,
+                                    ),
+                                  );
+                                  context.pop();
+                                  context.pop();
+                                },
+                                cancelOnTap: () => context.pop(),
+                                title:
+                                    AppLocalizations.of(context)!.cancel_task,
+                                subTitle:
+                                    AppLocalizations.of(context)!.back_task);
+                          },
+                        )
                 ],
               ),
             ),

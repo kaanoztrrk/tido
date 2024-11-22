@@ -1,5 +1,6 @@
 import 'package:TiDo/blocs/location_bloc/location_bloc.dart';
 import 'package:TiDo/data/models/habit_model/habit_model.dart';
+import 'package:TiDo/views/common/premium_view/premium_view.dart';
 import 'package:TiDo/views/document/document_view.dart';
 import 'package:TiDo/views/habit/habit_view.dart';
 
@@ -22,7 +23,7 @@ import '../../views/auth/otp/otp_view.dart';
 import '../../views/auth/register/register_view.dart';
 import '../../views/auth/forgot_password/forgot_password.dart';
 
-import '../../views/common/splash/splash_view.dart';
+import '../../views/common/splash_view/splash_view.dart';
 import '../../views/auth/welcome/welcome_view.dart';
 import '../../views/location_reminder/location_reminder_view.dart';
 import '../../views/task/create_task/create_task_view.dart';
@@ -348,6 +349,12 @@ final GoRouter router = GoRouter(
             child: HabitView(
               habit: habit,
             ));
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.premium_view,
+      builder: (BuildContext context, GoRouterState state) {
+        return PremiumView();
       },
     ),
   ],

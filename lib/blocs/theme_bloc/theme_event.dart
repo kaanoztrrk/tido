@@ -37,3 +37,9 @@ class ChangeThemeModeEvent extends ThemeEvent {
 
   const ChangeThemeModeEvent(this.themeMode);
 }
+
+class ChangeTaskModeEvent extends ThemeEvent {
+  final bool newTaskMode;
+
+  ChangeTaskModeEvent(this.newTaskMode);
+}

@@ -1,10 +1,8 @@
 import 'package:TiDo/common/styles/container_style.dart';
 import 'package:TiDo/data/models/habit_model/habit_model.dart';
-import 'package:TiDo/utils/Constant/image_strings.dart';
 import 'package:TiDo/utils/Constant/sizes.dart';
 import 'package:TiDo/utils/Device/device_utility.dart';
 import 'package:TiDo/views/habit/widget/circle_progress_indicator.dart';
-import 'package:TiDo/views/main_view/home/widget/home_header.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -27,7 +25,7 @@ class HabitView extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColor,
         body: CustomScrollView(
           slivers: [
-            SliverAppBar(
+            const SliverAppBar(
               automaticallyImplyLeading: false,
               expandedHeight: ViSizes.appBarHeigth * 2,
               floating: false,
@@ -59,7 +57,7 @@ class HabitView extends StatelessWidget {
                                     color: AppColors.lightGrey,
                                   ),
                           ),
-                          SizedBox(height: ViSizes.defaultSpace * 3),
+                          const SizedBox(height: ViSizes.defaultSpace * 3),
                           ViContainer(
                             decoration: BoxDecoration(
                               color: AppColors.white,
@@ -77,7 +75,7 @@ class HabitView extends StatelessWidget {
                                       color: Theme.of(context)
                                           .primaryColor
                                           .withOpacity(0.5),
-                                      borderRadius: BorderRadius.only(
+                                      borderRadius: const BorderRadius.only(
                                           topLeft: Radius.circular(
                                               ViSizes.cardRadiusLg),
                                           topRight: Radius.circular(
@@ -88,10 +86,10 @@ class HabitView extends StatelessWidget {
                                         ViSizes.defaultSpace),
                                     child: Row(
                                       children: [
-                                        ViRotioButton(
+                                        const ViRotioButton(
                                           child: Icon(Iconsax.calendar_1),
                                         ),
-                                        SizedBox(width: ViSizes.md),
+                                        const SizedBox(width: ViSizes.md),
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -161,7 +159,7 @@ class HabitView extends StatelessWidget {
                                                   fontWeight: FontWeight.w500,
                                                   color: AppColors.black,
                                                 )),
-                                      SizedBox(height: ViSizes.lg),
+                                      const SizedBox(height: ViSizes.lg),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
@@ -229,7 +227,7 @@ class HabitView extends StatelessWidget {
                                                                   .black,
                                                             )),
                                                 ),
-                                                Divider(),
+                                                const Divider(),
                                                 ListTile(
                                                   title: Text(
                                                       " ${habit.streak.toString()}",
@@ -282,7 +280,7 @@ class HabitView extends StatelessWidget {
                                           )
                                         ],
                                       ),
-                                      SizedBox(height: ViSizes.lg / 1.5),
+                                      const SizedBox(height: ViSizes.lg / 1.5),
                                       ViContainer(
                                         width: double.infinity,
                                         height: 50,

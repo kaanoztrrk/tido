@@ -10,6 +10,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     on<ChangeThemeColorEvent>(_onChangeThemeColor);
     on<ChangeBackgroundImageEvent>(_onChangeBackgroundImage);
     on<ChangeThemeModeEvent>(_onChangeThemeMode);
+    on<ChangeTaskModeEvent>(_onChangeTaskMode);
 
     // Load the saved theme settings at the start
     _loadSavedTheme();
@@ -71,5 +72,9 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     if (savedThemeMode != null) {
       add(ChangeThemeModeEvent(savedThemeMode));
     }
+  }
+
+  void _onChangeTaskMode(ChangeTaskModeEvent event, Emitter<ThemeState> emit) {
+    emit(state.copyWith(taskMode: event.newTaskMode));
   }
 }

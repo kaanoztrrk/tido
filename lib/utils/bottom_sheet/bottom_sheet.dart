@@ -424,6 +424,7 @@ class ViBottomSheet {
       showDragHandle: true,
       context: context,
       builder: (BuildContext context) {
+        final isDarkMode = ViHelpersFunctions.isDarkMode(context);
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return Container(
@@ -431,6 +432,18 @@ class ViBottomSheet {
               height: 400,
               child: Column(
                 children: [
+                  Text(
+                    "Selected Files",
+                    style: isDarkMode
+                        ? ViTextTheme.darkTextTheme.headlineSmall?.copyWith(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.bold,
+                          )
+                        : ViTextTheme.ligthTextTheme.headlineSmall?.copyWith(
+                            color: AppColors.primaryText,
+                            fontWeight: FontWeight.bold,
+                          ),
+                  ),
                   Expanded(
                     child: selectedFiles.isNotEmpty
                         ? ListView.builder(

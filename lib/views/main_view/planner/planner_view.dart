@@ -36,13 +36,7 @@ class PlannerView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: ViSizes.spaceBtwItems),
-                      PlannerTile(
-                          onTap: () =>
-                              context.push(ViRoutes.location_reminder_view),
-                          height: ViDeviceUtils.getScreenHeigth(context) * 0.25,
-                          title: "Location",
-                          subTitle: "Reminder",
-                          image: ViImages.traveller_image),
+                      PremiumTile(),
                       const SizedBox(height: ViSizes.spaceBtwSections),
                       const ViPrimaryTitle(title: "🔥 Populer", bigText: true),
                       const SizedBox(height: ViSizes.spaceBtwItems),

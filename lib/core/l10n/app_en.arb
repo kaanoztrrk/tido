@@ -129,5 +129,9 @@
     "notification": "Notification",
     "title_required": "Please enter title.",
     "planner": "Planner",
-    "@@locale": "en"
+    "@@locale": "en",
+    "cancel_task": "Cancel Task",
+    "task_theme": "Task Mode",
+    "back_task": "Your task has been completed successfully. Do you want to take it back?",
+    "task_list_mode":"Task List Mode"
 }

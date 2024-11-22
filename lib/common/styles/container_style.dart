@@ -17,6 +17,7 @@ class ViContainer extends StatelessWidget {
     this.decoration,
     this.alignment,
     this.gradient,
+    this.borderColor,
   });
 
   final Function()? onTap;
@@ -24,6 +25,7 @@ class ViContainer extends StatelessWidget {
   final double? width;
   final double? height;
   final Color? bgColor;
+  final Color? borderColor;
   final BorderRadiusGeometry? borderRadius;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
@@ -48,7 +50,8 @@ class ViContainer extends StatelessWidget {
         decoration: decoration ??
             BoxDecoration(
                 color: bgColor ?? defaultBgColor,
-                border: Border.all(width: 2, color: AppColors.white),
+                border:
+                    Border.all(width: 2, color: borderColor ?? AppColors.white),
                 borderRadius: borderRadius,
                 gradient: gradient),
         child: child,

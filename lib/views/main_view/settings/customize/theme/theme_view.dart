@@ -3,14 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
 
 import '../../../../../blocs/theme_bloc/theme_bloc.dart';
 import '../../../../../blocs/theme_bloc/theme_event.dart';
 import '../../../../../blocs/theme_bloc/theme_state.dart';
+import '../../../../../common/styles/container_style.dart';
 import '../../../../../common/widget/Text/title.dart';
 import '../../../../../common/widget/appbar/appbar.dart';
 import '../../../../../core/l10n/l10n.dart';
 import '../../../../../core/locator/locator.dart';
+import '../../../../../core/routes/routes.dart';
 import '../../../../../utils/Constant/colors.dart';
 import '../../../../../utils/Constant/sizes.dart';
 import 'widget/theme_tile.dart';
@@ -37,8 +40,7 @@ class _ThemeViewState extends State<ThemeView> {
               centerTitle: true,
               title: Text(AppLocalizations.of(context)!.theme),
             ),
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            body: ListView(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(ViSizes.defaultSpace),
@@ -89,39 +91,37 @@ class _ThemeViewState extends State<ThemeView> {
                   child: ViPrimaryTitle(
                       title: AppLocalizations.of(context)!.theme_mode),
                 ),
-                Expanded(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Light Mode
-                      ThemeModeItem(
-                        onTap: () => context
-                            .read<ThemeBloc>()
-                            .add(const ChangeThemeModeEvent(ThemeMode.light)),
-                        itemColor: Theme.of(context).primaryColor,
-                        bgColor: const Color.fromARGB(255, 238, 225, 225),
-                        title: AppLocalizations.of(context)!.light,
-                        isSelected: state.themeMode == ThemeMode.light,
-                      ),
-                      // System Mode
-                      ThemeModeSystemItem(
-                        onTap: () => context
-                            .read<ThemeBloc>()
-                            .add(const ChangeThemeModeEvent(ThemeMode.system)),
-                        isSelected: state.themeMode == ThemeMode.system,
-                      ),
-                      // Dark Mode
-                      ThemeModeItem(
-                        onTap: () => context
-                            .read<ThemeBloc>()
-                            .add(const ChangeThemeModeEvent(ThemeMode.dark)),
-                        itemColor: Theme.of(context).primaryColor,
-                        bgColor: AppColors.dark,
-                        title: AppLocalizations.of(context)!.dark,
-                        isSelected: state.themeMode == ThemeMode.dark,
-                      ),
-                    ],
-                  ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Light Mode
+                    ThemeModeItem(
+                      onTap: () => context
+                          .read<ThemeBloc>()
+                          .add(const ChangeThemeModeEvent(ThemeMode.light)),
+                      itemColor: Theme.of(context).primaryColor,
+                      bgColor: const Color.fromARGB(255, 238, 225, 225),
+                      title: AppLocalizations.of(context)!.light,
+                      isSelected: state.themeMode == ThemeMode.light,
+                    ),
+                    // System Mode
+                    ThemeModeSystemItem(
+                      onTap: () => context
+                          .read<ThemeBloc>()
+                          .add(const ChangeThemeModeEvent(ThemeMode.system)),
+                      isSelected: state.themeMode == ThemeMode.system,
+                    ),
+                    // Dark Mode
+                    ThemeModeItem(
+                      onTap: () => context
+                          .read<ThemeBloc>()
+                          .add(const ChangeThemeModeEvent(ThemeMode.dark)),
+                      itemColor: Theme.of(context).primaryColor,
+                      bgColor: AppColors.dark,
+                      title: AppLocalizations.of(context)!.dark,
+                      isSelected: state.themeMode == ThemeMode.dark,
+                    ),
+                  ],
                 ),
               ],
             ),

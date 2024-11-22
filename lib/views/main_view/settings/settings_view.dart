@@ -13,6 +13,8 @@ import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_state.dart';
 import '../../../blocs/home_bloc/home_bloc.dart';
 import '../../../blocs/home_bloc/home_event.dart';
 import '../../../blocs/theme_bloc/theme_bloc.dart';
+import '../../../blocs/theme_bloc/theme_event.dart';
+import '../../../blocs/theme_bloc/theme_state.dart';
 import '../../../common/styles/container_style.dart';
 import '../../../common/widget/Text/title.dart';
 import '../../../core/l10n/l10n.dart';
@@ -126,6 +128,29 @@ class SettingsView extends StatelessWidget {
                             leading: const Icon(Iconsax.notification),
                             title: Text(AppLocalizations.of(context)!
                                 .notification_reminder),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: ViSizes.defaultSpace),
+                            child: Divider(),
+                          ),
+                          BlocBuilder<ThemeBloc, ThemeState>(
+                            builder: (context, state) {
+                              return ListTile(
+                                leading: const Icon(Icons.list),
+                                title: Text(AppLocalizations.of(context)!
+                                    .task_list_mode),
+                                trailing: Switch(
+                                  value: state.taskMode,
+                                  onChanged: (value) {
+                                    BlocProvider.of<ThemeBloc>(context)
+                                        .add(ChangeTaskModeEvent(value));
+
+                                    print(state.taskMode);
+                                  },
+                                ),
+                              );
+                            },
                           ),
                           /*
                           const Padding(

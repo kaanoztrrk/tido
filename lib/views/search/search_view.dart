@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../blocs/home_bloc/home_bloc.dart';
 import '../../blocs/home_bloc/home_event.dart';
 import '../../blocs/home_bloc/home_state.dart';
-import '../common/empty_screen/empty_screen.dart';
+import '../common/empty_view/empty_view.dart';
 import '../../common/styles/container_style.dart';
 import '../../common/widget/appbar/appbar.dart';
 import '../../common/widget/task_tile/calender_task_tile.dart';

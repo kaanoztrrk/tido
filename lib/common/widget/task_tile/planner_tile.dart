@@ -1,3 +1,4 @@
+import 'package:TiDo/utils/Constant/image_strings.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/Constant/colors.dart';
@@ -6,30 +7,19 @@ import '../../../utils/Device/device_utility.dart';
 import '../../../utils/Helpers/helpers_functions.dart';
 import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
 
-class PlannerTile extends StatelessWidget {
-  const PlannerTile({
+class PremiumTile extends StatelessWidget {
+  const PremiumTile({
     super.key,
-    required this.title,
-    required this.subTitle,
-    required this.image,
-    this.onTap,
-    this.height,
   });
-
-  final String title;
-  final String subTitle;
-  final String image;
-  final Function()? onTap;
-  final double? height;
 
   @override
   Widget build(BuildContext context) {
     final dark = ViHelpersFunctions.isDarkMode(context);
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {},
       child: Container(
         width: double.infinity,
-        height: height ?? ViDeviceUtils.getScreenHeigth(context) * 0.2,
+        height: ViDeviceUtils.getScreenHeigth(context) * 0.175,
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(ViSizes.cardRadiusLg),
@@ -42,35 +32,29 @@ class PlannerTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  "Subscrible\nTo Premium",
                   style: dark
-                      ? ViTextTheme.darkTextTheme.headlineLarge?.copyWith(
+                      ? ViTextTheme.darkTextTheme.headlineMedium?.copyWith(
                           fontWeight: FontWeight.w700,
                           color: AppColors.lightGrey,
                         )
-                      : ViTextTheme.ligthTextTheme.headlineLarge?.copyWith(
+                      : ViTextTheme.ligthTextTheme.headlineMedium?.copyWith(
                           fontWeight: FontWeight.w700,
-                          color: AppColors.light,
-                        ),
-                ),
-                Text(
-                  subTitle,
-                  style: dark
-                      ? ViTextTheme.darkTextTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.lightGrey,
-                        )
-                      : ViTextTheme.ligthTextTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w500,
                           color: AppColors.light,
                         ),
                 ),
               ],
             ),
-            Image.asset(
-              image,
-              width: ViDeviceUtils.getScreenHeigth(context) * 0.2,
-              height: ViDeviceUtils.getScreenWidth(context) * 0.4,
+            Container(
+              padding: EdgeInsets.all(ViSizes.defaultSpace),
+              decoration: BoxDecoration(
+                  color: AppColors.yellow.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(500)),
+              child: Image.asset(
+                ViImages.premium,
+                width: ViDeviceUtils.getScreenHeigth(context) * 0.05,
+                height: ViDeviceUtils.getScreenWidth(context) * 0.1,
+              ),
             ),
           ],
         ),

@@ -1,24 +1,11 @@
-import 'package:TiDo/common/widget/appbar/appbar.dart';
-import 'package:TiDo/common/widget/appbar/map_appbar.dart';
-import 'package:TiDo/common/widget/map/profile/my_location.dart';
-import 'package:TiDo/core/locator/locator.dart';
-import 'package:TiDo/utils/Constant/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:latlong2/latlong.dart';
+
 import '../../blocs/location_bloc/location_bloc.dart';
 import '../../blocs/location_bloc/location_event.dart';
 import '../../blocs/location_bloc/location_state.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
-import '../../blocs/location_bloc/location_bloc.dart';
-import '../../blocs/location_bloc/location_event.dart';
-import '../../blocs/location_bloc/location_state.dart';
 import '../../core/widget/user/profile_image.dart';
 
 class LocationReminderView extends StatefulWidget {

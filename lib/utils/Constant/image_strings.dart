@@ -35,4 +35,5 @@ class ViImages {
   static const String water = "assets/image/planner/water.png";
   static const String exercise = "assets/image/planner/exercise.png";
   static const String mediatate = "assets/image/planner/mediatate.png";
+  static const String premium = "assets/image/planner/premium.png";
 }

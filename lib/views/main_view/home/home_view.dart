@@ -7,14 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:intl/intl.dart';
 import 'package:workmanager/workmanager.dart';
 
 import '../../../blocs/auth_blocs/sign_in_bloc/sign_in_bloc.dart';
 import '../../../blocs/home_bloc/home_bloc.dart';
 import '../../../blocs/home_bloc/home_event.dart';
 import '../../../blocs/home_bloc/home_state.dart';
-import '../../../data/services/local_notification.dart';
-import '../../common/empty_screen/empty_screen.dart';
+import '../../../blocs/theme_bloc/theme_bloc.dart';
+import '../../../blocs/theme_bloc/theme_state.dart';
+
+import '../../common/empty_view/empty_view.dart';
 import '../../../common/layout/swiper_layout.dart';
 import '../../../common/widget/admob_banner/adMob_banner.dart';
 import '../../../common/widget/appbar/home_appbar.dart';
@@ -56,8 +59,8 @@ class HomeView extends StatelessWidget {
                     initialDelay: Duration(seconds: 5));
               }),
           body: BlocBuilder<HomeBloc, HomeState>(
-            builder: (context, state) {
-              List<TaskModel> tasksToShow = state.allTasksList;
+            builder: (context, homestate) {
+              List<TaskModel> tasksToShow = homestate.allTasksList;
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -87,7 +90,7 @@ class HomeView extends StatelessWidget {
                                 bgColor: Theme.of(context).primaryColor,
                                 child: Center(
                                     child: Text(
-                                  "All (${state.allTasksList.length})",
+                                  "All (${homestate.allTasksList.length})",
                                   style: ViTextTheme.darkTextTheme.bodyLarge
                                       ?.copyWith(
                                           fontWeight: FontWeight.w600,
@@ -139,68 +142,137 @@ class HomeView extends StatelessWidget {
                               ),
                             ],
                           )
-                        : Stack(
-                            children: [
-                              ViSwiperLayout(
-                                itemCount: tasksToShow.length,
-                                itemBuilder: (context, index) {
-                                  final task = tasksToShow[index];
-                                  return ViTaskTile(
-                                    timer: task.taskTime != null
-                                        ? Text(
-                                            " ${task.taskTime!.hour}:${task.taskTime!.minute.toString().padLeft(2, '0')}",
-                                            style: ViTextTheme
-                                                .darkTextTheme.titleSmall
-                                                ?.copyWith(
-                                                    fontWeight: FontWeight.w600,
-                                                    color: AppColors.dark),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                          )
-                                        : null,
-                                    title: task.title,
-                                    onSwipe: () {
-                                      BlocProvider.of<HomeBloc>(context).add(
-                                        ChangeCheckBoxEvent(
-                                          isChecked: !task.isChecked,
-                                          task: task,
+                        : BlocBuilder<ThemeBloc, ThemeState>(
+                            builder: (context, themestate) {
+                              return themestate.taskMode == false
+                                  ? Stack(
+                                      children: [
+                                        ViSwiperLayout(
+                                          itemCount: tasksToShow.length,
+                                          itemBuilder: (context, index) {
+                                            final task = tasksToShow[index];
+                                            return ViTaskSwiperTile(
+                                              timer: task.taskTime != null
+                                                  ? Text(
+                                                      " ${task.taskTime!.hour}:${task.taskTime!.minute.toString().padLeft(2, '0')}",
+                                                      style: ViTextTheme
+                                                          .darkTextTheme
+                                                          .titleSmall
+                                                          ?.copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: AppColors
+                                                                  .dark),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 1,
+                                                    )
+                                                  : null,
+                                              title: task.title,
+                                              onSwipe: () {
+                                                BlocProvider.of<HomeBloc>(
+                                                        context)
+                                                    .add(
+                                                  ChangeCheckBoxEvent(
+                                                    isChecked: !task.isChecked,
+                                                    task: task,
+                                                  ),
+                                                );
+                                              },
+                                              onTap: () {
+                                                context.push(
+                                                    ViRoutes.task_detail_view,
+                                                    extra: task);
+                                              },
+                                              optionTap: () => ViBottomSheet
+                                                  .showOptionBottomSheet(
+                                                context,
+                                                onEdit: () {
+                                                  context.push(
+                                                      ViRoutes.task_edit_view,
+                                                      extra: task);
+                                                },
+                                                onDelete: () {
+                                                  BlocProvider.of<HomeBloc>(
+                                                          context)
+                                                      .add(DeleteToDoEvent(
+                                                          task: task));
+                                                  context.pop();
+                                                },
+                                                onMarkAsComplete: () {
+                                                  BlocProvider.of<HomeBloc>(
+                                                          context)
+                                                      .add(
+                                                    ChangeCheckBoxEvent(
+                                                      isChecked:
+                                                          !task.isChecked,
+                                                      task: task,
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                              isCompleted: task.isChecked,
+                                            );
+                                          },
                                         ),
-                                      );
-                                    },
-                                    onTap: () {
-                                      context.push(ViRoutes.task_detail_view,
-                                          extra: task);
-                                    },
-                                    optionTap: () =>
-                                        ViBottomSheet.showOptionBottomSheet(
-                                      context,
-                                      onEdit: () {
-                                        context.push(ViRoutes.task_edit_view,
-                                            extra: task);
-                                      },
-                                      onDelete: () {
-                                        BlocProvider.of<HomeBloc>(context)
-                                            .add(DeleteToDoEvent(task: task));
-                                        context.pop();
-                                      },
-                                      onMarkAsComplete: () {
-                                        BlocProvider.of<HomeBloc>(context).add(
-                                          ChangeCheckBoxEvent(
-                                            isChecked: !task.isChecked,
-                                            task: task,
+                                        const Align(
+                                          alignment:
+                                              AlignmentDirectional.bottomStart,
+                                          child: AdMobBanner(),
+                                        ),
+                                      ],
+                                    )
+                                  : ListView.builder(
+                                      itemCount: homestate.allTasksList.length,
+                                      itemBuilder: (context, index) {
+                                        final task = tasksToShow[index];
+                                        return ViTaskListTile(
+                                          task: task,
+                                          onTap: () {
+                                            context.push(
+                                                ViRoutes.task_detail_view,
+                                                extra: task);
+                                          },
+                                          optionTap: () => ViBottomSheet
+                                              .showOptionBottomSheet(
+                                            context,
+                                            onEdit: () {
+                                              context.push(
+                                                  ViRoutes.task_edit_view,
+                                                  extra: task);
+                                            },
+                                            onDelete: () {
+                                              BlocProvider.of<HomeBloc>(context)
+                                                  .add(DeleteToDoEvent(
+                                                      task: task));
+                                              context.pop();
+                                            },
+                                            onMarkAsComplete: () {
+                                              BlocProvider.of<HomeBloc>(context)
+                                                  .add(
+                                                ChangeCheckBoxEvent(
+                                                  isChecked: !task.isChecked,
+                                                  task: task,
+                                                ),
+                                              );
+                                            },
                                           ),
+                                          title: task.title,
+                                          files: task.files!.length.toString(),
+                                          dueTime: task.taskTime != null
+                                              ? Text(
+                                                  "${task.taskTime!.day} ${DateFormat('MMM').format(task.taskTime!)} ${task.taskTime!.year}",
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                )
+                                              : null,
+                                          description:
+                                              task.description.toString(),
                                         );
-                                      },
-                                    ),
-                                    isCompleted: task.isChecked,
-                                  );
-                                },
-                              ),
-                              const Align(
-                                alignment: AlignmentDirectional.bottomStart,
-                                child: AdMobBanner(),
-                              ),
-                            ],
+                                      });
+                            },
                           ),
                   ),
                 ],

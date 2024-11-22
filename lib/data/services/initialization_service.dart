@@ -14,6 +14,7 @@ import '../models/notification_model/notification_model.dart';
 import '../models/task_model/task_model.dart';
 import 'firebase_message_service.dart';
 import 'local_notification.dart';
+import 'package:timezone/data/latest.dart' as tzData;
 
 void callbackDispatcher() {
   Workmanager().executeTask((taskName, inputData) async {
@@ -42,6 +43,7 @@ class InitializationService {
     // Gerekli başlangıç işlemleri
     WidgetsFlutterBinding.ensureInitialized();
     MobileAds.instance.initialize();
+    tzData.initializeTimeZones();
 
     Workmanager().initialize(callbackDispatcher);
 

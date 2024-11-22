@@ -21,7 +21,7 @@ import '../../../data/services/date_formetter_service.dart';
 import '../../../utils/Constant/image_strings.dart';
 import '../../../utils/Constant/sizes.dart';
 
-import '../../common/empty_screen/empty_screen.dart';
+import '../../common/empty_view/empty_view.dart';
 import '../../../utils/Helpers/helpers_functions.dart';
 import 'widget/schedule_heading_time.dart';
 

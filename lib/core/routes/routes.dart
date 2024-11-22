@@ -40,4 +40,5 @@ class ViRoutes {
   static const String location_reminder_view = '/location_reminder_view';
 
   static const String habit_view = '/habit_view';
+  static const String premium_view = '/premium_view';
 }
