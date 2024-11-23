@@ -23,7 +23,7 @@ import '../../../common/widget/admob_banner/adMob_banner.dart';
 import '../../../common/widget/appbar/home_appbar.dart';
 import '../../../common/widget/button/ratio_button.dart';
 
-import '../../../common/widget/task_tile/task_tile.dart';
+import '../../../common/widget/item_tile/task_tile.dart';
 import '../../../core/l10n/l10n.dart';
 import '../../../core/locator/locator.dart';
 import '../../../core/routes/routes.dart';

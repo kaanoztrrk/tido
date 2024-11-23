@@ -1,14 +1,13 @@
 import 'package:TiDo/common/widget/Text/title.dart';
-import 'package:TiDo/common/widget/task_tile/populer_planner_tile.dart';
+import 'package:TiDo/common/widget/item_tile/populer_planner_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:TiDo/common/widget/appbar/home_appbar.dart';
-import 'package:TiDo/utils/Constant/image_strings.dart';
-import 'package:TiDo/utils/Device/device_utility.dart';
+
 import '../../../blocs/home_bloc/home_bloc.dart';
 import '../../../blocs/home_bloc/home_state.dart';
-import '../../../common/widget/task_tile/planner_tile.dart';
+import '../../../common/widget/item_tile/premium_tile.dart';
 import '../../../core/routes/routes.dart';
 import '../../../utils/Constant/sizes.dart';
 

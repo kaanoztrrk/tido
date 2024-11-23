@@ -106,6 +106,8 @@ dependencies:
   flutter_datetime_picker_plus: ^2.2.0
   permission_handler: ^11.3.1
   workmanager: ^0.5.2
+  dots_indicator: ^3.0.0
+  carousel_slider: ^5.0.0
 
   
 
@@ -162,6 +164,7 @@ flutter:
     - assets/image/theme/
     - assets/image/theme/texture/
     - assets/image/planner/
+    - assets/image/premium/
     - assets/sounds/
   #   - images/a_dot_ham.jpeg
 

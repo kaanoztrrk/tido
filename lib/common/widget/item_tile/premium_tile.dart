@@ -1,5 +1,8 @@
+import 'package:TiDo/core/routes/routes.dart';
 import 'package:TiDo/utils/Constant/image_strings.dart';
+import 'package:TiDo/utils/bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../utils/Constant/colors.dart';
 import '../../../utils/Constant/sizes.dart';
@@ -16,7 +19,9 @@ class PremiumTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = ViHelpersFunctions.isDarkMode(context);
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        ViBottomSheet.showPremiumBottomSheet(context);
+      },
       child: Container(
         width: double.infinity,
         height: ViDeviceUtils.getScreenHeigth(context) * 0.175,

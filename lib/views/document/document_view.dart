@@ -11,7 +11,7 @@ import '../../blocs/home_bloc/home_state.dart';
 import '../common/empty_view/empty_view.dart';
 import '../../common/styles/square_container_style.dart';
 import '../../common/widget/Text/title.dart';
-import '../../common/widget/task_tile/selected_files_tile.dart';
+import '../../common/widget/item_tile/selected_files_tile.dart';
 import '../../core/l10n/l10n.dart';
 import '../../core/locator/locator.dart';
 import '../../core/routes/routes.dart';

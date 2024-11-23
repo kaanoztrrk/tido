@@ -1,6 +1,5 @@
 import 'package:TiDo/blocs/location_bloc/location_bloc.dart';
 import 'package:TiDo/data/models/habit_model/habit_model.dart';
-import 'package:TiDo/views/common/premium_view/premium_view.dart';
 import 'package:TiDo/views/document/document_view.dart';
 import 'package:TiDo/views/habit/habit_view.dart';
 
@@ -349,12 +348,6 @@ final GoRouter router = GoRouter(
             child: HabitView(
               habit: habit,
             ));
-      },
-    ),
-    GoRoute(
-      path: ViRoutes.premium_view,
-      builder: (BuildContext context, GoRouterState state) {
-        return PremiumView();
       },
     ),
   ],

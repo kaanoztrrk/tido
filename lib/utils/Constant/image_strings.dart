@@ -36,4 +36,13 @@ class ViImages {
   static const String exercise = "assets/image/planner/exercise.png";
   static const String mediatate = "assets/image/planner/mediatate.png";
   static const String premium = "assets/image/planner/premium.png";
+
+  static const String limitless_dark =
+      "assets/image/premium/limitless_dark.png";
+  static const String limitless_light =
+      "assets/image/premium/limitless_light.png";
+  static const String archive = "assets/image/premium/archive.png";
+  static const String bio_password = "assets/image/premium/bio_password.png";
+  static const String cloud_sync = "assets/image/premium/cloud_sync.png";
+  static const String theme = "assets/image/premium/theme.png";
 }

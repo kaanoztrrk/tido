@@ -1,7 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
+
 import 'package:TiDo/common/widget/chip/label_chip.dart';
+import 'package:TiDo/common/widget/item_tile/premium_item_tile.dart';
 import 'package:TiDo/utils/bottom_sheet/widget/bottom_sheet_widget.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -25,7 +29,7 @@ import '../Theme/custom_theme.dart/text_theme.dart';
 import '../../common/styles/container_style.dart';
 import '../../common/widget/Text/title.dart';
 import '../../common/widget/button/primary_button.dart';
-import '../../common/widget/task_tile/selected_files_tile.dart';
+import '../../common/widget/item_tile/selected_files_tile.dart';
 
 class ViBottomSheet {
   //* add category bottom shet
@@ -547,6 +551,55 @@ class ViBottomSheet {
               BottomSheetWidget.buildEditItem(context, onDelete, dark,
                   Iconsax.trash, AppLocalizations.of(context)!.delete_category),
             ],
+          ),
+        );
+      },
+    );
+  }
+
+  static void showPremiumBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: true,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0), // Adjust padding as necessary
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Text(
+                    "Go Premium",
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                ),
+
+                // PageView with automatic scroll
+                Container(
+                  height: MediaQuery.of(context).size.height *
+                      0.4, // Dynamically adjust height based on screen size
+                  child: AutoSwipePageView(), // Custom widget for auto-swiping
+                ),
+
+                ViPrimaryButton(
+                  text: "Get Premium for 5.99 USD",
+                  onTap: () {
+                    // Implement the premium purchase functionality
+                    Navigator.of(context).pop();
+                  },
+                ),
+                const SizedBox(height: ViSizes.spaceBtwItems),
+                // Responsively adjust the text size for small and large screens
+                Text(
+                  "Upon purchase confirmation, 39.99 USD will be charged to your account. This payment grants access to TıDo's premium features.",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(),
+                ),
+              ],
+            ),
           ),
         );
       },

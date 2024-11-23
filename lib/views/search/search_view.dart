@@ -8,7 +8,7 @@ import '../../blocs/home_bloc/home_state.dart';
 import '../common/empty_view/empty_view.dart';
 import '../../common/styles/container_style.dart';
 import '../../common/widget/appbar/appbar.dart';
-import '../../common/widget/task_tile/calender_task_tile.dart';
+import '../../common/widget/item_tile/calender_task_tile.dart';
 import '../../core/l10n/l10n.dart';
 import '../../core/locator/locator.dart';
 import '../../data/services/date_formetter_service.dart';
