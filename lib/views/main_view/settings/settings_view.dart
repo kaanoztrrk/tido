@@ -1,3 +1,5 @@
+import 'package:TiDo/common/widget/item_tile/premium/no_ads_tile.dart';
+import 'package:TiDo/common/widget/item_tile/premium/premium_tile.dart';
 import 'package:TiDo/data/services/date_formetter_service.dart';
 import 'package:TiDo/utils/bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -80,10 +82,12 @@ class SettingsView extends StatelessWidget {
                     );
                   },
                 ),
-                const SizedBox(height: ViSizes.spaceBtwSections),
+                const SizedBox(height: ViSizes.spaceBtwSections / 2),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    NoAdsTile(),
+                    const SizedBox(height: ViSizes.spaceBtwItems),
                     ViPrimaryTitle(
                       title: AppLocalizations.of(context)!.customize,
                     ),
@@ -203,17 +207,6 @@ class SettingsView extends StatelessWidget {
                             leading: const Icon(Iconsax.document),
                             title:
                                 Text(AppLocalizations.of(context)!.documents),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: ViSizes.defaultSpace),
-                            child: Divider(),
-                          ),
-                          ListTile(
-                            onTap: () => context.push(ViRoutes.categories),
-                            leading: const Icon(Iconsax.task_square),
-                            title:
-                                Text(AppLocalizations.of(context)!.categories),
                           ),
                         ],
                       ),

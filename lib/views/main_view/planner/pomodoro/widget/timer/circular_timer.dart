@@ -65,7 +65,7 @@ class _ViCircularTimerState extends State<ViCircularTimer> {
                 backgroundColor: widget.backgroundColor ?? Colors.grey,
                 progressColor: widget.progressColor ?? AppColors.white,
                 outerCircleColor: widget.outerCircleColor ??
-                    Theme.of(context).primaryColor.withOpacity(0.1),
+                    Theme.of(context).primaryColor.withValues(alpha: 0.1),
                 outerCircleProgressColor: widget.outerCircleProgressColor ??
                     Theme.of(context).primaryColor,
                 innerDotFillColor: AppColors.light,

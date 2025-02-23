@@ -14,7 +14,9 @@ void main() async {
 
   runApp(MultiBlocProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => PomodoroService()),
+      ChangeNotifierProvider(
+        create: (_) => PomodoroService(),
+      ),
     ],
     child: const TIDO(),
   ));

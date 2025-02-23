@@ -34,7 +34,8 @@ class ViCircularProgress extends StatelessWidget {
               strokeWidth: 20.0,
               backgroundColor: Colors.grey,
               progressColor: Colors.transparent,
-              outerCircleColor: Theme.of(context).primaryColor.withOpacity(0.1),
+              outerCircleColor:
+                  Theme.of(context).primaryColor.withValues(alpha: 0.1),
               outerCircleProgressColor: Theme.of(context).primaryColor,
               innerDotFillColor: AppColors.light,
               innerDotBorderColor: Theme.of(context).primaryColor,

@@ -74,7 +74,7 @@ class HabitView extends StatelessWidget {
                                   decoration: BoxDecoration(
                                       color: Theme.of(context)
                                           .primaryColor
-                                          .withOpacity(0.5),
+                                          .withValues(alpha: 0.5),
                                       borderRadius: const BorderRadius.only(
                                           topLeft: Radius.circular(
                                               ViSizes.cardRadiusLg),

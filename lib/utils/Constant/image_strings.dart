@@ -45,4 +45,5 @@ class ViImages {
   static const String bio_password = "assets/image/premium/bio_password.png";
   static const String cloud_sync = "assets/image/premium/cloud_sync.png";
   static const String theme = "assets/image/premium/theme.png";
+  static const String noAds = "assets/image/premium/ad_block.png";
 }

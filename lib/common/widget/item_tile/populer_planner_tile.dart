@@ -37,11 +37,12 @@ class PopulerPlannerTile extends StatelessWidget {
         width: double.infinity,
         height: height ?? ViDeviceUtils.getScreenHeigth(context) * 0.15,
         decoration: BoxDecoration(
-          color: dark ? AppColors.black.withOpacity(0.5) : AppColors.white,
+          color:
+              dark ? AppColors.black.withValues(alpha: 0.5) : AppColors.white,
           borderRadius: BorderRadius.circular(ViSizes.cardRadiusLg),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1), // Gölgenin rengi
+              color: Colors.black.withValues(alpha: 0.1), // Gölgenin rengi
               blurRadius: 6, // Gölgenin yayılma miktarı
               offset: const Offset(0, 4), // Gölgenin yönü (x, y)
             ),

@@ -8,12 +8,14 @@ class ViSwitchTheme {
   static SwitchThemeData lightSwitchTheme = SwitchThemeData(
     thumbColor: WidgetStateProperty.all(AppColors.primary),
     trackColor: WidgetStateProperty.all(AppColors.darkGrey),
-    overlayColor: WidgetStateProperty.all(AppColors.primary.withOpacity(0.5)),
+    overlayColor:
+        WidgetStateProperty.all(AppColors.primary.withValues(alpha: 0.5)),
   );
 
   static SwitchThemeData darkSwitchTheme = SwitchThemeData(
     thumbColor: WidgetStateProperty.all(AppColors.white),
     trackColor: WidgetStateProperty.all(AppColors.darkGrey),
-    overlayColor: WidgetStateProperty.all(AppColors.white.withOpacity(0.5)),
+    overlayColor:
+        WidgetStateProperty.all(AppColors.white.withValues(alpha: 0.5)),
   );
 }

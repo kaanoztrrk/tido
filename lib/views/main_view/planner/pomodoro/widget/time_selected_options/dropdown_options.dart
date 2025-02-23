@@ -51,7 +51,7 @@ class TimeDropdownButton extends StatelessWidget {
                 width: 3,
                 color: double.parse(item) == provider.selectedTime
                     ? AppColors.white
-                    : AppColors.white.withOpacity(0.5),
+                    : AppColors.white.withValues(alpha: 0.5),
               ),
               borderRadius: BorderRadius.circular(5),
             ),

@@ -59,10 +59,13 @@ class ViHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             Row(
               children: actions ??
                   [
-                    ViRotioButton(
+                    /*
+                         ViRotioButton(
                       onTap: notificationOnPressed,
                       child: const Icon(Iconsax.notification),
                     ),
+                    
+                     */
                     const SizedBox(width: ViSizes.sm),
                     ViProfileImage(
                       onTap: () => context.push(ViRoutes.profile_view),

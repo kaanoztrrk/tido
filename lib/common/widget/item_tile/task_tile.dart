@@ -57,7 +57,7 @@ class ViTaskSwiperTile extends StatelessWidget {
                     borderRadius:
                         BorderRadius.circular(ViSizes.borderRadiusLg * 2),
                     height: 60,
-                    bgColor: AppColors.lightGrey.withOpacity(0.7),
+                    bgColor: AppColors.lightGrey.withValues(alpha: 0.7),
                     child: Padding(
                       padding:
                           const EdgeInsets.symmetric(horizontal: ViSizes.md),
@@ -99,7 +99,7 @@ class ViTaskSwiperTile extends StatelessWidget {
                       ViRotioButton(
                         onTap: optionTap,
                         size: 70,
-                        bgColor: AppColors.lightGrey.withOpacity(0.7),
+                        bgColor: AppColors.lightGrey.withValues(alpha: 0.7),
                         child: const Icon(
                           Iconsax.edit_2,
                           color: AppColors.dark,
@@ -216,7 +216,7 @@ class ViTaskListTile extends StatelessWidget {
                 children: [
                   if (task.taskTime != null)
                     ViContainer(
-                      bgColor: AppColors.white.withOpacity(0.3),
+                      bgColor: AppColors.white.withValues(alpha: 0.3),
                       borderColor:
                           Theme.of(context).brightness == Brightness.dark
                               ? AppColors.light
@@ -233,7 +233,7 @@ class ViTaskListTile extends StatelessWidget {
                   SizedBox(width: ViSizes.sm),
                   if (task.files!.isNotEmpty)
                     ViContainer(
-                      bgColor: AppColors.white.withOpacity(0.3),
+                      bgColor: AppColors.white.withValues(alpha: 0.3),
                       borderColor:
                           Theme.of(context).brightness == Brightness.dark
                               ? AppColors.light

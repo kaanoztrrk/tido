@@ -31,7 +31,7 @@ class SettingsTile extends StatelessWidget {
         ViContainer(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           borderRadius: BorderRadius.circular(ViSizes.borderRadiusMd),
-          bgColor: AppColors.darkerGrey.withOpacity(0.2),
+          bgColor: AppColors.darkerGrey.withValues(alpha: 0.2),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               value: value,

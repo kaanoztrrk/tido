@@ -1,17 +1,14 @@
-import 'package:TiDo/core/routes/routes.dart';
 import 'package:TiDo/utils/Constant/image_strings.dart';
-import 'package:TiDo/utils/bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../utils/Constant/colors.dart';
-import '../../../utils/Constant/sizes.dart';
-import '../../../utils/Device/device_utility.dart';
-import '../../../utils/Helpers/helpers_functions.dart';
-import '../../../utils/Theme/custom_theme.dart/text_theme.dart';
+import '../../../../utils/Constant/colors.dart';
+import '../../../../utils/Constant/sizes.dart';
+import '../../../../utils/Device/device_utility.dart';
+import '../../../../utils/Helpers/helpers_functions.dart';
+import '../../../../utils/Theme/custom_theme.dart/text_theme.dart';
 
-class PremiumTile extends StatelessWidget {
-  const PremiumTile({
+class NoAdsTile extends StatelessWidget {
+  const NoAdsTile({
     super.key,
   });
 
@@ -20,7 +17,7 @@ class PremiumTile extends StatelessWidget {
     final dark = ViHelpersFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: () {
-        ViBottomSheet.showPremiumBottomSheet(context);
+        //     ViBottomSheet.showNoAdsBottomSheet(context);
       },
       child: Container(
         width: double.infinity,
@@ -37,7 +34,7 @@ class PremiumTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Subscrible\nTo Premium",
+                  "Enjoy\nNo Ads",
                   style: dark
                       ? ViTextTheme.darkTextTheme.headlineMedium?.copyWith(
                           fontWeight: FontWeight.w700,
@@ -53,12 +50,12 @@ class PremiumTile extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(ViSizes.defaultSpace),
               decoration: BoxDecoration(
-                  color: AppColors.yellow.withOpacity(0.2),
+                  color: AppColors.yellow.withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(500)),
               child: Image.asset(
-                ViImages.premium,
-                width: ViDeviceUtils.getScreenHeigth(context) * 0.05,
-                height: ViDeviceUtils.getScreenWidth(context) * 0.1,
+                ViImages.noAds,
+                width: ViDeviceUtils.getScreenHeigth(context) * 0.1,
+                height: ViDeviceUtils.getScreenWidth(context) * 0.2,
               ),
             ),
           ],

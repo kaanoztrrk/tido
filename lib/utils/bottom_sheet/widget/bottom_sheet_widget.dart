@@ -6,7 +6,7 @@ import 'package:TiDo/utils/Helpers/helpers_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../common/widget/item_tile/premium_item_tile.dart';
+import '../../../common/widget/item_tile/premium/premium_item_tile.dart';
 import '../../Constant/colors.dart';
 import '../../Constant/sizes.dart';
 import '../../Theme/custom_theme.dart/text_theme.dart';

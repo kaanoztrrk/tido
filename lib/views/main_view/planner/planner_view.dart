@@ -7,7 +7,7 @@ import 'package:TiDo/common/widget/appbar/home_appbar.dart';
 
 import '../../../blocs/home_bloc/home_bloc.dart';
 import '../../../blocs/home_bloc/home_state.dart';
-import '../../../common/widget/item_tile/premium_tile.dart';
+import '../../../common/widget/item_tile/premium/premium_tile.dart';
 import '../../../core/routes/routes.dart';
 import '../../../utils/Constant/sizes.dart';
 

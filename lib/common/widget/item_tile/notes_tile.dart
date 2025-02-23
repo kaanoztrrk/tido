@@ -44,7 +44,7 @@ class ViNotesTile extends StatelessWidget {
                     color: Theme.of(context)
                         .colorScheme
                         .onPrimary
-                        .withOpacity(0.7),
+                        .withValues(alpha: 0.7),
                   ),
               maxLines: 3, // Max 3 satır göster
               overflow: TextOverflow.ellipsis, // Taşan metni üç noktaya çevir
@@ -60,7 +60,7 @@ class ViNotesTile extends StatelessWidget {
                         color: Theme.of(context)
                             .colorScheme
                             .onPrimary
-                            .withOpacity(0.5),
+                            .withValues(alpha: 0.5),
                       ),
                 ),
               ],

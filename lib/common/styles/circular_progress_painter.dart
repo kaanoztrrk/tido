@@ -38,7 +38,7 @@ class CircularProgressPainter extends CustomPainter {
       ..strokeCap = StrokeCap.butt;
 
     final Paint outerCirclePaint = Paint()
-      ..color = outerCircleColor.withOpacity(0.5)
+      ..color = outerCircleColor.withValues(alpha: 0.5)
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth + 20; // Outer circle width
 

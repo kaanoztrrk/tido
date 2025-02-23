@@ -67,16 +67,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     // Firestore veritabanına kullanıcıya göre görev ekleme
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      // Kullanıcının userId'sine göre veritabanına ekliyoruz
       String userId = user.uid;
 
-      // Firestore collection referansı
       CollectionReference tasksRef = FirebaseFirestore.instance
           .collection('user_tasks')
           .doc(userId)
           .collection('tasks');
 
-      // Firestore'a yeni görevi ekle
       await tasksRef.add({
         'taskId': newId,
         'title': event.title,
@@ -88,37 +85,42 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       });
     }
 
-    // Workmanager ile görev kaydetme
+    // Bildirim planlama
     if (event.taskTime != null) {
       final delay = event.taskTime!.difference(DateTime.now());
 
       if (delay.isNegative) {
-        LocalNotificationService notificationService =
-            LocalNotificationService();
-        notificationService.showNotification(
-          id: newId,
-          title: "Görev Zamanı!",
-          body: event.title,
-        );
+        _showInstantNotification(newId, event.title);
       } else {
-        Workmanager().registerOneOffTask(
-          "Task_$newId",
-          "backup",
-          inputData: {
-            'taskId': newId,
-            'taskTitle': event.title,
-          },
-          initialDelay: delay,
-        );
+        _scheduleBackgroundNotification(newId, event.title, event.taskTime!);
       }
     } else {
-      LocalNotificationService notificationService = LocalNotificationService();
-      notificationService.showNotification(
-        id: newId,
-        title: "Görev Oluşturuldu!",
-        body: event.title,
-      );
+      _showInstantNotification(newId, event.title);
     }
+  }
+
+  /// **Hemen bildirim gönderme**
+  void _showInstantNotification(int id, String title) {
+    LocalNotificationService notificationService = LocalNotificationService();
+    notificationService.showNotification(
+      id: id,
+      title: "Görev Zamanı!",
+      body: title,
+    );
+  }
+
+  /// **Zamanlanmış bildirim ayarlama (Arka planda çalışır)**
+  void _scheduleBackgroundNotification(
+      int id, String title, DateTime taskTime) {
+    Workmanager().registerOneOffTask(
+      "Task_$id",
+      "show_notification",
+      inputData: {
+        'taskId': id,
+        'taskTitle': title,
+      },
+      initialDelay: taskTime.difference(DateTime.now()),
+    );
   }
 
   void _updateTask(UpdateToDoEvent event, Emitter<HomeState> emit) async {

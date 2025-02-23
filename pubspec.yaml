@@ -108,6 +108,7 @@ dependencies:
   workmanager: ^0.5.2
   dots_indicator: ^3.0.0
   carousel_slider: ^5.0.0
+  googleapis_auth: ^1.6.0
 
   
 

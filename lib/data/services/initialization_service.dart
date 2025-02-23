@@ -10,7 +10,6 @@ import 'package:workmanager/workmanager.dart';
 
 import '../models/category_model/category_model.dart';
 import '../models/note_model/note_model.dart';
-import '../models/notification_model/notification_model.dart';
 import '../models/task_model/task_model.dart';
 import 'firebase_message_service.dart';
 import 'local_notification.dart';
@@ -77,7 +76,6 @@ class InitializationService {
     Hive.registerAdapter(TaskModelAdapter());
     Hive.registerAdapter(HabitModelAdapter());
     Hive.registerAdapter(CategoryModelAdapter());
-    Hive.registerAdapter(NotificationModelAdapter());
     Hive.registerAdapter(NoteModelAdapter());
   }
 
@@ -92,9 +90,6 @@ class InitializationService {
     }
     if (!Hive.isBoxOpen(APPContants.noteBox)) {
       await Hive.openBox<NoteModel>(APPContants.noteBox);
-    }
-    if (!Hive.isBoxOpen(APPContants.notificationsBox)) {
-      await Hive.openBox<NotificationModel>(APPContants.notificationsBox);
     }
     if (!Hive.isBoxOpen(APPContants.habitBox)) {
       await Hive.openBox<HabitModel>(APPContants.habitBox);

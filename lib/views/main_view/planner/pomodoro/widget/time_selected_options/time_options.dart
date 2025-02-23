@@ -45,7 +45,8 @@ class TimeOptions extends StatelessWidget {
                     )
                   : BoxDecoration(
                       border: Border.all(
-                          width: 3, color: AppColors.white.withOpacity(0.5)),
+                          width: 3,
+                          color: AppColors.white.withValues(alpha: 0.5)),
                       borderRadius: BorderRadius.circular(5),
                     ),
               alignment: Alignment.center,

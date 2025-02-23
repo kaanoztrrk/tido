@@ -1,3 +1,4 @@
+import 'package:TiDo/utils/Constant/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconsax/iconsax.dart';
@@ -22,9 +23,10 @@ class ViBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16) +
+      margin: EdgeInsets.symmetric(horizontal: ViSizes.defaultSpace) +
           const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+      padding: const EdgeInsets.symmetric(
+          horizontal: ViSizes.defaultSpace * 1.5, vertical: 15),
       decoration: BoxDecoration(
         color: darkMode
             ? AppColors.bottomNavigatorBackgroundDark

@@ -96,7 +96,7 @@ class CalenderTaskTile extends StatelessWidget {
                   borderRadius:
                       BorderRadius.circular(ViSizes.borderRadiusLg * 2),
                   height: 60,
-                  bgColor: AppColors.lightGrey.withOpacity(0.7),
+                  bgColor: AppColors.lightGrey.withValues(alpha: 0.7),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: ViSizes.md),
                     child: Row(

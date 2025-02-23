@@ -38,7 +38,7 @@ class ViContainer extends StatelessWidget {
     var dark = ViHelpersFunctions.isDarkMode(context);
 
     Color defaultBgColor =
-        dark ? AppColors.dark : AppColors.lightGrey.withOpacity(0.7);
+        dark ? AppColors.dark : AppColors.lightGrey.withValues(alpha: 0.7);
     return GestureDetector(
       onTap: onTap,
       child: Container(

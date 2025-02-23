@@ -16,7 +16,7 @@ class ViTextFormFieldTheme {
     hintStyle: const TextStyle().copyWith(fontSize: 14, color: Colors.black),
     errorStyle: const TextStyle().copyWith(fontStyle: FontStyle.normal),
     floatingLabelStyle:
-        const TextStyle().copyWith(color: Colors.black.withOpacity(0.8)),
+        const TextStyle().copyWith(color: Colors.black.withValues(alpha: 0.8)),
     border: const OutlineInputBorder().copyWith(
         borderRadius: BorderRadius.circular(50),
         borderSide: const BorderSide(width: 1, color: AppColors.textfieldBg)),
@@ -43,7 +43,7 @@ class ViTextFormFieldTheme {
     hintStyle: const TextStyle().copyWith(fontSize: 14, color: Colors.white),
     errorStyle: const TextStyle().copyWith(fontStyle: FontStyle.normal),
     floatingLabelStyle:
-        const TextStyle().copyWith(color: Colors.white.withOpacity(0.8)),
+        const TextStyle().copyWith(color: Colors.white.withValues(alpha: 0.8)),
     border: const OutlineInputBorder().copyWith(
         borderRadius: BorderRadius.circular(50),
         borderSide: const BorderSide(width: 1, color: AppColors.textfieldBg)),

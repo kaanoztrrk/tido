@@ -3,7 +3,7 @@
 import 'dart:async';
 
 import 'package:TiDo/common/widget/chip/label_chip.dart';
-import 'package:TiDo/common/widget/item_tile/premium_item_tile.dart';
+import 'package:TiDo/common/widget/item_tile/premium/premium_item_tile.dart';
 import 'package:TiDo/utils/bottom_sheet/widget/bottom_sheet_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -160,7 +160,9 @@ class ViBottomSheet {
                                       width: 1.5)
                                   : BorderSide.none),
                           tileColor: isLanguageChosen
-                              ? Theme.of(context).primaryColor.withOpacity(0.05)
+                              ? Theme.of(context)
+                                  .primaryColor
+                                  .withValues(alpha: 0.5)
                               : null,
                         );
                       },

@@ -80,7 +80,8 @@ class _ViProfileImageState extends State<ViProfileImage> {
                 height: widget.size,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: widget.bgColor ?? AppColors.lightGrey.withOpacity(0.7),
+                  color: widget.bgColor ??
+                      AppColors.lightGrey.withValues(alpha: 0.7),
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: imageUrl.startsWith('http') ||

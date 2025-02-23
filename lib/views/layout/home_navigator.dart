@@ -62,12 +62,6 @@ class _HomeNavigatorState extends State<HomeNavigator> {
                 GButton(
                   padding:
                       const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                  icon: Iconsax.document,
-                  text: AppLocalizations.of(context)!.planner,
-                ),
-                GButton(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                   icon: Iconsax.setting,
                   text: AppLocalizations.of(context)!.settings,
                 ),
@@ -84,8 +78,6 @@ class _HomeNavigatorState extends State<HomeNavigator> {
       case 1:
         return const ScheduleView();
       case 2:
-        return const PlannerView();
-      case 3:
         return const SettingsView();
       default:
         return const Center(

@@ -71,7 +71,7 @@ class _ViSwiperButtonState extends State<ViSwiperButton> {
         width: widget.width ?? MediaQuery.of(context).size.width * 0.65,
         bgColor: widget.isCompleted
             ? AppColors.darkerGrey
-            : AppColors.lightGrey.withOpacity(0.5),
+            : AppColors.lightGrey.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(ViSizes.borderRadiusLg * 2),
         height: widget.height ?? 70.0,
         child: Stack(
