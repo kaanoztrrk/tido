@@ -25,6 +25,7 @@ import '../../views/auth/forgot_password/forgot_password.dart';
 import '../../views/common/splash_view/splash_view.dart';
 import '../../views/auth/welcome/welcome_view.dart';
 import '../../views/location_reminder/location_reminder_view.dart';
+import '../../views/main_view/settings/privacy_policy/privacy_policy_view.dart';
 import '../../views/task/create_task/create_task_view.dart';
 import '../../views/folder_detailes.dart/doc_folder_detailes.dart';
 import '../../views/folder_detailes.dart/image_folder_detailes.dart';
@@ -348,6 +349,12 @@ final GoRouter router = GoRouter(
             child: HabitView(
               habit: habit,
             ));
+      },
+    ),
+    GoRoute(
+      path: ViRoutes.privacy_policy,
+      builder: (BuildContext context, GoRouterState state) {
+        return const PrivacyPolicyView();
       },
     ),
   ],

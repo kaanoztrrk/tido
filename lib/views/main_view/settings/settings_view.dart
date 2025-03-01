@@ -86,7 +86,7 @@ class SettingsView extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    NoAdsTile(),
+                    // NoAdsTile(),
                     const SizedBox(height: ViSizes.spaceBtwItems),
                     ViPrimaryTitle(
                       title: AppLocalizations.of(context)!.customize,
@@ -133,7 +133,9 @@ class SettingsView extends StatelessWidget {
                             title: Text(AppLocalizations.of(context)!
                                 .notification_reminder),
                           ),
-                          const Padding(
+
+                          /*
+                            const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: ViSizes.defaultSpace),
                             child: Divider(),
@@ -156,6 +158,8 @@ class SettingsView extends StatelessWidget {
                               );
                             },
                           ),
+                         
+                          */
                           /*
                           const Padding(
                             padding: EdgeInsets.symmetric(
@@ -379,6 +383,7 @@ class SettingsView extends StatelessWidget {
                            */
                           ListTile(
                             leading: const Icon(Iconsax.security),
+                            onTap: () => context.push(ViRoutes.privacy_policy),
                             title: Text(
                                 AppLocalizations.of(context)!.privacy_policy),
                           ),

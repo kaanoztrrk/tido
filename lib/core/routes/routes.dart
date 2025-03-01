@@ -41,4 +41,5 @@ class ViRoutes {
 
   static const String habit_view = '/habit_view';
   static const String premium_view = '/premium_view';
+  static const String privacy_policy = '/privacy_policy';
 }

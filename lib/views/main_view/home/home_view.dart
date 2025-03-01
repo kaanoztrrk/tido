@@ -6,6 +6,7 @@ import 'package:TiDo/utils/bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:workmanager/workmanager.dart';
@@ -17,6 +18,7 @@ import '../../../blocs/home_bloc/home_state.dart';
 import '../../../blocs/theme_bloc/theme_bloc.dart';
 import '../../../blocs/theme_bloc/theme_state.dart';
 
+import '../../../data/services/google_ads_service.dart';
 import '../../common/empty_view/empty_view.dart';
 import '../../../common/layout/swiper_layout.dart';
 import '../../../common/widget/admob_banner/adMob_banner.dart';
@@ -144,89 +146,106 @@ class HomeView extends StatelessWidget {
                           )
                         : BlocBuilder<ThemeBloc, ThemeState>(
                             builder: (context, themestate) {
-                              return themestate.taskMode == false
-                                  ? Stack(
-                                      children: [
-                                        ViSwiperLayout(
-                                          itemCount: tasksToShow.length,
-                                          itemBuilder: (context, index) {
-                                            final task = tasksToShow[index];
-                                            return ViTaskSwiperTile(
-                                              timer: task.taskTime != null
-                                                  ? Text(
-                                                      " ${task.taskTime!.hour}:${task.taskTime!.minute.toString().padLeft(2, '0')}",
-                                                      style: ViTextTheme
-                                                          .darkTextTheme
-                                                          .titleSmall
-                                                          ?.copyWith(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: AppColors
-                                                                  .dark),
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      maxLines: 1,
-                                                    )
-                                                  : null,
-                                              title: task.title,
-                                              onSwipe: () {
-                                                BlocProvider.of<HomeBloc>(
-                                                        context)
-                                                    .add(
-                                                  ChangeCheckBoxEvent(
-                                                    isChecked: !task.isChecked,
-                                                    task: task,
-                                                  ),
-                                                );
-                                              },
-                                              onTap: () {
-                                                context.push(
-                                                    ViRoutes.task_detail_view,
-                                                    extra: task);
-                                              },
-                                              optionTap: () => ViBottomSheet
-                                                  .showOptionBottomSheet(
-                                                context,
-                                                onEdit: () {
-                                                  context.push(
-                                                      ViRoutes.task_edit_view,
-                                                      extra: task);
-                                                },
-                                                onDelete: () {
-                                                  BlocProvider.of<HomeBloc>(
-                                                          context)
-                                                      .add(DeleteToDoEvent(
-                                                          task: task));
-                                                  context.pop();
-                                                },
-                                                onMarkAsComplete: () {
-                                                  BlocProvider.of<HomeBloc>(
-                                                          context)
-                                                      .add(
-                                                    ChangeCheckBoxEvent(
-                                                      isChecked:
-                                                          !task.isChecked,
-                                                      task: task,
-                                                    ),
-                                                  );
-                                                },
+                              return Stack(
+                                children: [
+                                  ViSwiperLayout(
+                                    itemCount: tasksToShow.length,
+                                    itemBuilder: (context, index) {
+                                      final task = tasksToShow[index];
+                                      return ViTaskSwiperTile(
+                                        timer: task.taskTime != null
+                                            ? Text(
+                                                " ${task.taskTime!.hour}:${task.taskTime!.minute.toString().padLeft(2, '0')}",
+                                                style: ViTextTheme
+                                                    .darkTextTheme.titleSmall
+                                                    ?.copyWith(
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: AppColors.dark),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                              )
+                                            : null,
+                                        title: task.title,
+                                        onSwipe: () {
+                                          BlocProvider.of<HomeBloc>(context)
+                                              .add(
+                                            ChangeCheckBoxEvent(
+                                              isChecked: !task.isChecked,
+                                              task: task,
+                                            ),
+                                          );
+                                        },
+                                        onTap: () {
+                                          context.push(
+                                              ViRoutes.task_detail_view,
+                                              extra: task);
+                                        },
+                                        optionTap: () =>
+                                            ViBottomSheet.showOptionBottomSheet(
+                                          context,
+                                          onEdit: () {
+                                            context.push(
+                                                ViRoutes.task_edit_view,
+                                                extra: task);
+                                          },
+                                          onDelete: () {
+                                            BlocProvider.of<HomeBloc>(context)
+                                                .add(DeleteToDoEvent(
+                                                    task: task));
+                                            context.pop();
+                                          },
+                                          onMarkAsComplete: () {
+                                            BlocProvider.of<HomeBloc>(context)
+                                                .add(
+                                              ChangeCheckBoxEvent(
+                                                isChecked: !task.isChecked,
+                                                task: task,
                                               ),
-                                              isCompleted: task.isChecked,
                                             );
                                           },
                                         ),
-                                        const Align(
-                                          alignment:
-                                              AlignmentDirectional.bottomStart,
-                                          child: AdMobBanner(),
-                                        ),
-                                      ],
-                                    )
-                                  : ListView.builder(
-                                      itemCount: homestate.allTasksList.length,
+                                        isCompleted: task.isChecked,
+                                      );
+                                    },
+                                  ),
+                                  const Align(
+                                    alignment: AlignmentDirectional.bottomStart,
+                                    child: AdMobBanner(),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+/*
+  : ListView.builder(
+                                      itemCount: homestate.allTasksList.length +
+                                          1, // Banner için +1 ekledik
                                       itemBuilder: (context, index) {
-                                        final task = tasksToShow[index];
+                                        if (index == 0) {
+                                          // Listenin başına reklam ekleme
+                                          return SizedBox(
+                                            height: 80  , // Reklamın yüksekliği
+                                            child: AdWidget(
+                                              ad: GoogleAdsService()
+                                                  .loadBannerAd()!,
+                                            ),
+                                          );
+                                        }
+                                        final task = tasksToShow[index -
+                                            1]; // Banner'ı hesaba katarak index kaydırıldı
                                         return ViTaskListTile(
                                           task: task,
                                           onTap: () {
@@ -271,16 +290,4 @@ class HomeView extends StatelessWidget {
                                           description:
                                               task.description.toString(),
                                         );
-                                      });
-                            },
-                          ),
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-      ),
-    );
-  }
-}
+                                      }); */
