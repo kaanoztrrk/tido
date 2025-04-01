@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'dart:io';
+import 'package:TiDo/common/widget/appbar/appbar.dart';
 import 'package:TiDo/utils/Helpers/helpers_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -8,6 +9,9 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 import '../../../../utils/Constant/colors.dart';
 import '../../../../utils/Constant/sizes.dart';
+import '../../../../views/mobile/multimedia/image/image_view.dart';
+import '../../../../views/mobile/multimedia/pdf/pdf_view.dart';
+import '../../../../views/mobile/multimedia/video/video_view.dart';
 
 class SelectedFilesTile extends StatefulWidget {
   const SelectedFilesTile({
@@ -41,8 +45,8 @@ class _SelectedFilesTileState extends State<SelectedFilesTile> {
   // Optimized method to handle file icons or image, pdf, video
   Widget _buildFileItem(String filePath) {
     if (filePath.isEmpty) {
-      return const Icon(Icons.insert_drive_file,
-          size: 30, color: AppColors.white);
+      return Icon(Icons.insert_drive_file,
+          size: 30, color: Theme.of(context).primaryColor);
     }
 
     final fileExtension = _getFileExtension(filePath);
@@ -61,11 +65,14 @@ class _SelectedFilesTileState extends State<SelectedFilesTile> {
       case 'mp4':
       case 'mov':
       case 'avi':
-        return Icon(fileIcons['video'], size: 30, color: AppColors.white);
+        return Icon(fileIcons['video'],
+            size: 30, color: Theme.of(context).primaryColor);
       case 'pdf':
-        return Icon(fileIcons['pdf'], size: 30, color: AppColors.white);
+        return Icon(fileIcons['pdf'],
+            size: 30, color: Theme.of(context).primaryColor);
       default:
-        return Icon(fileIcons['default'], size: 30, color: AppColors.white);
+        return Icon(fileIcons['default'],
+            size: 30, color: Theme.of(context).primaryColor);
     }
   }
 
@@ -80,32 +87,63 @@ class _SelectedFilesTileState extends State<SelectedFilesTile> {
     final fileExtension = _getFileExtension(widget.filePath);
 
     if (['jpg', 'jpeg', 'png'].contains(fileExtension)) {
-      showDialog(
-        context: context,
-        builder: (context) => Dialog(
-          child: InteractiveViewer(
-            child: Image.file(File(widget.filePath)),
-          ),
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => FullScreenImagePage(imagePath: widget.filePath),
         ),
       );
     } else if (['mp4', 'mov', 'avi'].contains(fileExtension)) {
-      showDialog(
-        context: context,
-        builder: (context) =>
-            Dialog(child: VideoPlayerScreen(videoPath: widget.filePath)),
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => FullScreenVideoPage(videoPath: widget.filePath),
+        ),
       );
     } else if (fileExtension == 'pdf') {
-      showDialog(
-        context: context,
-        builder: (context) => Dialog(child: PDFView(filePath: widget.filePath)),
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => FullScreenPdfPage(pdfPath: widget.filePath),
+        ),
       );
     }
+  }
+
+  // New onTap function to print file format
+  void _onTapFile(BuildContext context) {
+    final fileExtension = _getFileExtension(widget.filePath);
+    String formatMessage = '';
+
+    switch (fileExtension) {
+      case 'jpg':
+      case 'jpeg':
+      case 'png':
+        formatMessage = 'This is an image file.';
+        break;
+      case 'mp4':
+      case 'mov':
+      case 'avi':
+        formatMessage = 'This is a video file.';
+        break;
+      case 'pdf':
+        formatMessage = 'This is a PDF file.';
+        break;
+      default:
+        formatMessage = 'This is an unknown file type.';
+    }
+
+    // Print the format message
+    print(formatMessage);
+
+    // Call the original _openFile function
+    _openFile(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _openFile(context),
+      onTap: () => _onTapFile(context), // Using new _onTapFile function
       onLongPress: widget.enableLongPress
           ? () {
               setState(() {
@@ -148,47 +186,6 @@ class _SelectedFilesTileState extends State<SelectedFilesTile> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class VideoPlayerScreen extends StatefulWidget {
-  final String videoPath;
-  const VideoPlayerScreen({super.key, required this.videoPath});
-
-  @override
-  _VideoPlayerScreenState createState() => _VideoPlayerScreenState();
-}
-
-class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
-  late VideoPlayerController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = VideoPlayerController.file(File(widget.videoPath))
-      ..initialize().then((_) {
-        setState(() {});
-        _controller.play();
-      });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: _controller.value.isInitialized
-            ? AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller))
-            : const CircularProgressIndicator(),
       ),
     );
   }
