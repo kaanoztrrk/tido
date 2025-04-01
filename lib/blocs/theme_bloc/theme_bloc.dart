@@ -18,25 +18,26 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
 
   void _onChangeThemeColor(
       ChangeThemeColorEvent event, Emitter<ThemeState> emit) async {
+    // Only change the primaryColor
     emit(state.copyWith(primaryColor: event.newColor));
     final colorValue = event.newColor.value;
     await SharedPreferencesService.instance.setInt('primary_color', colorValue);
 
-    // If a background image is set, remove it
-    await SharedPreferencesService.instance.remove('background_image');
-    emit(state.copyWith(backgroundImage: null));
+    // Do not affect backgroundImage
+    // If necessary, we can keep it unchanged
   }
 
   void _onChangeBackgroundImage(
       ChangeBackgroundImageEvent event, Emitter<ThemeState> emit) async {
+    // Only change the backgroundImage
     emit(state.copyWith(backgroundImage: event.newImage));
 
     // Save the background image
     await SharedPreferencesService.instance
         .setString('background_image', event.newImage);
 
-    // Reset color selections
-    emit(state.copyWith(primaryColor: Colors.transparent));
+    // Do not affect primaryColor
+    // If necessary, we can keep it unchanged
   }
 
   void _onChangeThemeMode(
@@ -64,7 +65,9 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
 
     if (savedBackgroundImage != null) {
       add(ChangeBackgroundImageEvent(savedBackgroundImage));
-    } else if (savedColorValue != null) {
+    }
+
+    if (savedColorValue != null) {
       final savedColor = Color(savedColorValue);
       add(ChangeThemeColorEvent(savedColor));
     }

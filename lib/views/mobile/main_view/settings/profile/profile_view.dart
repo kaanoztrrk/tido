@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../blocs/auth_blocs/authentication_bloc/authentication_bloc.dart';
 import '../../../../../blocs/auth_blocs/authentication_bloc/authentication_event.dart';
@@ -155,24 +156,66 @@ class ProfileView extends StatelessWidget {
                         title: AppLocalizations.of(context)!.detailes_text,
                       ),
                       const SizedBox(height: ViSizes.spaceBtwItems),
-                      ViContainer(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Column(
-                          children: [
-                            ListTile(
-                              leading: const Icon(Iconsax.message_question),
-                              title:
-                                  Text(AppLocalizations.of(context)!.ask_help),
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: ViSizes.defaultSpace),
-                              child: Divider(),
-                            ),
-                            BlocBuilder<AuthenticationBloc,
-                                AuthenticationState>(
-                              builder: (context, state) {
-                                return ListTile(
+                      BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                        builder: (context, state) {
+                          var user = state.user?.displayName ??
+                              "Guest"; // Varsayılan olarak "Guest"
+                          return ViContainer(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Column(
+                              children: [
+                                // Help Section
+                                ListTile(
+                                  onTap: () async {
+                                    const String email =
+                                        'info.theviacoder@gmail.com';
+                                    final String subject =
+                                        'Help $user'; // Kullanıcının adı
+                                    const String body =
+                                        'Hello, I would like to reach out to you regarding the following matter...';
+
+                                    final Uri emailUri = Uri(
+                                      scheme: 'mailto',
+                                      path: email,
+                                      queryParameters: {
+                                        'subject': subject,
+                                        'body': body,
+                                      },
+                                    );
+
+                                    try {
+                                      bool canLaunch =
+                                          await canLaunchUrl(emailUri);
+                                      if (canLaunch) {
+                                        await launchUrl(emailUri);
+                                      } else {
+                                        throw 'E-posta uygulaması açılamadı.';
+                                      }
+                                    } catch (e) {
+                                      // Hata mesajını konsola yazdırın
+                                      print("Error launching email URL: $e");
+
+                                      // Hata mesajını göster
+                                      ViSnackbar.showError(
+                                        context,
+                                        'Bir hata oluştu, e-posta açılamadı: $e',
+                                      );
+
+                                      // E-posta adresini ListTile subtitle kısmında göster
+                                      ViSnackbar.showError(
+                                        context,
+                                        'E-posta adresi: $email',
+                                      );
+                                    }
+                                  },
+                                  leading: const Icon(Iconsax.message_question),
+                                  title: Text(
+                                      AppLocalizations.of(context)!.ask_help),
+                                  subtitle: Text(
+                                      'info.theviacoder@gmail.com'), // E-posta adresini burada gösteriyoruz
+                                ),
+                                // Delete Account Section
+                                ListTile(
                                   onTap: () async {
                                     ViBottomSheet.onAreYouSureBottomSheet(
                                       context: context,
@@ -185,8 +228,9 @@ class ProfileView extends StatelessWidget {
                                         try {
                                           BlocProvider.of<AuthenticationBloc>(
                                                   context)
-                                              .add(DeleteUser(state.user?.uid));
-
+                                              .add(
+                                            DeleteUser(state.user?.uid),
+                                          );
                                           ViSnackbar.showSuccess(
                                             context,
                                             AppLocalizations.of(context)!
@@ -213,14 +257,14 @@ class ProfileView extends StatelessWidget {
                                     style: const TextStyle(
                                         color: AppColors.warning),
                                   ),
-                                );
-                              },
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          );
+                        },
                       ),
                     ],
-                  ),
+                  )
                 ],
               ),
             ],

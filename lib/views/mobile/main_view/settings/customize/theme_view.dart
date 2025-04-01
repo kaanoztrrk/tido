@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -27,6 +25,7 @@ class ThemeView extends StatefulWidget {
 
 class _ThemeViewState extends State<ThemeView> {
   Color? _selectedColor;
+  String? _selectedImage; // backgroundImage için
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +41,7 @@ class _ThemeViewState extends State<ThemeView> {
             ),
             body: ListView(
               children: [
+                // Primary Color Section
                 Padding(
                   padding: const EdgeInsets.all(ViSizes.defaultSpace),
                   child: ViPrimaryTitle(
@@ -65,8 +65,6 @@ class _ThemeViewState extends State<ThemeView> {
                           context
                               .read<ThemeBloc>()
                               .add(ChangeThemeColorEvent(color));
-
-                          context.pop();
                         },
                         child: Container(
                           margin: const EdgeInsets.symmetric(horizontal: 5),
@@ -77,12 +75,102 @@ class _ThemeViewState extends State<ThemeView> {
                             borderRadius: BorderRadius.circular(20),
                             border: isSelected
                                 ? Border.all(
-                                    color: Theme.of(context).primaryColor,
+                                    color: Colors
+                                        .black, // Black border for selected item
                                     width: 3)
                                 : null,
                           ),
                         ),
                       );
+                    },
+                  ),
+                ),
+
+                // Texture Section
+                Padding(
+                  padding: const EdgeInsets.all(ViSizes.defaultSpace),
+                  child: ViPrimaryTitle(title: "Texture"),
+                ),
+                SizedBox(
+                  height: 100,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: state.allBackgroundList.length +
+                        1, // +1 for "No Texture"
+                    itemBuilder: (context, index) {
+                      if (index == 0) {
+                        // First item - "No Texture"
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _selectedImage =
+                                  null; // Remove the background image selection
+                            });
+
+                            context
+                                .read<ThemeBloc>()
+                                .add(ChangeBackgroundImageEvent(''));
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 5),
+                            height: 40,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              color: AppColors.lightGrey,
+                              borderRadius: BorderRadius.circular(20),
+                              border: _selectedImage == null
+                                  ? Border.all(
+                                      color: Colors
+                                          .black, // Black border for selected item
+                                      width: 3)
+                                  : null,
+                            ),
+                            child: Center(
+                              child: Text(
+                                'No Texture',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      } else {
+                        final image =
+                            state.allBackgroundList[index - 1]; // Adjust index
+                        final isSelected = image == _selectedImage;
+
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _selectedImage = image;
+                            });
+
+                            context
+                                .read<ThemeBloc>()
+                                .add(ChangeBackgroundImageEvent(image));
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 5),
+                            height: 40,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(image),
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                              border: isSelected
+                                  ? Border.all(
+                                      color: Colors
+                                          .black, // Black border for selected item
+                                      width: 3)
+                                  : null,
+                            ),
+                          ),
+                        );
+                      }
                     },
                   ),
                 ),

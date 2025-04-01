@@ -39,6 +39,13 @@ class ViTaskSwiperTile extends StatelessWidget {
       value: getIt<ThemeBloc>(),
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
+          // Eğer backgroundImage null değilse, yazı rengini belirlemek için kontrol yap
+          final isDark = state.backgroundImage != "" &&
+              Theme.of(context).primaryColor.computeLuminance() < 0.5;
+
+          // Yazı rengini belirle
+          final textColor = isDark ? AppColors.light : AppColors.dark;
+
           return GestureDetector(
             onTap: onTap,
             child: Container(
@@ -46,6 +53,12 @@ class ViTaskSwiperTile extends StatelessWidget {
               margin: const EdgeInsets.only(bottom: 30, top: 20),
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
+                image: state.backgroundImage != null
+                    ? DecorationImage(
+                        image: AssetImage(state.backgroundImage ?? ""),
+                        fit: BoxFit.cover,
+                      )
+                    : null,
                 borderRadius: BorderRadius.circular(ViSizes.borderRadiusLg * 2),
               ),
               child: Column(
@@ -82,8 +95,7 @@ class ViTaskSwiperTile extends StatelessWidget {
                         title,
                         style: ViTextTheme.darkTextTheme.headlineLarge
                             ?.copyWith(
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.light),
+                                fontWeight: FontWeight.w600, color: textColor),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
                       ),
