@@ -97,6 +97,22 @@ class $AssetsImageEmptyScreenGen {
 class $AssetsImageLanguageGen {
   const $AssetsImageLanguageGen();
 
+  /// File path: assets/image/language/china.png
+  AssetGenImage get china =>
+      const AssetGenImage('assets/image/language/china.png');
+
+  /// File path: assets/image/language/france.png
+  AssetGenImage get france =>
+      const AssetGenImage('assets/image/language/france.png');
+
+  /// File path: assets/image/language/italy.png
+  AssetGenImage get italy =>
+      const AssetGenImage('assets/image/language/italy.png');
+
+  /// File path: assets/image/language/japan.png
+  AssetGenImage get japan =>
+      const AssetGenImage('assets/image/language/japan.png');
+
   /// File path: assets/image/language/spain.png
   AssetGenImage get spain =>
       const AssetGenImage('assets/image/language/spain.png');
@@ -110,7 +126,8 @@ class $AssetsImageLanguageGen {
       const AssetGenImage('assets/image/language/united-kingdom.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [spain, turkiye, unitedKingdom];
+  List<AssetGenImage> get values =>
+      [china, france, italy, japan, spain, turkiye, unitedKingdom];
 }
 
 class $AssetsImageLogoGen {

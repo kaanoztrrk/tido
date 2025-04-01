@@ -107,6 +107,18 @@ class TaskInfoWidget extends StatelessWidget {
 
   Widget _buildPriority(BuildContext context) {
     var dark = ViHelpersFunctions.isDarkMode(context);
+    String _getTranslatedPriority(BuildContext context) {
+      switch (priority) {
+        case 'low':
+          return AppLocalizations.of(context)!.low;
+        case 'medium':
+          return AppLocalizations.of(context)!.medium;
+        case 'high':
+          return AppLocalizations.of(context)!.high;
+        default:
+          return priority; // Eğer eşleşme yoksa olduğu gibi bırak
+      }
+    }
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
@@ -149,7 +161,7 @@ class TaskInfoWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      priority,
+                      _getTranslatedPriority(context),
                       style: const TextStyle(color: Colors.white, fontSize: 14),
                     ),
                   ),

@@ -31,5 +31,39 @@ class LanguageModel {
     text: 'Spanish',
   );
 
-  static List<LanguageModel> get values => [english, turkiye, espanol];
+  static var france = LanguageModel(
+    locale: const Locale('fr', 'FR'),
+    image: Assets
+        .image.language.france, // Fransa bayrağını temsil ettiğini varsayalım
+    text: 'French',
+  );
+
+  static var italiano = LanguageModel(
+    locale: const Locale('it', 'IT'),
+    image: Assets
+        .image.language.italy, // İtalya bayrağını temsil ettiğini varsayalım
+    text: 'Italian',
+  );
+
+  static var japanese = LanguageModel(
+    locale: const Locale('ja', 'JP'),
+    image: Assets
+        .image.language.japan, // Japonya bayrağını temsil ettiğini varsayalım
+    text: 'Japanese',
+  );
+
+  static var chinese = LanguageModel(
+    locale: const Locale('zh', 'CN'),
+    image:
+        Assets.image.language.china, // Çin bayrağını temsil ettiğini varsayalım
+    text: 'Chinese',
+  );
+
+  static List<LanguageModel> get values => [
+        english,
+        turkiye,
+        espanol,
+        france,
+        italiano,
+      ];
 }

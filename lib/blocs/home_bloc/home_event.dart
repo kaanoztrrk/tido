@@ -136,6 +136,12 @@ class DeleteToDoEvent extends HomeEvent {
   List<Object> get props => [task];
 }
 
+class RestoreArchivedTaskEvent extends HomeEvent {
+  final int index; // Geri yüklenecek görevin indeksini tutar
+
+  RestoreArchivedTaskEvent({required this.index});
+}
+
 class UpdateToDoEvent extends HomeEvent {
   final TaskModel oldTask;
   final TaskModel newTask;
@@ -174,6 +180,8 @@ class UpdateRemainingTimeEvent extends HomeEvent {
 class DeleteAllTasksEvent extends HomeEvent {}
 
 class DeleteAllCategoryEvent extends HomeEvent {}
+
+class DeleteArchivedTasksEvent extends HomeEvent {}
 
 class LoadCategoryEvent extends HomeEvent {}
 

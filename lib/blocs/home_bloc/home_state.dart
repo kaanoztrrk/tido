@@ -8,6 +8,7 @@ import '../../data/models/task_model/task_model.dart';
 class HomeState extends Equatable {
   final int initialIndex;
   final List<TaskModel> allTasksList;
+  final List<TaskModel> archiveList;
   final List<TaskModel> filteredTasks;
   final List<HabitModel> habitList;
   final int taskCategoryIndex;
@@ -24,6 +25,7 @@ class HomeState extends Equatable {
     required this.taskCategoryIndex,
     required this.initialIndex,
     required this.allTasksList,
+    required this.archiveList,
     required this.habitList,
     required this.filteredTasks,
     required this.remainingTime,
@@ -36,36 +38,13 @@ class HomeState extends Equatable {
 
   factory HomeState.initial() {
     return HomeState(
-      habitList: [
-        HabitModel(
-            id: 0,
-            title: "Pomodoro Technique",
-            image: ViImages.pomodoro,
-            habitType: "pomodoro"),
-        HabitModel(
-            id: 1,
-            title: "Drink Water",
-            description: "Drink At Least 8 Glasses of Water Every Day",
-            image: ViImages.water,
-            habitType: "drink_water"),
-        HabitModel(
-            id: 2,
-            title: "Daily Exercise",
-            description: "Exercise for 20-30 Minutes to Stay Active",
-            image: ViImages.exercise,
-            habitType: "daily_exercise"),
-        HabitModel(
-            id: 3,
-            title: "Daily Meditate",
-            description: "Take 5-10 Minutes to Meditate and Clear Your Mind",
-            image: ViImages.mediatate,
-            habitType: "daily_meditate"),
-      ],
+      habitList: [],
       timeFormat: false,
       searchResults: [],
       initialIndex: 0,
       taskCategoryIndex: 0,
       allTasksList: [],
+      archiveList: [],
       filteredTasks: [],
       selectedTime: null,
       selectedDate: null,
@@ -79,6 +58,7 @@ class HomeState extends Equatable {
     int? initialIndex,
     int? taskCategoryIndex,
     List<TaskModel>? allTasksList,
+    List<TaskModel>? archiveList,
     List<TaskModel>? filteredTasks,
     List<HabitModel>? habitList,
     TimeOfDay? selectedTime,
@@ -93,6 +73,7 @@ class HomeState extends Equatable {
       initialIndex: initialIndex ?? this.initialIndex,
       taskCategoryIndex: taskCategoryIndex ?? this.taskCategoryIndex,
       allTasksList: allTasksList ?? this.allTasksList,
+      archiveList: archiveList ?? this.archiveList,
       habitList: habitList ?? this.habitList,
       filteredTasks: filteredTasks ?? this.filteredTasks,
       selectedTime: selectedTime ?? this.selectedTime,

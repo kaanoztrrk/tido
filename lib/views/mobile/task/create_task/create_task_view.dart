@@ -43,7 +43,17 @@ class _CreateTaskViewState extends State<CreateTaskView> {
   List<String> selectedFiles = [];
   List<String> participantImages = [];
   List<CategoryModel> label = [];
-  String priority = "low";
+  String priority = "";
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      setState(() {
+        priority = AppLocalizations.of(context)!.low;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

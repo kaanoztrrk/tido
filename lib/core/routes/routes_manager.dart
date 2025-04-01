@@ -35,7 +35,7 @@ import '../../views/mobile/main_view/settings/customize/theme_view.dart';
 import '../../views/mobile/main_view/settings/data_security/backup_location_view.dart';
 import '../../views/mobile/main_view/settings/data_security/data_storage_view.dart';
 import '../../views/mobile/main_view/settings/profile/profile_view.dart';
-import '../../views/mobile/main_view/settings/task_category/archive/archive.dart';
+import '../../views/mobile/main_view/settings/task_category/archive/archive_view.dart';
 import '../../views/mobile/main_view/settings/task_category/categories/categories_view.dart';
 import '../../views/mobile/task/task_detail/task_detail_view.dart';
 import '../../views/mobile/task/task_edit/task_edit_view.dart';

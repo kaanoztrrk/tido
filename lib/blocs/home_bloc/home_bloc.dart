@@ -31,6 +31,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<SearchTasksEvent>(_searchTasks);
     on<StartTimerEvent>(_startTimer);
     on<UpdateRemainingTimeEvent>(_updateRemainingTime);
+    on<DeleteArchivedTasksEvent>(_deleteAllArchiveTasks);
 
     // Initial Events
     add(StartTimerEvent());
@@ -46,8 +47,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(state.copyWith(allTasksList: []));
   }
 
+  void _deleteAllArchiveTasks(
+      DeleteArchivedTasksEvent event, Emitter<HomeState> emit) {
+    emit(state.copyWith(archiveList: [])); // archiveList'i sıfırlar
+  }
+
   void _createTask(CreateToDoEvent event, Emitter<HomeState> emit) async {
     List<TaskModel> newAllTasksList = List.of(state.allTasksList);
+    List<TaskModel> newArchiveList =
+        List.of(state.archiveList); // Arşiv listesi alınıyor
 
     int newId = newAllTasksList.isNotEmpty ? newAllTasksList.last.id + 1 : 1;
 
@@ -61,9 +69,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         priority: event.priority);
 
     newAllTasksList.add(newTask);
+    newArchiveList.add(newTask); // Yeni görevi arşiv listesine de ekle
+
     taskBox.add(newTask);
 
-    emit(state.copyWith(allTasksList: newAllTasksList));
+    emit(state.copyWith(
+      allTasksList: newAllTasksList,
+      archiveList: newArchiveList, // Arşiv listesi de güncelleniyor
+    ));
 
     // Kullanıcının Firestore veritabanına eklenmesi
     User? user = FirebaseAuth.instance.currentUser;

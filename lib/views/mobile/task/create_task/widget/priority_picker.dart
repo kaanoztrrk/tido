@@ -1,4 +1,5 @@
 import 'package:TiDo/common/styles/container_style.dart';
+import 'package:TiDo/core/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import '../../../../../utils/Constant/colors.dart';
 import '../../../../../utils/Constant/sizes.dart';
@@ -38,7 +39,11 @@ class _ViPriorityPickerState extends State<ViPriorityPicker> {
           padding: const EdgeInsets.all(ViSizes.defaultSpace),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: ['low', 'medium', 'high'].map((priority) {
+            children: [
+              AppLocalizations.of(context)!.low,
+              AppLocalizations.of(context)!.medium,
+              AppLocalizations.of(context)!.high
+            ].map((priority) {
               return ListTile(
                 title: Text(priority.toUpperCase(),
                     style: TextStyle(
@@ -67,8 +72,8 @@ class _ViPriorityPickerState extends State<ViPriorityPicker> {
       margin: EdgeInsets.only(top: ViSizes.spaceBtwItems),
       borderRadius: BorderRadius.circular(ViSizes.borderRadiusLg),
       child: ListTile(
-        title: const Text("Priority",
-            style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(AppLocalizations.of(context)!.priority,
+            style: const TextStyle(fontWeight: FontWeight.bold)),
         trailing: Text(selectedPriority.toUpperCase(),
             style: const TextStyle(
                 color: AppColors.primary, fontWeight: FontWeight.bold)),
