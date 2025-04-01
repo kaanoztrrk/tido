@@ -12,7 +12,7 @@ import 'user_repo.dart';
 
 class FirebaseUserRepo implements UserRepository {
   final FirebaseAuth _firebaseAuth;
-  final userCollection = FirebaseFirestore.instance.collection('z');
+  final userCollection = FirebaseFirestore.instance.collection('user');
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   FirebaseUserRepo({
@@ -29,8 +29,24 @@ class FirebaseUserRepo implements UserRepository {
   @override
   Future<void> signIn(String email, password) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
+      UserCredential userCredential = await _firebaseAuth
+          .signInWithEmailAndPassword(email: email, password: password);
+
+      User? user = userCredential.user;
+      if (user != null) {
+        final userDoc = userCollection.doc(user.uid);
+        final userDocSnapshot = await userDoc.get();
+
+        // Eğer Firestore'da kullanıcı kaydı yoksa ekle
+        if (!userDocSnapshot.exists) {
+          await userDoc.set({
+            'uid': user.uid,
+            'email': user.email,
+            'displayName': user.displayName ?? "",
+            'photoURL': user.photoURL ?? "",
+          });
+        }
+      }
     } catch (e) {
       log(e.toString());
       rethrow;

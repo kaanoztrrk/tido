@@ -90,6 +90,7 @@ class CreateToDoEvent extends HomeEvent {
   final List<String>? participantImages;
   final List<String>? files;
   final List<CategoryModel>? categories;
+  final String priority;
 
   const CreateToDoEvent({
     required this.title,
@@ -98,6 +99,7 @@ class CreateToDoEvent extends HomeEvent {
     this.participantImages,
     this.files,
     this.categories,
+    this.priority = "low",
   });
 
   @override
@@ -107,7 +109,8 @@ class CreateToDoEvent extends HomeEvent {
         taskTime ?? DateTime.now(),
         participantImages ?? [],
         files ?? [],
-        categories ?? []
+        categories ?? [],
+        priority,
       ];
 }
 

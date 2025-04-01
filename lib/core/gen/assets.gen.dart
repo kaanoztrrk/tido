@@ -28,6 +28,9 @@ class $AssetsImageGen {
   /// Directory path: assets/image/planner
   $AssetsImagePlannerGen get planner => const $AssetsImagePlannerGen();
 
+  /// Directory path: assets/image/premium
+  $AssetsImagePremiumGen get premium => const $AssetsImagePremiumGen();
+
   /// Directory path: assets/image/theme
   $AssetsImageThemeGen get theme => const $AssetsImageThemeGen();
 
@@ -94,6 +97,10 @@ class $AssetsImageEmptyScreenGen {
 class $AssetsImageLanguageGen {
   const $AssetsImageLanguageGen();
 
+  /// File path: assets/image/language/spain.png
+  AssetGenImage get spain =>
+      const AssetGenImage('assets/image/language/spain.png');
+
   /// File path: assets/image/language/turkiye.png
   AssetGenImage get turkiye =>
       const AssetGenImage('assets/image/language/turkiye.png');
@@ -103,7 +110,7 @@ class $AssetsImageLanguageGen {
       const AssetGenImage('assets/image/language/united-kingdom.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [turkiye, unitedKingdom];
+  List<AssetGenImage> get values => [spain, turkiye, unitedKingdom];
 }
 
 class $AssetsImageLogoGen {
@@ -136,12 +143,72 @@ class $AssetsImageLogoGen {
 class $AssetsImagePlannerGen {
   const $AssetsImagePlannerGen();
 
+  /// File path: assets/image/planner/exercise.png
+  AssetGenImage get exercise =>
+      const AssetGenImage('assets/image/planner/exercise.png');
+
+  /// File path: assets/image/planner/mediatate.png
+  AssetGenImage get mediatate =>
+      const AssetGenImage('assets/image/planner/mediatate.png');
+
   /// File path: assets/image/planner/pomodoro.png
   AssetGenImage get pomodoro =>
       const AssetGenImage('assets/image/planner/pomodoro.png');
 
+  /// File path: assets/image/planner/premium.png
+  AssetGenImage get premium =>
+      const AssetGenImage('assets/image/planner/premium.png');
+
+  /// File path: assets/image/planner/water.png
+  AssetGenImage get water =>
+      const AssetGenImage('assets/image/planner/water.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [pomodoro];
+  List<AssetGenImage> get values =>
+      [exercise, mediatate, pomodoro, premium, water];
+}
+
+class $AssetsImagePremiumGen {
+  const $AssetsImagePremiumGen();
+
+  /// File path: assets/image/premium/ad_block.png
+  AssetGenImage get adBlock =>
+      const AssetGenImage('assets/image/premium/ad_block.png');
+
+  /// File path: assets/image/premium/archive.png
+  AssetGenImage get archive =>
+      const AssetGenImage('assets/image/premium/archive.png');
+
+  /// File path: assets/image/premium/bio_password.png
+  AssetGenImage get bioPassword =>
+      const AssetGenImage('assets/image/premium/bio_password.png');
+
+  /// File path: assets/image/premium/cloud_sync.png
+  AssetGenImage get cloudSync =>
+      const AssetGenImage('assets/image/premium/cloud_sync.png');
+
+  /// File path: assets/image/premium/limitless_dark.png
+  AssetGenImage get limitlessDark =>
+      const AssetGenImage('assets/image/premium/limitless_dark.png');
+
+  /// File path: assets/image/premium/limitless_light.png
+  AssetGenImage get limitlessLight =>
+      const AssetGenImage('assets/image/premium/limitless_light.png');
+
+  /// File path: assets/image/premium/theme.png
+  AssetGenImage get theme =>
+      const AssetGenImage('assets/image/premium/theme.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [
+        adBlock,
+        archive,
+        bioPassword,
+        cloudSync,
+        limitlessDark,
+        limitlessLight,
+        theme
+      ];
 }
 
 class $AssetsImageThemeGen {
@@ -219,7 +286,7 @@ class AssetGenImage {
     ImageRepeat repeat = ImageRepeat.noRepeat,
     Rect? centerSlice,
     bool matchTextDirection = false,
-    bool gaplessPlayback = false,
+    bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
     FilterQuality filterQuality = FilterQuality.low,

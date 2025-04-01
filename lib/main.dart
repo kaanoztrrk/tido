@@ -12,12 +12,14 @@ void main() async {
   // Dependency Injection
   await setupLocator();
 
-  runApp(MultiBlocProvider(
-    providers: [
-      ChangeNotifierProvider(
-        create: (_) => PomodoroService(),
-      ),
-    ],
-    child: const TIDO(),
-  ));
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => PomodoroService(),
+        ),
+      ],
+      child: const TIDO(),
+    ),
+  );
 }

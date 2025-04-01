@@ -83,9 +83,13 @@ class ViHelpersFunctions {
     return MediaQuery.of(context).size.width;
   }
 
-  static String getFformattedDate(DateTime date,
+  static String getFormattedDate(DateTime date,
       {String format = 'dd MMM yyyy'}) {
     return DateFormat(format).format(date);
+  }
+
+  static String getFormattedTime(DateTime time, {String format = 'hh:mm a'}) {
+    return DateFormat(format).format(time);
   }
 
   static List<T> removeDuplicates<T>(List<T> list) {

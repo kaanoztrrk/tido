@@ -16,10 +16,14 @@ import '../../blocs/home_bloc/home_event.dart';
 import '../../blocs/home_bloc/home_state.dart';
 import '../../blocs/localization_bloc/localization_bloc.dart';
 import '../../blocs/localization_bloc/localization_state.dart';
+import '../../blocs/theme_bloc/theme_bloc.dart';
+import '../../blocs/theme_bloc/theme_event.dart';
+import '../../blocs/theme_bloc/theme_state.dart';
 import '../../core/l10n/l10n.dart';
 import '../../data/models/category_model/category_model.dart';
 import '../../data/models/language_model/language_model.dart';
 import '../../data/models/task_model/task_model.dart';
+import '../../views/mobile/main_view/settings/customize/widget/theme_tile.dart';
 import '../Constant/colors.dart';
 import '../Constant/sizes.dart';
 import '../Device/device_utility.dart';
@@ -117,9 +121,6 @@ class ViBottomSheet {
             padding: const EdgeInsets.all(ViSizes.defaultSpace),
             child: Column(
               children: [
-                ViPrimaryTitle(
-                    title: AppLocalizations.of(context)!.chooseLanguage),
-                const SizedBox(height: ViSizes.spaceBtwItems),
                 BlocBuilder<LocalizationBloc, LocalizationState>(
                   buildWhen: (previous, current) =>
                       previous.selectedLanguage != current.selectedLanguage,
@@ -535,6 +536,8 @@ class ViBottomSheet {
     );
   }
 
+  //* Edit Category
+
   static void showEditCategoryBottomSheet(
     BuildContext context, {
     required VoidCallback onEdit,
@@ -558,6 +561,8 @@ class ViBottomSheet {
       },
     );
   }
+
+  //* Premium Bottom Sheet
 
   static void showPremiumBottomSheet(BuildContext context) {
     showModalBottomSheet(
@@ -601,6 +606,66 @@ class ViBottomSheet {
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(),
                 ),
               ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  static void showSwitchThemeModeBottomSheet({
+    required BuildContext context,
+  }) {
+    showModalBottomSheet(
+      showDragHandle: true,
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+              left: 16.0,
+              right: 16.0,
+              top: 16.0,
+            ),
+            child: BlocBuilder<ThemeBloc, ThemeState>(
+              builder: (context, state) {
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Light Mode
+                    ThemeModeItem(
+                      icon: Iconsax.sun_1,
+                      onTap: () => context
+                          .read<ThemeBloc>()
+                          .add(const ChangeThemeModeEvent(ThemeMode.light)),
+                      itemColor: Theme.of(context).primaryColor,
+                      bgColor: const Color.fromARGB(255, 238, 225, 225),
+                      title: AppLocalizations.of(context)!.light,
+                      isSelected: state.themeMode == ThemeMode.light,
+                    ),
+                    // System Mode
+                    ThemeModeSystemItem(
+                      onTap: () => context
+                          .read<ThemeBloc>()
+                          .add(const ChangeThemeModeEvent(ThemeMode.system)),
+                      isSelected: state.themeMode == ThemeMode.system,
+                    ),
+                    // Dark Mode
+                    ThemeModeItem(
+                      icon: Iconsax.moon,
+                      onTap: () => context
+                          .read<ThemeBloc>()
+                          .add(const ChangeThemeModeEvent(ThemeMode.dark)),
+                      itemColor: Theme.of(context).primaryColor,
+                      bgColor: AppColors.dark,
+                      title: AppLocalizations.of(context)!.dark,
+                      isSelected: state.themeMode == ThemeMode.dark,
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         );

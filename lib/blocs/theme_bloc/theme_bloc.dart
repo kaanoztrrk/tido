@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'package:TiDo/utils/Helpers/helpers_functions.dart';
-import 'package:TiDo/utils/device/device_utility.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import '../../data/services/shared_preferences_service.dart';

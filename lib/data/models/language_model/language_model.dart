@@ -24,5 +24,12 @@ class LanguageModel {
     text: 'Turkish',
   );
 
-  static List<LanguageModel> get values => [english, turkiye];
+  static var espanol = LanguageModel(
+    locale: const Locale('es', 'ES'),
+    image: Assets
+        .image.language.spain, // İspanya bayrağını temsil ettiğini varsayalım
+    text: 'Spanish',
+  );
+
+  static List<LanguageModel> get values => [english, turkiye, espanol];
 }

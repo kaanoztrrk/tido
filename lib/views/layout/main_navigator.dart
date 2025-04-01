@@ -1,3 +1,4 @@
+import 'package:TiDo/views/layout/tablet_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,9 +8,9 @@ import '../../blocs/auth_blocs/authentication_bloc/authentication_state.dart';
 import '../../blocs/main_bloc/main_bloc.dart';
 import '../../core/locator/locator.dart';
 import '../../data/repositories/user_repo.dart';
-import '../auth/login/login_view.dart';
+import '../mobile/auth/login/login_view.dart';
 
-import 'home_navigator.dart';
+import 'mobile_navigator.dart';
 
 class MainNavigator extends StatelessWidget {
   final UserRepository userRepository;
@@ -31,7 +32,14 @@ class MainNavigator extends StatelessWidget {
       child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state.status == AuthenticationStatus.authenticated) {
-            return const HomeNavigator();
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                bool isTablet = constraints.maxWidth > 600;
+                return isTablet
+                    ? const TabletNavigator()
+                    : const MobileNavigator();
+              },
+            );
           } else {
             return const LoginView();
           }

@@ -17,6 +17,9 @@ class ViAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.leadingOnPressed,
     this.height,
     this.centerTitle = false,
+    this.foregroundColor,
+    this.surfaceTintColor,
+    this.appBarBackgroundColor,
   });
 
   final Widget? title;
@@ -27,16 +30,17 @@ class ViAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? leadingOnPressed;
   final double? height;
   final bool? centerTitle;
+  final Color? foregroundColor;
+  final Color? surfaceTintColor;
+  final Color? appBarBackgroundColor;
 
   @override
   Widget build(BuildContext context) {
-    var dark = ViHelpersFunctions.isDarkMode(context);
-    // Sabit renkler kullanmak, kaydırıldıkça rengin değişmemesini sağlar.
-    Color appBarColor = dark ? AppColors.dark : AppColors.light;
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: ViSizes.md),
       child: AppBar(
+        foregroundColor: foregroundColor,
+        surfaceTintColor: surfaceTintColor,
         toolbarHeight: height,
         leading: showBackArrow
             ? ViRotioButton(
@@ -45,7 +49,7 @@ class ViAppBar extends StatelessWidget implements PreferredSizeWidget {
               )
             : leadingWidget,
         centerTitle: centerTitle,
-        backgroundColor: appBarColor, // Sabit arkaplan rengi
+        backgroundColor: appBarBackgroundColor ?? Colors.transparent,
         automaticallyImplyLeading: false,
         title: title,
         actions: actions,

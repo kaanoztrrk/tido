@@ -26,23 +26,24 @@ class _AdMobBannerState extends State<AdMobBanner> {
   @override
   void initState() {
     super.initState();
-    _adsService.loadBannerAd();
+    _adsService.loadBannerAd(); // Reklam yüklenmesini başlat
   }
 
   @override
   void dispose() {
-    _adsService.disposeBannerAd();
+    _adsService.disposeBannerAd(); // Reklamı serbest bırak
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    // Reklam başarıyla yüklendiğinde göster, yüklenmezse hiç görünmesin
     return _adsService.bannerAd != null
         ? SizedBox(
             width: double.infinity,
-            height: _adsService.bannerAd!.size.height.toDouble(),
+            height: widget.height / 2,
             child: AdWidget(ad: _adsService.bannerAd!),
           )
-        : const SizedBox();
+        : const SizedBox(); // Yüklenmeyen reklam için boş widget
   }
 }

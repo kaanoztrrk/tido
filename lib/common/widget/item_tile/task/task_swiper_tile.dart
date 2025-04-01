@@ -1,0 +1,118 @@
+import 'package:TiDo/data/models/task_model/task_model.dart';
+import 'package:TiDo/utils/Helpers/helpers_functions.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
+
+import '../../../../blocs/theme_bloc/theme_bloc.dart';
+import '../../../../blocs/theme_bloc/theme_state.dart';
+import '../../../../core/locator/locator.dart';
+import '../../../../utils/Constant/colors.dart';
+import '../../../../utils/Constant/sizes.dart';
+import '../../../../utils/Theme/custom_theme.dart/text_theme.dart';
+import '../../../styles/container_style.dart';
+import '../../button/ratio_button.dart';
+import '../../button/swiper_button.dart';
+
+class ViTaskSwiperTile extends StatelessWidget {
+  const ViTaskSwiperTile({
+    super.key,
+    required this.timer,
+    required this.title,
+    required this.isCompleted,
+    this.onSwipe,
+    this.optionTap,
+    this.onTap,
+  });
+
+  final Widget? timer;
+
+  final String title;
+  final Function()? onSwipe;
+  final Function()? optionTap;
+  final Function()? onTap;
+  final bool isCompleted;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider.value(
+      value: getIt<ThemeBloc>(),
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          return GestureDetector(
+            onTap: onTap,
+            child: Container(
+              padding: const EdgeInsets.all(ViSizes.defaultSpace / 2),
+              margin: const EdgeInsets.only(bottom: 30, top: 20),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(ViSizes.borderRadiusLg * 2),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Timer
+                  ViContainer(
+                    borderRadius:
+                        BorderRadius.circular(ViSizes.borderRadiusLg * 2),
+                    height: 60,
+                    bgColor: AppColors.lightGrey.withValues(alpha: 0.7),
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: ViSizes.md),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            Iconsax.timer_1,
+                            color: AppColors.dark,
+                          ),
+                          Container(child: timer),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: ViSizes.defaultSpace * 2),
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                        title,
+                        style: ViTextTheme.darkTextTheme.headlineLarge
+                            ?.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.light),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ViSwiperButton(
+                        onSwipe: onSwipe,
+                        isCompleted: isCompleted,
+                      ),
+                      ViRotioButton(
+                        onTap: optionTap,
+                        size: 70,
+                        bgColor: AppColors.lightGrey.withValues(alpha: 0.7),
+                        child: const Icon(
+                          Iconsax.edit_2,
+                          color: AppColors.dark,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}

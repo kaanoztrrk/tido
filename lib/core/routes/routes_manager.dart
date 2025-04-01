@@ -1,9 +1,8 @@
 import 'package:TiDo/blocs/location_bloc/location_bloc.dart';
 import 'package:TiDo/data/models/habit_model/habit_model.dart';
-import 'package:TiDo/views/document/document_view.dart';
-import 'package:TiDo/views/habit/habit_view.dart';
+import 'package:TiDo/views/mobile/document/document_view.dart';
+import 'package:TiDo/views/mobile/habit/habit_view.dart';
 
-import 'package:TiDo/views/main_view/planner/pomodoro/pomodoro_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -15,32 +14,31 @@ import '../../blocs/home_bloc/home_bloc.dart';
 import '../../data/models/otp_arguments/otp_arguments_model.dart';
 import '../../data/models/task_model/task_model.dart';
 import '../../data/repositories/firebase_user_repositories.dart';
-import '../../views/auth/change_password/change_password_view.dart';
-import '../../views/auth/email_validate/email_validate.dart';
-import '../../views/auth/login/login_view.dart';
-import '../../views/auth/otp/otp_view.dart';
-import '../../views/auth/register/register_view.dart';
-import '../../views/auth/forgot_password/forgot_password.dart';
+import '../../views/mobile/auth/change_password/change_password_view.dart';
+import '../../views/mobile/auth/email_validate/email_validate.dart';
+import '../../views/mobile/auth/login/login_view.dart';
+import '../../views/mobile/auth/otp/otp_view.dart';
+import '../../views/mobile/auth/register/register_view.dart';
+import '../../views/mobile/auth/forgot_password/forgot_password.dart';
 
-import '../../views/common/splash_view/splash_view.dart';
-import '../../views/auth/welcome/welcome_view.dart';
-import '../../views/location_reminder/location_reminder_view.dart';
-import '../../views/main_view/settings/privacy_policy/privacy_policy_view.dart';
-import '../../views/task/create_task/create_task_view.dart';
-import '../../views/folder_detailes.dart/doc_folder_detailes.dart';
-import '../../views/folder_detailes.dart/image_folder_detailes.dart';
-import '../../views/layout/home_navigator.dart';
+import '../../views/mobile/common/splash_view/splash_view.dart';
+import '../../views/mobile/auth/welcome/welcome_view.dart';
+import '../../views/mobile/location_reminder/location_reminder_view.dart';
+import '../../views/mobile/main_view/settings/privacy_policy/privacy_policy_view.dart';
+import '../../views/mobile/task/create_task/create_task_view.dart';
+import '../../views/mobile/document/folder_detailes.dart/doc_folder_detailes.dart';
+import '../../views/mobile/document/folder_detailes.dart/image_folder_detailes.dart';
+import '../../views/layout/mobile_navigator.dart';
 import '../../views/layout/main_navigator.dart';
-import '../../views/notification/notification_view.dart';
-import '../../views/search/search_view.dart';
-import '../../views/main_view/settings/customize/theme/theme_view.dart';
-import '../../views/main_view/settings/data_security/backup_location_view.dart';
-import '../../views/main_view/settings/data_security/data_storage_view.dart';
-import '../../views/main_view/settings/profile/profile_view.dart';
-import '../../views/main_view/settings/task_category/archive/archive.dart';
-import '../../views/main_view/settings/task_category/categories/categories_view.dart';
-import '../../views/task/task_detail/task_detail_view.dart';
-import '../../views/task/task_edit/task_edit_view.dart';
+import '../../views/mobile/search/search_view.dart';
+import '../../views/mobile/main_view/settings/customize/theme_view.dart';
+import '../../views/mobile/main_view/settings/data_security/backup_location_view.dart';
+import '../../views/mobile/main_view/settings/data_security/data_storage_view.dart';
+import '../../views/mobile/main_view/settings/profile/profile_view.dart';
+import '../../views/mobile/main_view/settings/task_category/archive/archive.dart';
+import '../../views/mobile/main_view/settings/task_category/categories/categories_view.dart';
+import '../../views/mobile/task/task_detail/task_detail_view.dart';
+import '../../views/mobile/task/task_edit/task_edit_view.dart';
 import '../locator/locator.dart';
 import 'routes.dart';
 
@@ -115,7 +113,7 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: ViRoutes.home,
       builder: (BuildContext context, GoRouterState state) {
-        return const HomeNavigator();
+        return const MobileNavigator();
       },
     ),
     GoRoute(
@@ -171,7 +169,7 @@ final GoRouter router = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return BlocProvider.value(
           value: getIt<HomeBloc>(),
-          child: const HomeNavigator(),
+          child: const MobileNavigator(),
         );
       },
     ),
@@ -180,7 +178,7 @@ final GoRouter router = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return BlocProvider.value(
           value: getIt<HomeBloc>(),
-          child: const HomeNavigator(),
+          child: const MobileNavigator(),
         );
       },
     ),
@@ -189,7 +187,7 @@ final GoRouter router = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return BlocProvider.value(
           value: getIt<HomeBloc>(),
-          child: const HomeNavigator(),
+          child: const MobileNavigator(),
         );
       },
     ),
@@ -198,7 +196,7 @@ final GoRouter router = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return BlocProvider.value(
           value: getIt<HomeBloc>(),
-          child: const HomeNavigator(),
+          child: const MobileNavigator(),
         );
       },
     ),
@@ -207,7 +205,7 @@ final GoRouter router = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return BlocProvider.value(
           value: getIt<HomeBloc>(),
-          child: const HomeNavigator(),
+          child: const MobileNavigator(),
         );
       },
     ),
@@ -216,7 +214,7 @@ final GoRouter router = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return BlocProvider.value(
           value: getIt<HomeBloc>(),
-          child: const HomeNavigator(),
+          child: const MobileNavigator(),
         );
       },
     ),
@@ -243,18 +241,8 @@ final GoRouter router = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return BlocProvider.value(
           value: getIt<HomeBloc>(),
-          child: const HomeNavigator(),
+          child: const MobileNavigator(),
         );
-      },
-    ),
-    GoRoute(
-      path: ViRoutes.notification_page,
-      builder: (BuildContext context, GoRouterState state) {
-        return MultiBlocProvider(providers: [
-          BlocProvider.value(value: getIt<HomeBloc>()),
-          BlocProvider.value(value: getIt<AuthenticationBloc>()),
-          BlocProvider.value(value: getIt<SignInBloc>()),
-        ], child: const NotificationView());
       },
     ),
     GoRoute(
@@ -319,14 +307,6 @@ final GoRouter router = GoRouter(
           BlocProvider.value(value: getIt<AuthenticationBloc>()),
           BlocProvider.value(value: getIt<SignInBloc>()),
         ], child: const DocumentView());
-      },
-    ),
-    GoRoute(
-      path: ViRoutes.pomodoro_view,
-      builder: (BuildContext context, GoRouterState state) {
-        return MultiBlocProvider(providers: [
-          BlocProvider.value(value: getIt<HomeBloc>()),
-        ], child: const PomodoroView());
       },
     ),
     GoRoute(

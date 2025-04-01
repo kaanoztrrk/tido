@@ -25,13 +25,16 @@ class HabitModelAdapter extends TypeAdapter<HabitModel> {
       startDate: fields[5] as DateTime?,
       endDate: fields[6] as DateTime?,
       description: fields[7] as String?,
+      image: fields[8] as String?,
+      streak: fields[9] as int,
+      completionPercentage: fields[10] as double,
     );
   }
 
   @override
   void write(BinaryWriter writer, HabitModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -47,7 +50,13 @@ class HabitModelAdapter extends TypeAdapter<HabitModel> {
       ..writeByte(6)
       ..write(obj.endDate)
       ..writeByte(7)
-      ..write(obj.description);
+      ..write(obj.description)
+      ..writeByte(8)
+      ..write(obj.image)
+      ..writeByte(9)
+      ..write(obj.streak)
+      ..writeByte(10)
+      ..write(obj.completionPercentage);
   }
 
   @override

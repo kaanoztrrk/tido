@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive/hive.dart';
 import 'package:workmanager/workmanager.dart';
 import '../../data/models/task_model/task_model.dart';
@@ -51,24 +52,23 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     int newId = newAllTasksList.isNotEmpty ? newAllTasksList.last.id + 1 : 1;
 
     TaskModel newTask = TaskModel(
-      id: newId,
-      title: event.title,
-      description: event.description,
-      taskTime: event.taskTime,
-      participantImages: event.participantImages,
-      files: event.files,
-    );
+        id: newId,
+        title: event.title,
+        description: event.description,
+        taskTime: event.taskTime,
+        participantImages: event.participantImages,
+        files: event.files,
+        priority: event.priority);
 
     newAllTasksList.add(newTask);
     taskBox.add(newTask);
 
     emit(state.copyWith(allTasksList: newAllTasksList));
 
-    // Firestore veritabanına kullanıcıya göre görev ekleme
+    // Kullanıcının Firestore veritabanına eklenmesi
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       String userId = user.uid;
-
       CollectionReference tasksRef = FirebaseFirestore.instance
           .collection('user_tasks')
           .doc(userId)
@@ -82,45 +82,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         'participantImages': event.participantImages,
         'files': event.files,
         'createdAt': FieldValue.serverTimestamp(),
+        'priority': event.priority
       });
     }
-
-    // Bildirim planlama
-    if (event.taskTime != null) {
-      final delay = event.taskTime!.difference(DateTime.now());
-
-      if (delay.isNegative) {
-        _showInstantNotification(newId, event.title);
-      } else {
-        _scheduleBackgroundNotification(newId, event.title, event.taskTime!);
-      }
-    } else {
-      _showInstantNotification(newId, event.title);
-    }
-  }
-
-  /// **Hemen bildirim gönderme**
-  void _showInstantNotification(int id, String title) {
-    LocalNotificationService notificationService = LocalNotificationService();
-    notificationService.showNotification(
-      id: id,
-      title: "Görev Zamanı!",
-      body: title,
-    );
-  }
-
-  /// **Zamanlanmış bildirim ayarlama (Arka planda çalışır)**
-  void _scheduleBackgroundNotification(
-      int id, String title, DateTime taskTime) {
-    Workmanager().registerOneOffTask(
-      "Task_$id",
-      "show_notification",
-      inputData: {
-        'taskId': id,
-        'taskTitle': title,
-      },
-      initialDelay: taskTime.difference(DateTime.now()),
-    );
   }
 
   void _updateTask(UpdateToDoEvent event, Emitter<HomeState> emit) async {
